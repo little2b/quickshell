@@ -13,6 +13,7 @@ Singleton {
     readonly property string configDir: Paths.configHome
     readonly property string filePath: configDir + "/ui-preferences.json"
     property string spotlightSearchEngine: "google"
+    property string spotlightAppStyle: "list"
     property bool dndEnabled: false
     property bool darkMode: false
     property string language: I18nManager.systemLanguage
@@ -77,6 +78,15 @@ Singleton {
             return;
 
         root.spotlightSearchEngine = normalized;
+        root.save();
+    }
+
+    function setSpotlightAppStyle(value) {
+        const normalized = root.allowedValue(value, ["list", "grid"], "list");
+        if (root.spotlightAppStyle === normalized)
+            return;
+
+        root.spotlightAppStyle = normalized;
         root.save();
     }
 
@@ -503,6 +513,7 @@ Singleton {
                                              "weatherTemperatureUnit": root.weatherTemperatureUnit,
                                              "systemTemperatureUnit": root.systemTemperatureUnit,
                                              "spotlightSearchEngine": root.spotlightSearchEngine,
+                                             "spotlightAppStyle": root.spotlightAppStyle,
                                              "weatherMapBaseProvider": root.weatherMapBaseProvider,
                                              "weatherMapOverlayProvider": root.weatherMapOverlayProvider,
                                              "systemMonitorGpuId": root.systemMonitorGpuId,
@@ -572,6 +583,8 @@ Singleton {
                 root.weatherTemperatureUnit = root.normalizedTemperatureUnit(parsed.weatherTemperatureUnit);
                 root.systemTemperatureUnit = root.normalizedTemperatureUnit(parsed.systemTemperatureUnit);
                 root.spotlightSearchEngine = SpotlightSearch.normalizedEngine(parsed.spotlightSearchEngine);
+                root.spotlightAppStyle = root.allowedValue(parsed.spotlightAppStyle, ["list", "grid"],
+                                                           "list");
                 root.weatherMapBaseProvider = root.normalizedWeatherMapBaseProvider(
                             parsed.weatherMapBaseProvider);
                 root.weatherMapOverlayProvider = root.normalizedWeatherMapOverlayProvider(

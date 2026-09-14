@@ -3,34 +3,18 @@ import qs.Common
 import qs.Services
 
 QtObject {
-    readonly property color surfaceColor:
-        BlurService.backgroundColor(
-            Appearance.m3colors.m3surfaceContainerHigh)
-    readonly property color panelColor:
-        BlurService.backgroundColor(
-            Appearance.m3colors.m3surfaceContainer)
-    readonly property color selectedColor:
-        Appearance.applyAlpha(
-            Appearance.m3colors.m3primaryContainer,
-            Math.max(
-                0.46,
-                PersonalizationConfig.shellBackgroundOpacity
-            )
-        )
-    readonly property color selectedContentColor:
-        Appearance.m3colors.m3onPrimaryContainer
-    readonly property color hoverColor:
-        Appearance.applyAlpha(
-            Appearance.m3colors.m3surfaceContainerHighest,
-            Math.max(
-                0.30,
-                PersonalizationConfig.shellBackgroundOpacity
-            )
-        )
-    readonly property color shadowColor: Appearance.applyAlpha(
-        Appearance.m3colors.m3shadow,
-        Appearance.m3colors.darkmode ? 0.34 : 0.20
-    )
+    readonly property color surfaceColor: BlurService.backgroundColor(
+                                              Appearance.m3colors.m3surfaceContainerHigh)
+    readonly property color panelColor: BlurService.backgroundColor(Appearance.m3colors.m3surfaceContainer)
+    readonly property color selectedColor: Appearance.applyAlpha(Appearance.m3colors.m3primaryContainer,
+                                                                 Math.max(0.46,
+                                                                          PersonalizationConfig.shellBackgroundOpacity))
+    readonly property color selectedContentColor: Appearance.m3colors.m3onPrimaryContainer
+    readonly property color hoverColor: Appearance.applyAlpha(Appearance.m3colors.m3surfaceContainerHighest,
+                                                              Math.max(0.30,
+                                                                       PersonalizationConfig.shellBackgroundOpacity))
+    readonly property color shadowColor: Appearance.applyAlpha(Appearance.m3colors.m3shadow,
+                                                               Appearance.m3colors.darkmode ? 0.34 : 0.20)
 
     readonly property int canvasWidth: 1100
     readonly property int searchWidth: 760
@@ -41,10 +25,8 @@ QtObject {
     readonly property int modeButtonCount: 3
     readonly property int modeButtonDiameter: searchHeight
     readonly property int modeButtonGap: 10
-    readonly property int modeRailReservedWidth:
-        modeButtonCount * (modeButtonDiameter + modeButtonGap)
-    readonly property int minimumExpandedSearchWidth:
-        searchHeight * 3
+    readonly property int modeRailReservedWidth: modeButtonCount * (modeButtonDiameter + modeButtonGap)
+    readonly property int minimumExpandedSearchWidth: searchHeight * 3
     readonly property int effectBleed: 18
     readonly property int resultGap: 12
     readonly property int resultRadius: Appearance.rounding.extraLarge
@@ -52,6 +34,17 @@ QtObject {
     readonly property int resultMaxHeight: 440
     readonly property int resultRowHeight: 64
     readonly property int resultIconSize: 40
+    readonly property int resultScrollDuration: 240
+    readonly property int appGridPanelWidth: 920
+    readonly property int appGridMaxHeight: 560
+    readonly property int appGridCellWidth: 148
+    readonly property int appGridCellHeight: 134
+    readonly property int appGridGap: 8
+    readonly property int appGridIconSize: 56
+    readonly property int appGridLabelHeight: 40
+    readonly property int appGridLabelFontSize: 14
+    readonly property real appGridHoverScale: 1.24
+    readonly property real appGridPressedScale: 0.94
     // Wayland blur regions have a hard, integer edge. Keep that edge beneath
     // the antialiased translucent surface so X-Ray wallpaper-only blur cannot
     // expose a stair-stepped boundary.
@@ -84,20 +77,15 @@ QtObject {
     readonly property int panelDuration: 210
     readonly property real initialScale: 0.96
     readonly property real initialYOffset: -8
-    readonly property real railWidthContraction:
-        modeRailReservedWidth
+    readonly property real railWidthContraction: modeRailReservedWidth
     readonly property real edgeSoftness: 0.9
     readonly property real shadowBlur: 0.72
     readonly property real shadowVerticalOffset: 7
-    readonly property var windowEnterCurve:
-        Appearance.animationCurves.emphasizedDecel
-    readonly property var windowExitCurve:
-        Appearance.animationCurves.emphasizedAccel
+    readonly property var windowEnterCurve: Appearance.animationCurves.emphasizedDecel
+    readonly property var windowExitCurve: Appearance.animationCurves.emphasizedAccel
     readonly property var panelCurve: Appearance.animationCurves.emphasized
-    readonly property var effectsCurve:
-        Appearance.animationCurves.standardDecel
-    readonly property var wallpaperHoverCurve:
-        Appearance.animationCurves.standard
+    readonly property var effectsCurve: Appearance.animationCurves.standardDecel
+    readonly property var wallpaperHoverCurve: Appearance.animationCurves.standard
     // railProgress itself stays reversible and bounded. The morph surface
     // derives its small, deliberate overshoot from this progress so a rapid
     // reverse never has to jump between independent animations.
@@ -116,14 +104,6 @@ QtObject {
     function wallpaperColumnsForWidth(gridWidth) {
         const width = Math.max(0, Number(gridWidth) || 0);
         const pitch = wallpaperMinPreviewWidth + wallpaperGridGap;
-        return Math.max(
-            1,
-            Math.min(
-                wallpaperMaxColumns,
-                Math.floor(
-                    (width + wallpaperGridGap) / pitch
-                )
-            )
-        );
+        return Math.max(1, Math.min(wallpaperMaxColumns, Math.floor((width + wallpaperGridGap) / pitch)));
     }
 }

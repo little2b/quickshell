@@ -99,7 +99,7 @@ Item {
             const byName = left.title.localeCompare(right.title);
             return byName !== 0 ? byName : left.id.localeCompare(right.id);
         });
-        root.results = next.slice(0, root.limit);
+        root.results = root.limit > 0 ? next.slice(0, root.limit) : next;
     }
 
     function execute(index) {
@@ -110,6 +110,7 @@ Item {
     }
 
     onQueryChanged: rebuild()
+    onLimitChanged: rebuild()
     Component.onCompleted: rebuild()
 
     Connections {

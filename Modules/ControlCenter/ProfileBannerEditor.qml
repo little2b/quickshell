@@ -5,9 +5,8 @@ import qs.Modules.FilePicker
 Item {
     id: root
     property var parentModal: null
-    readonly property string source: WallpaperPaletteSession.previewForScreen("banner", "")
-                                     || PersonalizationConfig.bannerSource
-                                     || WallpaperService.currentWallpaper
+    readonly property string previewSource: WallpaperPaletteSession.previewForScreen("banner", "")
+    readonly property string source: PersonalizationConfig.bannerSource || WallpaperService.currentWallpaper
 
     function chooseFile() {
         filePicker.openAt(WallpaperService.isImagePath(root.source) ? WallpaperService.parentFolder(

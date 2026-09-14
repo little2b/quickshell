@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -10,6 +12,7 @@ Rectangle {
     id: root
 
     property string wallpaperPath: ""
+    property string previewWallpaperPath: ""
     property bool colorWallpaper: false
     property string avatarUrl: ""
     property string fallbackAvatarUrl: ""
@@ -89,12 +92,44 @@ Rectangle {
             }
         }
 
-        WallpaperImageViewport {
+        Item {
             id: wallpaperImage
             anchors.fill: parent
-            sourcePath: root.wallpaperPath
-            visible: false
+            // Keep the image subtree visible to Qt's scene graph. The layer
+            // applies the mask directly, including after palette-to-image changes.
             layer.enabled: true
+            layer.effect: MultiEffect {
+                maskEnabled: true
+                maskSource: coverMask
+                maskThresholdMin: 0.5
+                maskSpreadAtMin: 1
+            }
+            opacity: ready ? 1 : 0
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: Appearance.animation.expressiveDefaultEffects.duration
+                    easing.type: Appearance.animation.expressiveDefaultEffects.type
+                    easing.bezierCurve: Appearance.animation.expressiveDefaultEffects.bezierCurve
+                }
+            }
+            readonly property bool ready: savedWallpaper.ready || (previewLoader.item !== null
+                                                                   && previewLoader.item.ready)
+
+            // Preview is an overlay: cancelling must not clear and reload the
+            // saved image's texture in the masked banner layer.
+            WallpaperImageViewport {
+                id: savedWallpaper
+                anchors.fill: parent
+                sourcePath: root.wallpaperPath
+            }
+            Loader {
+                id: previewLoader
+                anchors.fill: parent
+                active: root.previewWallpaperPath !== ""
+                sourceComponent: WallpaperImageViewport {
+                    sourcePath: root.previewWallpaperPath
+                }
+            }
         }
 
         Rectangle {
@@ -106,24 +141,6 @@ Rectangle {
             color: "black"
             visible: false
             layer.enabled: true
-        }
-
-        MultiEffect {
-            anchors.fill: parent
-            source: wallpaperImage
-            maskEnabled: true
-            maskSource: coverMask
-            maskThresholdMin: 0.5
-            maskSpreadAtMin: 1
-            opacity: wallpaperImage.ready ? 1 : 0
-
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: Appearance.animation.expressiveDefaultEffects.duration
-                    easing.type: Appearance.animation.expressiveDefaultEffects.type
-                    easing.bezierCurve: Appearance.animation.expressiveDefaultEffects.bezierCurve
-                }
-            }
         }
 
         Rectangle {

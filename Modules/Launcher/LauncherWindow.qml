@@ -63,6 +63,7 @@ PanelWindow {
     readonly property bool spotlightModalActive: resultsPanel.modalActive
     readonly property bool clipboardCanRestore: clipboardProvider.canRestore
     readonly property bool wallpaperMode: mode === "wallpapers"
+    readonly property bool appGridMode: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
     readonly property bool showing: windowPhase !== "hidden" && root.visible
     readonly property bool searchHasFocus: searchBar.inputActiveFocus
     readonly property real searchMainLeft: searchBar.mainLeft
@@ -86,6 +87,7 @@ PanelWindow {
     SpotlightAppProvider {
         id: appProvider
         query: root.query
+        limit: UiPreferences.spotlightAppStyle === "grid" ? 0 : 50
     }
 
     SpotlightWallpaperProvider {
@@ -600,12 +602,14 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (root.mode === "wallpapers" && event.key === Qt.Key_Left) {
+        const gridNavigation = root.mode === "wallpapers" || (resultsPanel.appGridActive && !control &&
+                                                              !shift);
+        if (gridNavigation && event.key === Qt.Key_Left) {
             root.moveSelectionByOffset(-1);
             event.accepted = true;
             return;
         }
-        if (root.mode === "wallpapers" && event.key === Qt.Key_Right) {
+        if (gridNavigation && event.key === Qt.Key_Right) {
             root.moveSelectionByOffset(1);
             event.accepted = true;
             return;
@@ -707,7 +711,9 @@ PanelWindow {
                                                                              - searchBar.height / 2,
                                                                              root.height - searchBar.height
                                                                              - style.resultGap - Math.min(
-                                                                                 style.resultMaxHeight,
+                                                                                 root.appGridMode
+                                                                                 ? style.appGridMaxHeight :
+                                                                                   style.resultMaxHeight,
                                                                                  root.height * 0.55)
                                                                              - style.windowBottomMargin))
 
@@ -754,8 +760,12 @@ PanelWindow {
         SpotlightResultsPanel {
             id: resultsPanel
 
-            width: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) :
-                                        searchBar.requestedMainWidth
+            targetWidth: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) : (
+                                                  root.appGridMode ? Math.min(style.appGridPanelWidth,
+                                                                              spotlightRoot.width) :
+                                                                     searchBar.requestedMainWidth)
+            width: targetWidth
+            animationsEnabled: root.showing
 
             anchors.top: searchBar.bottom
             anchors.topMargin: style.resultGap
@@ -763,6 +773,7 @@ PanelWindow {
             style: style
             mode: root.mode
             results: root.activeResults
+            query: root.query
             wallpaperModel: wallpaperProvider.resultModel
             clipboardModel: clipboardProvider.resultModel
             selectedIndex: root.selectedResultIndex

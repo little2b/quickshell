@@ -8,6 +8,9 @@ import "./infoTools"
 StyledFlickable {
     id: root
 
+    signal imageSelectionRequested(bool forAvatar)
+    signal bannerColorRequested
+
     property string screenName: ""
     property bool foreground: false
     readonly property bool isForeground: root.foreground
@@ -39,6 +42,8 @@ StyledFlickable {
             Layout.fillWidth: true
             Layout.preferredHeight: implicitHeight
             screenName: root.screenName
+            onBannerColorRequested: root.bannerColorRequested()
+            onImageSelectionRequested: forAvatar => root.imageSelectionRequested(forAvatar)
         }
 
         NotificationList {

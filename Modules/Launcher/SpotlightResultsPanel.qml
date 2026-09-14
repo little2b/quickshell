@@ -19,6 +19,7 @@ Item {
     required property var wallpaperModel
     required property var clipboardModel
     required property int selectedIndex
+    property string query: ""
 
     property bool expanded: mode !== "web"
     property bool loading: false
@@ -32,6 +33,9 @@ Item {
     property bool wallpaperHasMore: false
     property real availableHeight: 100000
     property real contentOpacity: 1
+    property real targetWidth: width
+    property bool animationsEnabled: true
+    readonly property bool appGridActive: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
     readonly property int modeIndex: mode === "wallpapers" ? 1 : (mode === "clipboard" ? 2 : 0)
     readonly property int clipboardHeaderHeight: mode === "clipboard" ? 46 : 0
     readonly property int wallpaperColumnCount: style.wallpaperColumnsForWidth(wallpaperGrid.width)
@@ -48,6 +52,10 @@ Item {
             return 0;
         if (loading || !providerAvailable || results.length === 0)
             return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight);
+        if (root.appGridActive)
+            return Math.min(availableHeight, style.appGridMaxHeight, Math.ceil(results.length
+                                                                               / appGrid.columns)
+                            * style.appGridCellHeight + style.resultPadding * 2);
         if (mode === "wallpapers")
             return Math.min(style.wallpaperGridHeight, Math.max(0, availableHeight));
         return Math.min(availableHeight, style.resultMaxHeight, results.length * style.resultRowHeight
@@ -68,6 +76,7 @@ Item {
     visible: height > 0.5 || opacity > 0.01
 
     Behavior on width {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -76,6 +85,7 @@ Item {
     }
 
     Behavior on height {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -84,6 +94,7 @@ Item {
     }
 
     Behavior on opacity {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -92,8 +103,10 @@ Item {
     }
 
     onModeChanged: {
-        root.contentOpacity = 0;
-        contentFade.restart();
+        contentFade.stop();
+        root.contentOpacity = root.animationsEnabled ? 0 : 1;
+        if (root.animationsEnabled)
+            contentFade.restart();
     }
 
     onSelectedIndexChanged: ensureCurrentVisible()
@@ -141,7 +154,9 @@ Item {
     }
 
     function navigationStep(direction) {
-        return mode === "wallpapers" ? direction * gridColumns() : direction;
+        return mode === "wallpapers" ? direction * gridColumns() : (root.appGridActive ? direction
+                                                                                         * appGrid.columns :
+                                                                                         direction);
     }
 
     function ensureCurrentVisible() {
@@ -151,8 +166,8 @@ Item {
             wallpaperGrid.positionViewAtIndex(root.selectedIndex, GridView.Contain);
         else if (root.mode === "clipboard")
             clipboardList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
-        else
-            appList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
+        // Application views follow currentIndex with their native scroll
+        // animation. Immediate positioning here would interrupt that motion.
     }
 
     function requestMoreWallpapers() {
@@ -211,95 +226,127 @@ Item {
         currentIndex: root.modeIndex
         opacity: root.contentOpacity
 
-        ListView {
-            id: appList
+        Item {
+            ListView {
+                id: appList
 
-            clip: true
-            spacing: 0
-            model: root.mode === "apps" ? root.results : []
-            currentIndex: root.selectedIndex
-            boundsBehavior: Flickable.StopAtBounds
+                anchors.fill: parent
+                visible: !root.appGridActive
+                clip: true
+                spacing: 0
+                model: root.mode === "apps" && !root.appGridActive ? root.results : []
+                currentIndex: root.selectedIndex
+                boundsBehavior: Flickable.StopAtBounds
+                keyNavigationEnabled: false
+                highlight: Item {}
+                highlightMoveDuration: root.style.resultScrollDuration
+                highlightMoveVelocity: -1
 
-            delegate: Item {
-                id: appDelegate
+                delegate: Item {
+                    id: appDelegate
 
-                required property int index
-                required property var modelData
-                width: ListView.view.width
-                height: root.style.resultRowHeight
+                    required property int index
+                    required property var modelData
+                    width: ListView.view.width
+                    height: root.style.resultRowHeight
 
-                Rectangle {
-                    anchors.fill: parent
-                    radius: Appearance.rounding.large
-                    color: appDelegate.index === root.selectedIndex ? root.style.selectedColor : (
-                                                                          appMouse.containsMouse
-                                                                          ? root.style.hoverColor :
-                                                                            "transparent")
-                }
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.leftMargin: 12
-                    anchors.rightMargin: 16
-                    spacing: 14
-
-                    Image {
-                        Layout.preferredWidth: root.style.resultIconSize
-                        Layout.preferredHeight: root.style.resultIconSize
-                        source: root.iconSource(appDelegate.modelData.icon)
-                        sourceSize.width: root.style.resultIconSize * 2
-                        sourceSize.height: root.style.resultIconSize * 2
-                        asynchronous: true
-                        fillMode: Image.PreserveAspectFit
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: Appearance.rounding.large
+                        color: appDelegate.index === root.selectedIndex ? root.style.selectedColor : (
+                                                                              appMouse.containsMouse
+                                                                              ? root.style.hoverColor :
+                                                                                "transparent")
                     }
 
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        spacing: 1
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 12
+                        anchors.rightMargin: 16
+                        spacing: 14
 
-                        Text {
-                            Layout.fillWidth: true
-                            text: appDelegate.modelData.title
-                            color: appDelegate.index === root.selectedIndex ? root.style.selectedContentColor :
-                                                                              Appearance.colors.colOnSurface
-                            font.family: Fonts.ui
-                            font.pixelSize: 17
-                            font.weight: Font.Medium
-                            elide: Text.ElideRight
+                        Image {
+                            Layout.preferredWidth: root.style.resultIconSize
+                            Layout.preferredHeight: root.style.resultIconSize
+                            source: root.iconSource(appDelegate.modelData.icon)
+                            sourceSize.width: root.style.resultIconSize * 2
+                            sourceSize.height: root.style.resultIconSize * 2
+                            asynchronous: true
+                            fillMode: Image.PreserveAspectFit
                         }
 
-                        Text {
+                        ColumnLayout {
                             Layout.fillWidth: true
-                            text: appDelegate.modelData.subtitle
-                            color: appDelegate.index === root.selectedIndex ? root.style.selectedContentColor :
-                                                                              Appearance.colors.colOnSurfaceVariant
-                            font.family: Fonts.ui
-                            font.pixelSize: 13
-                            elide: Text.ElideRight
+                            spacing: 1
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: appDelegate.modelData.title
+                                color: appDelegate.index === root.selectedIndex
+                                       ? root.style.selectedContentColor : Appearance.colors.colOnSurface
+                                font.family: Fonts.ui
+                                font.pixelSize: 17
+                                font.weight: Font.Medium
+                                elide: Text.ElideRight
+                            }
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: appDelegate.modelData.subtitle
+                                color: appDelegate.index === root.selectedIndex
+                                       ? root.style.selectedContentColor :
+                                         Appearance.colors.colOnSurfaceVariant
+                                font.family: Fonts.ui
+                                font.pixelSize: 13
+                                elide: Text.ElideRight
+                            }
+                        }
+
+                        MaterialSymbol {
+                            text: "keyboard_return"
+                            iconSize: 19
+                            color: root.style.selectedContentColor
+                            opacity: appDelegate.index === root.selectedIndex ? 0.78 : 0
                         }
                     }
 
-                    MaterialSymbol {
-                        text: "keyboard_return"
-                        iconSize: 19
-                        color: root.style.selectedContentColor
-                        opacity: appDelegate.index === root.selectedIndex ? 0.78 : 0
+                    MouseArea {
+                        id: appMouse
+
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        Accessible.name: appDelegate.modelData.title
+                        Accessible.role: Accessible.ListItem
+                        onClicked: {
+                            root.selectionRequested(appDelegate.index);
+                            root.activationRequested(appDelegate.index, false);
+                        }
                     }
                 }
+            }
 
-                MouseArea {
-                    id: appMouse
+            SpotlightAppGrid {
+                id: appGrid
 
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    Accessible.name: appDelegate.modelData.title
-                    Accessible.role: Accessible.ListItem
-                    onClicked: {
-                        root.selectionRequested(appDelegate.index);
-                        root.activationRequested(appDelegate.index, false);
-                    }
-                }
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                // Column count follows the destination size, not each frame
+                // of the panel's width transition between launcher modes.
+                readonly property real layoutWidth: Math.max(0, root.targetWidth - root.style.resultPadding
+                                                             * 2)
+
+                width: Math.min(layoutWidth, Math.max(1, Math.floor(layoutWidth
+                                                                    / root.style.appGridCellWidth))
+                                * root.style.appGridCellWidth)
+                visible: root.appGridActive
+                style: root.style
+                results: root.appGridActive ? root.results : []
+                selectedIndex: root.selectedIndex
+                searchActive: root.query.trim().length > 0
+                onSelectionRequested: index => root.selectionRequested(index)
+                onActivationRequested: index => root.activationRequested(index, false)
             }
         }
 

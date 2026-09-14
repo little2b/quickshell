@@ -286,8 +286,8 @@
         <translation>Theme</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="773"/>
-        <location filename="../Modules/Sidebars/Dashboard/ProfileHeaderCard.qml" line="49"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="772"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="210"/>
         <source>Choose avatar</source>
         <translation>Choose avatar</translation>
     </message>
@@ -296,6 +296,7 @@
     <name>AccountProfileHeader</name>
     <message>
         <location filename="../Modules/ControlCenter/ProfileBannerEditor.qml" line="31"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="210"/>
         <location filename="../Widgets/common/AccountProfileHeader.qml" line="139"/>
         <source>Choose banner image</source>
         <translation>Choose banner image</translation>
@@ -2953,17 +2954,17 @@ Scroll to adjust</translation>
 <context>
     <name>DashboardSidebarContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="37"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="40"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="42"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="45"/>
         <source>Drawer</source>
         <translation>Drawer</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="47"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="50"/>
         <source>Weather</source>
         <translation>Weather</translation>
     </message>
@@ -4134,6 +4135,7 @@ Scroll to adjust</translation>
     <name>FilePickerWindow</name>
     <message>
         <location filename="../Modules/FilePicker/FilePickerWindow.qml" line="28"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="212"/>
         <source>Choose an image for your user avatar</source>
         <translation>Choose an image for your user avatar</translation>
     </message>
@@ -4149,6 +4151,7 @@ Scroll to adjust</translation>
     </message>
     <message>
         <location filename="../Modules/FilePicker/FilePickerWindow.qml" line="34"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="213"/>
         <source>Choose an image</source>
         <translation>Choose an image</translation>
     </message>
@@ -5756,13 +5759,13 @@ Scroll to adjust</translation>
 <context>
     <name>LauncherWindow</name>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="398"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="400"/>
         <source>A clipboard operation is already running</source>
         <translation>A clipboard operation is already running</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="409"/>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="437"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="411"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="439"/>
         <source>Copy failed</source>
         <translation>Copy failed</translation>
     </message>
@@ -9954,29 +9957,54 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="30"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="31"/>
+        <source>Applications</source>
+        <translation>Applications</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="36"/>
+        <source>Layout</source>
+        <translation>Layout</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="46"/>
+        <source>List</source>
+        <translation>List</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="50"/>
+        <source>Grid</source>
+        <translation>Grid</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="55"/>
+        <source>Application layout</source>
+        <translation>Application layout</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="64"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="35"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="48"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="69"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="82"/>
         <source>Search engine</source>
         <translation>Search engine</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="72"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="106"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="77"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="88"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="111"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="122"/>
         <source>History limit</source>
         <translation>History limit</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>Oldest items are removed when new content is saved.</translation>
     </message>
@@ -9984,63 +10012,63 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightResultsPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="527"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="561"/>
         <source>wl-copy is missing: restore is unavailable</source>
         <translation>wl-copy is missing: restore is unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="529"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="563"/>
         <source>Clipboard history</source>
         <translation>Clipboard history</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="544"/>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="868"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="578"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="902"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="737"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="771"/>
         <source>Delete clipboard entry</source>
         <translation>Delete clipboard entry</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="804"/>
         <source>Copied</source>
         <translation>Copied</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="804"/>
         <source>Copy failed</source>
         <translation>Copy failed</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="830"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="864"/>
         <source>Reading…</source>
         <translation>Reading…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="832"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="866"/>
         <source>Current provider is unavailable</source>
         <translation>Current provider is unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="833"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="867"/>
         <source>No matching results</source>
         <translation>No matching results</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="848"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="882"/>
         <source>Clear clipboard history?</source>
         <translation>Clear clipboard history?</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="849"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="883"/>
         <source>This clears all clipboard history in cliphist and cannot be undone.</source>
         <translation>This clears all clipboard history in cliphist and cannot be undone.</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="862"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="896"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
@@ -11460,7 +11488,7 @@ detected</translation>
 <context>
     <name>UiPreferences</name>
     <message>
-        <location filename="../Services/UiPreferences.qml" line="687"/>
+        <location filename="../Services/UiPreferences.qml" line="700"/>
         <source>Unable to sync the system color scheme</source>
         <translation>Unable to sync the system color scheme</translation>
     </message>
@@ -11608,17 +11636,17 @@ Scroll to adjust; click to open sound</translation>
 <context>
     <name>WallpaperColorPicker</name>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="75"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="80"/>
         <source>Wallpaper palette</source>
         <translation>Wallpaper palette</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="82"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="87"/>
         <source>Close</source>
         <translation>Close</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="167"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>

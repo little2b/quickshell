@@ -1,4 +1,6 @@
 import QtQuick
+import qs.Modules.ControlCenter
+import qs.Modules.FilePicker
 import qs.Common
 import qs.Services
 
@@ -205,12 +207,53 @@ Item {
         }
     }
 
+    // Keep file selection alive when the sidebar content is unloaded. This is
+    // an independent window, so hiding the sidebar host cannot hide the picker.
+    FilePickerWindow {
+        id: profileImagePicker
+
+        property bool forAvatar: true
+
+        dialogTitle: forAvatar ? qsTranslate("AccountPage", "Choose avatar") : qsTranslate(
+                                     "AccountProfileHeader", "Choose banner image")
+        description: forAvatar ? qsTranslate("FilePickerWindow", "Choose an image for your user avatar") : ""
+        selectionPrompt: forAvatar ? qsTranslate("FilePickerWindow", "Choose an image") : dialogTitle
+        windowIconName: forAvatar ? "add_photo_alternate" : "wallpaper"
+
+        function chooseImage(avatar) {
+            forAvatar = avatar;
+            // Capture the output rather than follow subsequent sidebar moves.
+            targetScreen = root.panelScreen;
+            const banner = WallpaperPaletteSession.previewForScreen("banner", "")
+                  || PersonalizationConfig.bannerSource || WallpaperService.currentWallpaper;
+            openAt(avatar ? picturesDir : WallpaperService.isImagePath(banner) ? WallpaperService.parentFolder(
+                                                                                     banner) : PersonalizationConfig.wallpaperFolder);
+        }
+
+        onAccepted: (path, isDirectory) => {
+            if (isDirectory)
+                return;
+            if (forAvatar)
+                AvatarService.setAvatar(path);
+            else
+                PersonalizationConfig.setBannerSource(path);
+        }
+    }
+
+    // The palette session must survive unloading the information page as well.
+    WallpaperColorPicker {
+        id: bannerColorPicker
+        requiresParentWindow: false
+    }
+
     Component {
         id: dashboardSidebarContentComponent
 
         DashboardSidebarContent {
             anchors.fill: parent
             screenName: root.panelScreen ? root.panelScreen.name : ""
+            onImageSelectionRequested: forAvatar => profileImagePicker.chooseImage(forAvatar)
+            onBannerColorRequested: bannerColorPicker.showFor("banner", "")
             weatherSourceOverride: root.weatherSourceOverride
             foreground: root.contentOperational
             presentationActive: root.contentOperational

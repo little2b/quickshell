@@ -206,6 +206,7 @@ Item {
             AccountProfileHeader {
                 width: parent.width
                 wallpaperPath: bannerEditor.source
+                previewWallpaperPath: bannerEditor.previewSource
                 colorWallpaper: WallpaperService.isColorSource(wallpaperPath)
                 avatarUrl: AvatarService.avatarUrl
                 fallbackAvatarUrl: Paths.fileUrl(Paths.defaultAvatar)

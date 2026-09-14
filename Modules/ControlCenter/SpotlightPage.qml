@@ -8,6 +8,7 @@ StyledFlickable {
     id: root
 
     function closeChildWindows() {
+        appStylePicker.closeMenu();
         enginePicker.closeMenu();
     }
 
@@ -23,6 +24,39 @@ StyledFlickable {
         width: Math.min(640, Math.max(0, root.width - Metrics.pageMargin * 2))
         x: Math.max(Metrics.pageMargin, (root.width - width) / 2)
         y: Metrics.pageMargin
+
+        SettingsSection {
+            Layout.fillWidth: true
+            flat: true
+            title: qsTr("Applications")
+            iconName: "apps"
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Layout")
+                iconName: "grid_view"
+
+                trailing: SearchSelectMenuField {
+                    id: appStylePicker
+
+                    Layout.preferredWidth: 220
+                    options: [
+                        {
+                            value: "list",
+                            label: qsTr("List")
+                        },
+                        {
+                            value: "grid",
+                            label: qsTr("Grid")
+                        }
+                    ]
+                    value: UiPreferences.spotlightAppStyle
+                    closeOnAccept: true
+                    Accessible.name: qsTr("Application layout")
+                    onAccepted: value => UiPreferences.setSpotlightAppStyle(value)
+                }
+            }
+        }
 
         SettingsSection {
             Layout.fillWidth: true
