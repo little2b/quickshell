@@ -38,6 +38,8 @@ Item {
 
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+        // Ordinary scrolling belongs to the containing information sidebar.
+        acceptedModifiers: Qt.ControlModifier
         onWheel: event => {
             if (event.angleDelta.y > 0)
                 root.monthShift -= 1;

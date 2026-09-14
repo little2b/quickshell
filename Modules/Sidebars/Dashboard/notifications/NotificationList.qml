@@ -8,6 +8,9 @@ import qs.Services
 Rectangle {
     id: root
 
+    // Reserve room for notification previews as well as the status toolbar.
+    implicitHeight: 220
+
     radius: Appearance.rounding.normal
     color: BlurService.opaqueBackgroundColor(Appearance.m3colors.m3surfaceContainerLow)
     clip: true
