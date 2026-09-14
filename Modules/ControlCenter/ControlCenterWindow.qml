@@ -355,7 +355,8 @@ FloatingWindow {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     radius: Math.max(0, Appearance.rounding.large - root.contentPadding)
-                    color: root.currentPage === 0 ? "transparent" : Appearance.m3colors.m3surfaceContainerLow
+                    color: root.currentPage === 0 ? "transparent" : BlurService.backgroundColor(
+                                                        Appearance.m3colors.m3surfaceContainerLow)
                     clip: true
 
                     SettingsPageHost {
