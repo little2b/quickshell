@@ -34,7 +34,6 @@ Item {
         model: NetworkService.savedWifiProfiles
         spacing: Metrics.spacingXS
         boundsBehavior: Flickable.StopAtBounds
-        fasterTouchpadScroll: true
         showVerticalScrollBar: true
         animateMovement: true
 

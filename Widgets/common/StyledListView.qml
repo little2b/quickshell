@@ -6,6 +6,8 @@ ListView {
 
     spacing: 0
     clip: true
+    // Keep text and thin outlines on pixel boundaries while scrolling.
+    pixelAligned: true
     maximumFlickVelocity: 3500
     boundsBehavior: Flickable.DragOverBounds
 
@@ -13,8 +15,10 @@ ListView {
     property bool popin: true
     property bool animateAppearance: true
     property bool animateMovement: false
-    property bool smoothWheelScrolling: true
-    // Compatibility for existing callers; the shared policy is now enabled by default.
+    // Let Qt keep one continuous scroll timeline, including touchpad momentum.
+    // The custom controller remains opt-in for callers that need accelerated steps.
+    property bool smoothWheelScrolling: false
+    // Compatibility for callers that explicitly request accelerated scrolling.
     property alias fasterTouchpadScroll: root.smoothWheelScrolling
     property bool showVerticalScrollBar: true
 

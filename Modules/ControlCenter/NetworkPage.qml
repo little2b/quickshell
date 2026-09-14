@@ -362,7 +362,6 @@ StyledFlickable {
                             model: root.nearbyNetworks
                             spacing: nearbyViewport.rowSpacing
                             boundsBehavior: Flickable.StopAtBounds
-                            fasterTouchpadScroll: true
                             showVerticalScrollBar: true
                             animateMovement: true
 
