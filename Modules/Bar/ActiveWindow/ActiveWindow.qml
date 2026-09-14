@@ -12,7 +12,35 @@ Item {
     property bool vertical: false
     property real maximumTitleWidth: 250
     readonly property string edge: PersonalizationConfig.barPosition
-    readonly property var activeWindow: Niri.focusedWindow
+    // The transparent X11 capture helper is not a user-facing application.
+    readonly property var activeWindow: isCaptureHelper(Niri.focusedWindow) ? ({}) : Niri.focusedWindow
+    property var lastApplicationByWorkspace: ({})
+
+    function isCaptureHelper(window) {
+        return window && window.appId === "xwaylandvideobridge";
+    }
+
+    function restoreApplicationFocus() {
+        const focused = Niri.focusedWindow;
+        if (!isCaptureHelper(focused)) {
+            if (focused.id)
+                root.lastApplicationByWorkspace[focused.workspaceId] = focused.id;
+            return;
+        }
+        const candidates = Niri.windowsForWorkspace(focused.workspaceId)
+            .filter(window => window.id && !root.isCaptureHelper(window));
+        const previousId = root.lastApplicationByWorkspace[focused.workspaceId];
+        const target = candidates.find(window => window.id === previousId) || candidates[0];
+        if (target)
+            Niri.focusWindow(target.id);
+    }
+
+    Connections {
+        target: Niri
+        function onFocusedWindowChanged() { Qt.callLater(root.restoreApplicationFocus); }
+        function onWindowsChanged() { Qt.callLater(root.restoreApplicationFocus); }
+    }
+    Component.onCompleted: Qt.callLater(root.restoreApplicationFocus)
     readonly property string activeTitle: activeWindow.title || qsTr("Desktop")
     readonly property string activeIcon: activeWindow.iconPath || ""
     readonly property string activeAppName: activeWindow.appName || activeWindow.appId || ""

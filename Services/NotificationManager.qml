@@ -6,6 +6,8 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Notifications
 import qs.Common
+import Clavis.Niri
+import "NotificationActivation.js" as NotificationActivation
 
 Singleton {
     id: root
@@ -343,8 +345,27 @@ Singleton {
                 ? notifObject.notification.actions : [];
     }
 
+    function applicationTarget(notifObject) {
+        return NotificationActivation.resolve(notifObject, ApplicationService.applications,
+                                              Niri.searchWindows(""));
+    }
+
+    function focusNotificationWindow(id) {
+        // Resolve again at click time; never launch an app for a stale notification.
+        const target = root.applicationTarget(root.notificationById(id));
+        return target && target.window ? Niri.focusWindow(target.window.id) : false;
+    }
+
     function defaultAction(notifObject) {
-        return root.nativeActions(notifObject).find(action => action.identifier === "default") || null;
+        const target = root.applicationTarget(notifObject);
+        if (!target || !target.window)
+            return null;
+        const id = notifObject.notificationId;
+        return {
+            identifier: "default",
+            text: qsTr("Focus application window"),
+            invoke: () => root.focusNotificationWindow(id)
+        };
     }
 
     function normalActions(notifObject) {
@@ -549,13 +570,19 @@ Singleton {
     }
 
     function invokeDefaultAction(id) {
-        const action = root.defaultAction(root.notificationById(id));
-        if (action)
-            action.invoke();
+        const notifObject = root.notificationById(id);
+        const action = root.defaultAction(notifObject);
+        if (!action || action.invoke() === false)
+            return false;
+        root.finishPopupLifetime(notifObject);
+        root.triggerListChange();
+        WidgetState.closeAllPopups();
+        return true;
     }
 
     function invokeAction(action) {
         if (action)
             action.invoke();
     }
+
 }

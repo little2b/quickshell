@@ -17,11 +17,29 @@ WidgetPanel {
     property bool initialLoading: false
     property bool refreshLoading: false
     property var pendingForgetNetwork: null
+    // One in-memory draft belongs to the current prompt, not a scan delegate.
+    property string passwordDraft: ""
+    readonly property string passwordPromptKey: NetworkService.passwordPromptActive
+        ? JSON.stringify([NetworkService.passwordRequestDeviceName, NetworkService.passwordRequestSsid]) : ""
+    onPasswordPromptKeyChanged: passwordDraft = ""
     readonly property bool networkUsable: NetworkService.available && NetworkService.wifiAvailable
                                           && NetworkService.wifiEnabled
     readonly property var savedWifiProfiles: NetworkService.savedWifiProfiles
     readonly property var availableWifiNetworks: NetworkService.availableWifiNetworks
     readonly property bool linearLoading: refreshLoading || NetworkService.busy
+
+    StableNetworkListModel {
+        id: availableNetworkModel
+        sourceItems: root.availableWifiNetworks
+        holdStructure: NetworkService.passwordPromptActive
+    }
+
+    StableNetworkListModel {
+        id: savedProfileModel
+        sourceItems: root.savedWifiProfiles
+        keyFields: ["uuid"]
+        holdStructure: NetworkService.passwordPromptActive
+    }
     readonly property string stateMessage: {
         if (NetworkService.lastError.length > 0)
             return NetworkService.lastError;
@@ -143,6 +161,7 @@ WidgetPanel {
     }
     Component.onCompleted: updateScanLease()
     Component.onDestruction: {
+        root.passwordDraft = "";
         if (scanLeaseAcquired)
             NetworkService.releaseScan("right-sidebar-network");
 
@@ -151,9 +170,11 @@ WidgetPanel {
 
     Connections {
         function onWifiEnabledChanged() {
-            if (!NetworkService.wifiEnabled)
+            if (!NetworkService.wifiEnabled) {
                 root.finishTransientLoading();
-            else if (root.isActive)
+                NetworkService.cancelPasswordRequest(null);
+                root.passwordDraft = "";
+            } else if (root.isActive)
                 Qt.callLater(root.beginInitialLoad);
         }
 
@@ -268,17 +289,17 @@ WidgetPanel {
 
                 SettingsSection {
                     Layout.fillWidth: true
-                    visible: root.savedWifiProfiles.length > 0
+                    visible: savedProfileModel.count > 0
                     title: qsTr("Saved networks")
 
                     Repeater {
-                        model: root.savedWifiProfiles
+                        model: savedProfileModel
 
                         SavedWifiProfileItem {
-                            required property var modelData
+                            required property var entry
 
                             Layout.fillWidth: true
-                            profile: modelData
+                            profile: entry
                         }
                     }
                 }
@@ -287,7 +308,7 @@ WidgetPanel {
                     Layout.fillWidth: true
                     title: qsTr("Available networks")
                     supportingText: root.initialLoading ? qsTr("Getting scan results") :
-                                                          NetworkService.availableWifiNetworks.length + qsTr(
+                                                          availableNetworkModel.count + qsTr(
                                                               " networks")
 
                     Item {
@@ -339,13 +360,13 @@ WidgetPanel {
                         clip: true
                         boundsBehavior: Flickable.StopAtBounds
                         interactive: contentHeight > height
-                        model: NetworkService.availableWifiNetworks
+                        model: availableNetworkModel
 
                         delegate: WifiNetworkItem {
-                            required property var modelData
+                            required property var entry
 
                             width: ListView.view.width
-                            wifiNetwork: modelData
+                            wifiNetwork: entry
                         }
 
                         Behavior on Layout.preferredHeight {
@@ -356,7 +377,7 @@ WidgetPanel {
                     SettingsRow {
                         Layout.fillWidth: true
                         visible: !root.initialLoading && !root.refreshLoading
-                                 && NetworkService.availableWifiNetworks.length === 0
+                                 && availableNetworkModel.count === 0
                         iconName: "search_off"
                         title: qsTr("No available networks found")
                     }
@@ -522,7 +543,9 @@ WidgetPanel {
         readonly property bool networkActive: !!wifiNetwork.active
         readonly property bool networkSecure: !!wifiNetwork.isSecure
         readonly property bool networkKnown: !!wifiNetwork.known
-        readonly property bool networkAskingPassword: !!wifiNetwork.askingPassword
+        readonly property bool networkAskingPassword: NetworkService.passwordRequestSsid === wifiNetwork.ssid
+            && (NetworkService.passwordRequestDeviceName.length === 0
+                || NetworkService.passwordRequestDeviceName === wifiNetwork.deviceName)
         readonly property bool targetBusy: NetworkService.wifiConnectTarget
                                            && NetworkService.wifiConnectTarget.ssid === wifiNetwork.ssid
         readonly property real promptHeight: networkAskingPassword ? passwordContent.implicitHeight
@@ -533,7 +556,7 @@ WidgetPanel {
             if (password.length === 0)
                 return;
 
-            passwordField.text = "";
+            root.passwordDraft = "";
             passwordField.focus = false;
             showPassword = false;
             NetworkService.changePassword(wifiNetwork, password);
@@ -546,7 +569,6 @@ WidgetPanel {
         color: networkActive || networkAskingPassword ? Appearance.colors.colLayer2 : "transparent"
         onNetworkAskingPasswordChanged: {
             if (!networkAskingPassword) {
-                passwordField.text = "";
                 passwordField.focus = false;
                 showPassword = false;
             }
@@ -668,6 +690,8 @@ WidgetPanel {
                     placeholderText: qsTr("Network password")
                     echoMode: itemRoot.showPassword ? TextInput.Normal : TextInput.Password
                     inputMethodHints: Qt.ImhSensitiveData
+                    text: itemRoot.networkAskingPassword ? root.passwordDraft : ""
+                    onTextEdited: if (itemRoot.networkAskingPassword) root.passwordDraft = text
                     enabled: !NetworkService.busy
                     onAccepted: itemRoot.submitPassword()
 
