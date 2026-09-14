@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Common
+import "../Common/SidebarPolicy.js" as SidebarPolicy
 import "../Common/functions/WallpaperSource.js" as WallpaperSource
 import qs.Services
 
@@ -616,6 +617,12 @@ Singleton {
     property bool shellBlurEnabled: false
     property bool shellBlurXray: true
     property bool keepSidebarsLoaded: true
+    property var sidebarPositions: ({
+                                        dashboard: "left",
+                                        quickSettings: "right"
+                                    })
+    readonly property string dashboardSidebarSide: sidebarPositions.dashboard
+    readonly property string quickSettingsSidebarSide: sidebarPositions.quickSettings
     property bool desktopCardGridSnapEnabled: true
     property bool desktopCardGridVisibleWhileDragging: true
 
@@ -1241,6 +1248,24 @@ Singleton {
         setValue("shellBlurXray", !!value);
     }
 
+    function setDashboardSidebarSide(value) {
+        const side = SidebarPolicy.normalizeSide(value, "left");
+        if (side !== root.dashboardSidebarSide)
+            setValue("sidebarPositions", {
+                         dashboard: side,
+                         quickSettings: root.quickSettingsSidebarSide
+                     });
+    }
+
+    function setQuickSettingsSidebarSide(value) {
+        const side = SidebarPolicy.normalizeSide(value, "right");
+        if (side !== root.quickSettingsSidebarSide)
+            setValue("sidebarPositions", {
+                         dashboard: root.dashboardSidebarSide,
+                         quickSettings: side
+                     });
+    }
+
     function setKeepSidebarsLoaded(value) {
         setValue("keepSidebarsLoaded", !!value);
     }
@@ -1660,7 +1685,9 @@ Singleton {
                 "quickSettingsComponents": root.quickSettingsComponents.slice()
             },
             "sidebar": {
-                "keepLoaded": root.keepSidebarsLoaded
+                "keepLoaded": root.keepSidebarsLoaded,
+                "dashboardSide": root.dashboardSidebarSide,
+                "quickSettingsSide": root.quickSettingsSidebarSide
             },
             "desktopCards": {
                 "gridSnapEnabled": root.desktopCardGridSnapEnabled,
@@ -1777,6 +1804,7 @@ Singleton {
         root.barTrailingComponents = barLayout.trailing;
         root.quickSettingsComponents = root.normalizedQuickSettingsComponents(bar.quickSettingsComponents);
         root.keepSidebarsLoaded = sidebar.keepLoaded === undefined ? true : !!sidebar.keepLoaded;
+        root.sidebarPositions = SidebarPolicy.restoredPositions(sidebar);
         root.desktopCardGridSnapEnabled = desktopCards.gridSnapEnabled === undefined ? true : !
                                                                                        !desktopCards.gridSnapEnabled;
         root.desktopCardGridVisibleWhileDragging = desktopCards.gridVisibleWhileDragging === undefined ? true :

@@ -24,7 +24,10 @@ Singleton {
     property var pendingUpdates: ({})
     property var pendingMouseOptions: null
     property var activeMouseOptions: null
-    readonly property var mouseOptions: pendingMouseOptions || activeMouseOptions || snapshot.mouse || ({speed: 0, profile: "adaptive"})
+    readonly property var mouseOptions: pendingMouseOptions || activeMouseOptions || snapshot.mouse || ({
+                                                                                                            speed: 0,
+                                                                                                            profile: "adaptive"
+                                                                                                        })
 
     function setMouseOptions(patch) {
         if (!ready("mouse"))
@@ -63,6 +66,7 @@ Singleton {
     readonly property bool busy: operation.running
     readonly property string revision: snapshot.revision || ""
     readonly property var bindings: snapshot.bindings || []
+    readonly property var outputs: snapshot.outputs || []
     signal saved
 
     function state(feature) {
@@ -136,7 +140,10 @@ Singleton {
             return;
         activeFeature = request.feature || "";
         if (activeFeature === "mouse") {
-            activeMouseOptions = {speed: request.speed, profile: request.profile};
+            activeMouseOptions = {
+                speed: request.speed,
+                profile: request.profile
+            };
             pendingMouseOptions = null;
         }
         operation.writing = request.operation !== "status" && request.operation !== "catalog";

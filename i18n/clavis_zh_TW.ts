@@ -176,118 +176,118 @@
         <translation>快捷鍵配置圖</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="456"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="457"/>
         <source>Cloud storage</source>
         <translation>雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="485"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="486"/>
         <source>Refresh cloud storage information</source>
         <translation>重新整理雲端儲存資訊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="498"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="499"/>
         <source>Storage: Used %1 of %2 (%3%)</source>
         <translation>容量：已使用 %1，共 %2（%3%）</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="505"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="506"/>
         <source>Reading capacity…</source>
         <translation>正在讀取容量…</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="516"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="517"/>
         <source>Cloud storage used capacity</source>
         <translation>雲端儲存已使用容量</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="544"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="545"/>
         <source>Backing up</source>
         <translation>正在備份</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="549"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="550"/>
         <source>Stopping backup…</source>
         <translation>正在停止備份…</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="553"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="554"/>
         <source>%1: current folder %2%</source>
         <translation>%1：目前資料夾 %2%</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="561"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="562"/>
         <source>Checking files…</source>
         <translation>正在檢查檔案…</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="564"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="565"/>
         <source>%1 items scanned</source>
         <translation>已掃描 %1 個項目</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="567"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="568"/>
         <source>Scanning files…</source>
         <translation>正在掃描檔案…</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="568"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="569"/>
         <source>Preparing backup</source>
         <translation>正在準備備份</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="583"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="584"/>
         <source>Computer backup</source>
         <translation>電腦備份</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="592"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="593"/>
         <source>Manage cloud storage</source>
         <translation>管理雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="606"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="607"/>
         <source>Personalization</source>
         <translation>個性化</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="635"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="636"/>
         <source>Use wallpaper %1</source>
         <translation>使用桌布 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="714"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="715"/>
         <source>Color mode</source>
         <translation>色彩模式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="724"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="725"/>
         <source>Light</source>
         <translation>淺色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="727"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="728"/>
         <source>Dark</source>
         <translation>深色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="731"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="732"/>
         <source>Choose color mode</source>
         <translation>選擇色彩模式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="743"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="744"/>
         <source>Wallpaper</source>
         <translation>桌布</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="751"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="752"/>
         <source>Theme</source>
         <translation>主題</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AccountPage.qml" line="772"/>
-        <location filename="../Modules/Sidebars/Left/ProfileHeaderCard.qml" line="49"/>
+        <location filename="../Modules/ControlCenter/AccountPage.qml" line="773"/>
+        <location filename="../Modules/Sidebars/Dashboard/ProfileHeaderCard.qml" line="49"/>
         <source>Choose avatar</source>
         <translation>選擇頭像</translation>
     </message>
@@ -319,8 +319,8 @@
 <context>
     <name>ActiveWindow</name>
     <message>
-        <location filename="../Modules/Bar/ActiveWindow/ActiveWindow.qml" line="16"/>
-        <location filename="../Modules/Bar/ActiveWindow/ActiveWindow.qml" line="20"/>
+        <location filename="../Modules/Bar/ActiveWindow/ActiveWindow.qml" line="44"/>
+        <location filename="../Modules/Bar/ActiveWindow/ActiveWindow.qml" line="48"/>
         <source>Desktop</source>
         <translation>桌面</translation>
     </message>
@@ -411,124 +411,124 @@
         <translation>雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="150"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="151"/>
         <source>No cloud storage selected</source>
         <translation>尚未選擇雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="183"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="184"/>
         <source>Refreshing configuration</source>
         <translation>正在重新整理設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="186"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="187"/>
         <source>Configuration refreshed</source>
         <translation>設定已重新整理</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="188"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="189"/>
         <source>Refresh configuration</source>
         <translation>重新整理設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="197"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="198"/>
         <source>View cloud storage</source>
         <translation>檢視雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="205"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="206"/>
         <source>Add cloud storage</source>
         <translation>新增雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="216"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="217"/>
         <source>File upload location</source>
         <translation>檔案上傳位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="227"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="228"/>
         <source>Computer backup location</source>
         <translation>電腦備份位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="237"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="238"/>
         <source>Matugen template generation</source>
         <translation>Matugen 範本產生</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="260"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="261"/>
         <source>Refresh templates</source>
         <translation>重新整理範本</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="264"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="265"/>
         <source>Add</source>
         <translation>新增</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="288"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="289"/>
         <source>Failed to generate Matugen colors</source>
         <translation>Matugen 配色產生失敗</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="289"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="290"/>
         <source>Some Matugen templates failed to generate</source>
         <translation>部分 Matugen 範本產生失敗</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="309"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="310"/>
         <source>User templates</source>
         <translation>使用者範本</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="338"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="339"/>
         <source>Run after each generation: %1</source>
         <translation>每次產生後執行：%1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="352"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="353"/>
         <source>Run after each generation:
 %1</source>
         <translation>每次產生後執行：
 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="359"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="360"/>
         <source>Open template location</source>
         <translation>開啟範本位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="360"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="361"/>
         <source>Output: %1</source>
         <translation>輸出：%1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="367"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="368"/>
         <source>Delete template</source>
         <translation>刪除範本</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="378"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="379"/>
         <source>Enable the %1 Matugen template</source>
         <translation>啟用 %1 Matugen 範本</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="404"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="405"/>
         <source>Delete “%1”?</source>
         <translation>刪除「%1」？</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="406"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="407"/>
         <source>Delete the template and its registration. Keep generated output files.</source>
         <translation>刪除範本及其註冊資訊，保留已產生的輸出檔案。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="414"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="415"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="418"/>
+        <location filename="../Modules/ControlCenter/AdvancedPage.qml" line="419"/>
         <source>Delete</source>
         <translation>刪除</translation>
     </message>
@@ -592,57 +592,57 @@
 <context>
     <name>AudioContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="14"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="14"/>
         <source>Sound</source>
         <translation>聲音</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="27"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="27"/>
         <source>Connecting to the PipeWire audio service</source>
         <translation>正在連線 PipeWire 音訊服務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="29"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="29"/>
         <source>No audio output devices detected</source>
         <translation>未檢測到可用的聲音輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="43"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="43"/>
         <source>Open advanced sound settings</source>
         <translation>開啟高階聲音設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="92"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="92"/>
         <source>Output</source>
         <translation>輸出</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="97"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="97"/>
         <source>Default output</source>
         <translation>預設輸出</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="113"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="113"/>
         <source>Output devices</source>
         <translation>輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="130"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="130"/>
         <source>Collapse output devices</source>
         <translation>收起輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="131"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="131"/>
         <source>Expand output devices</source>
         <translation>展開輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="188"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="188"/>
         <source>Application volume</source>
         <translation>應用音量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/AudioContent.qml" line="227"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="227"/>
         <source>No active application audio</source>
         <translation>沒有活動的應用音訊</translation>
     </message>
@@ -650,42 +650,31 @@
 <context>
     <name>AudioRecordingService</name>
     <message>
-        <location filename="../Services/AudioRecordingService.qml" line="46"/>
+        <location filename="../Services/AudioRecordingService.qml" line="53"/>
+        <location filename="../Services/AudioRecordingService.qml" line="87"/>
+        <location filename="../Services/AudioRecordingService.qml" line="109"/>
+        <location filename="../Services/AudioRecordingService.qml" line="193"/>
+        <location filename="../Services/AudioRecordingService.qml" line="217"/>
         <source>Recording command failed</source>
         <translation>錄音命令執行失敗</translation>
     </message>
     <message>
-        <location filename="../Services/AudioRecordingService.qml" line="53"/>
+        <location filename="../Services/AudioRecordingService.qml" line="60"/>
         <source>Recording failed</source>
         <translation>錄音失敗</translation>
     </message>
     <message>
-        <location filename="../Services/AudioRecordingService.qml" line="67"/>
-        <source>key audio returned an unsupported JSON schema</source>
-        <translation>key audio 返回了不受支援的 JSON schema</translation>
-    </message>
-    <message>
-        <location filename="../Services/AudioRecordingService.qml" line="104"/>
+        <location filename="../Services/AudioRecordingService.qml" line="144"/>
         <source>System audio recording saved</source>
         <translation>系統音訊已儲存</translation>
     </message>
     <message>
-        <location filename="../Services/AudioRecordingService.qml" line="104"/>
+        <location filename="../Services/AudioRecordingService.qml" line="145"/>
         <source>Microphone recording saved</source>
         <translation>麥克風錄音已儲存</translation>
     </message>
     <message>
-        <location filename="../Services/AudioRecordingService.qml" line="105"/>
-        <source>Saved to %1</source>
-        <translation>已儲存至 %1</translation>
-    </message>
-    <message>
-        <location filename="../Services/AudioRecordingService.qml" line="113"/>
-        <source>Could not parse JSON returned by key audio: </source>
-        <translation>無法解析 key audio 返回的 JSON: </translation>
-    </message>
-    <message>
-        <location filename="../Services/AudioRecordingService.qml" line="206"/>
+        <location filename="../Services/AudioRecordingService.qml" line="242"/>
         <source>Could not query recording status through key</source>
         <translation>無法通過 key 查詢錄音狀態</translation>
     </message>
@@ -1426,17 +1415,17 @@
 <context>
     <name>BluetoothButton</name>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="19"/>
+        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="20"/>
         <source>Bluetooth connected</source>
         <translation>藍牙已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="20"/>
+        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="21"/>
         <source>Bluetooth on</source>
         <translation>藍牙已開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="20"/>
+        <location filename="../Modules/Bar/QuickSettings/BluetoothButton.qml" line="21"/>
         <source>Bluetooth off</source>
         <translation>藍牙已關閉</translation>
     </message>
@@ -1444,196 +1433,196 @@
 <context>
     <name>BluetoothContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="26"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="26"/>
         <source>No Bluetooth adapter detected or BlueZ is unavailable</source>
         <translation>未檢測到藍牙介面卡或 BlueZ 不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="29"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="29"/>
         <source>Bluetooth is off</source>
         <translation>藍牙已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="32"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="32"/>
         <source>No Bluetooth devices discovered yet</source>
         <translation>尚未發現藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="86"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="86"/>
         <source>Blocked</source>
         <translation>已阻止</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="88"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="88"/>
         <source>Pairing</source>
         <translation>正在配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="90"/>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="199"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="90"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="199"/>
         <source>Connected</source>
         <translation>已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="92"/>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="207"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="92"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="207"/>
         <source>Paired</source>
         <translation>已配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="94"/>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="215"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="94"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="215"/>
         <source>Available devices</source>
         <translation>可用裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="96"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="96"/>
         <source>Trusted</source>
         <translation>受信任</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="99"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="99"/>
         <source>Battery </source>
         <translation>電量 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="104"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="104"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="231"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="231"/>
         <source>Searching for available Bluetooth devices</source>
         <translation>正在查詢可用藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="236"/>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="293"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="236"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="293"/>
         <source>Searching for nearby devices</source>
         <translation>正在查詢附近裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="286"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="286"/>
         <source>No available devices found</source>
         <translation>未發現可用裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="292"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="292"/>
         <source>Adapters</source>
         <translation>介面卡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="294"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="294"/>
         <source>Device discovery is paused</source>
         <translation>裝置發現已暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="296"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="296"/>
         <source>Turn on Bluetooth to start discovery</source>
         <translation>開啟藍牙後可開始發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="306"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="306"/>
         <source>Bluetooth adapter</source>
         <translation>藍牙介面卡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="307"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="307"/>
         <source>Blocked by rfkill</source>
         <translation>已被 rfkill 阻止</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="308"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="308"/>
         <source>Off</source>
         <translation>已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="315"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="315"/>
         <source>Toggle adapter </source>
         <translation>切換介面卡 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="325"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="325"/>
         <source>Allow discovery</source>
         <translation>允許被發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="326"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="326"/>
         <source>Let nearby devices find this computer</source>
         <translation>讓附近裝置可以找到這臺電腦</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="333"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="333"/>
         <source>Bluetooth discoverability</source>
         <translation>藍牙可發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="342"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="342"/>
         <source>Allow pairing</source>
         <translation>允許配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="343"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="343"/>
         <source>Accept pairing requests supported by the official module</source>
         <translation>接受官方模組支援的配對請求</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="350"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="350"/>
         <source>Bluetooth pairing</source>
         <translation>藍牙可配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="370"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="370"/>
         <source>Forget Bluetooth device</source>
         <translation>遺忘藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="383"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="383"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="391"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="391"/>
         <source>Forget</source>
         <translation>遺忘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="413"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="413"/>
         <source>Scan for Bluetooth devices again</source>
         <translation>重新掃描藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="431"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="431"/>
         <source>Bluetooth switch</source>
         <translation>藍牙開關</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="485"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="485"/>
         <source>Disconnect</source>
         <translation>斷開</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="486"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="486"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="488"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="488"/>
         <source>Pair</source>
         <translation>配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="508"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="508"/>
         <source>Bluetooth device action</source>
         <translation>藍牙裝置操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="519"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="519"/>
         <source>Forget device</source>
         <translation>遺忘裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/BluetoothContent.qml" line="371"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="371"/>
         <source>This will delete the pairing information for “%1”.</source>
         <translation>這將刪除「%1」的配對資訊。</translation>
     </message>
@@ -1933,17 +1922,17 @@ Scroll to adjust</source>
 <context>
     <name>CalendarWidget</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/CalendarWidget.qml" line="65"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/CalendarWidget.qml" line="65"/>
         <source>Jump to current month</source>
         <translation>跳轉到當前月份</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/CalendarWidget.qml" line="76"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/CalendarWidget.qml" line="76"/>
         <source>Previous month</source>
         <translation>上個月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/CalendarWidget.qml" line="83"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/CalendarWidget.qml" line="83"/>
         <source>Next month</source>
         <translation>下個月</translation>
     </message>
@@ -2417,22 +2406,22 @@ Scroll to adjust</source>
 <context>
     <name>CloudUploadService</name>
     <message>
-        <location filename="../Services/CloudUploadService.qml" line="83"/>
+        <location filename="../Services/CloudUploadService.qml" line="85"/>
         <source>No local files or folders are available to upload</source>
         <translation>沒有可上傳的本機檔案或資料夾</translation>
     </message>
     <message>
-        <location filename="../Services/CloudUploadService.qml" line="88"/>
+        <location filename="../Services/CloudUploadService.qml" line="90"/>
         <source>Choose a writable default cloud storage first</source>
         <translation>請先選擇可寫入的預設雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Services/CloudUploadService.qml" line="121"/>
+        <location filename="../Services/CloudUploadService.qml" line="123"/>
         <source>The same path is already in the upload queue</source>
         <translation>相同路徑已在上傳佇列中</translation>
     </message>
     <message>
-        <location filename="../Services/CloudUploadService.qml" line="211"/>
+        <location filename="../Services/CloudUploadService.qml" line="213"/>
         <source>Upload failed. Check the network or remote permissions</source>
         <translation>上傳失敗，請檢查網路或遠端權限</translation>
     </message>
@@ -2619,17 +2608,17 @@ Scroll to adjust</source>
         <translation>進階</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="217"/>
+        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="227"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="301"/>
+        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="311"/>
         <source>Path copied</source>
         <translation>路徑已複製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="301"/>
+        <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="311"/>
         <source>config file</source>
         <translation>配置檔案</translation>
     </message>
@@ -2650,89 +2639,89 @@ Scroll to adjust</source>
 <context>
     <name>DailyAirQualityTrendPane</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="40"/>
         <source>Excellent</source>
         <translation>優</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="40"/>
         <source>Good</source>
         <translation>良</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="40"/>
         <source>Poor</source>
         <translation>差</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="40"/>
         <source>Unhealthy</source>
         <translation>不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="40"/>
         <source>Very unhealthy</source>
         <translation>很不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="41"/>
         <source>Hazardous</source>
         <translation>危險</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="86"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="86"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="88"/>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="288"/>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="318"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="88"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="288"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="318"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="90"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="90"/>
         <source>Tomorrow</source>
         <translation>明天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Sun</source>
         <translation>週日</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Mon</source>
         <translation>週一</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Tue</source>
         <translation>週二</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Wed</source>
         <translation>週三</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Thu</source>
         <translation>週四</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Fri</source>
         <translation>週五</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="93"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="93"/>
         <source>Sat</source>
         <translation>週六</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyAirQualityTrendPane.qml" line="326"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyAirQualityTrendPane.qml" line="326"/>
         <source>Air quality data is unavailable</source>
         <translation>空氣質量資料暫不可用</translation>
     </message>
@@ -2740,101 +2729,101 @@ Scroll to adjust</source>
 <context>
     <name>DailyForecastTrendCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="282"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="282"/>
         <source>UV index</source>
         <translation>紫外線指數</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="287"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="287"/>
         <source>Precipitation</source>
         <translation>降水量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="292"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="292"/>
         <source>Sunshine</source>
         <translation>日照</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="297"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="297"/>
         <source>Feels like</source>
         <translation>體感溫度</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="115"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="115"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="118"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="118"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="121"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="121"/>
         <source>Tomorrow</source>
         <translation>明天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Sun</source>
         <translation>週日</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Mon</source>
         <translation>週一</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Tue</source>
         <translation>週二</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Wed</source>
         <translation>週三</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Thu</source>
         <translation>週四</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Fri</source>
         <translation>週五</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="126"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="126"/>
         <source>Sat</source>
         <translation>週六</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="209"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="209"/>
         <source>Daily forecast</source>
         <translation>每日預報</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="230"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="230"/>
         <source>Conditions</source>
         <translation>天氣情況</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="233"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="233"/>
         <source>Air quality</source>
         <translation>空氣質量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="236"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="236"/>
         <source>Wind</source>
         <translation>風況</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyForecastTrendCard.qml" line="267"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyForecastTrendCard.qml" line="267"/>
         <source>More daily forecast options</source>
         <translation>每日預報更多選項</translation>
     </message>
@@ -2842,58 +2831,58 @@ Scroll to adjust</source>
 <context>
     <name>DailyWindTrendPane</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="28"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="28"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="30"/>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="240"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="30"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="240"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="32"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="32"/>
         <source>Tomorrow</source>
         <translation>明天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Sun</source>
         <translation>週日</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Mon</source>
         <translation>週一</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Tue</source>
         <translation>週二</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Wed</source>
         <translation>週三</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Thu</source>
         <translation>週四</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Fri</source>
         <translation>週五</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="35"/>
         <source>Sat</source>
         <translation>週六</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DailyWindTrendPane.qml" line="348"/>
+        <location filename="../Modules/Sidebars/Dashboard/DailyWindTrendPane.qml" line="348"/>
         <source>Wind data is unavailable</source>
         <translation>風況資料暫不可用</translation>
     </message>
@@ -2959,6 +2948,24 @@ Scroll to adjust</source>
         <location filename="../Modules/Keystone/DashboardContent/DashboardPomodoroCard.qml" line="215"/>
         <source>Reset</source>
         <translation>重置</translation>
+    </message>
+</context>
+<context>
+    <name>DashboardSidebarContent</name>
+    <message>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="37"/>
+        <source>Information</source>
+        <translation>資訊</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="42"/>
+        <source>Drawer</source>
+        <translation>抽屜</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="47"/>
+        <source>Weather</source>
+        <translation>天氣</translation>
     </message>
 </context>
 <context>
@@ -3297,47 +3304,47 @@ Scroll to adjust</source>
 <context>
     <name>DefaultLockStatus</name>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="13"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="12"/>
         <source>No media</source>
         <translation>沒有媒體</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="79"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="78"/>
         <source>Previous track</source>
         <translation>上一首</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="85"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="84"/>
         <source>Pause</source>
         <translation>暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="85"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="84"/>
         <source>Play</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="91"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="90"/>
         <source>Next track</source>
         <translation>下一首</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="157"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="156"/>
         <source>Weather unavailable</source>
         <translation>天氣無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="175"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="174"/>
         <source>Network unavailable</source>
         <translation>網路無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="176"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="175"/>
         <source>Connected</source>
         <translation>網路已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="177"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="176"/>
         <source>Disconnected</source>
         <translation>網路未連線</translation>
     </message>
@@ -3352,32 +3359,32 @@ Scroll to adjust</source>
         <translation>大寫鎖定已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="187"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="188"/>
         <source>Num Lock on</source>
         <translation>數字鎖定已開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="187"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="188"/>
         <source>Num Lock off</source>
         <translation>數字鎖定已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="200"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="201"/>
         <source>Fully charged</source>
         <translation>已充滿</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="200"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="201"/>
         <source>Charging</source>
         <translation>充電中</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="203"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="204"/>
         <source>Plugged in</source>
         <translation>已接通電源</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="204"/>
+        <location filename="../Modules/Lock/DefaultLockStatus.qml" line="205"/>
         <source>On battery</source>
         <translation>使用電池</translation>
     </message>
@@ -3385,45 +3392,721 @@ Scroll to adjust</source>
 <context>
     <name>DesktopCard</name>
     <message>
-        <location filename="../Modules/DesktopCards/DesktopCard.qml" line="163"/>
+        <location filename="../Modules/DesktopCards/DesktopCard.qml" line="156"/>
         <source>Return to sidebar</source>
         <translation>收回到側邊欄</translation>
     </message>
 </context>
 <context>
+    <name>DisplayAdvancedSettings</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="18"/>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="21"/>
+        <source>Focus at Startup</source>
+        <translation>啟動時聚焦</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="27"/>
+        <source>Hot corners</source>
+        <translation>熱角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="31"/>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="93"/>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="108"/>
+        <source>Inherit</source>
+        <translation>繼承</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="35"/>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="116"/>
+        <source>Off</source>
+        <translation>關閉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="39"/>
+        <source>Select corners</source>
+        <translation>選擇角落</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="57"/>
+        <source>Top left</source>
+        <translation>左上角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="61"/>
+        <source>Top right</source>
+        <translation>右上角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="65"/>
+        <source>Bottom left</source>
+        <translation>左下角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="69"/>
+        <source>Bottom right</source>
+        <translation>右下角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="92"/>
+        <source>Window gaps</source>
+        <translation>視窗間距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="104"/>
+        <source>Always center single column</source>
+        <translation>一律置中單欄</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="112"/>
+        <source>On</source>
+        <translation>開啟</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="128"/>
+        <source>Default column width</source>
+        <translation>預設欄寬</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="135"/>
+        <source>Preset column widths</source>
+        <translation>預設欄寬選項</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayColor</name>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="31"/>
+        <source>Set a location. Using the fixed night temperature.</source>
+        <translation>請設定位置。目前使用固定夜間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="33"/>
+        <source>Midnight sun: using the day temperature.</source>
+        <translation>極晝：使用日間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="35"/>
+        <source>Polar night: using the night temperature.</source>
+        <translation>極夜：使用夜間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="37"/>
+        <source>Choose different start and end times. Using the fixed night temperature.</source>
+        <translation>請選擇不同的起迄時間。目前使用固定夜間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="99"/>
+        <source>Location lookup failed. Using the manual location or fixed night temperature.</source>
+        <translation>定位失敗。使用手動位置或固定夜間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="135"/>
+        <source>Location lookup timed out. Using the manual location or fixed night temperature.</source>
+        <translation>定位逾時。使用手動位置或固定夜間色溫。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="153"/>
+        <source>Unable to open display preferences</source>
+        <translation>無法開啟顯示偏好設定</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="172"/>
+        <source>Invalid display preferences: %1</source>
+        <translation>顯示偏好設定無效：%1</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="180"/>
+        <source>Unable to read display preferences</source>
+        <translation>無法讀取顯示偏好設定</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayColor.qml" line="182"/>
+        <source>Unable to save display preferences</source>
+        <translation>無法儲存顯示偏好設定</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayColumnWidths</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="32"/>
+        <source>Proportion</source>
+        <translation>比例</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="36"/>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="53"/>
+        <source>Pixels</source>
+        <translation>像素</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="53"/>
+        <source>Proportion (1 = full width)</source>
+        <translation>比例（1 = 全寬）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="72"/>
+        <source>Remove column width</source>
+        <translation>移除欄寬</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="80"/>
+        <source>Set custom width</source>
+        <translation>設定自訂寬度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayColumnWidths.qml" line="80"/>
+        <source>Add column width</source>
+        <translation>新增欄寬</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayConfigService</name>
+    <message>
+        <location filename="../Services/DisplayConfigService.qml" line="37"/>
+        <source>At least one connected display must remain enabled</source>
+        <translation>必須保留至少一台已連接的顯示器啟用</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayConfigService.qml" line="38"/>
+        <source>Display rectangles overlap</source>
+        <translation>顯示器配置重疊</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayConfigService.qml" line="39"/>
+        <source>Select an available display mode</source>
+        <translation>請選擇可用的顯示模式</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayConfigService.qml" line="160"/>
+        <source>Connected displays changed. Reload before applying.</source>
+        <translation>連接的顯示器已變更。請重新載入後再套用。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplayConfigService.qml" line="172"/>
+        <source>Configuration changed externally. Reload before applying.</source>
+        <translation>設定已被外部修改。請重新載入後再套用。</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayConfigurationPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="41"/>
+        <source>Display configuration</source>
+        <translation>顯示器設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="60"/>
+        <source>Layout</source>
+        <translation>配置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="73"/>
+        <source>Identify displays</source>
+        <translation>識別顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="286"/>
+        <source>Discard</source>
+        <translation>捨棄變更</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="297"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="393"/>
+        <source>Apply</source>
+        <translation>套用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="97"/>
+        <source>Display</source>
+        <translation>顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="101"/>
+        <source>%1 (disconnected)</source>
+        <translation>%1（已中斷連線）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="86"/>
+        <source>This output is read-only. Resolve conflicting or unsupported settings in %1.</source>
+        <translation>此輸出為唯讀。請在 %1 中解決衝突或不支援的設定。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="93"/>
+        <source>Output settings</source>
+        <translation>輸出設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="119"/>
+        <source>Enabled</source>
+        <translation>啟用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="126"/>
+        <source>Resolution and refresh rate</source>
+        <translation>解析度與更新率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="131"/>
+        <source>%1 × %2 · %3 Hz</source>
+        <translation>%1 × %2 · %3 Hz</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="138"/>
+        <source>Scale</source>
+        <translation>縮放</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="155"/>
+        <source>Custom</source>
+        <translation>自訂</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="360"/>
+        <source>Custom scale</source>
+        <translation>自訂縮放</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="176"/>
+        <source>Logical X</source>
+        <translation>邏輯 X 座標</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="150"/>
+        <source>%1% (Custom)</source>
+        <translation>%1%（自訂）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="180"/>
+        <source>Logical Y</source>
+        <translation>邏輯 Y 座標</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="199"/>
+        <source>Rotation and reflection</source>
+        <translation>旋轉與翻轉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="203"/>
+        <source>Normal</source>
+        <translation>正常</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="219"/>
+        <source>Flipped</source>
+        <translation>翻轉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="223"/>
+        <source>Flipped · 90°</source>
+        <translation>翻轉 · 90°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="227"/>
+        <source>Flipped · 180°</source>
+        <translation>翻轉 · 180°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="231"/>
+        <source>Flipped · 270°</source>
+        <translation>翻轉 · 270°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="239"/>
+        <source>Variable refresh rate</source>
+        <translation>可變更新率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="245"/>
+        <source>Off</source>
+        <translation>關閉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="249"/>
+        <source>On</source>
+        <translation>開啟</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="253"/>
+        <source>On-Demand</source>
+        <translation>視需要</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="261"/>
+        <source>Advanced settings</source>
+        <translation>進階設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="273"/>
+        <source>Delete saved display</source>
+        <translation>刪除已儲存的顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="370"/>
+        <source>Scale (%)</source>
+        <translation>縮放比例（%）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="389"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayOverlays</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayOverlays.qml" line="107"/>
+        <source>Keep display changes?</source>
+        <translation>保留顯示器變更？</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/ControlCenter/DisplayOverlays.qml" line="115"/>
+        <source>Reverting in %n second(s)</source>
+        <translation>
+            <numerusform>%n 秒後還原</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayOverlays.qml" line="124"/>
+        <source>Revert</source>
+        <translation>還原</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayOverlays.qml" line="128"/>
+        <source>Keep Changes</source>
+        <translation>保留變更</translation>
+    </message>
+</context>
+<context>
+    <name>DisplaysPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="39"/>
+        <source>Display configuration</source>
+        <translation>顯示器設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="43"/>
+        <source>Gamma Control</source>
+        <translation>Gamma 控制</translation>
+    </message>
+</context>
+<context>
+    <name>DockPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="22"/>
+        <source>All displays</source>
+        <translation>所有屏幕</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="32"/>
+        <source> (disconnected)</source>
+        <translation>（未連接）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="57"/>
+        <source>Syncing Dock settings…</source>
+        <translation>正在同步 Dock 設置…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="57"/>
+        <source>Changes are saved and applied automatically</source>
+        <translation>調整後自動保存並立即生效</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="69"/>
+        <source>Retry</source>
+        <translation>重試</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="74"/>
+        <source>Start Dock</source>
+        <translation>啓動 Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="83"/>
+        <source>Visibility</source>
+        <translation>顯示與隱藏</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="87"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="92"/>
+        <source>Show bottom Dock</source>
+        <translation>顯示下方 Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="88"/>
+        <source>You can enable the Dock again from this page.</source>
+        <translation>關閉後仍可從此頁面重新開啓。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="100"/>
+        <source>Display</source>
+        <translation>顯示屏幕</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="101"/>
+        <source>Use an available display while the selected display is disconnected.</source>
+        <translation>指定屏幕斷開後，臨時顯示在可用屏幕上。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="115"/>
+        <source>Visibility mode</source>
+        <translation>隱藏方式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="116"/>
+        <source>Intelligent hiding hides the Dock when the current workspace has windows. Move the pointer to the bottom edge to reveal it.</source>
+        <translation>智能隱藏：當前桌面有窗口時隱藏；鼠標移到屏幕底部可喚出。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="123"/>
+        <source>Always visible</source>
+        <translation>始終顯示</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="127"/>
+        <source>Intelligent hiding</source>
+        <translation>智能隱藏</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="131"/>
+        <source>Auto-hide</source>
+        <translation>自動隱藏</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="145"/>
+        <source>Hide delay</source>
+        <translation>收起等待時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="146"/>
+        <source>How long to wait before hiding after the pointer leaves the Dock.</source>
+        <translation>鼠標離開 Dock 後，等待多久再收起。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="150"/>
+        <source> ms</source>
+        <translation> 毫秒</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="161"/>
+        <source>Size and appearance</source>
+        <translation>大小與外觀</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="163"/>
+        <source>Colors follow the system theme. Background opacity can be adjusted separately.</source>
+        <translation>顏色自動跟隨系統主題；背景不透明度可單獨調整。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="169"/>
+        <source>Icon size</source>
+        <translation>圖標大小</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="173"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="181"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="189"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="205"/>
+        <source> px</source>
+        <translation> 像素</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="177"/>
+        <source>Icon spacing</source>
+        <translation>圖標間距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="185"/>
+        <source>Bottom margin</source>
+        <translation>距屏幕底部</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="193"/>
+        <source>Background opacity</source>
+        <translation>背景不透明度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="201"/>
+        <source>Corner radius</source>
+        <translation>圓角大小</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="230"/>
+        <source>Interaction and tooltips</source>
+        <translation>交互與提示</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="236"/>
+        <source>Magnify icons on hover</source>
+        <translation>懸停時放大圖標</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="237"/>
+        <source>Animate icon magnification when the pointer moves over an icon.</source>
+        <translation>鼠標經過圖標時顯示放大動畫。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="241"/>
+        <source>Show application tooltips</source>
+        <translation>顯示應用名稱提示</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="242"/>
+        <source>Show the application name and pinned status on hover.</source>
+        <translation>懸停時顯示應用名稱和固定狀態。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="246"/>
+        <source>Show running status</source>
+        <translation>顯示運行狀態</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="247"/>
+        <source>Show running indicators, focus and window counts.</source>
+        <translation>顯示運行標記、當前焦點和窗口數量。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="251"/>
+        <source>Show unpinned running applications</source>
+        <translation>顯示未固定的運行中應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="252"/>
+        <source>When disabled, show only pinned applications and the application menu.</source>
+        <translation>關閉後 Dock 只顯示固定應用和應用菜單。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="279"/>
+        <source>Pinned applications</source>
+        <translation>固定應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="281"/>
+        <source>Applications appear from left to right in this order. Unpinning does not uninstall or close an application. You can also right-click a Dock icon to pin or unpin it.</source>
+        <translation>順序對應 Dock 從左到右的排列。移除固定不會卸載或關閉應用；也可以在 Dock 上右鍵切換固定。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="285"/>
+        <source>Pin an application</source>
+        <translation>添加固定應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="290"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="353"/>
+        <source>Search and select an application</source>
+        <translation>搜索並選擇應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="308"/>
+        <source>Move %1 earlier</source>
+        <translation>前移 %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="314"/>
+        <source>Move %1 later</source>
+        <translation>後移 %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="320"/>
+        <source>Unpin %1</source>
+        <translation>取消固定 %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="329"/>
+        <source>No pinned applications. Add one above.</source>
+        <translation>尚未固定應用，可在上方添加。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="339"/>
+        <source>Hidden running applications</source>
+        <translation>隱藏的運行中應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="341"/>
+        <source>These applications are not added automatically while running, but can still be pinned manually.</source>
+        <translation>這些應用運行時不會自動加入 Dock，但仍可手動固定。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="345"/>
+        <source>Hide an application</source>
+        <translation>添加隱藏應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="372"/>
+        <source>Unhide %1</source>
+        <translation>不再隱藏 %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="386"/>
+        <source>Restore defaults</source>
+        <translation>恢復默認</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="387"/>
+        <source>Reset visibility, appearance and interaction settings while keeping pinned order and hidden applications.</source>
+        <translation>恢復顯示、外觀與交互設置，保留固定應用的順序和隱藏應用列表。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="390"/>
+        <source>Reset appearance and behavior</source>
+        <translation>恢復外觀與行爲默認值</translation>
+    </message>
+</context>
+<context>
+    <name>DockSettingsService</name>
+    <message>
+        <location filename="../Services/DockSettingsService.qml" line="140"/>
+        <source>Dock is temporarily unavailable</source>
+        <translation>Dock 暫時無法連接</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockSettingsService.qml" line="150"/>
+        <source>Cannot read Dock settings</source>
+        <translation>無法讀取 Dock 設置</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockSettingsService.qml" line="156"/>
+        <source>Cannot save or read settings: %1</source>
+        <translation>設置未能保存或讀取：%1</translation>
+    </message>
+</context>
+<context>
     <name>DrawerView</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="388"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="388"/>
         <source>Connecting to keytop</source>
         <translation>正在連線 keytop</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="394"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="394"/>
         <source>Reconnecting</source>
         <translation>正在重新連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="394"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="394"/>
         <source>System monitoring is temporarily unavailable</source>
         <translation>系統監測暫不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="396"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="396"/>
         <source>Data is temporarily unavailable; the page will retry in the background with backoff.</source>
         <translation>資料暫時缺失，頁面將在後臺退避重試。</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="398"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="398"/>
         <source>The connection recovers automatically; existing data is never presented as current.</source>
         <translation>連線中斷後會自動恢復；已有資料不會被偽裝成正常值。</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="429"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="432"/>
         <source>Drawer grid; scrollable with draggable cards</source>
         <translation>抽屜網格，可滾動並可拖動卡片</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/DrawerView.qml" line="431"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="434"/>
         <source>Drawer grid with draggable cards</source>
         <translation>抽屜網格，可拖動卡片</translation>
     </message>
@@ -3556,6 +4239,173 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
+    <name>GammaControlPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="31"/>
+        <source>The compositor does not provide Gamma control</source>
+        <translation>合成器未提供 Gamma 控制</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="41"/>
+        <source>Color</source>
+        <translation>色彩</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="46"/>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="55"/>
+        <source>Contrast</source>
+        <translation>對比度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="64"/>
+        <source>Software dimming</source>
+        <translation>軟體調暗</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="82"/>
+        <source>Night Mode</source>
+        <translation>夜間模式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="88"/>
+        <source>Night temperature</source>
+        <translation>夜間色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="100"/>
+        <source>Schedule</source>
+        <translation>排程</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="105"/>
+        <source>Automatic control</source>
+        <translation>自動控制</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="109"/>
+        <source>Fixed temperature</source>
+        <translation>固定色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="113"/>
+        <source>Time</source>
+        <translation>時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="117"/>
+        <source>Sunrise and sunset</source>
+        <translation>日出與日落</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="126"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="133"/>
+        <source>Night starts</source>
+        <translation>夜間開始</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="144"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="151"/>
+        <source>Day starts</source>
+        <translation>日間開始</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="227"/>
+        <source>Day temperature</source>
+        <translation>日間色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="237"/>
+        <source>Transition duration</source>
+        <translation>轉換時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="241"/>
+        <source> min</source>
+        <translation> 分鐘</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="167"/>
+        <source>Latitude</source>
+        <translation>緯度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="172"/>
+        <source>Longitude</source>
+        <translation>經度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="195"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="199"/>
+        <source>Automatic IP location</source>
+        <translation>自動 IP 定位</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="274"/>
+        <source>Period</source>
+        <translation>時段</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="278"/>
+        <source>Daytime</source>
+        <translation>日間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="278"/>
+        <source>Nighttime</source>
+        <translation>夜間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="276"/>
+        <source>Transitioning</source>
+        <translation>過渡中</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="287"/>
+        <source>Transition ends</source>
+        <translation>過渡結束</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="306"/>
+        <source>Gamma control unavailable: %1</source>
+        <translation>Gamma 控制無法使用：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="214"/>
+        <source>Refresh location</source>
+        <translation>重新取得位置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="222"/>
+        <source>Use weather location</source>
+        <translation>使用天氣位置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="255"/>
+        <source>Current status</source>
+        <translation>目前狀態</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="265"/>
+        <source>%1 K</source>
+        <translation>%1 K</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="261"/>
+        <source>Scheduled temperature</source>
+        <translation>排程色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="287"/>
+        <source>Next transition</source>
+        <translation>下次轉換</translation>
+    </message>
+</context>
+<context>
     <name>GeneralBarPage</name>
     <message>
         <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="28"/>
@@ -3568,37 +4418,37 @@ Scroll to adjust</source>
         <translation>螢幕邊緣</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="47"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="75"/>
         <source>Components</source>
         <translation>元件</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="49"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="77"/>
         <source>Drag components to reorder them or move them to the other side.</source>
         <translation>拖曳元件調整順序，拖到另一側可移動位置。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="81"/>
         <source>Left</source>
         <translation>左側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="81"/>
         <source>Top</source>
         <translation>上方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="74"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="104"/>
         <source>Right</source>
         <translation>右側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="74"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="104"/>
         <source>Bottom</source>
         <translation>下方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="101"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="133"/>
         <source>Quick settings widgets</source>
         <translation>快速設定元件</translation>
     </message>
@@ -3673,153 +4523,198 @@ Scroll to adjust</source>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="40"/>
+        <source>Bottom Dock</source>
+        <translation>下方 Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="41"/>
+        <source>Visibility, icon appearance, pinned applications and ordering</source>
+        <translation>顯示與隱藏、圖標外觀、固定應用和排列順序</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="49"/>
         <source>Sidebar</source>
         <translation>側邊欄</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="56"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="65"/>
         <source>Transparency and blur</source>
         <translation>透明與模糊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="64"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="73"/>
         <source>System</source>
         <translation>系統</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="70"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="79"/>
+        <source>Power management</source>
+        <translation>電源管理</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="80"/>
+        <source>Battery status, keep awake, automatic locking, display power and sleep</source>
+        <translation>電池狀態、保持喚醒、自動鎖屏、息屏和睡眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="88"/>
+        <source>Displays</source>
+        <translation>顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="96"/>
+        <source>Mouse and cursor</source>
+        <translation>鼠標與光標</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="97"/>
+        <source>Pointer speed, acceleration, cursor theme and size</source>
+        <translation>移動速度、加速模式、光標樣式和大小</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="105"/>
         <source>Keyboard shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="113"/>
         <source>Language &amp; region</source>
         <translation>語言與地區</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="86"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="121"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="96"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="131"/>
         <source>Connected devices</source>
         <translation>已連線的裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="99"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="134"/>
         <source>Bluetooth unavailable</source>
         <translation>藍牙不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="102"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="137"/>
         <source>Bluetooth is off</source>
         <translation>藍牙已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="108"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="143"/>
         <source>%1 devices connected</source>
         <translation>%1 台裝置已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="119"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="154"/>
         <source>Applications</source>
         <translation>應用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="125"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="160"/>
         <source>Autostart</source>
         <translation>開機啟動</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="133"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="168"/>
         <source>Default applications</source>
         <translation>預設應用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="87"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="122"/>
         <source>Network unavailable</source>
         <translation>網路無法使用</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="70"/>
-        <source>Displays</source>
-        <translation>顯示器</translation>
     </message>
 </context>
 <context>
     <name>GeneralPage</name>
     <message>
         <location filename="../Modules/ControlCenter/GeneralPage.qml" line="71"/>
+        <source>Displays</source>
+        <translation>顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="73"/>
         <source>Bar</source>
         <translation>條欄</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="73"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="75"/>
+        <source>Bottom Dock</source>
+        <translation>下方 Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="77"/>
         <source>Sidebars</source>
         <translation>側邊欄</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="77"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
         <source>Transparency and blur</source>
         <translation>透明與模糊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="79"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="83"/>
         <source>Keyboard shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="85"/>
+        <source>Power management</source>
+        <translation>電源管理</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="87"/>
+        <source>Mouse and cursor</source>
+        <translation>鼠標與光標</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="89"/>
         <source>Language &amp; region</source>
         <translation>語言與地區</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="83"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="91"/>
         <source>Autostart</source>
         <translation>開機啟動</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="85"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="93"/>
         <source>Default applications</source>
         <translation>預設應用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="87"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="95"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="89"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="97"/>
         <source>Connected devices</source>
         <translation>已連線的裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="91"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="99"/>
         <source>Pair new device</source>
         <translation>配對新裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="95"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="103"/>
         <source>Bluetooth device</source>
         <translation>藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="98"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="106"/>
         <source>General</source>
         <translation>通用</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
-        <source>Displays</source>
-        <translation>顯示器</translation>
     </message>
 </context>
 <context>
     <name>GeneralSidebarPage</name>
     <message>
         <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="29"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="591"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="631"/>
         <source>Auto</source>
         <translation>自動</translation>
     </message>
@@ -3837,281 +4732,303 @@ Scroll to adjust</source>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="72"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="647"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="687"/>
         <source>Follow Disk I/O card</source>
         <translation>跟隨磁碟 I/O 卡片</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="123"/>
-        <source>Desktop cards</source>
-        <translation>桌面卡片</translation>
+        <source>Sidebars</source>
+        <translation>側邊欄</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="129"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="128"/>
+        <source>Dashboard sidebar position</source>
+        <translation>資訊側邊欄位置</translation>
+    </message>
+    <message>
         <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="134"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="154"/>
+        <source>Left</source>
+        <translation>左側</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="138"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="158"/>
+        <source>Right</source>
+        <translation>右側</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="148"/>
+        <source>Quick settings sidebar position</source>
+        <translation>快速設定側邊欄位置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="169"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="174"/>
         <source>Keep sidebar loaded</source>
         <translation>保持側邊欄已載入</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="130"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="170"/>
         <source>Opens faster next time, but uses more memory</source>
         <translation>再次開啟更快，但會增加記憶體佔用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="143"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="183"/>
         <source>Desktop card layout</source>
         <translation>桌面卡片佈局</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="151"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="191"/>
         <source>Free drag</source>
         <translation>自由拖曳</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="155"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="195"/>
         <source>Least busy</source>
         <translation>最空曠處</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="159"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="199"/>
         <source>Most busy</source>
         <translation>最密集處</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="173"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="213"/>
         <source>Top left</source>
         <translation>左上</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="177"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="217"/>
         <source>Top right</source>
         <translation>右上</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="181"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="221"/>
         <source>Bottom left</source>
         <translation>左下</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="185"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="225"/>
         <source>Bottom right</source>
         <translation>右下</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="189"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="229"/>
         <source>Center</source>
         <translation>置中</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="202"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="206"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="242"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="246"/>
         <source>Snap desktop cards to grid</source>
         <translation>將桌面卡片吸附到網格</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="214"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="218"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="254"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="258"/>
         <source>Show desktop grid while dragging</source>
         <translation>拖曳時顯示桌面網格</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="227"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="267"/>
         <source>Clock style</source>
         <translation>時鐘樣式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="235"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="353"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="275"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="393"/>
         <source>Digital</source>
         <translation>數字</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="240"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="280"/>
         <source>Cookie</source>
         <translation>曲奇</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="264"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="304"/>
         <source>Sides</source>
         <translation>邊數</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="265"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="305"/>
         <source>0 or 1 produces a circle; up to 40 sides</source>
         <translation>0 或 1 為圓形，最多 40 邊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="283"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="288"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="323"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="328"/>
         <source>Constantly rotate</source>
         <translation>持續旋轉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="298"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="303"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="338"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="343"/>
         <source>Hour marks</source>
         <translation>時標</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="299"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="339"/>
         <source>Available with Dots or Full dials</source>
         <translation>僅適用於圓點或完整錶盤</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="312"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="317"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="352"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="357"/>
         <source>Digits in the middle</source>
         <translation>在中心顯示數字</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="313"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="353"/>
         <source>Unavailable with the Numbers dial</source>
         <translation>數字錶盤下不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="325"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="365"/>
         <source>Dial style</source>
         <translation>錶盤樣式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="338"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="380"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="422"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="470"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="512"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="378"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="420"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="462"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="510"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="552"/>
         <source>None</source>
         <translation>無</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="343"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="485"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="383"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="525"/>
         <source>Dots</source>
         <translation>圓點</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="348"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="388"/>
         <source>Full</source>
         <translation>完整</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="367"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="407"/>
         <source>Hour hand</source>
         <translation>時針</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="385"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="427"/>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="475"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="425"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="467"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="515"/>
         <source>Classic</source>
         <translation>經典</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="390"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="430"/>
         <source>Hollow</source>
         <translation>鏤空</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="395"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="435"/>
         <source>Fill</source>
         <translation>填充</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="409"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="449"/>
         <source>Minute hand</source>
         <translation>分針</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="432"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="472"/>
         <source>Thin</source>
         <translation>細</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="437"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="477"/>
         <source>Medium</source>
         <translation>中等</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="442"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="482"/>
         <source>Bold</source>
         <translation>粗</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="457"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="497"/>
         <source>Second hand</source>
         <translation>秒針</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="480"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="520"/>
         <source>Line</source>
         <translation>線條</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="499"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="539"/>
         <source>Date style</source>
         <translation>日期樣式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="517"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="557"/>
         <source>Bubble</source>
         <translation>氣泡</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="522"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="562"/>
         <source>Border</source>
         <translation>邊緣</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="527"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="567"/>
         <source>Rect</source>
         <translation>矩形</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="543"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="583"/>
         <source>System cards</source>
         <translation>系統卡片</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="565"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="605"/>
         <source>Desktop</source>
         <translation>桌面</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="565"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="605"/>
         <source>Sidebar</source>
         <translation>側邊欄</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="584"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="624"/>
         <source>GPU</source>
         <translation>GPU</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="585"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="625"/>
         <source>Select the graphics device shown by the GPU card</source>
         <translation>選擇 GPU 卡片顯示的圖形裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="602"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="642"/>
         <source>System monitor snapshot interval</source>
         <translation>系統監測快照間隔</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="608"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="648"/>
         <source>Interval</source>
         <translation>間隔</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="626"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="666"/>
         <source>ms</source>
         <translation>ms</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="640"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="680"/>
         <source>Disk capacity</source>
         <translation>磁碟容量</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="641"/>
+        <location filename="../Modules/ControlCenter/GeneralSidebarPage.qml" line="681"/>
         <source>Select the physical disk shown by the capacity card</source>
         <translation>選擇容量卡片顯示的實體磁碟</translation>
     </message>
@@ -4267,37 +5184,37 @@ Scroll to adjust</source>
 <context>
     <name>HourlyAirQualityTrendPane</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="41"/>
         <source>Excellent</source>
         <translation>優</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="41"/>
         <source>Good</source>
         <translation>良</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="41"/>
         <source>Poor</source>
         <translation>差</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="41"/>
         <source>Unhealthy</source>
         <translation>不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="41"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="41"/>
         <source>Very unhealthy</source>
         <translation>很不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="42"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="42"/>
         <source>Hazardous</source>
         <translation>危險</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyAirQualityTrendPane.qml" line="358"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyAirQualityTrendPane.qml" line="358"/>
         <source>Air quality data is unavailable</source>
         <translation>空氣質量資料暫不可用</translation>
     </message>
@@ -4305,69 +5222,69 @@ Scroll to adjust</source>
 <context>
     <name>HourlyForecastTrendCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="231"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="231"/>
         <source>UV index</source>
         <translation>紫外線指數</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="236"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="236"/>
         <source>Precipitation</source>
         <translation>降水量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="241"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="241"/>
         <source>Feels like</source>
         <translation>體感溫度</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="89"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="246"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="246"/>
         <source>Relative humidity / Dew point</source>
         <translation>相對濕度 / 露點</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="90"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="251"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="90"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="251"/>
         <source>Pressure</source>
         <translation>氣壓</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="90"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="256"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="90"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="256"/>
         <source>Cloud cover</source>
         <translation>雲量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="90"/>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="261"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="90"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="261"/>
         <source>Visibility</source>
         <translation>能見度</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="157"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="157"/>
         <source>Hourly forecast</source>
         <translation>逐小時預報</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="178"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="178"/>
         <source>Conditions</source>
         <translation>天氣情況</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="181"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="181"/>
         <source>Air quality</source>
         <translation>空氣質量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="184"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="184"/>
         <source>Wind</source>
         <translation>風況</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyForecastTrendCard.qml" line="215"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyForecastTrendCard.qml" line="215"/>
         <source>More hourly forecast options</source>
         <translation>逐小時預報更多選項</translation>
     </message>
@@ -4375,7 +5292,7 @@ Scroll to adjust</source>
 <context>
     <name>HourlyWindTrendPane</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/HourlyWindTrendPane.qml" line="313"/>
+        <location filename="../Modules/Sidebars/Dashboard/HourlyWindTrendPane.qml" line="313"/>
         <source>Wind data is unavailable</source>
         <translation>風況資料暫不可用</translation>
     </message>
@@ -4383,22 +5300,22 @@ Scroll to adjust</source>
 <context>
     <name>HubContent</name>
     <message>
-        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="56"/>
+        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="69"/>
         <source>Dashboard</source>
         <translation>儀表板</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="62"/>
+        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="75"/>
         <source>Media</source>
         <translation>媒體</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="68"/>
+        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="82"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="74"/>
+        <location filename="../Modules/Keystone/Hub/HubContent.qml" line="88"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
@@ -4406,104 +5323,104 @@ Scroll to adjust</source>
 <context>
     <name>IdleContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="13"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="13"/>
         <source>Idle management</source>
         <translation>空閒管理</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="27"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="27"/>
         <source> seconds</source>
         <translation> 秒</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="29"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="29"/>
         <source> minutes</source>
         <translation> 分鐘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="52"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="52"/>
         <source>Paused</source>
         <translation>已暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="54"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="54"/>
         <source> enabled</source>
         <translation> 項開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="114"/>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="121"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="114"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="121"/>
         <source>Keep awake</source>
         <translation>保持喚醒</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="129"/>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="137"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="129"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="137"/>
         <source>Automatic idle</source>
         <translation>自動空閒</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="145"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="145"/>
         <source>Idle actions</source>
         <translation>空閒動作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="150"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="150"/>
         <source>Dim screen</source>
         <translation>調暗螢幕</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="158"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="158"/>
         <source>Lock session</source>
         <translation>鎖定會話</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="165"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="165"/>
         <source>Turn off displays</source>
         <translation>關閉顯示器</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="172"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="172"/>
         <source>Suspend system</source>
         <translation>掛起系統</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="209"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="209"/>
         <source>Off</source>
         <translation>已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="210"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="210"/>
         <source> · Triggered</source>
         <translation> · 已觸發</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="274"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="274"/>
         <source>Wait time</source>
         <translation>等待時間</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="302"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="302"/>
         <source>Dim percentage</source>
         <translation>調暗比例</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="321"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="321"/>
         <source>Skip while keeping awake</source>
         <translation>保持喚醒時跳過</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="351"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="351"/>
         <source>Screen dim percentage</source>
         <translation>螢幕調暗比例</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="290"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="290"/>
         <source>%1 wait time</source>
         <translation>%1等待時間</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/IdleContent.qml" line="327"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="327"/>
         <source>%1: respect keep-awake</source>
         <translation>%1遵守保持喚醒</translation>
     </message>
@@ -4534,34 +5451,34 @@ Scroll to adjust</source>
 <context>
     <name>InfoToolDrawer</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="24"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="24"/>
         <source>Calendar</source>
         <translation>日曆</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="28"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="28"/>
         <source>To-do</source>
         <translation>待辦</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="32"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="32"/>
         <source>Timer</source>
         <translation>計時器</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="166"/>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="176"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="166"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="176"/>
         <source>Expand tools</source>
         <translation>展開工具</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="189"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="189"/>
         <source>   •   %1 tasks</source>
         <translation>   •   %1 項任務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="222"/>
-        <location filename="../Modules/Sidebars/Left/infoTools/InfoToolDrawer.qml" line="232"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="222"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/InfoToolDrawer.qml" line="232"/>
         <source>Collapse tools</source>
         <translation>收起工具</translation>
     </message>
@@ -4611,7 +5528,7 @@ Scroll to adjust</source>
     <name>KeystonePage</name>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="54"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="211"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="212"/>
         <source>Horizontal clock style</source>
         <translation>橫向時鐘樣式</translation>
     </message>
@@ -4641,93 +5558,93 @@ Scroll to adjust</source>
         <translation>螢幕邊緣</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="130"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="131"/>
         <source>Keyboard indicators</source>
         <translation>鍵盤狀態提示</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="135"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="138"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="136"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="139"/>
         <source>Caps Lock changes</source>
         <translation>大小寫鎖定狀態變化</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="145"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="148"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="146"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="149"/>
         <source>Num Lock changes</source>
         <translation>數字鍵盤鎖定狀態變化</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="155"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="156"/>
         <source>Keyhole</source>
         <translation>鑰匙孔</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="178"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="179"/>
         <source>Horizontal clock</source>
         <translation>橫向時鐘</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="199"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="203"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="200"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="204"/>
         <source>Hide date</source>
         <translation>隱藏日期</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="212"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="213"/>
         <source>Font, digit positions, and colors</source>
         <translation>字型、數字位置和顏色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="219"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="220"/>
         <source>Recording</source>
         <translation>錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="223"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="224"/>
         <source>Video recording</source>
         <translation>影片錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="229"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="230"/>
         <source>GIF recording</source>
         <translation>GIF 錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="235"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="236"/>
         <source>Microphone recording</source>
         <translation>麥克風錄音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="241"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="242"/>
         <source>System audio recording</source>
         <translation>系統音訊錄音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="284"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="331"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="285"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="332"/>
         <source>Save location</source>
         <translation>儲存位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="288"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="289"/>
         <source>This folder is empty</source>
         <translation>目前資料夾為空</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="289"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="341"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="290"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="342"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="343"/>
         <source>Choose folder</source>
         <translation>選擇資料夾</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="290"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="291"/>
         <source>Choose</source>
         <translation>選擇</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="292"/>
         <source>Choose the current folder or a selected subfolder</source>
         <translation>可選擇目前資料夾或選取的子資料夾</translation>
     </message>
@@ -4850,21 +5767,131 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
-    <name>LeftSidebarContent</name>
+    <name>LidSettingsSection</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/LeftSidebarContent.qml" line="37"/>
-        <source>Information</source>
-        <translation>資訊</translation>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="12"/>
+        <source>Laptop lid</source>
+        <translation>筆記本合蓋</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/LeftSidebarContent.qml" line="42"/>
-        <source>Drawer</source>
-        <translation>抽屜</translation>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="31"/>
+        <source>Do nothing</source>
+        <translation>不執行動作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/LeftSidebarContent.qml" line="47"/>
-        <source>Weather</source>
-        <translation>天氣</translation>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="36"/>
+        <source>Suspend</source>
+        <translation>睡眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="41"/>
+        <source>Hibernate</source>
+        <translation>休眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="46"/>
+        <source>Suspend then hibernate</source>
+        <translation>先睡眠後休眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="53"/>
+        <source>Same as on battery</source>
+        <translation>與使用電池時相同</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="89"/>
+        <source>Authenticating and applying lid settings…</source>
+        <translation>正在驗證身份並應用合蓋設置…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="89"/>
+        <source>Reading lid settings…</source>
+        <translation>正在讀取合蓋設置…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="90"/>
+        <source>Click Apply lid settings after making your selections. Administrator authentication is required, and these settings apply to all desktop sessions.</source>
+        <translation>選擇後點擊“應用合蓋設置”。系統會請求管理員身份驗證，設置對所有桌面會話生效。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="110"/>
+        <source>These applications are handling lid events and may override the system lid policy: %1</source>
+        <translation>以下程序正在接管合蓋動作，系統合蓋策略可能暫不執行：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="118"/>
+        <source>Lid closed on battery</source>
+        <translation>使用電池時合蓋</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="126"/>
+        <source>Lid action on battery</source>
+        <translation>使用電池時合蓋動作</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="134"/>
+        <source>Lid closed on external power</source>
+        <translation>接通電源時合蓋</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="142"/>
+        <source>Lid action on external power</source>
+        <translation>接通電源時合蓋動作</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="150"/>
+        <source>Lid closed with an external display or dock</source>
+        <translation>外接顯示器或擴展塢時合蓋</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="151"/>
+        <source>This scenario is currently active and takes priority over battery and external power settings.</source>
+        <translation>當前正在使用此場景，優先於電池與電源設置。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="153"/>
+        <source>This scenario takes priority over battery and external power settings.</source>
+        <translation>此場景優先於電池與電源設置。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="161"/>
+        <source>Lid action with an external display or dock</source>
+        <translation>外接顯示器或擴展塢時合蓋動作</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="168"/>
+        <source>Niri disables the internal display when the lid closes and restores it when opened. Choose Do nothing to keep using an external display with the lid closed. Keep awake does not control this lid policy.</source>
+        <translation>niri 會在合蓋時關閉內置屏幕，開蓋時恢復。“不執行動作”可用於合蓋後繼續使用外接顯示器；保持喚醒開關不控制這裏的合蓋策略。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="178"/>
+        <source>Apply lid settings</source>
+        <translation>應用合蓋設置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="186"/>
+        <source>Discard pending changes</source>
+        <translation>撤銷未應用改動</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="186"/>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="205"/>
+        <source>Authentication was canceled. Lid settings were not changed.</source>
+        <translation>已取消身份驗證，合蓋設置未更改。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="208"/>
+        <source>Cannot read or apply lid settings.</source>
+        <translation>無法讀取或應用合蓋設置。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/LidSettingsSection.qml" line="219"/>
+        <source>Lid settings have been saved and applied. No logout or restart is required. </source>
+        <translation>合蓋設置已保存並生效，無需註銷或重啓。 </translation>
     </message>
 </context>
 <context>
@@ -4885,32 +5912,32 @@ Scroll to adjust</source>
         <translation>經度必須介於 -180 到 180 之間</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="139"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="140"/>
         <source>Center current marker</source>
         <translation>置中目前標記</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="157"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="158"/>
         <source>Expand map</source>
         <translation>展開地圖</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="179"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="187"/>
         <source>Coordinates</source>
         <translation>座標</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="201"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="209"/>
         <source>Save location</source>
         <translation>儲存位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="207"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="215"/>
         <source>Use automatic location</source>
         <translation>使用自動位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="148"/>
+        <location filename="../Modules/ControlCenter/LocationPicker.qml" line="149"/>
         <source>Return to saved location and initial view</source>
         <translation>返回已儲存位置並恢復初始視圖</translation>
     </message>
@@ -4918,22 +5945,22 @@ Scroll to adjust</source>
 <context>
     <name>LocationPickerWindow</name>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="96"/>
+        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="97"/>
         <source>Center current marker</source>
         <translation>置中目前標記</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="114"/>
+        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="115"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="126"/>
+        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="127"/>
         <source>Save location</source>
         <translation>儲存位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="105"/>
+        <location filename="../Modules/ControlCenter/LocationPickerWindow.qml" line="106"/>
         <source>Return to saved location and initial view</source>
         <translation>返回已儲存位置並恢復初始視圖</translation>
     </message>
@@ -4941,22 +5968,22 @@ Scroll to adjust</source>
 <context>
     <name>LockContent</name>
     <message>
-        <location filename="../Modules/Lock/LockContent.qml" line="199"/>
+        <location filename="../Modules/Lock/LockContent.qml" line="198"/>
         <source>Incorrect password. Try again.</source>
         <translation>密碼錯誤，請重試。</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/LockContent.qml" line="381"/>
+        <location filename="../Modules/Lock/LockContent.qml" line="384"/>
         <source>Caps Lock and Num Lock are on.</source>
         <translation>大寫鎖定和數字鎖定已開啟。</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/LockContent.qml" line="384"/>
+        <location filename="../Modules/Lock/LockContent.qml" line="387"/>
         <source>Caps Lock is on.</source>
         <translation>大寫鎖定已開啟。</translation>
     </message>
     <message>
-        <location filename="../Modules/Lock/LockContent.qml" line="387"/>
+        <location filename="../Modules/Lock/LockContent.qml" line="390"/>
         <source>Num Lock is on.</source>
         <translation>數字鎖定已開啟。</translation>
     </message>
@@ -4988,133 +6015,25 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
-    <name>MapLegend</name>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="49"/>
-        <source>Radar</source>
-        <translation>雷達</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="52"/>
-        <source>Temperature</source>
-        <translation>溫度</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="55"/>
-        <source>Precipitation</source>
-        <translation>降水</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="58"/>
-        <source>Cloud cover</source>
-        <translation>雲量</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="61"/>
-        <source>Wind speed</source>
-        <translation>風速</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="64"/>
-        <source>Pressure</source>
-        <translation>氣壓</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="66"/>
-        <source>Weather</source>
-        <translation>天氣</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="71"/>
-        <source>Light rain</source>
-        <translation>小雨</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="74"/>
-        <source>Cold</source>
-        <translation>低溫</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="77"/>
-        <source>Light</source>
-        <translation>淺色</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="80"/>
-        <source>Clear</source>
-        <translation>晴朗</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="83"/>
-        <source>Calm</source>
-        <translation>平靜</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="86"/>
-        <source>Low</source>
-        <translation>低</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="93"/>
-        <source>Heavy precipitation</source>
-        <translation>強降水</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="96"/>
-        <source>Hot</source>
-        <translation>高溫</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="99"/>
-        <source>Heavy</source>
-        <translation>大量</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="102"/>
-        <source>Overcast</source>
-        <translation>陰天</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="105"/>
-        <source>Strong</source>
-        <translation>強勁</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="108"/>
-        <source>High</source>
-        <translation>高</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="119"/>
-        <source>Cached</source>
-        <translation>快取</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/WeatherContent/MapLegend.qml" line="119"/>
-        <source> · Cached</source>
-        <translation> · 快取</translation>
-    </message>
-</context>
-<context>
     <name>MapLibreView</name>
     <message>
-        <location filename="../Modules/Map/MapLibreView.qml" line="44"/>
+        <location filename="../Modules/Map/MapLibreView.qml" line="45"/>
         <source>Map style temporarily unavailable</source>
         <translation>地圖樣式暫時無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Map/MapLibreView.qml" line="50"/>
+        <location filename="../Modules/Map/MapLibreView.qml" line="51"/>
         <source>Invalid map style</source>
         <translation>地圖樣式無效</translation>
     </message>
     <message>
-        <location filename="../Modules/Map/MapLibreView.qml" line="92"/>
-        <location filename="../Modules/Map/MapLibreView.qml" line="216"/>
+        <location filename="../Modules/Map/MapLibreView.qml" line="94"/>
+        <location filename="../Modules/Map/MapLibreView.qml" line="218"/>
         <source>Map temporarily unavailable</source>
         <translation>地圖暫時無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Map/MapLibreView.qml" line="132"/>
+        <location filename="../Modules/Map/MapLibreView.qml" line="134"/>
         <source>Unable to create map</source>
         <translation>無法建立地圖</translation>
     </message>
@@ -5228,18 +6147,18 @@ Scroll to adjust</source>
 <context>
     <name>MatugenTemplateService</name>
     <message>
-        <location filename="../Services/MatugenTemplateService.qml" line="148"/>
+        <location filename="../Services/MatugenTemplateService.qml" line="121"/>
         <source>Unable to read template</source>
         <translation>無法讀取範本</translation>
     </message>
     <message>
-        <location filename="../Services/MatugenTemplateService.qml" line="151"/>
-        <location filename="../Services/MatugenTemplateService.qml" line="183"/>
+        <location filename="../Services/MatugenTemplateService.qml" line="124"/>
+        <location filename="../Services/MatugenTemplateService.qml" line="156"/>
         <source>Invalid template data</source>
         <translation>無效的範本資料</translation>
     </message>
     <message>
-        <location filename="../Services/MatugenTemplateService.qml" line="185"/>
+        <location filename="../Services/MatugenTemplateService.qml" line="158"/>
         <source>Template operation failed</source>
         <translation>範本操作失敗</translation>
     </message>
@@ -5349,47 +6268,47 @@ Scroll to adjust; click to open microphone controls</source>
 <context>
     <name>MicrophoneContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="14"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="14"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="27"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="27"/>
         <source>Connecting to the PipeWire audio service</source>
         <translation>正在連線 PipeWire 音訊服務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="29"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="29"/>
         <source>No microphone devices detected</source>
         <translation>未檢測到可用的麥克風裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="43"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="43"/>
         <source>Open advanced sound settings</source>
         <translation>開啟高階聲音設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="92"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="92"/>
         <source>Input</source>
         <translation>輸入</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="97"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="97"/>
         <source>Default input</source>
         <translation>預設輸入</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="113"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="113"/>
         <source>Input devices</source>
         <translation>輸入裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="130"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="130"/>
         <source>Collapse input devices</source>
         <translation>收起輸入裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/MicrophoneContent.qml" line="130"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="130"/>
         <source>Expand input devices</source>
         <translation>展開輸入裝置</translation>
     </message>
@@ -5405,21 +6324,129 @@ we’ll be right back.</source>
     </message>
 </context>
 <context>
+    <name>MousePage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="30"/>
+        <source>Saving…</source>
+        <translation>正在保存…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="32"/>
+        <source>Changes are saved and applied automatically</source>
+        <translation>調整後自動保存並立即生效</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="44"/>
+        <source>Pointer motion</source>
+        <translation>鼠標移動</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="49"/>
+        <source>Enable mouse settings</source>
+        <translation>啓用鼠標設置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="50"/>
+        <source>Enable this to adjust mouse pointer speed here.</source>
+        <translation>啓用後可在這裏調整鼠標移動速度。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="60"/>
+        <source>Pointer speed</source>
+        <translation>移動速度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="61"/>
+        <source>Move left for slower motion or right for faster motion. The default is 0. Only affects the mouse.</source>
+        <translation>向左更慢，向右更快；0 爲默認速度。僅影響鼠標。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="74"/>
+        <source>Acceleration profile</source>
+        <translation>加速模式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="75"/>
+        <source>Adaptive acceleration depends on movement speed. Flat acceleration uses a fixed ratio.</source>
+        <translation>自適應隨移動速度加速；恆速保持固定比例。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="84"/>
+        <source>Adaptive</source>
+        <translation>自適應</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="88"/>
+        <source>Flat</source>
+        <translation>恆速</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="100"/>
+        <source>Reset pointer speed</source>
+        <translation>恢復默認速度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="112"/>
+        <source>Cursor appearance</source>
+        <translation>光標外觀</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="117"/>
+        <source>Enable cursor settings</source>
+        <translation>啓用光標設置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="118"/>
+        <source>Enable this to select a cursor theme and size.</source>
+        <translation>啓用後可選擇光標樣式和大小。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="127"/>
+        <source>Cursor theme</source>
+        <translation>光標樣式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="128"/>
+        <source>Choose an installed cursor theme</source>
+        <translation>選擇已安裝的光標主題</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="136"/>
+        <source>Choose cursor theme</source>
+        <translation>選擇光標主題</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="144"/>
+        <source>Cursor size</source>
+        <translation>光標大小</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="145"/>
+        <source>Common sizes are 24, 32 or 48 pixels.</source>
+        <translation>常用大小爲 24、32 或 48 像素。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/MousePage.qml" line="149"/>
+        <source> px</source>
+        <translation> 像素</translation>
+    </message>
+</context>
+<context>
     <name>Network</name>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="17"/>
+        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="18"/>
         <source>Network connected</source>
         <translation>網路已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="18"/>
+        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="19"/>
         <source>
 Click to open network settings</source>
         <translation>
 點選開啟網路設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="20"/>
+        <location filename="../Modules/Bar/QuickSettings/Network.qml" line="21"/>
         <source>Network disconnected
 Click to open network settings</source>
         <translation>網路未連線
@@ -5447,192 +6474,192 @@ Click to open network settings</source>
 <context>
     <name>NetworkContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="30"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="50"/>
         <source>NetworkManager is currently unavailable</source>
         <translation>NetworkManager 當前不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="33"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="53"/>
         <source>No Wi-Fi device detected</source>
         <translation>未檢測到 Wi-Fi 裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="36"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="56"/>
         <source>Wi-Fi is blocked by a hardware switch or rfkill</source>
         <translation>Wi-Fi 已被硬體開關或 rfkill 阻止</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="39"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="59"/>
         <source>Wi-Fi is off</source>
         <translation>Wi-Fi 已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="88"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="108"/>
         <source>Network sign-in required</source>
         <translation>需要登入網路門戶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="91"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="111"/>
         <source>Network connectivity is limited</source>
         <translation>網路連線受限</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="94"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="114"/>
         <source>Internet is available</source>
         <translation>網際網路可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="97"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="117"/>
         <source>Connected; internet access could not be confirmed</source>
         <translation>已連線，無法確認網際網路狀態</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="99"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="119"/>
         <source>No active connection</source>
         <translation>當前未連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="110"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="130"/>
         <source>Manual IPv4</source>
         <translation>手動 IPv4</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="112"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="132"/>
         <source>DHCP + custom DNS</source>
         <translation>DHCP + 自訂 DNS</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="114"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="134"/>
         <source>Automatic (DHCP)</source>
         <translation>自動 DHCP</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="116"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="136"/>
         <source>Connect automatically</source>
         <translation>自動連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="133"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="153"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="215"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="238"/>
         <source>Not connected</source>
         <translation>未連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="243"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="266"/>
         <source>Open network portal</source>
         <translation>開啟網路門戶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="272"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="295"/>
         <source>Saved networks</source>
         <translation>已儲存網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="288"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="311"/>
         <source>Available networks</source>
         <translation>可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="289"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="312"/>
         <source>Getting scan results</source>
         <translation>正在獲取掃描結果</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="290"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="313"/>
         <source> networks</source>
         <translation> 個網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="307"/>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="312"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="329"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="334"/>
         <source>Searching for available networks</source>
         <translation>正在查詢可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="361"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="383"/>
         <source>No available networks found</source>
         <translation>未發現可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="379"/>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="505"/>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="627"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="401"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="527"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="651"/>
         <source>Forget network</source>
         <translation>遺忘網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="392"/>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="699"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="414"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="726"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="400"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="422"/>
         <source>Forget</source>
         <translation>遺忘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="425"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="447"/>
         <source>Refresh network list</source>
         <translation>重新整理網路列表</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="444"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="466"/>
         <source>Wi-Fi switch</source>
         <translation>Wi-Fi 開關</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="494"/>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="609"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="516"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="633"/>
         <source>Network action</source>
         <translation>網路操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="561"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="585"/>
         <source>Connected · </source>
         <translation>已連線 · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="562"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="586"/>
         <source>Saved · </source>
         <translation>已儲存 · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="565"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="589"/>
         <source>Open network</source>
         <translation>開放網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="620"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="644"/>
         <source>Disconnect</source>
         <translation>斷開連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="668"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="692"/>
         <source>Network password</source>
         <translation>網路密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="681"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="708"/>
         <source>Hide password</source>
         <translation>隱藏密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="681"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="708"/>
         <source>Show password</source>
         <translation>顯示密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="704"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="731"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Right/NetworkContent.qml" line="380"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="402"/>
         <source>This will delete the saved connection for “%1”.</source>
         <translation>這將刪除「%1」的已儲存連線。</translation>
     </message>
@@ -5986,165 +7013,210 @@ Click to open network settings</source>
 <context>
     <name>NetworkService</name>
     <message>
-        <location filename="../Services/NetworkService.qml" line="191"/>
+        <location filename="../Services/NetworkService.qml" line="192"/>
         <source>Disconnected</source>
         <translation>已斷開</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="192"/>
+        <location filename="../Services/NetworkService.qml" line="193"/>
         <source>Wired</source>
         <translation>有線</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="299"/>
+        <location filename="../Services/NetworkService.qml" line="300"/>
         <source>Wired network</source>
         <translation>有線網路</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="341"/>
+        <location filename="../Services/NetworkService.qml" line="342"/>
         <source>Another network operation is already in progress</source>
         <translation>另一項網路操作仍在進行</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="370"/>
+        <location filename="../Services/NetworkService.qml" line="371"/>
         <source>Network operation failed</source>
         <translation>網路操作失敗</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="397"/>
-        <location filename="../Services/NetworkService.qml" line="452"/>
+        <location filename="../Services/NetworkService.qml" line="398"/>
+        <location filename="../Services/NetworkService.qml" line="453"/>
         <source>NetworkManager is unavailable</source>
         <translation>NetworkManager 不可用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="402"/>
+        <location filename="../Services/NetworkService.qml" line="403"/>
         <source>Wi-Fi is blocked by hardware or rfkill</source>
         <translation>Wi-Fi 已被硬體或 rfkill 阻止</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="457"/>
+        <location filename="../Services/NetworkService.qml" line="458"/>
         <source>No Wi-Fi device detected</source>
         <translation>未檢測到 Wi-Fi 裝置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="462"/>
+        <location filename="../Services/NetworkService.qml" line="463"/>
         <source>Wi-Fi is off</source>
         <translation>Wi-Fi 已關閉</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="486"/>
+        <location filename="../Services/NetworkService.qml" line="487"/>
         <source>The target network is no longer available</source>
         <translation>目標網路已不可用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="501"/>
+        <location filename="../Services/NetworkService.qml" line="502"/>
         <source>This authentication type requires the second-phase Secret Agent/Extras backend</source>
         <translation>該網路認證型別需要第二階段 Secret Agent/Extras 後端</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="518"/>
+        <location filename="../Services/NetworkService.qml" line="519"/>
         <source>The current Quickshell API only supports WPA/WPA2-PSK and SAE password connections</source>
         <translation>當前 Quickshell API 僅支援 WPA/WPA2-PSK 與 SAE 密碼連線</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="576"/>
+        <location filename="../Services/NetworkService.qml" line="577"/>
         <source>No active network to disconnect</source>
         <translation>沒有可斷開的活動網路</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="593"/>
+        <location filename="../Services/NetworkService.qml" line="594"/>
         <source>No saved network configuration found</source>
         <translation>未找到已儲存的網路配置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="691"/>
+        <location filename="../Services/NetworkService.qml" line="692"/>
         <source>The network profile cannot currently be written</source>
         <translation>目前無法寫入網路設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="710"/>
+        <location filename="../Services/NetworkService.qml" line="711"/>
         <source>Invalid IPv4 configuration format</source>
         <translation>IPv4 配置格式無效</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="724"/>
+        <location filename="../Services/NetworkService.qml" line="725"/>
         <source>The current IPv4 mode cannot be edited on this page</source>
         <translation>當前 IPv4 模式不在此頁面的編輯範圍內</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="778"/>
+        <location filename="../Services/NetworkService.qml" line="779"/>
         <source>The network profile cannot currently be deleted</source>
         <translation>目前無法刪除網路設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="853"/>
+        <location filename="../Services/NetworkService.qml" line="854"/>
         <source>Another add operation is already in progress</source>
         <translation>另一項新增操作仍在進行</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="858"/>
+        <location filename="../Services/NetworkService.qml" line="859"/>
         <source>SSID must be 1–32 UTF-8 bytes</source>
         <translation>SSID 必須是 1 至 32 個 UTF-8 位元組</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="862"/>
+        <location filename="../Services/NetworkService.qml" line="863"/>
         <source>Invalid Wi-Fi password format</source>
         <translation>Wi-Fi 密碼格式無效</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="869"/>
+        <location filename="../Services/NetworkService.qml" line="870"/>
         <source>Multiple Wi-Fi devices found networks with the same name; select a specific device from the nearby networks list</source>
         <translation>多個 Wi-Fi 裝置發現了同名網路，請從附近網路列表選擇具體裝置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="879"/>
+        <location filename="../Services/NetworkService.qml" line="880"/>
         <source>This network requires a valid Wi-Fi password</source>
         <translation>該網路需要有效的 Wi-Fi 密碼</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="897"/>
+        <location filename="../Services/NetworkService.qml" line="898"/>
         <source>Unable to create Wi-Fi profile</source>
         <translation>無法建立 Wi-Fi 設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="905"/>
+        <location filename="../Services/NetworkService.qml" line="906"/>
         <source>This NetworkManager profile cannot currently be connected</source>
         <translation>目前無法連線此 NetworkManager 設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="939"/>
+        <location filename="../Services/NetworkService.qml" line="940"/>
         <source>NetworkManager connectivity checking is unavailable or disabled</source>
         <translation>NetworkManager 連線性檢查不可用或未啟用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1025"/>
+        <location filename="../Services/NetworkService.qml" line="1026"/>
         <source>Incorrect password or authentication timed out</source>
         <translation>密碼錯誤或認證超時</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1025"/>
+        <location filename="../Services/NetworkService.qml" line="1026"/>
         <source>Network password required</source>
         <translation>網路需要密碼</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1070"/>
+        <location filename="../Services/NetworkService.qml" line="1080"/>
         <source>Connection did not complete</source>
         <translation>連線未完成</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1104"/>
+        <location filename="../Services/NetworkService.qml" line="1114"/>
         <source>NetworkManager did not confirm the profile update</source>
         <translation>NetworkManager 未確認設定檔寫入</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1117"/>
+        <location filename="../Services/NetworkService.qml" line="1127"/>
         <source>NetworkManager did not confirm profile deletion</source>
         <translation>NetworkManager 未確認設定檔刪除</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1137"/>
+        <location filename="../Services/NetworkService.qml" line="1147"/>
         <source>Network operation timed out</source>
         <translation>網路操作超時</translation>
+    </message>
+</context>
+<context>
+    <name>NightModeContent</name>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="11"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="47"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="51"/>
+        <source>Night Mode</source>
+        <translation>夜間模式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="32"/>
+        <source>The compositor does not provide Gamma control</source>
+        <translation>合成器未提供 Gamma 控制</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="56"/>
+        <source>Night temperature</source>
+        <translation>夜間色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="68"/>
+        <source>Scheduled temperature</source>
+        <translation>排程色溫</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="71"/>
+        <source>%1 K</source>
+        <translation>%1 K</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="84"/>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="93"/>
+        <source>Contrast</source>
+        <translation>對比度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/NightModeContent.qml" line="115"/>
+        <source>Gamma control unavailable: %1</source>
+        <translation>Gamma 控制無法使用：%1</translation>
     </message>
 </context>
 <context>
@@ -6931,186 +8003,191 @@ Click to open network settings</source>
     </message>
     <message>
         <location filename="../Common/NiriActionNames.js" line="160"/>
+        <source>Keystone: lyrics</source>
+        <translation>Keystone：歌詞</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="161"/>
         <source>Keystone: tools</source>
         <translation>Keystone：工具</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="161"/>
+        <location filename="../Common/NiriActionNames.js" line="162"/>
         <source>Sidebar: open</source>
         <translation>側邊欄：開啟</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="162"/>
+        <location filename="../Common/NiriActionNames.js" line="163"/>
         <source>Sidebar: close</source>
         <translation>側邊欄：關閉</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="163"/>
+        <location filename="../Common/NiriActionNames.js" line="164"/>
         <source>Sidebar: toggle</source>
         <translation>側邊欄：切換</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="164"/>
+        <location filename="../Common/NiriActionNames.js" line="165"/>
         <source>Run program</source>
         <translation>執行程式</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="165"/>
+        <location filename="../Common/NiriActionNames.js" line="166"/>
         <source>Run shell command</source>
         <translation>執行 Shell 命令</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="166"/>
+        <location filename="../Common/NiriActionNames.js" line="167"/>
         <source>Spotlight: open applications</source>
         <translation>Spotlight：開啟應用</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="167"/>
+        <location filename="../Common/NiriActionNames.js" line="168"/>
         <source>Spotlight: open clipboard</source>
         <translation>Spotlight：開啟剪貼簿</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="168"/>
+        <location filename="../Common/NiriActionNames.js" line="169"/>
         <source>Spotlight: open wallpaper picker</source>
         <translation>Spotlight：開啟桌布選擇</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="169"/>
+        <location filename="../Common/NiriActionNames.js" line="170"/>
         <source>Control center: open Account</source>
         <translation>設定中心：開啟賬戶頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="170"/>
+        <location filename="../Common/NiriActionNames.js" line="171"/>
         <source>Control center: open General</source>
         <translation>設定中心：開啟通用頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="171"/>
+        <location filename="../Common/NiriActionNames.js" line="172"/>
         <source>Control center: open Wallpaper</source>
         <translation>設定中心：開啟桌布頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="172"/>
+        <location filename="../Common/NiriActionNames.js" line="173"/>
         <source>Control center: open Theme</source>
         <translation>設定中心：開啟主題頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="173"/>
+        <location filename="../Common/NiriActionNames.js" line="174"/>
         <source>Control center: open Keystone</source>
         <translation>設定中心：開啟拱心石頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="174"/>
+        <location filename="../Common/NiriActionNames.js" line="175"/>
         <source>Control center: open Advanced</source>
         <translation>設定中心：開啟進階頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="175"/>
+        <location filename="../Common/NiriActionNames.js" line="176"/>
         <source>Control center: open Language &amp; region</source>
         <translation>設定中心：開啟語言與地區頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="176"/>
+        <location filename="../Common/NiriActionNames.js" line="177"/>
         <source>Control center: open current page</source>
         <translation>設定中心：開啟目前頁面</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="177"/>
+        <location filename="../Common/NiriActionNames.js" line="178"/>
         <source>Control center: toggle Account</source>
         <translation>設定中心：切換賬戶頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="178"/>
+        <location filename="../Common/NiriActionNames.js" line="179"/>
         <source>Control center: toggle General</source>
         <translation>設定中心：切換通用頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="179"/>
+        <location filename="../Common/NiriActionNames.js" line="180"/>
         <source>Control center: toggle Wallpaper</source>
         <translation>設定中心：切換桌布頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="180"/>
+        <location filename="../Common/NiriActionNames.js" line="181"/>
         <source>Control center: toggle Theme</source>
         <translation>設定中心：切換主題頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="181"/>
+        <location filename="../Common/NiriActionNames.js" line="182"/>
         <source>Control center: toggle Keystone</source>
         <translation>設定中心：切換拱心石頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="182"/>
+        <location filename="../Common/NiriActionNames.js" line="183"/>
         <source>Control center: toggle Advanced</source>
         <translation>設定中心：切換進階頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="183"/>
+        <location filename="../Common/NiriActionNames.js" line="184"/>
         <source>Control center: toggle Language &amp; region</source>
         <translation>設定中心：切換語言與地區頁</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="184"/>
+        <location filename="../Common/NiriActionNames.js" line="185"/>
         <source>Control center: toggle current page</source>
         <translation>設定中心：切換目前頁面</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="185"/>
+        <location filename="../Common/NiriActionNames.js" line="186"/>
         <source>Notifications: open</source>
         <translation>通知側欄：開啟</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="186"/>
+        <location filename="../Common/NiriActionNames.js" line="187"/>
         <source>Quick settings: open</source>
         <translation>快速設定：開啟</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="187"/>
+        <location filename="../Common/NiriActionNames.js" line="188"/>
         <source>Notifications: close</source>
         <translation>通知側欄：關閉</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="188"/>
+        <location filename="../Common/NiriActionNames.js" line="189"/>
         <source>Quick settings: close</source>
         <translation>快速設定：關閉</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="189"/>
+        <location filename="../Common/NiriActionNames.js" line="190"/>
         <source>Notifications: toggle</source>
         <translation>通知側欄：切換</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="190"/>
+        <location filename="../Common/NiriActionNames.js" line="191"/>
         <source>Quick settings: toggle</source>
         <translation>快速設定：切換</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="194"/>
+        <location filename="../Common/NiriActionNames.js" line="195"/>
         <source>Shortcut map: open</source>
         <translation>快捷鍵配置圖：開啟</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="195"/>
+        <location filename="../Common/NiriActionNames.js" line="196"/>
         <source>Shortcut map: close</source>
         <translation>快捷鍵配置圖：關閉</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="196"/>
+        <location filename="../Common/NiriActionNames.js" line="197"/>
         <source>Shortcut map: toggle</source>
         <translation>快捷鍵配置圖：切換</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="191"/>
+        <location filename="../Common/NiriActionNames.js" line="192"/>
         <source>Power menu: open</source>
         <translation>電源選單：開啟</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="192"/>
+        <location filename="../Common/NiriActionNames.js" line="193"/>
         <source>Power menu: close</source>
         <translation>電源選單：關閉</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="193"/>
+        <location filename="../Common/NiriActionNames.js" line="194"/>
         <source>Power menu: toggle</source>
         <translation>電源選單：切換</translation>
     </message>
@@ -7118,57 +8195,57 @@ Click to open network settings</source>
 <context>
     <name>NiriCommands</name>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="214"/>
+        <location filename="../Common/NiriActionNames.js" line="215"/>
         <source>Toggle screen reader</source>
         <translation>切換螢幕閱讀器</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="215"/>
+        <location filename="../Common/NiriActionNames.js" line="216"/>
         <source>Increase volume</source>
         <translation>提高音量</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="216"/>
+        <location filename="../Common/NiriActionNames.js" line="217"/>
         <source>Decrease volume</source>
         <translation>降低音量</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="217"/>
+        <location filename="../Common/NiriActionNames.js" line="218"/>
         <source>Toggle audio mute</source>
         <translation>切換靜音</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="218"/>
+        <location filename="../Common/NiriActionNames.js" line="219"/>
         <source>Toggle microphone mute</source>
         <translation>切換麥克風靜音</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="219"/>
+        <location filename="../Common/NiriActionNames.js" line="220"/>
         <source>Play/pause media</source>
         <translation>播放／暫停</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="220"/>
+        <location filename="../Common/NiriActionNames.js" line="221"/>
         <source>Stop media</source>
         <translation>停止播放</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="221"/>
+        <location filename="../Common/NiriActionNames.js" line="222"/>
         <source>Previous track</source>
         <translation>上一首</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="222"/>
+        <location filename="../Common/NiriActionNames.js" line="223"/>
         <source>Next track</source>
         <translation>下一首</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="223"/>
+        <location filename="../Common/NiriActionNames.js" line="224"/>
         <source>Increase screen brightness</source>
         <translation>提高螢幕亮度</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="224"/>
+        <location filename="../Common/NiriActionNames.js" line="225"/>
         <source>Decrease screen brightness</source>
         <translation>降低螢幕亮度</translation>
     </message>
@@ -7176,23 +8253,23 @@ Click to open network settings</source>
 <context>
     <name>NiriConfigService</name>
     <message>
-        <location filename="../Services/NiriConfigService.qml" line="30"/>
+        <location filename="../Services/NiriConfigService.qml" line="49"/>
         <source>Unable to check configuration</source>
         <translation>無法檢查設定</translation>
     </message>
     <message>
-        <location filename="../Services/NiriConfigService.qml" line="31"/>
+        <location filename="../Services/NiriConfigService.qml" line="50"/>
         <source>Configuration is invalid</source>
         <translation>設定無效</translation>
     </message>
     <message>
-        <location filename="../Services/NiriConfigService.qml" line="34"/>
+        <location filename="../Services/NiriConfigService.qml" line="53"/>
         <source>Configuration is not writable</source>
         <translation>設定無法寫入</translation>
     </message>
     <message>
-        <location filename="../Services/NiriConfigService.qml" line="28"/>
-        <location filename="../Services/NiriConfigService.qml" line="145"/>
+        <location filename="../Services/NiriConfigService.qml" line="47"/>
+        <location filename="../Services/NiriConfigService.qml" line="174"/>
         <source>Unable to save changes</source>
         <translation>無法儲存變更</translation>
     </message>
@@ -7241,7 +8318,7 @@ Click to open network settings</source>
 <context>
     <name>NotificationList</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/notifications/NotificationList.qml" line="78"/>
+        <location filename="../Modules/Sidebars/Dashboard/notifications/NotificationList.qml" line="78"/>
         <source>No notifications</source>
         <translation>暫無通知</translation>
     </message>
@@ -7249,52 +8326,64 @@ Click to open network settings</source>
 <context>
     <name>NotificationManager</name>
     <message>
-        <location filename="../Services/NotificationManager.qml" line="141"/>
-        <location filename="../Services/NotificationManager.qml" line="199"/>
-        <location filename="../Services/NotificationManager.qml" line="299"/>
+        <location filename="../Services/NotificationManager.qml" line="211"/>
+        <location filename="../Services/NotificationManager.qml" line="276"/>
+        <location filename="../Services/NotificationManager.qml" line="417"/>
         <source>System</source>
         <translation>系統</translation>
     </message>
     <message>
-        <location filename="../Services/NotificationManager.qml" line="148"/>
-        <location filename="../Services/NotificationManager.qml" line="203"/>
+        <location filename="../Services/NotificationManager.qml" line="218"/>
+        <location filename="../Services/NotificationManager.qml" line="280"/>
         <source>Notification</source>
         <translation>通知</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="112"/>
         <source>File action failed</source>
         <translation>檔案操作失敗</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="112"/>
         <source>Could not open the saved file or its location: %1</source>
         <translation>無法開啟已儲存的檔案或其所在位置：%1</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="115"/>
         <source>File no longer exists</source>
         <translation>檔案已不存在</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="115"/>
         <source>Opened the containing folder: %1</source>
         <translation>已開啟所在資料夾：%1</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="329"/>
+        <location filename="../Services/NotificationManager.qml" line="334"/>
         <source>Show in folder</source>
         <translation>顯示所在位置</translation>
     </message>
     <message>
+        <location filename="../Services/NotificationManager.qml" line="339"/>
         <source>Open</source>
         <translation>開啟</translation>
+    </message>
+    <message>
+        <location filename="../Services/NotificationManager.qml" line="366"/>
+        <source>Focus application window</source>
+        <translation>聚焦應用窗口</translation>
     </message>
 </context>
 <context>
     <name>NotificationUtils</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/notifications/NotificationUtils.qml" line="12"/>
+        <location filename="../Modules/Sidebars/Dashboard/notifications/NotificationUtils.qml" line="12"/>
         <source>Just now</source>
         <translation>剛剛</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/notifications/NotificationUtils.qml" line="20"/>
+        <location filename="../Modules/Sidebars/Dashboard/notifications/NotificationUtils.qml" line="20"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
@@ -7333,383 +8422,383 @@ Click to open network settings</source>
 <context>
     <name>PersonalizationConfig</name>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="22"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="23"/>
         <source>Stretch</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="25"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="26"/>
         <source>Fit</source>
         <translation>適合</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="28"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="29"/>
         <source>Fill</source>
         <translation>填充</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="31"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="32"/>
         <source>Tile</source>
         <translation>平鋪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="34"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="35"/>
         <source>Tile vertically</source>
         <translation>垂直平鋪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="37"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="38"/>
         <source>Tile horizontally</source>
         <translation>水平平鋪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="40"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="41"/>
         <source>Cover</source>
         <translation>覆蓋</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="44"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="45"/>
         <source>Panorama</source>
         <translation>全景</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="48"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="122"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="49"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="123"/>
         <source>Random</source>
         <translation>隨機</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="51"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="77"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="52"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="78"/>
         <source>None</source>
         <translation>無</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="54"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="83"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="55"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="84"/>
         <source>Crossfade</source>
         <translation>淡入淡出</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="57"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="99"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="58"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="100"/>
         <source>Wipe</source>
         <translation>擦除</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="60"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="61"/>
         <source>Disc</source>
         <translation>圓盤</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="63"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="64"/>
         <source>Stripes</source>
         <translation>條紋</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="66"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="67"/>
         <source>Iris bloom</source>
         <translation>光圈綻放</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="69"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="70"/>
         <source>Pixelate</source>
         <translation>畫素化</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="72"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="73"/>
         <source>Portal</source>
         <translation>門戶</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="80"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="81"/>
         <source>Simple</source>
         <translation>簡單</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="86"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="87"/>
         <source>From left</source>
         <translation>從左側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="89"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="90"/>
         <source>From right</source>
         <translation>從右側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="92"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="93"/>
         <source>From top</source>
         <translation>從頂部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="95"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="96"/>
         <source>From bottom</source>
         <translation>從底部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="102"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="103"/>
         <source>Wave</source>
         <translation>波浪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="106"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="107"/>
         <source>Grow</source>
         <translation>擴散</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="110"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="111"/>
         <source>Grow from center</source>
         <translation>中心擴散</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="114"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="115"/>
         <source>Grow from random position</source>
         <translation>隨機位置擴散</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="118"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="119"/>
         <source>Shrink inward</source>
         <translation>向內收縮</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="127"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="128"/>
         <source>Linear</source>
         <translation>線性</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="130"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="131"/>
         <source>Quadratic</source>
         <translation>二次方</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="133"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="134"/>
         <source>Cubic</source>
         <translation>三次方</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="136"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="137"/>
         <source>Quartic</source>
         <translation>四次方</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="139"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="140"/>
         <source>Quintic</source>
         <translation>五次方</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="142"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="143"/>
         <source>Sine</source>
         <translation>正弦</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="145"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="146"/>
         <source>Exponential</source>
         <translation>指數</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="149"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="150"/>
         <source>Circular</source>
         <translation>圓形</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="153"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="154"/>
         <source>Custom Bézier</source>
         <translation>自定義貝塞爾</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="160"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="161"/>
         <source>Tonal spot</source>
         <translation>音色斑點</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="163"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="164"/>
         <source>Vibrant</source>
         <translation>鮮豔</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="166"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="167"/>
         <source>Content</source>
         <translation>內容</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="169"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="170"/>
         <source>Expressive</source>
         <translation>具有表現力的</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="172"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="173"/>
         <source>Fidelity</source>
         <translation>保真</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="175"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="176"/>
         <source>Fruit salad</source>
         <translation>水果沙拉</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="178"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="179"/>
         <source>Monochrome</source>
         <translation>單色</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="181"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="182"/>
         <source>Neutral</source>
         <translation>中性</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="184"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="185"/>
         <source>Rainbow</source>
         <translation>彩虹</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="189"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="190"/>
         <source>Bangs</source>
         <translation>劉海</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="192"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="193"/>
         <source>Pill</source>
         <translation>藥丸</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="196"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="197"/>
         <source>Top</source>
         <translation>頂部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="200"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="201"/>
         <source>Left</source>
         <translation>左側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="204"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="205"/>
         <source>Bottom</source>
         <translation>底部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="208"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="209"/>
         <source>Right</source>
         <translation>右側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="342"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="344"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="463"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="346"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="381"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="348"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="384"/>
         <source>Quick Settings</source>
         <translation>快速設定</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="350"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="352"/>
         <source>Pomodoro</source>
         <translation>番茄鐘</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="361"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="364"/>
         <source>Workspaces</source>
         <translation>工作區</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="365"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="368"/>
         <source>Information</source>
         <translation>資訊</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="369"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="372"/>
         <source>Active Window</source>
         <translation>聚焦視窗</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="373"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="376"/>
         <source>Tray</source>
         <translation>系統匣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="377"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="380"/>
         <source>System Monitor</source>
         <translation>系統監視器</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="389"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="392"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="393"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="396"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="397"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="400"/>
         <source>Brightness</source>
         <translation>亮度</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="401"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="404"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="405"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="408"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="409"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="412"/>
         <source>Battery</source>
         <translation>電池</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="414"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="417"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="419"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="422"/>
         <source>Power</source>
         <translation>電源</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="434"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="439"/>
         <source>Do not open</source>
         <translation>不開啟</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="438"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="443"/>
         <source>Media controls</source>
         <translation>媒體控制</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="442"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="447"/>
         <source>Lyrics</source>
         <translation>歌詞</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="446"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="451"/>
         <source>Dashboard</source>
         <translation>儀表板</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="450"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="455"/>
         <source>Media library</source>
         <translation>媒體庫</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="454"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="459"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="462"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="467"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="469"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="474"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>
@@ -7717,52 +8806,52 @@ Click to open network settings</source>
 <context>
     <name>PomodoroTimer</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="42"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="42"/>
         <source>Long break</source>
         <translation>長休息</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="43"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="43"/>
         <source>Break</source>
         <translation>休息</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="43"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="43"/>
         <source>Focus</source>
         <translation>專注</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="85"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="85"/>
         <source>Pause Pomodoro</source>
         <translation>暫停番茄鍾</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="85"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="85"/>
         <source>Start Pomodoro</source>
         <translation>開始番茄鍾</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="90"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="90"/>
         <source>Pause</source>
         <translation>暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="91"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="91"/>
         <source>Start</source>
         <translation>開始</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="92"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="92"/>
         <source>Resume</source>
         <translation>繼續</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="113"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="113"/>
         <source>Reset Pomodoro</source>
         <translation>重置番茄鍾</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/PomodoroTimer.qml" line="117"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/PomodoroTimer.qml" line="117"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
@@ -7773,6 +8862,206 @@ Click to open network settings</source>
         <location filename="../Modules/Bar/QuickSettings/PowerButton.qml" line="15"/>
         <source>Power menu</source>
         <translation>電源選單</translation>
+    </message>
+</context>
+<context>
+    <name>PowerManagementPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="19"/>
+        <source>%1 s</source>
+        <translation>%1 秒</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="21"/>
+        <source>%1 h</source>
+        <translation>%1 小時</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="22"/>
+        <source>%1 min</source>
+        <translation>%1 分鐘</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="32"/>
+        <source>Never</source>
+        <translation>從不</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="50"/>
+        <source>Idle and sleep settings are saved automatically. Lid settings require Apply.</source>
+        <translation>空閒與睡眠設置自動保存；合蓋設置需點擊應用。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="51"/>
+        <source>Reading power settings…</source>
+        <translation>正在讀取電源設置…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="64"/>
+        <source>Battery and power</source>
+        <translation>電池與供電</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="70"/>
+        <source>On battery</source>
+        <translation>正在使用電池</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="70"/>
+        <source>Connected to external power</source>
+        <translation>已連接外部電源</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="73"/>
+        <source>Reading battery information…</source>
+        <translation>正在讀取電池信息…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="75"/>
+        <source>No battery detected</source>
+        <translation>未檢測到電池</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="76"/>
+        <source>Battery: %1%</source>
+        <translation>電量 %1%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="78"/>
+        <source> · Fully charged</source>
+        <translation> · 已充滿</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="80"/>
+        <source> · Charging</source>
+        <translation> · 正在充電</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="90"/>
+        <source>Time until fully charged</source>
+        <translation>預計充滿時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="90"/>
+        <source>Estimated remaining time</source>
+        <translation>預計剩餘時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="93"/>
+        <source>Estimating…</source>
+        <translation>正在估算…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="101"/>
+        <source>Battery health</source>
+        <translation>電池健康度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="102"/>
+        <source>Maximum capacity is approximately %1% of design capacity</source>
+        <translation>最大容量約爲設計容量的 %1%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="114"/>
+        <source>Automatic power management</source>
+        <translation>自動電源管理</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="120"/>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="127"/>
+        <source>Enable idle management</source>
+        <translation>啓用空閒管理</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="121"/>
+        <source>Dim the screen, lock, turn off displays or suspend when idle according to the settings below.</source>
+        <translation>空閒時按下方設置調暗屏幕、鎖屏、息屏或睡眠。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="135"/>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="141"/>
+        <source>Keep awake</source>
+        <translation>保持喚醒</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="136"/>
+        <source>Pause idle actions that respect Keep awake, for presentations or reading.</source>
+        <translation>暫停遵循“保持喚醒”的空閒動作，適合演示或閱讀。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="149"/>
+        <source>Display and sleep</source>
+        <translation>屏幕與睡眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="154"/>
+        <source>Dim screen</source>
+        <translation>調暗屏幕</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="161"/>
+        <source>Dimmed brightness ratio</source>
+        <translation>調暗後的亮度比例</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="162"/>
+        <source>Relative to current brightness. Restore the original brightness when activity resumes.</source>
+        <translation>相對於當前亮度；恢復操作後還原原來的亮度。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="174"/>
+        <source>Automatically lock</source>
+        <translation>自動鎖屏</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="179"/>
+        <source>Turn off displays</source>
+        <translation>關閉顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="184"/>
+        <source>Automatically suspend</source>
+        <translation>自動睡眠</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="190"/>
+        <source>All delays start from the last activity. Set a shorter lock delay to lock before suspending.</source>
+        <translation>所有時間均從最後一次操作開始計算。需要睡眠前鎖屏時，請將自動鎖屏時間設得更短。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="212"/>
+        <source>Idle management is paused</source>
+        <translation>空閒管理已暫停</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="213"/>
+        <source>Paused while keeping awake</source>
+        <translation>保持喚醒期間暫停</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="213"/>
+        <source>Run after this period of inactivity</source>
+        <translation>無操作達到此時間後執行</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="224"/>
+        <source>Delay</source>
+        <translation>等待時間</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="236"/>
+        <source>Respect keep awake and application inhibitors</source>
+        <translation>遵循保持喚醒與應用阻止請求</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="237"/>
+        <source>Skip this action when an application requests to keep awake.</source>
+        <translation>應用請求保持喚醒時跳過此動作。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PowerManagementPage.qml" line="241"/>
+        <source>: respect keep awake</source>
+        <translation>：遵循保持喚醒</translation>
     </message>
 </context>
 <context>
@@ -7809,274 +9098,366 @@ Click to open network settings</source>
     </message>
 </context>
 <context>
+    <name>PrimaryDisplaySection</name>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="9"/>
+        <source>Primary display</source>
+        <translation>主顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="15"/>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="44"/>
+        <source>Preferred primary display</source>
+        <translation>首選主顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="16"/>
+        <source>Switch to this display when connected. Remember the preference while disconnected and restore it on reconnection.</source>
+        <translation>連接時切換到此屏幕；斷開後保留選擇，下次連接時恢復。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="25"/>
+        <source>No preferred primary display</source>
+        <translation>不指定主顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="37"/>
+        <source> (disconnected)</source>
+        <translation>（未連接）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="50"/>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="57"/>
+        <source>Move windows automatically when the primary display connects</source>
+        <translation>連接主顯示器時自動遷移窗口</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="51"/>
+        <source>Move windows and their workspaces from other displays while preserving their arrangement.</source>
+        <translation>將其他屏幕上的窗口連同工作區移過來，保留原來的排列。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="65"/>
+        <source>The preferred primary display is disconnected. Use an available display until it reconnects.</source>
+        <translation>首選主顯示器未連接，當前使用可用屏幕。接回後將自動恢復。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/PrimaryDisplaySection.qml" line="70"/>
+        <source>Move windows to the primary display now</source>
+        <translation>立即將窗口移至主顯示器</translation>
+    </message>
+</context>
+<context>
+    <name>PrimaryDisplayService</name>
+    <message>
+        <location filename="../Services/PrimaryDisplayService.qml" line="31"/>
+        <source>Cannot update primary display settings.</source>
+        <translation>無法更新主顯示器設置。</translation>
+    </message>
+    <message>
+        <location filename="../Services/PrimaryDisplayService.qml" line="40"/>
+        <source>Saved. Workspaces moved to the primary display: %1.</source>
+        <translation>已保存，並將 %1 個工作區移至主顯示器。</translation>
+    </message>
+    <message>
+        <location filename="../Services/PrimaryDisplayService.qml" line="42"/>
+        <source>Primary display settings have been applied.</source>
+        <translation>主顯示器設置已生效。</translation>
+    </message>
+    <message>
+        <location filename="../Services/PrimaryDisplayService.qml" line="111"/>
+        <source>Primary display settings failed (%1).</source>
+        <translation>主顯示器設置失敗（%1）。</translation>
+    </message>
+</context>
+<context>
     <name>QuickSettingsSurface</name>
     <message>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="72"/>
+        <source>Night Mode</source>
+        <translation>夜間模式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="74"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="74"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="76"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="76"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="78"/>
         <source>Caffeine</source>
         <translation>咖啡因</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="78"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="80"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="80"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="82"/>
         <source>Sound</source>
         <translation>聲音</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="82"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="84"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="84"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="86"/>
         <source>Do not disturb</source>
         <translation>免打擾</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="94"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="100"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="95"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="99"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="105"/>
         <source>Unavailable</source>
         <translation>不可用</translation>
     </message>
     <message>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="96"/>
+        <source>%1 K</source>
+        <translation>%1 K</translation>
+    </message>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="101"/>
         <source>No Wi-Fi device</source>
         <translation>無 Wi-Fi 裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="97"/>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="102"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="107"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
         <source>Off</source>
         <translation>已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="103"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
         <source>Connected</source>
         <translation>已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="103"/>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
         <source>On</source>
         <translation>已開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="106"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
         <source>Keep awake</source>
         <translation>保持喚醒</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="106"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
         <source>Normal sleep</source>
         <translation>正常休眠</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="110"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="115"/>
         <source>Muted</source>
         <translation>已靜音</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="112"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="117"/>
         <source>Dark</source>
         <translation>深色</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="112"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="117"/>
         <source>Light</source>
         <translation>淺色</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="222"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="239"/>
         <source>
 Right-click to change shape; scroll to reorder</source>
         <translation>
 右鍵切換形狀，滾輪調整順序</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="224"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="241"/>
         <source>
 Right-click to open the details panel</source>
         <translation>
 右鍵開啟詳情面板</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="245"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="262"/>
         <source>Edit quick actions
 Right-click to change shape; scroll to reorder</source>
         <translation>編輯快捷按鈕
 右鍵切換形狀，滾輪調整順序</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="247"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="264"/>
         <source>Edit quick actions</source>
         <translation>編輯快捷按鈕</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="256"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="273"/>
         <source>Restart Quickshell</source>
         <translation>重啟 Quickshell</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="265"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="282"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="274"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="291"/>
         <source>Power menu</source>
         <translation>電源選單</translation>
     </message>
 </context>
 <context>
+    <name>QuickSliders</name>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="53"/>
+        <source>Software dimming: %1%</source>
+        <translation>軟體調暗：%1%</translation>
+    </message>
+</context>
+<context>
     <name>RcloneService</name>
     <message>
-        <location filename="../Services/RcloneService.qml" line="148"/>
+        <location filename="../Services/RcloneService.qml" line="149"/>
         <source>Other cloud storage</source>
         <translation>其他雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="164"/>
+        <location filename="../Services/RcloneService.qml" line="165"/>
         <source>Backup</source>
         <translation>備份</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="210"/>
+        <location filename="../Services/RcloneService.qml" line="213"/>
         <source>No writable cloud storage configured</source>
         <translation>尚未設定可寫入的雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="373"/>
+        <location filename="../Services/RcloneService.qml" line="386"/>
         <source>rclone setup failed</source>
         <translation>rclone 設定失敗</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="389"/>
+        <location filename="../Services/RcloneService.qml" line="402"/>
         <source>rclone returned an invalid configuration question</source>
         <translation>rclone 傳回了無效的設定問題</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="416"/>
+        <location filename="../Services/RcloneService.qml" line="429"/>
         <source>The rclone configuration question is missing option details</source>
         <translation>rclone 設定問題缺少選項資訊</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="488"/>
+        <location filename="../Services/RcloneService.qml" line="503"/>
         <source>The selected cloud storage is read-only</source>
         <translation>所選雲端儲存為只讀服務</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="508"/>
+        <location filename="../Services/RcloneService.qml" line="523"/>
         <source>Preparing backup</source>
         <translation>正在準備備份</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="517"/>
+        <location filename="../Services/RcloneService.qml" line="532"/>
         <source>Computer backup supports folders only</source>
         <translation>電腦備份僅支援資料夾</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="536"/>
+        <location filename="../Services/RcloneService.qml" line="551"/>
         <source>Stopping backup…</source>
         <translation>正在停止備份…</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="566"/>
+        <location filename="../Services/RcloneService.qml" line="581"/>
         <source>Backup stopped</source>
         <translation>備份已停止</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="573"/>
+        <location filename="../Services/RcloneService.qml" line="588"/>
         <source>Check the network and remote permissions</source>
         <translation>請檢查網路和遠端權限</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="575"/>
+        <location filename="../Services/RcloneService.qml" line="590"/>
         <source>Failed to back up %1: %2</source>
         <translation>備份 %1 失敗：%2</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="582"/>
+        <location filename="../Services/RcloneService.qml" line="597"/>
         <source>Backup complete. %1 folders backed up</source>
         <translation>備份已完成，共備份 %1 個資料夾</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="610"/>
+        <location filename="../Services/RcloneService.qml" line="627"/>
         <source>Preparing %1 (%2/%3)</source>
         <translation>正在準備 %1（%2/%3）</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="656"/>
+        <location filename="../Services/RcloneService.qml" line="673"/>
         <source>Backing up %1 (%2/%3)</source>
         <translation>正在備份 %1（%2/%3）</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="657"/>
+        <location filename="../Services/RcloneService.qml" line="674"/>
         <source>Checking %1 (%2/%3)</source>
         <translation>正在檢查 %1（%2/%3）</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="711"/>
+        <location filename="../Services/RcloneService.qml" line="728"/>
         <source>Could not read the rclone configuration</source>
         <translation>無法讀取 rclone 配置</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="731"/>
+        <location filename="../Services/RcloneService.qml" line="748"/>
         <source>rclone returned an invalid remote list</source>
         <translation>rclone 返回了無效的 remote 列表</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="745"/>
+        <location filename="../Services/RcloneService.qml" line="762"/>
         <source>No cloud storage configured</source>
         <translation>尚未配置雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="766"/>
+        <location filename="../Services/RcloneService.qml" line="783"/>
         <source>Could not load the rclone service list</source>
         <translation>無法讀取 rclone 服務清單</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="779"/>
+        <location filename="../Services/RcloneService.qml" line="796"/>
         <source>rclone returned an invalid service list</source>
         <translation>rclone 傳回了無效的服務清單</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="814"/>
+        <location filename="../Services/RcloneService.qml" line="831"/>
         <source>Could not remove the cloud storage configuration</source>
         <translation>無法刪除雲端儲存設定</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="825"/>
+        <location filename="../Services/RcloneService.qml" line="842"/>
         <source>The rclone configuration command failed</source>
         <translation>rclone 設定命令失敗</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="859"/>
+        <location filename="../Services/RcloneService.qml" line="876"/>
         <source>This cloud storage does not currently provide capacity information</source>
         <translation>此雲端儲存暫不提供容量資訊</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="876"/>
+        <location filename="../Services/RcloneService.qml" line="893"/>
         <source>This cloud storage did not report a total capacity</source>
         <translation>此雲端儲存未報告總容量</translation>
     </message>
     <message>
-        <location filename="../Services/RcloneService.qml" line="880"/>
+        <location filename="../Services/RcloneService.qml" line="897"/>
         <source>Could not parse cloud storage capacity</source>
         <translation>無法解析雲端儲存容量</translation>
     </message>
@@ -8095,31 +9476,33 @@ Right-click to change shape; scroll to reorder</source>
     </message>
     <message>
         <location filename="../Services/RecordingCoordinator.qml" line="25"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="26"/>
         <source>Recording</source>
         <translation>正在錄製</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingCoordinator.qml" line="26"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="27"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="28"/>
         <source>Processing recording</source>
         <translation>正在處理錄製檔案</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingCoordinator.qml" line="29"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="31"/>
         <source>Starting audio recording</source>
         <translation>正在啟動錄音</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingCoordinator.qml" line="30"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="32"/>
         <source>Recording audio</source>
         <translation>正在錄音</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingCoordinator.qml" line="31"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="33"/>
         <source>Stopping audio recording</source>
         <translation>正在停止錄音</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingCoordinator.qml" line="32"/>
+        <location filename="../Services/RecordingCoordinator.qml" line="34"/>
         <source>Finishing audio recording</source>
         <translation>正在完成錄音檔案</translation>
     </message>
@@ -8127,42 +9510,30 @@ Right-click to change shape; scroll to reorder</source>
 <context>
     <name>RecordingService</name>
     <message>
-        <location filename="../Services/RecordingService.qml" line="51"/>
-        <source>key returned an unsupported JSON schema</source>
-        <translation>key 返回了不受支援的 JSON schema</translation>
-    </message>
-    <message>
-        <location filename="../Services/RecordingService.qml" line="78"/>
+        <location filename="../Services/RecordingService.qml" line="73"/>
+        <location filename="../Services/RecordingService.qml" line="97"/>
+        <location filename="../Services/RecordingService.qml" line="228"/>
+        <location filename="../Services/RecordingService.qml" line="247"/>
         <source>key command failed</source>
         <translation>key 命令執行失敗</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingService.qml" line="84"/>
+        <location filename="../Services/RecordingService.qml" line="128"/>
         <source>GIF saved</source>
         <translation>GIF 已儲存</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingService.qml" line="84"/>
+        <location filename="../Services/RecordingService.qml" line="128"/>
         <source>Screen recording saved</source>
         <translation>螢幕錄影已儲存</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingService.qml" line="84"/>
-        <source>Saved to %1</source>
-        <translation>已儲存至 %1</translation>
-    </message>
-    <message>
-        <location filename="../Services/RecordingService.qml" line="92"/>
-        <source>Could not parse JSON returned by key: </source>
-        <translation>無法解析 key 返回的 JSON: </translation>
-    </message>
-    <message>
-        <location filename="../Services/RecordingService.qml" line="170"/>
+        <location filename="../Services/RecordingService.qml" line="202"/>
         <source>Could not start the recording command</source>
         <translation>無法啟動錄製命令</translation>
     </message>
     <message>
-        <location filename="../Services/RecordingService.qml" line="223"/>
+        <location filename="../Services/RecordingService.qml" line="266"/>
         <source>Could not query recording status through key</source>
         <translation>無法通過 key 查詢錄製狀態</translation>
     </message>
@@ -8199,7 +9570,7 @@ Right-click to change shape; scroll to reorder</source>
 <context>
     <name>SettingsButton</name>
     <message>
-        <location filename="../Modules/Bar/QuickSettings/SettingsButton.qml" line="17"/>
+        <location filename="../Modules/Bar/QuickSettings/SettingsButton.qml" line="18"/>
         <source>Left click: Quick Settings
 Right click: Control Center</source>
         <translation>左鍵：快捷設定
@@ -8260,17 +9631,17 @@ Right click: Control Center</source>
         <translation>執行 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="147"/>
+        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="148"/>
         <source>Shortcut map</source>
         <translation>快捷鍵配置圖</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="158"/>
+        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="159"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="170"/>
+        <location filename="../Modules/ControlCenter/ShortcutMap.qml" line="171"/>
         <source>No shortcuts assigned</source>
         <translation>尚未設定快捷鍵</translation>
     </message>
@@ -8433,25 +9804,25 @@ Right click: Control Center</source>
         <translation>應用接管快捷鍵時仍然生效</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="804"/>
+        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="805"/>
         <source>Save</source>
         <translation>儲存</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="563"/>
-        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="825"/>
+        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="830"/>
         <source>Remove override</source>
         <translation>移除覆蓋</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="55"/>
         <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="563"/>
-        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="825"/>
+        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="830"/>
         <source>Delete</source>
         <translation>刪除</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="835"/>
+        <location filename="../Modules/ControlCenter/ShortcutsPage.qml" line="826"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -8486,7 +9857,7 @@ Right click: Control Center</source>
 <context>
     <name>SidebarWeatherButton</name>
     <message>
-        <location filename="../Modules/Bar/ActiveWindow/SidebarWeatherButton.qml" line="96"/>
+        <location filename="../Modules/Bar/ActiveWindow/SidebarWeatherButton.qml" line="97"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
@@ -8494,12 +9865,12 @@ Right click: Control Center</source>
 <context>
     <name>SortableMultiSelectField</name>
     <message>
-        <location filename="../Widgets/common/SortableMultiSelectField.qml" line="538"/>
+        <location filename="../Widgets/common/SortableMultiSelectField.qml" line="461"/>
         <source>No components selected</source>
         <translation>未選擇元件</translation>
     </message>
     <message>
-        <location filename="../Widgets/common/SortableMultiSelectField.qml" line="714"/>
+        <location filename="../Widgets/common/SortableMultiSelectField.qml" line="635"/>
         <source>All widgets are in use</source>
         <translation>所有元件均已使用</translation>
     </message>
@@ -8713,47 +10084,47 @@ Right click: Control Center</source>
 <context>
     <name>Stopwatch</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="182"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="182"/>
         <source>Pause stopwatch</source>
         <translation>暫停秒錶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="182"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="182"/>
         <source>Start stopwatch</source>
         <translation>啟動秒錶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="187"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="187"/>
         <source>Pause</source>
         <translation>暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="187"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="187"/>
         <source>Start</source>
         <translation>開始</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="189"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="189"/>
         <source>Resume</source>
         <translation>繼續</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="213"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="213"/>
         <source>Record lap</source>
         <translation>記錄單圈</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="213"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="213"/>
         <source>Reset stopwatch</source>
         <translation>重置秒錶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="222"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="222"/>
         <source>Lap</source>
         <translation>單圈</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/Stopwatch.qml" line="222"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/Stopwatch.qml" line="222"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
@@ -8810,7 +10181,7 @@ Right click: Control Center</source>
     </message>
     <message>
         <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="101"/>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="422"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="394"/>
         <source>Unavailable</source>
         <translation>不可用</translation>
     </message>
@@ -8856,37 +10227,37 @@ Right click: Control Center</source>
         <translation>未檢測到電池</translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="305"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="277"/>
         <source>Battery</source>
         <translation>電池</translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="361"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="333"/>
         <source>Charging </source>
         <translation>充電 </translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="363"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="335"/>
         <source>Power </source>
         <translation>功率 </translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="364"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="336"/>
         <source>Discharging </source>
         <translation>放電 </translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="367"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="339"/>
         <source>Power unknown</source>
         <translation>功率未知</translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="389"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="361"/>
         <source>Health </source>
         <translation>健康 </translation>
     </message>
     <message>
-        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="402"/>
+        <location filename="../Modules/SystemCards/SystemBatteryTank.qml" line="374"/>
         <source>No battery
 detected</source>
         <translation>未檢測到
@@ -9371,12 +10742,12 @@ detected</source>
 <context>
     <name>SystemLoadingState</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemLoadingState.qml" line="11"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemLoadingState.qml" line="11"/>
         <source>Connecting to the system monitor service</source>
         <translation>正在連線系統監測服務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemLoadingState.qml" line="35"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemLoadingState.qml" line="35"/>
         <source>Live metrics appear after the first valid snapshot arrives</source>
         <translation>首個有效快照到達後顯示即時指標</translation>
     </message>
@@ -9384,211 +10755,211 @@ detected</source>
 <context>
     <name>SystemMonitorService</name>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="97"/>
+        <location filename="../Services/SystemMonitorService.qml" line="101"/>
         <source>Connecting</source>
         <translation>正在連線</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="99"/>
+        <location filename="../Services/SystemMonitorService.qml" line="103"/>
         <source>Some sensors cannot be read</source>
         <translation>部分感測器不可讀取</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="99"/>
+        <location filename="../Services/SystemMonitorService.qml" line="103"/>
         <source>Live</source>
         <translation>即時</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="101"/>
+        <location filename="../Services/SystemMonitorService.qml" line="105"/>
         <source>Data is stale</source>
         <translation>資料已過期</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="103"/>
+        <location filename="../Services/SystemMonitorService.qml" line="107"/>
         <source>Reconnecting</source>
         <translation>正在重新連線</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="105"/>
+        <location filename="../Services/SystemMonitorService.qml" line="109"/>
         <source>Service unavailable</source>
         <translation>服務不可用</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="107"/>
+        <location filename="../Services/SystemMonitorService.qml" line="111"/>
         <source>Paused</source>
         <translation>已暫停</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="249"/>
+        <location filename="../Services/SystemMonitorService.qml" line="312"/>
         <source>System monitor service unavailable</source>
         <translation>系統監測服務不可用</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="250"/>
+        <location filename="../Services/SystemMonitorService.qml" line="313"/>
         <source>The automatic reconnect limit was reached. Check the keytop backend and try again.</source>
         <translation>已達到自動重連次數上限，可檢查 keytop 後端後重試。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="259"/>
+        <location filename="../Services/SystemMonitorService.qml" line="322"/>
         <source>Could not start the keytop system monitoring service</source>
         <translation>無法啟動 keytop 系統監測服務</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="261"/>
+        <location filename="../Services/SystemMonitorService.qml" line="324"/>
         <source>The system monitor data stream was interrupted</source>
         <translation>系統監測資料流已中斷</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="292"/>
+        <location filename="../Services/SystemMonitorService.qml" line="355"/>
         <source>keytop was not found or could not be started</source>
         <translation>找不到或無法啟動 keytop</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="293"/>
+        <location filename="../Services/SystemMonitorService.qml" line="356"/>
         <source>Install the standalone keytop package and try again.</source>
         <translation>請安裝獨立 keytop 後重試。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="295"/>
-        <location filename="../Services/SystemMonitorService.qml" line="736"/>
+        <location filename="../Services/SystemMonitorService.qml" line="358"/>
+        <location filename="../Services/SystemMonitorService.qml" line="828"/>
         <source>System monitor data has not updated for a long time</source>
         <translation>系統監測資料長時間未更新</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="296"/>
+        <location filename="../Services/SystemMonitorService.qml" line="359"/>
         <source>The data stream is not producing new snapshots at the expected interval.</source>
         <translation>資料流沒有按預期間隔產生新快照。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="299"/>
-        <location filename="../Services/SystemMonitorService.qml" line="722"/>
+        <location filename="../Services/SystemMonitorService.qml" line="362"/>
+        <location filename="../Services/SystemMonitorService.qml" line="814"/>
         <source>The system monitor service did not return its first snapshot</source>
         <translation>系統監測服務未返回首個快照</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="300"/>
+        <location filename="../Services/SystemMonitorService.qml" line="363"/>
         <source>keytop started but did not produce JSONL data in time.</source>
         <translation>keytop 已啟動，但沒有按時輸出 JSONL 資料。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="302"/>
-        <location filename="../Services/SystemMonitorService.qml" line="520"/>
+        <location filename="../Services/SystemMonitorService.qml" line="365"/>
+        <location filename="../Services/SystemMonitorService.qml" line="598"/>
         <source>keytop keeps producing invalid JSONL</source>
         <translation>keytop 持續輸出無效的 JSONL</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="303"/>
+        <location filename="../Services/SystemMonitorService.qml" line="366"/>
         <source>Several consecutive lines failed JSON v1 validation.</source>
         <translation>連續多行資料無法通過 JSON v1 校驗。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="305"/>
+        <location filename="../Services/SystemMonitorService.qml" line="368"/>
         <source>The system monitor data stream exited unexpectedly</source>
         <translation>系統監測資料流意外退出</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="306"/>
+        <location filename="../Services/SystemMonitorService.qml" line="369"/>
         <source>keytop exit code: </source>
         <translation>keytop 退出碼：</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="306"/>
+        <location filename="../Services/SystemMonitorService.qml" line="369"/>
         <source>keytop did not report an exit code</source>
         <translation>keytop 未報告退出碼</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="324"/>
+        <location filename="../Services/SystemMonitorService.qml" line="387"/>
         <source>The top-level JSON value must be an object</source>
         <translation>JSON 頂層必須是物件</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="329"/>
+        <location filename="../Services/SystemMonitorService.qml" line="392"/>
         <source>The timestamp, sequence number, or sampling interval is invalid</source>
         <translation>時間戳、序列號或採樣間隔無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="331"/>
+        <location filename="../Services/SystemMonitorService.qml" line="394"/>
         <source>Missing or invalid CPU data fields</source>
         <translation>CPU 模組欄位缺失或類型無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="333"/>
+        <location filename="../Services/SystemMonitorService.qml" line="396"/>
         <source>Missing or invalid memory data fields</source>
         <translation>記憶體模組欄位缺失或類型無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="335"/>
+        <location filename="../Services/SystemMonitorService.qml" line="398"/>
         <source>Missing or invalid network data fields</source>
         <translation>網路模組欄位缺失或類型無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="337"/>
+        <location filename="../Services/SystemMonitorService.qml" line="400"/>
         <source>Missing or invalid GPU data fields</source>
         <translation>GPU 模組欄位缺失或類型無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="339"/>
+        <location filename="../Services/SystemMonitorService.qml" line="402"/>
         <source>Missing or invalid disk data fields</source>
         <translation>磁碟模組欄位缺失或類型無效</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="341"/>
+        <location filename="../Services/SystemMonitorService.qml" line="404"/>
         <source>The devices and errors fields must be arrays</source>
         <translation>裝置或錯誤欄位必須是陣列</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="504"/>
-        <location filename="../Services/SystemMonitorService.qml" line="556"/>
+        <location filename="../Services/SystemMonitorService.qml" line="582"/>
+        <location filename="../Services/SystemMonitorService.qml" line="648"/>
         <source>keytop does not support the current system monitoring interface</source>
         <translation>keytop 不支援當前系統監測介面</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="516"/>
+        <location filename="../Services/SystemMonitorService.qml" line="594"/>
         <source>Received a corrupt JSONL line</source>
         <translation>收到損壞的 JSONL 資料行</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="518"/>
+        <location filename="../Services/SystemMonitorService.qml" line="596"/>
         <source>Could not parse keytop system monitor data</source>
         <translation>無法解析 keytop 系統監測資料</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="530"/>
+        <location filename="../Services/SystemMonitorService.qml" line="608"/>
         <source>System monitoring data schema is incompatible</source>
         <translation>系統監測資料 schema 不相容</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="531"/>
+        <location filename="../Services/SystemMonitorService.qml" line="609"/>
         <source>Rebuild keytop (schema v</source>
         <translation>需要重新構建 keytop（需要 schema v</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="539"/>
+        <location filename="../Services/SystemMonitorService.qml" line="617"/>
         <source>System monitor data returned by keytop is incomplete</source>
         <translation>keytop 返回的系統監測資料不完整</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="618"/>
+        <location filename="../Services/SystemMonitorService.qml" line="710"/>
         <source>keytop is unavailable; install the independent keytop command</source>
         <translation>keytop 不可用，請安裝獨立 keytop</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="631"/>
+        <location filename="../Services/SystemMonitorService.qml" line="723"/>
         <source>No usable terminal was found, so keytop could not be opened</source>
         <translation>未找到可用終端，無法開啟 keytop</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="681"/>
+        <location filename="../Services/SystemMonitorService.qml" line="773"/>
         <source>Could not start terminal:</source>
         <translation>啟動終端失敗：</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="723"/>
+        <location filename="../Services/SystemMonitorService.qml" line="815"/>
         <source>Restarting the keytop data stream.</source>
         <translation>正在重新啟動 keytop 資料流。</translation>
     </message>
     <message>
-        <location filename="../Services/SystemMonitorService.qml" line="737"/>
+        <location filename="../Services/SystemMonitorService.qml" line="829"/>
         <source>Reconnecting to the keytop data stream.</source>
         <translation>正在重新連線 keytop 資料流。</translation>
     </message>
@@ -9697,27 +11068,27 @@ detected</source>
 <context>
     <name>SystemUnavailableState</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemUnavailableState.qml" line="12"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemUnavailableState.qml" line="12"/>
         <source>System monitor service unavailable</source>
         <translation>系統監測服務不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemUnavailableState.qml" line="13"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemUnavailableState.qml" line="13"/>
         <source>Confirm that key is built and can run in the current environment.</source>
         <translation>請確認 key 已構建並可從當前環境執行。</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemUnavailableState.qml" line="65"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemUnavailableState.qml" line="65"/>
         <source>Reconnecting to the system monitor service</source>
         <translation>正在重新連線系統監測服務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemUnavailableState.qml" line="72"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemUnavailableState.qml" line="72"/>
         <source>Retry</source>
         <translation>重試</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/drawer/SystemUnavailableState.qml" line="75"/>
+        <location filename="../Modules/Sidebars/Dashboard/drawer/SystemUnavailableState.qml" line="75"/>
         <source>Retry the system monitor connection</source>
         <translation>重試系統監測連線</translation>
     </message>
@@ -9738,22 +11109,22 @@ detected</source>
 <context>
     <name>TaskList</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TaskList.qml" line="16"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TaskList.qml" line="16"/>
         <source>Nothing here yet</source>
         <translation>這裡還沒有內容</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TaskList.qml" line="85"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TaskList.qml" line="85"/>
         <source>Mark unfinished</source>
         <translation>標記為未完成</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TaskList.qml" line="85"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TaskList.qml" line="85"/>
         <source>Mark complete</source>
         <translation>標記為完成</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TaskList.qml" line="97"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TaskList.qml" line="97"/>
         <source>Delete task</source>
         <translation>刪除任務</translation>
     </message>
@@ -9982,12 +11353,12 @@ detected</source>
 <context>
     <name>TimerWidget</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TimerWidget.qml" line="15"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TimerWidget.qml" line="15"/>
         <source>Pomodoro</source>
         <translation>番茄鍾</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TimerWidget.qml" line="19"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TimerWidget.qml" line="19"/>
         <source>Stopwatch</source>
         <translation>秒錶</translation>
     </message>
@@ -9995,43 +11366,43 @@ detected</source>
 <context>
     <name>TodoWidget</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="22"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="22"/>
         <source>Unfinished</source>
         <translation>未完成</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="26"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="26"/>
         <source>Completed</source>
         <translation>已完成</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="111"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="111"/>
         <source>Nothing here yet</source>
         <translation>這裡還沒有內容</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="120"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="120"/>
         <source>Completed tasks will appear here</source>
         <translation>已完成的任務會顯示在這裡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="150"/>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="208"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="150"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="208"/>
         <source>Add task</source>
         <translation>新增任務</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="223"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="223"/>
         <source>Task description</source>
         <translation>任務描述</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="238"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="238"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/infoTools/TodoWidget.qml" line="243"/>
+        <location filename="../Modules/Sidebars/Dashboard/infoTools/TodoWidget.qml" line="243"/>
         <source>Add</source>
         <translation>新增</translation>
     </message>
@@ -10083,7 +11454,7 @@ detected</source>
 <context>
     <name>UiPreferences</name>
     <message>
-        <location filename="../Services/UiPreferences.qml" line="688"/>
+        <location filename="../Services/UiPreferences.qml" line="687"/>
         <source>Unable to sync the system color scheme</source>
         <translation>無法同步系統明暗色設定</translation>
     </message>
@@ -10147,54 +11518,54 @@ Scroll to adjust; click to open sound</source>
 滾輪調節，點選開啟聲音</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="99"/>
+        <location filename="../Services/Volume.qml" line="100"/>
         <source>Unknown audio device</source>
         <translation>未知音訊裝置</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="105"/>
-        <location filename="../Services/Volume.qml" line="109"/>
+        <location filename="../Services/Volume.qml" line="106"/>
+        <location filename="../Services/Volume.qml" line="110"/>
         <source>Unknown application</source>
         <translation>未知應用</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="129"/>
+        <location filename="../Services/Volume.qml" line="130"/>
         <source>Audio output device</source>
         <translation>音訊輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="129"/>
+        <location filename="../Services/Volume.qml" line="130"/>
         <source>Audio input device</source>
         <translation>音訊輸入裝置</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="142"/>
+        <location filename="../Services/Volume.qml" line="143"/>
         <source>Headphones</source>
         <translation>耳機</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="150"/>
+        <location filename="../Services/Volume.qml" line="151"/>
         <source>Speakers</source>
         <translation>揚聲器</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="204"/>
+        <location filename="../Services/Volume.qml" line="205"/>
         <source>The selected output device is no longer available</source>
         <translation>所選輸出裝置已不可用</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="214"/>
+        <location filename="../Services/Volume.qml" line="215"/>
         <source>The selected input device is no longer available</source>
         <translation>所選輸入裝置已不可用</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="223"/>
-        <location filename="../Services/Volume.qml" line="238"/>
+        <location filename="../Services/Volume.qml" line="224"/>
+        <location filename="../Services/Volume.qml" line="239"/>
         <source>The audio object is no longer available</source>
         <translation>音訊物件已不可用</translation>
     </message>
     <message>
-        <location filename="../Services/Volume.qml" line="227"/>
+        <location filename="../Services/Volume.qml" line="228"/>
         <source>Invalid volume value</source>
         <translation>音量數值無效</translation>
     </message>
@@ -10605,7 +11976,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WallpaperPaletteSession</name>
     <message>
-        <location filename="../Services/WallpaperPaletteSession.qml" line="105"/>
+        <location filename="../Services/WallpaperPaletteSession.qml" line="112"/>
         <source>Could not save the wallpaper. Try again.</source>
         <translation>無法儲存桌布，請重試。</translation>
     </message>
@@ -10632,7 +12003,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WallpaperTransitionSurface</name>
     <message>
-        <location filename="../Modules/Wallpaper/WallpaperTransitionSurface.qml" line="223"/>
+        <location filename="../Modules/Wallpaper/WallpaperTransitionSurface.qml" line="224"/>
         <source>Could not decode wallpaper: </source>
         <translation>無法解碼壁紙：</translation>
     </message>
@@ -10678,7 +12049,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherAqiCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAqiCard.qml" line="82"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAqiCard.qml" line="82"/>
         <source>Air quality</source>
         <translation>空氣質量</translation>
     </message>
@@ -10686,52 +12057,52 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherAstroCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="95"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="95"/>
         <source>New moon</source>
         <translation>新月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="97"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="97"/>
         <source>Waxing crescent</source>
         <translation>娥眉月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="99"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="99"/>
         <source>First quarter</source>
         <translation>上弦月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="101"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="101"/>
         <source>Waxing gibbous</source>
         <translation>盈凸月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="103"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="103"/>
         <source>Full moon</source>
         <translation>滿月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="105"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="105"/>
         <source>Waning gibbous</source>
         <translation>虧凸月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="107"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="107"/>
         <source>Last quarter</source>
         <translation>下弦月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="108"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="108"/>
         <source>Waning crescent</source>
         <translation>殘月</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="303"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="312"/>
         <source>Moon</source>
         <translation>月亮</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherAstroCard.qml" line="303"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherAstroCard.qml" line="312"/>
         <source>Sun</source>
         <translation>太陽</translation>
     </message>
@@ -10739,7 +12110,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherBlob</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherBlob.qml" line="13"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherBlob.qml" line="13"/>
         <source>UV index</source>
         <translation>紫外線指數</translation>
     </message>
@@ -10920,12 +12291,12 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherHumidityCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherHumidityCard.qml" line="116"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherHumidityCard.qml" line="116"/>
         <source>Relative humidity</source>
         <translation>相對溼度</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherHumidityCard.qml" line="191"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherHumidityCard.qml" line="191"/>
         <source>Dew point</source>
         <translation>露點</translation>
     </message>
@@ -10958,12 +12329,12 @@ Scroll to adjust; click to open sound</source>
         <translation>天氣圖層暫時無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/WeatherContent/WeatherMapCard.qml" line="177"/>
+        <location filename="../Modules/Keystone/WeatherContent/WeatherMapCard.qml" line="176"/>
         <source>Return to weather location</source>
         <translation>回到天氣位置</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/WeatherContent/WeatherMapCard.qml" line="222"/>
+        <location filename="../Modules/Keystone/WeatherContent/WeatherMapCard.qml" line="224"/>
         <source>Weather location temporarily unavailable</source>
         <translation>天氣位置暫時無法使用</translation>
     </message>
@@ -11022,62 +12393,62 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherMetricTrendPane</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="40"/>
         <source>Standard</source>
         <translation>標準</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="40"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="40"/>
         <source>Alert level</source>
         <translation>預警水平</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="53"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="53"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="56"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="56"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="59"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="59"/>
         <source>Tomorrow</source>
         <translation>明天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Sun</source>
         <translation>週日</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Mon</source>
         <translation>週一</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Tue</source>
         <translation>週二</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Wed</source>
         <translation>週三</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Thu</source>
         <translation>週四</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Fri</source>
         <translation>週五</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherMetricTrendPane.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherMetricTrendPane.qml" line="64"/>
         <source>Sat</source>
         <translation>週六</translation>
     </message>
@@ -11167,38 +12538,38 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherPrecipitationCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="53"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="53"/>
         <source>millimeters</source>
         <translation>毫米</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="55"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="55"/>
         <source>centimeters</source>
         <translation>釐米</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="63"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="63"/>
         <source>Total rainfall</source>
         <translation>降雨總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="63"/>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="63"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="64"/>
         <source>Precipitation</source>
         <translation>降水</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="64"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="64"/>
         <source>Total precipitation</source>
         <translation>總降水</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="65"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="65"/>
         <source>Total</source>
         <translation>總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPrecipitationCard.qml" line="113"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPrecipitationCard.qml" line="122"/>
         <source>Precipitation amount</source>
         <translation>降水量</translation>
     </message>
@@ -11206,7 +12577,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherPressureCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherPressureCard.qml" line="100"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherPressureCard.qml" line="100"/>
         <source>Pressure</source>
         <translation>氣壓</translation>
     </message>
@@ -11300,12 +12671,12 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherTemperatureNormalLine</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherTemperatureNormalLine.qml" line="14"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherTemperatureNormalLine.qml" line="14"/>
         <source>Normal</source>
         <translation>標準值</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherTemperatureNormalLine.qml" line="24"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherTemperatureNormalLine.qml" line="24"/>
         <source>1991–2020 climate normal</source>
         <translation>1991–2020 常年平均</translation>
     </message>
@@ -11313,7 +12684,7 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherUvCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherUvCard.qml" line="17"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherUvCard.qml" line="17"/>
         <source>UV index</source>
         <translation>紫外線指數</translation>
     </message>
@@ -11321,194 +12692,194 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherView</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="79"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="79"/>
         <source>Refreshing</source>
         <translation>正在重新整理</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="83"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="83"/>
         <source>Updated </source>
         <translation>更新於 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="86"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="86"/>
         <source>Data is old</source>
         <translation>資料較舊</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="89"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="89"/>
         <source>Update failed</source>
         <translation>更新失敗</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="91"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="91"/>
         <source>Update pending</source>
         <translation>待更新</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="96"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="96"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="99"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="99"/>
         <source>Tomorrow</source>
         <translation>明天</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="109"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="109"/>
         <source>Low</source>
         <translation>低</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="112"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="112"/>
         <source>Moderate</source>
         <translation>中</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="115"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="115"/>
         <source>High</source>
         <translation>高</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="118"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="118"/>
         <source>Very high</source>
         <translation>很高</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="120"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="120"/>
         <source>Extreme</source>
         <translation>極高</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="223"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="223"/>
         <source>Total daytime snowfall</source>
         <translation>白天降雪總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="223"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="223"/>
         <source>Total nighttime snowfall</source>
         <translation>夜間降雪總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="226"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="226"/>
         <source>Total daytime rainfall</source>
         <translation>白天降雨總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="226"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="226"/>
         <source>Total nighttime rainfall</source>
         <translation>夜間降雨總量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="229"/>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="231"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="229"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="231"/>
         <source>Total daytime precipitation</source>
         <translation>白天總降水</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="229"/>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="231"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="229"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="231"/>
         <source>Total nighttime precipitation</source>
         <translation>夜間總降水</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="244"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="244"/>
         <source>Crystal clear</source>
         <translation>極清晰</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="247"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="247"/>
         <source>Clear</source>
         <translation>清晰</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="250"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="250"/>
         <source>Good visibility</source>
         <translation>良好</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="253"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="253"/>
         <source>Hazy</source>
         <translation>朦朧</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="256"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="256"/>
         <source>Low visibility</source>
         <translation>較低</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="258"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="258"/>
         <source>Dense fog</source>
         <translation>濃霧</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="307"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="307"/>
         <source>Excellent</source>
         <translation>優</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="307"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="307"/>
         <source>Good</source>
         <translation>良</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="307"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="307"/>
         <source>Poor</source>
         <translation>差</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="307"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="307"/>
         <source>Unhealthy</source>
         <translation>不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="307"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="307"/>
         <source>Very unhealthy</source>
         <translation>很不健康</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="308"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="308"/>
         <source>Hazardous</source>
         <translation>危險</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="466"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="466"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="482"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="482"/>
         <source>Edit weather location</source>
         <translation>編輯天氣位置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="497"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="497"/>
         <source>Refresh weather</source>
         <translation>重新整理天氣</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="571"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="571"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="618"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="618"/>
         <source>Feels like: </source>
         <translation>體感溫度: </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="628"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="628"/>
         <source>High </source>
         <translation>最高 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="628"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="628"/>
         <source> · Low </source>
         <translation> · 最低 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherView.qml" line="702"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="702"/>
         <source>Gusts </source>
         <translation>陣風 </translation>
     </message>
@@ -11516,47 +12887,47 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherVisibilityCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="38"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="38"/>
         <source>kilometers</source>
         <translation>公里</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="38"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="38"/>
         <source>meters</source>
         <translation>米</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="45"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="45"/>
         <source>Very poor</source>
         <translation>極差</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="47"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="47"/>
         <source>Poor</source>
         <translation>差</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="49"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="49"/>
         <source>Moderate</source>
         <translation>中</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="51"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="51"/>
         <source>Good</source>
         <translation>良</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="53"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="53"/>
         <source>Clear</source>
         <translation>清</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="54"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="54"/>
         <source>Excellent</source>
         <translation>優</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherVisibilityCard.qml" line="113"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherVisibilityCard.qml" line="113"/>
         <source>Visibility</source>
         <translation>能見度</translation>
     </message>
@@ -11564,19 +12935,19 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WeatherWindCard</name>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherWindCard.qml" line="72"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherWindCard.qml" line="72"/>
         <source>Gusts </source>
         <translation>陣風 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherWindCard.qml" line="73"/>
-        <location filename="../Modules/Sidebars/Left/WeatherWindCard.qml" line="74"/>
-        <location filename="../Modules/Sidebars/Left/WeatherWindCard.qml" line="75"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherWindCard.qml" line="73"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherWindCard.qml" line="74"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherWindCard.qml" line="75"/>
         <source>Gusts:</source>
         <translation>陣風:</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Left/WeatherWindCard.qml" line="162"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherWindCard.qml" line="162"/>
         <source>Wind</source>
         <translation>風況</translation>
     </message>
@@ -11620,281 +12991,85 @@ Windows: </source>
 <context>
     <name>ZenPaletteEditor</name>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="33"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="34"/>
         <source>Single color</source>
         <translation>單色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="34"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="35"/>
         <source>Complementary</source>
         <translation>互補色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="35"/>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="37"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="36"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="38"/>
         <source>Analogous</source>
         <translation>相鄰色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="36"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="37"/>
         <source>Split complementary</source>
         <translation>分裂互補色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="38"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="39"/>
         <source>Triadic</source>
         <translation>三角配色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="143"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="144"/>
         <source>Primary color</source>
         <translation>主色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="143"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="144"/>
         <source>Color %1</source>
         <translation>色彩 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="194"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="195"/>
         <source>Add color</source>
         <translation>新增色彩</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="200"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="201"/>
         <source>Remove color</source>
         <translation>移除色彩</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="221"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="222"/>
         <source>Previous presets</source>
         <translation>上一頁預設</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="290"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="322"/>
         <source>Next presets</source>
         <translation>下一頁預設</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="285"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="313"/>
         <source>Preset %1</source>
         <translation>預設 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="305"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="337"/>
         <source>Opacity</source>
         <translation>不透明度</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="357"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="428"/>
         <source>Opacity: %1%</source>
         <translation>不透明度：%1%</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="365"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="436"/>
         <source>Grain</source>
         <translation>顆粒</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="440"/>
+        <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>顆粒：%1%</translation>
-    </message>
-</context>
-<context>
-    <name>DisplaySettingsService</name>
-    <message>
-        <location filename="../Services/DisplaySettingsService.qml" line="61"/>
-        <location filename="../Services/DisplaySettingsService.qml" line="79"/>
-        <source>Invalid display response</source>
-        <translation>顯示器傳回的資料無效</translation>
-    </message>
-    <message>
-        <location filename="../Services/DisplaySettingsService.qml" line="73"/>
-        <source>Display settings saved</source>
-        <translation>顯示器設定已儲存</translation>
-    </message>
-    <message>
-        <location filename="../Services/DisplaySettingsService.qml" line="75"/>
-        <source>Previous display settings restored</source>
-        <translation>已還原先前的顯示器設定</translation>
-    </message>
-    <message>
-        <location filename="../Services/DisplaySettingsService.qml" line="77"/>
-        <source>Unable to change display settings: %1</source>
-        <translation>無法變更顯示器設定：%1</translation>
-    </message>
-    <message>
-        <location filename="../Services/DisplaySettingsService.qml" line="108"/>
-        <source>Unable to read display settings: %1</source>
-        <translation>無法讀取顯示器設定：%1</translation>
-    </message>
-</context>
-<context>
-    <name>DisplaysPage</name>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="30"/>
-        <source>%1 Hz</source>
-        <translation>%1 Hz</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="37"/>
-        <source>%1%</source>
-        <translation>%1%</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="113"/>
-        <source>Keep these display settings?</source>
-        <translation>保留這些顯示器設定？</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="115"/>
-        <source>Restoring previous settings in %1 seconds</source>
-        <translation>%1 秒後還原先前的設定</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="119"/>
-        <source>Revert</source>
-        <translation>還原</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="124"/>
-        <source>Keep changes</source>
-        <translation>保留變更</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="134"/>
-        <source>Display settings are unavailable in this session</source>
-        <translation>目前工作階段不支援顯示器設定</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="142"/>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="146"/>
-        <source>Display</source>
-        <translation>顯示器</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="152"/>
-        <source>Resolution</source>
-        <translation>解析度</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="158"/>
-        <source>Refresh rate</source>
-        <translation>更新頻率</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="164"/>
-        <source>Scale</source>
-        <translation>縮放</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="170"/>
-        <source>Rotation</source>
-        <translation>旋轉</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="173"/>
-        <source>Normal</source>
-        <translation>正常</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="174"/>
-        <source>90°</source>
-        <translation>90°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="175"/>
-        <source>180°</source>
-        <translation>180°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="176"/>
-        <source>270°</source>
-        <translation>270°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="177"/>
-        <source>Flipped</source>
-        <translation>鏡像</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="178"/>
-        <source>Flipped 90°</source>
-        <translation>鏡像 90°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="179"/>
-        <source>Flipped 180°</source>
-        <translation>鏡像 180°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="180"/>
-        <source>Flipped 270°</source>
-        <translation>鏡像 270°</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="188"/>
-        <source>Refresh</source>
-        <translation>重新整理</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="195"/>
-        <source>Apply</source>
-        <translation>套用</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="214"/>
-        <source>No active displays</source>
-        <translation>沒有啟用的顯示器</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="174"/>
-        <source>Arrangement</source>
-        <translation>排列</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="176"/>
-        <source>Drag displays to match their physical arrangement.</source>
-        <translation>拖曳顯示器，使排列與實際擺放一致。</translation>
-    </message>
-</context>
-<context>
-    <name>DisplayArrangement</name>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="136"/>
-        <source>Horizontal position (X)</source>
-        <translation>水平位置（X）</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="148"/>
-        <source>Vertical position (Y)</source>
-        <translation>垂直位置（Y）</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="162"/>
-        <source>Horizontal</source>
-        <translation>橫排</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="166"/>
-        <source>Vertical</source>
-        <translation>直排</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="171"/>
-        <source>Reset</source>
-        <translation>重設</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="181"/>
-        <source>Displays overlap. Move them apart before applying.</source>
-        <translation>顯示器重疊，請移開後再套用。</translation>
-    </message>
-    <message>
-        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="185"/>
-        <source>Apply layout</source>
-        <translation>套用排列</translation>
     </message>
 </context>
 </TS>

@@ -37,8 +37,8 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "dock_to_bottom"
-                text: qsTr("下方 Dock")
-                description: qsTr("显示与隐藏、图标外观、固定应用和排列顺序")
+                text: qsTr("Bottom Dock")
+                description: qsTr("Visibility, icon appearance, pinned applications and ordering")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("dock")
             }
@@ -76,8 +76,8 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "battery_charging_full"
-                text: qsTr("电源管理")
-                description: qsTr("电池状态、保持唤醒、自动锁屏、息屏和睡眠")
+                text: qsTr("Power management")
+                description: qsTr("Battery status, keep awake, automatic locking, display power and sleep")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("power-management")
             }
@@ -93,8 +93,8 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "mouse"
-                text: qsTr("鼠标与光标")
-                description: qsTr("移动速度、加速模式、光标样式和大小")
+                text: qsTr("Mouse and cursor")
+                description: qsTr("Pointer speed, acceleration, cursor theme and size")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("mouse")
             }

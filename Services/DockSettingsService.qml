@@ -5,8 +5,14 @@ import Quickshell.Io
 
 Singleton {
     id: root
-    property var settings: ({pinned: [], ignoredApps: []})
-    property var confirmed: ({pinned: [], ignoredApps: []})
+    property var settings: ({
+                                pinned: [],
+                                ignoredApps: []
+                            })
+    property var confirmed: ({
+                                 pinned: [],
+                                 ignoredApps: []
+                             })
     property var pending: ({})
     property var failedPatch: ({})
     property bool ready: false
@@ -26,7 +32,8 @@ Singleton {
         operation.running = true;
     }
     function setOptions(patch) {
-        if (!ready) return;
+        if (!ready)
+            return;
         error = "";
         failedPatch = ({});
         pending = Object.assign({}, pending, patch);
@@ -34,12 +41,13 @@ Singleton {
         saveDelay.restart();
     }
     function flush() {
-        if (operation.running || !Object.keys(pending).length) return;
+        if (operation.running || !Object.keys(pending).length)
+            return;
         operation.patch = pending;
         pending = ({});
         operation.kind = "write";
-        operation.command = [executable, "ipc", "-c", "nyx-dock", "call", "dock", "configure",
-                             JSON.stringify(operation.patch)];
+        operation.command = [executable, "ipc", "-c", "nyx-dock", "call", "dock", "configure", JSON.stringify(
+                                 operation.patch)];
         operation.running = true;
     }
     function retry() {
@@ -47,72 +55,113 @@ Singleton {
             const patch = failedPatch;
             failedPatch = ({});
             setOptions(patch);
-        } else refresh();
+        } else
+            refresh();
     }
     function startDock() {
-        if (operation.running) return;
+        if (operation.running)
+            return;
         operation.kind = "start";
         operation.command = ["systemctl", "--user", "start", "nyx-dock.service"];
         operation.running = true;
     }
     function pin(id) {
         if (settings.pinned.indexOf(id) === -1)
-            setOptions({pinned: settings.pinned.concat([id])});
+            setOptions({
+                           pinned: settings.pinned.concat([id])
+                       });
     }
-    function unpin(id) { setOptions({pinned: settings.pinned.filter(value => value !== id)}); }
+    function unpin(id) {
+        setOptions({
+                       pinned: settings.pinned.filter(value => value !== id)
+                   });
+    }
     function movePin(index, offset) {
         const next = settings.pinned.slice();
         const target = index + offset;
-        if (target < 0 || target >= next.length) return;
+        if (target < 0 || target >= next.length)
+            return;
         const item = next.splice(index, 1)[0];
         next.splice(target, 0, item);
-        setOptions({pinned: next});
+        setOptions({
+                       pinned: next
+                   });
     }
     function resetAppearance() {
-        setOptions({enabled: true, output: "", hideMode: "smart", showRunning: true,
-            iconSize: 44, spacing: 8, bottomMargin: 10, backgroundOpacity: 93,
-            cornerRadius: 20, hideDelay: 650, hoverZoom: true, showTooltips: true,
-            showIndicators: true});
+        setOptions({
+                       enabled: true,
+                       output: "",
+                       hideMode: "smart",
+                       showRunning: true,
+                       iconSize: 44,
+                       spacing: 8,
+                       bottomMargin: 10,
+                       backgroundOpacity: 93,
+                       cornerRadius: 20,
+                       hideDelay: 650,
+                       hoverZoom: true,
+                       showTooltips: true,
+                       showIndicators: true
+                   });
     }
 
     Component.onCompleted: refresh()
     FileView {
         path: (Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config")
               + "/quickshell/nyx-dock/settings.json"
+
         preload: true
         watchChanges: true
         onFileChanged: refreshDelay.restart()
     }
-    Timer { id: saveDelay; interval: 180; onTriggered: root.flush() }
-    Timer { id: refreshDelay; interval: 180; onTriggered: root.refresh() }
+    Timer {
+        id: saveDelay
+        interval: 180
+        onTriggered: root.flush()
+    }
+    Timer {
+        id: refreshDelay
+        interval: 180
+        onTriggered: root.refresh()
+    }
     Process {
         id: operation
         property string kind: "read"
         property var patch: ({})
-        stdout: StdioCollector { id: reply }
-        stderr: StdioCollector { id: diagnostics }
+        stdout: StdioCollector {
+            id: reply
+        }
+        stderr: StdioCollector {
+            id: diagnostics
+        }
         onExited: code => {
             try {
-                if (code !== 0) throw new Error(diagnostics.text.trim() || qsTr("Dock 暂时无法连接"));
+                if (code !== 0)
+                    throw new Error(diagnostics.text.trim() || qsTr("Dock is temporarily unavailable"));
                 if (kind === "start") {
                     refreshDelay.restart();
                     return;
                 }
                 const result = JSON.parse(reply.text.trim());
-                if (kind === "write" && !result.ok) throw new Error(result.error);
+                if (kind === "write" && !result.ok)
+                    throw new Error(result.error);
                 const config = kind === "write" ? result.settings : result;
-                if (!config || !Array.isArray(config.pinned)) throw new Error(qsTr("无法读取 Dock 设置"));
+                if (!config || !Array.isArray(config.pinned))
+                    throw new Error(qsTr("Cannot read Dock settings"));
                 root.confirmed = config;
                 root.settings = Object.assign({}, config, root.pending);
                 root.ready = true;
                 root.error = "";
             } catch (e) {
-                root.error = qsTr("设置未能保存或读取：%1").arg(String(e));
-                if (kind === "write") root.failedPatch = patch;
+                root.error = qsTr("Cannot save or read settings: %1").arg(String(e));
+                if (kind === "write")
+                    root.failedPatch = patch;
                 root.settings = Object.assign({}, root.confirmed, root.pending);
             }
-            if (Object.keys(root.pending).length) saveDelay.restart();
-            else if (root.refreshPending) refreshDelay.restart();
+            if (Object.keys(root.pending).length)
+                saveDelay.restart();
+            else if (root.refreshPending)
+                refreshDelay.restart();
         }
     }
 }

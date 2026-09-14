@@ -1,175 +1,293 @@
-import QtQuick 2.15
-import QtTest 1.3
-import "../../Modules/Sidebars/Left/drawer/DrawerGridLayout.js" as GridLayout
+import QtQuick
+import QtTest
+import "../../Modules/Sidebars/Dashboard/drawer/DrawerGridLayout.js" as GridLayout
+import "../../Modules/SystemCards/SystemCardCatalog.js" as Catalog
 
 TestCase {
-    function serialized(layout) {
-        return GridLayout.serializeLayout(layout);
+    name: "DrawerGridLayout"
+
+    function verifyCompacted(layout, activeIds) {
+        verify(GridLayout.validateLayout(layout, activeIds));
+        layout.forEach(function (tile) {
+            if (tile.y === 0)
+                return;
+            const raised = Object.assign({}, tile, {
+                                             y: tile.y - 8
+                                         });
+            verify(layout.some(function (other) {
+                return other.id !== tile.id && GridLayout.gridOverlaps(raised, other, 8);
+            }), tile.id + " has an empty slot above it");
+        });
     }
 
-    function test_defaultLayoutIsValid() {
+    function test_defaultLayoutCompactsPartialDrawer() {
         const layout = GridLayout.defaultLayout();
         verify(GridLayout.validateLayout(layout));
         compare(layout.length, 11);
-        let area = 0;
-        for (let index = 0; index < layout.length; index += 1) area += layout[index].columnSpan * layout[index].rowSpan
-        compare(area, 24);
-        compare(GridLayout.placementFor(layout, "time").column, 0);
-        compare(GridLayout.placementFor(layout, "battery").column, 2);
-        compare(GridLayout.placementFor(layout, "time").rowSpan, 2);
-        compare(GridLayout.placementFor(layout, "battery").rowSpan, 2);
-        compare(GridLayout.placementFor(layout, "cpu").columnSpan, 2);
-        compare(GridLayout.placementFor(layout, "cpu").rowSpan, 1);
-        compare(GridLayout.placementFor(layout, "gpu").columnSpan, 2);
-        compare(GridLayout.placementFor(layout, "gpu").rowSpan, 1);
-        compare(GridLayout.placementFor(layout, "calendar").columnSpan, 1);
-        compare(GridLayout.placementFor(layout, "calendar").rowSpan, 1);
-        compare(GridLayout.placementFor(layout, "storageCapacity").columnSpan, 1);
-        compare(GridLayout.placementFor(layout, "storageCapacity").rowSpan, 1);
-        compare(GridLayout.placementFor(layout, "weather").columnSpan, 2);
-        compare(GridLayout.placementFor(layout, "weather").rowSpan, 2);
-        compare(GridLayout.placementFor(layout, "weather").column, 1);
-        compare(GridLayout.placementFor(layout, "weather").row, 6);
+        compare(GridLayout.placementFor(layout, "time").x, 0);
+        compare(GridLayout.placementFor(layout, "time").y, 0);
+        compare(GridLayout.placementFor(layout, "battery").x, 320);
+        compare(GridLayout.placementFor(layout, "battery").y, 0);
+        compare(GridLayout.placementFor(layout, "weather").x, 160);
+        compare(GridLayout.placementFor(layout, "weather").y, 1008);
+        const single = GridLayout.defaultLayout(["wifi"]);
+        compare(single[0].x, 0);
+        compare(single[0].y, 0);
+        compare(GridLayout.contentHeight(single), 160);
+        verifyCompacted(layout);
+    }
+
+    function test_compactionPreservesHorizontalPositionAndVerticalOrder() {
+        const active = ["cpu", "gpu", "battery", "storage"];
+        const original = [GridLayout.tileAt("cpu", {
+                                                x: 0,
+                                                y: 160
+                                            }), GridLayout.tileAt("gpu", {
+                                                                      x: 0,
+                                                                      y: 640
+                                                                  }), GridLayout.tileAt("battery", {
+                                                                                            x: 320,
+                                                                                            y: 80
+                                                                                        }), GridLayout.tileAt(
+                              "storage", {
+                                  x: 0,
+                                  y: 1200
+                              })];
+        const before = JSON.stringify(original);
+        const compacted = GridLayout.compactLayout(original, active);
+        verifyCompacted(compacted, active);
+        original.forEach(function (tile) {
+            compare(GridLayout.placementFor(compacted, tile.id).x, tile.x);
+        });
+        compare(GridLayout.placementFor(compacted, "cpu").y, 0);
+        compare(GridLayout.placementFor(compacted, "gpu").y, 168);
+        compare(GridLayout.placementFor(compacted, "battery").y, 0);
+        compare(GridLayout.placementFor(compacted, "storage").y, 336);
+        compare(JSON.stringify(original), before);
+        compare(JSON.stringify(GridLayout.compactLayout(compacted, active)), JSON.stringify(compacted));
+        const saved = GridLayout.serializeLayout(original, active);
+        compare(JSON.stringify(GridLayout.hydrateSaved(saved, active)), JSON.stringify(compacted));
     }
 
     function test_serializationRoundTrip() {
-        const layout = GridLayout.defaultLayout();
-        const serialized = GridLayout.serializeLayout(layout);
-        compare(serialized.version, 7);
-        compare(serialized.tiles.length, 11);
-        const hydrated = GridLayout.hydrateSaved(serialized);
-        verify(GridLayout.validateLayout(hydrated));
-        compare(JSON.stringify(GridLayout.serializeLayout(hydrated)), JSON.stringify(serialized));
+        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "wifi", 24, 2400);
+        const saved = GridLayout.serializeLayout(moved);
+        compare(saved.version, 8);
+        compare(JSON.stringify(GridLayout.serializeLayout(GridLayout.hydrateSaved(saved))), JSON.stringify(
+                    saved));
+    }
+
+    function test_legacyMigration_data() {
+        return [
+                    {
+                        tag: "v6",
+                        version: 6
+                    },
+                    {
+                        tag: "v7",
+                        version: 7
+                    }
+                ];
+    }
+    function test_legacyMigration(data) {
+        const legacy = {
+            version: data.version,
+            tiles: Catalog.ids().map(function (id) {
+                const anchor = Catalog.defaultAnchorFor(id);
+                return {
+                    id: id,
+                    column: anchor.column,
+                    row: anchor.row
+                };
+            })
+        };
+        const layout = GridLayout.hydrateSaved(legacy);
+        verify(GridLayout.validateLayout(layout));
+        layout.forEach(function (tile) {
+            const old = Catalog.defaultAnchorFor(tile.id);
+            compare(tile.x, old.column * 160);
+            compare(tile.y, old.row * 168);
+        });
+        compare(GridLayout.serializeLayout(layout).version, 8);
+    }
+
+    function test_savedGapsAreRemoved_data() {
+        return [
+                    {
+                        tag: "v6",
+                        version: 6
+                    },
+                    {
+                        tag: "v7",
+                        version: 7
+                    },
+                    {
+                        tag: "v8",
+                        version: 8
+                    }
+                ];
+    }
+
+    function test_savedGapsAreRemoved(data) {
+        const saved = {
+            version: data.version,
+            tiles: data.version === 8 ? [
+                                            {
+                                                id: "wifi",
+                                                x: 160,
+                                                y: 840
+                                            },
+                                            {
+                                                id: "cpu",
+                                                x: 0,
+                                                y: 1680
+                                            }
+                                        ] : [
+                                            {
+                                                id: "wifi",
+                                                column: 1,
+                                                row: 5
+                                            },
+                                            {
+                                                id: "cpu",
+                                                column: 0,
+                                                row: 10
+                                            }
+                                        ]
+        };
+        const active = ["wifi", "cpu"];
+        const layout = GridLayout.hydrateSaved(saved, active);
+        verifyCompacted(layout, active);
+        compare(GridLayout.placementFor(layout, "wifi").x, 160);
+        compare(GridLayout.placementFor(layout, "wifi").y, 0);
+        compare(GridLayout.placementFor(layout, "cpu").x, 0);
+        compare(GridLayout.placementFor(layout, "cpu").y, 168);
+        const written = GridLayout.serializeLayout(layout, active);
+        compare(written.version, 8);
+        compare(JSON.stringify(GridLayout.serializeLayout(GridLayout.hydrateSaved(written, active), active)),
+                JSON.stringify(written));
     }
 
     function test_invalidSavedLayoutsFallBack() {
-        const duplicate = {
-            "version": 7,
-            "tiles": [{
-                "id": "time",
-                "column": 0,
-                "row": 0
-            }, {
-                "id": "time",
-                "column": 2,
-                "row": 0
-            }]
-        };
-        const outOfBounds = GridLayout.serializeLayout(GridLayout.defaultLayout());
-        outOfBounds.tiles[0].column = 2;
-        compare(JSON.stringify(serialized(GridLayout.hydrateSaved(duplicate))), JSON.stringify(serialized(GridLayout.defaultLayout())));
-        compare(JSON.stringify(serialized(GridLayout.hydrateSaved(outOfBounds))), JSON.stringify(serialized(GridLayout.defaultLayout())));
+        const defaults = GridLayout.defaultLayout();
+        const invalid = GridLayout.serializeLayout(defaults);
+        invalid.tiles[0].x = 2000;
+        compare(JSON.stringify(GridLayout.hydrateSaved(invalid)), JSON.stringify(defaults));
+        invalid.tiles[0].x = 0;
+        invalid.tiles.push(invalid.tiles[0]);
+        compare(JSON.stringify(GridLayout.hydrateSaved(invalid)), JSON.stringify(defaults));
     }
 
-    function test_smallTileMovesIntoEmptyCell() {
-        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "memoryUsed", 2, 5);
-        verify(moved !== null);
+    function test_movesAreFineGrainedAndDoNotMutateCommittedLayout() {
+        const original = GridLayout.defaultLayout();
+        const before = JSON.stringify(original);
+        const moved = GridLayout.moveLayout(original, "time", 23, 9);
         verify(GridLayout.validateLayout(moved));
-        compare(GridLayout.placementFor(moved, "memoryUsed").column, 2);
-        compare(GridLayout.placementFor(moved, "memoryUsed").row, 5);
+        compare(GridLayout.placementFor(moved, "time").x, 24);
+        compare(GridLayout.placementFor(moved, "time").y, 0);
+        verifyCompacted(moved);
+        compare(JSON.stringify(original), before); // Cancel by discarding the preview.
+        compare(JSON.stringify(GridLayout.moveLayout(original, "time", 23, 9)), JSON.stringify(moved));
     }
 
-    function test_largeTileCollisionReflows() {
-        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "time", 1, 0);
-        verify(moved !== null);
+    function test_dropBelowContentMovesCardToBottomWithoutBlankRows() {
+        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "storage", 900, 2400);
         verify(GridLayout.validateLayout(moved));
-        compare(GridLayout.placementFor(moved, "time").column, 1);
-        compare(GridLayout.placementFor(moved, "time").row, 0);
-        compare(GridLayout.placementFor(moved, "battery").column, 0);
+        compare(GridLayout.placementFor(moved, "storage").x, 0);
+        compare(GridLayout.placementFor(moved, "storage").y, 1176);
+        compare(GridLayout.contentHeight(moved), 1336);
+        verifyCompacted(moved);
     }
 
-    function test_fullWidthTileCollisionReflows() {
-        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "network", 1, 4);
-        verify(moved !== null);
-        verify(GridLayout.validateLayout(moved));
-        compare(GridLayout.placementFor(moved, "network").column, 0);
-        compare(GridLayout.placementFor(moved, "network").row, 4);
-    }
-
-    function test_storageSpansFullGridWidth() {
-        const storage = GridLayout.placementFor(GridLayout.defaultLayout(), "storage");
-        compare(storage.column, 0);
-        compare(storage.columnSpan, GridLayout.columnCount);
-        compare(GridLayout.clampAnchor(storage, 2, storage.row).column, 0);
-    }
-
-    function test_weatherUsesSharedTwoByTwoSpan() {
-        const weather = GridLayout.placementFor(GridLayout.defaultLayout(), "weather");
-        compare(weather.column, 1);
-        compare(weather.columnSpan, 2);
-        compare(weather.rowSpan, 2);
-        compare(GridLayout.clampAnchor(weather, 2, weather.row).column, 1);
-    }
-
-    function test_solverIsDeterministic() {
-        const first = GridLayout.moveLayout(GridLayout.defaultLayout(), "battery", 0, 2);
-        const second = GridLayout.moveLayout(GridLayout.defaultLayout(), "battery", 0, 2);
-        verify(first !== null);
-        verify(second !== null);
-        compare(JSON.stringify(serialized(first)), JSON.stringify(serialized(second)));
-    }
-
-    function test_targetIsClampedToGrid() {
-        const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), "time", 99, 99);
-        verify(moved !== null);
-        verify(GridLayout.validateLayout(moved));
-        compare(GridLayout.placementFor(moved, "time").column, 1);
-        compare(GridLayout.placementFor(moved, "time").row, 8);
-    }
-
-    function test_everyLegalAnchorCanBeSolved() {
-        const definitions = GridLayout.definitions();
-        for (let index = 0; index < definitions.length; index += 1) {
-            const definition = definitions[index];
-            for (let row = 0; row <= GridLayout.rowCount - definition.rowSpan; row += 1) {
-                for (let column = 0; column <= GridLayout.columnCount - definition.columnSpan; column += 1) {
-                    const moved = GridLayout.moveLayout(GridLayout.defaultLayout(), definition.id, column, row);
-                    verify(moved !== null, definition.id + " could not move to " + column + "," + row);
-                    verify(GridLayout.validateLayout(moved));
+    function test_sampledTargetsAlwaysResolveWithoutOverlap() {
+        const defaults = GridLayout.defaultLayout();
+        defaults.forEach(function (tile) {
+            for (let y = 0; y < 1900; y += 152) {
+                for (let x = 0; x <= 320; x += 40) {
+                    const moved = GridLayout.moveLayout(defaults, tile.id, x, y);
+                    verifyCompacted(moved);
+                    compare(JSON.stringify(GridLayout.compactLayout(moved)), JSON.stringify(moved));
                 }
             }
-        }
+        });
     }
 
-    function test_subsetLayoutDoesNotReserveDesktopCards() {
-        const active = ["time", "cpu", "weather"];
-        const layout = GridLayout.defaultLayout(active);
-        verify(GridLayout.validateLayout(layout, active));
-        compare(layout.length, active.length);
-        compare(GridLayout.contentRowCount(layout), 8);
-        verify(GridLayout.placementFor(layout, "battery") === null);
-        const serialized = GridLayout.serializeLayout(layout, active);
-        compare(serialized.version, 7);
-        compare(serialized.tiles.length, active.length);
-        const hydrated = GridLayout.hydrateSaved(serialized, active);
-        verify(GridLayout.validateLayout(hydrated, active));
-        compare(hydrated.length, active.length);
-    }
-
-    function test_legacyAllCardLayoutMigratesToActiveSubset() {
-        const legacy = {
-            "version": 6,
-            "tiles": GridLayout.defaultLayout().map((tile) => {
-                return ({
-                    "id": tile.id,
-                    "column": tile.column,
-                    "row": tile.row
-                });
-            })
+    function test_existingPositionsWinBeforeReturningAndNewCards() {
+        const saved = {
+            version: 8,
+            tiles: [
+                {
+                    id: "weather",
+                    x: 0,
+                    y: 0
+                }
+            ]
         };
-        const active = ["cpu", "network"];
-        const hydrated = GridLayout.hydrateSaved(legacy, active);
-        verify(GridLayout.validateLayout(hydrated, active));
-        compare(hydrated.length, 2);
-        compare(GridLayout.serializeLayout(hydrated, active).version, 7);
+        const active = ["time", "weather", "wifi"];
+        const layout = GridLayout.hydrateSaved(saved, active, {
+                                                   time: {
+                                                       x: 0,
+                                                       y: 0
+                                                   }
+                                               });
+        verify(GridLayout.validateLayout(layout, active));
+        compare(GridLayout.placementFor(layout, "weather").x, 0);
+        compare(GridLayout.placementFor(layout, "weather").y, 0);
+        compare(GridLayout.placementFor(layout, "wifi").x, 0);
+        compare(GridLayout.placementFor(layout, "wifi").y, 672);
+        verifyCompacted(layout, active);
     }
 
-    function test_emptySubsetHasMinimalContentHeight() {
-        const layout = GridLayout.defaultLayout([]);
-        verify(GridLayout.validateLayout(layout, []));
-        compare(layout.length, 0);
-        compare(GridLayout.contentRowCount(layout), 1);
+    function test_returnedAnchorPreservesHorizontalPositionWithoutRestoringGap() {
+        const saved = {
+            version: 8,
+            tiles: [
+                {
+                    id: "wifi",
+                    x: 24,
+                    y: 1200
+                }
+            ]
+        };
+        const subset = GridLayout.hydrateSaved(saved, ["wifi"]);
+        compare(subset[0].x, 24);
+        compare(subset[0].y, 0);
+        const restored = GridLayout.hydrateSaved(saved, ["wifi", "time"], {
+                                                     time: {
+                                                         x: 8,
+                                                         y: 8
+                                                     }
+                                                 });
+        compare(GridLayout.placementFor(restored, "time").x, 8);
+        compare(GridLayout.placementFor(restored, "time").y, 0);
+        compare(GridLayout.placementFor(restored, "wifi").y, 336);
+        verifyCompacted(restored, ["wifi", "time"]);
     }
 
-    name: "DrawerGridLayout"
+    function test_removingCardClosesGapAndUpdatesSavedPositions() {
+        const active = ["cpu", "gpu", "network"];
+        const initial = GridLayout.defaultLayout(active);
+        const saved = GridLayout.serializeLayout(initial, active);
+        compare(GridLayout.placementFor(initial, "network").y, 336);
+        const remaining = ["cpu", "network"];
+        const removed = GridLayout.hydrateSaved(saved, remaining);
+        verifyCompacted(removed, remaining);
+        compare(GridLayout.placementFor(removed, "network").y, 168);
+        const written = GridLayout.serializeLayout(removed, remaining);
+        compare(written.tiles[1].y, 168);
+        const restored = GridLayout.hydrateSaved(written, active, {
+                                                     gpu: {
+                                                         x: 0,
+                                                         y: 504
+                                                     }
+                                                 });
+        verifyCompacted(restored, active);
+        compare(GridLayout.placementFor(restored, "network").y, 168);
+        compare(GridLayout.placementFor(restored, "gpu").y, 336);
+    }
+
+    function test_emptySubsetHasMinimalHeight() {
+        verify(GridLayout.validateLayout(GridLayout.defaultLayout([]), []));
+        compare(GridLayout.contentHeight([]), 160);
+    }
 }

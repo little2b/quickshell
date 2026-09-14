@@ -3,46 +3,71 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import qs.Common
-import qs.Modules.Sidebars.Left
-import qs.Modules.Sidebars.Right
+import "../../Common/SidebarPolicy.js" as SidebarPolicy
+import qs.Modules.Sidebars.Dashboard
+import qs.Modules.Sidebars.QuickSettings
 import qs.Services
 import qs.Widgets.common
 
 PanelWindow {
     id: root
 
-    function sidebarOpen(side) {
-        const normalized = String(side || "").toLowerCase();
-        if (normalized === "left")
-            return WidgetState.leftSidebarOpen;
-        if (normalized === "right")
-            return WidgetState.qsOpen;
+    property string lastOpenedSidebar: "dashboard"
+    readonly property bool sameEdge: PersonalizationConfig.sidebarPositions.dashboard
+                                     === PersonalizationConfig.sidebarPositions.quickSettings
+
+    function reconcileSidebars() {
+        const positions = PersonalizationConfig.sidebarPositions;
+        const state = SidebarPolicy.resolveOpenState(WidgetState.dashboardSidebarOpen,
+                                                     WidgetState.quickSettingsOpen, lastOpenedSidebar,
+                                                     positions.dashboard, positions.quickSettings);
+        if (WidgetState.dashboardSidebarOpen && !state.dashboard && SystemCardDragSession.active)
+            SystemCardDragSession.requestCancel();
+        WidgetState.dashboardSidebarOpen = state.dashboard;
+        WidgetState.quickSettingsOpen = state.quickSettings;
+    }
+
+    function sidebarOpen(target) {
+        const role = SidebarPolicy.normalizeTarget(target);
+        if (role === "dashboard")
+            return WidgetState.dashboardSidebarOpen;
+        if (role === "quicksettings")
+            return WidgetState.quickSettingsOpen;
         return null;
     }
 
-    function setSidebarOpen(side, open) {
-        const normalized = String(side || "").toLowerCase();
-        if (normalized === "left") {
-            WidgetState.leftSidebarOpen = open;
-            return open ? "LEFT_OPEN" : "LEFT_CLOSED";
-        }
-        if (normalized === "right") {
-            WidgetState.qsOpen = open;
-            return open ? "RIGHT_OPEN" : "RIGHT_CLOSED";
-        }
-        return "INVALID_SIDE";
+    function setSidebarOpen(target, open) {
+        const role = SidebarPolicy.normalizeTarget(target);
+        if (role === "")
+            return "INVALID_SIDE";
+        if (role === "dashboard")
+            WidgetState.dashboardSidebarOpen = open;
+        else
+            WidgetState.quickSettingsOpen = open;
+        const legacy = String(target || "").trim().toLowerCase();
+        const label = legacy === "left" || legacy === "right" ? legacy : role;
+        return label.toUpperCase() + (open ? "_OPEN" : "_CLOSED");
     }
 
-    readonly property bool anySidebarOpen:
-        WidgetState.leftSidebarOpen || WidgetState.qsOpen
-    readonly property var fallbackScreen: Brightness.activeScreen
-        || (Quickshell.screens.length > 0 ? Quickshell.screens[0] : null)
+    function opened(role) {
+        lastOpenedSidebar = role;
+        reconcileSidebars();
+        const requested = role === "quicksettings" ? Brightness.getScreenByName(
+                                                         WidgetState.quickSettingsScreenName) : null;
+        const nextScreen = requested || Brightness.activeScreen;
+        if (nextScreen)
+            retainedScreenName = nextScreen.name;
+    }
+
+    readonly property bool anySidebarOpen: WidgetState.dashboardSidebarOpen || WidgetState.quickSettingsOpen
+    readonly property var fallbackScreen: Brightness.activeScreen || (Quickshell.screens.length > 0
+                                                                      ? Quickshell.screens[0] : null)
     // DPMS cycles can replace the Screen instance while preserving its name.
     property string retainedScreenName: ""
-    readonly property var retainedScreen:
-        Brightness.getScreenByName(retainedScreenName)
+    readonly property var retainedScreen: Brightness.getScreenByName(retainedScreenName)
 
     screen: retainedScreen || fallbackScreen
+    onScreenChanged: WidgetState.sidebarScreenName = screen ? screen.name : ""
     visible: retainedScreen !== null || fallbackScreen !== null
     color: "transparent"
     exclusiveZone: 0
@@ -57,27 +82,25 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-sidebars"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
-    WlrLayershell.keyboardFocus: root.anySidebarOpen
-        ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: root.anySidebarOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     IpcHandler {
         target: "sidebar"
 
-        function open(side: string): string {
-            return root.setSidebarOpen(side, true);
+        function open(target: string): string {
+            return root.setSidebarOpen(target, true);
         }
 
-        function close(side: string): string {
-            return root.setSidebarOpen(side, false);
+        function close(target: string): string {
+            return root.setSidebarOpen(target, false);
         }
 
-        function toggle(side: string): string {
-            const current = root.sidebarOpen(side);
+        function toggle(target: string): string {
+            const current = root.sidebarOpen(target);
             if (current === null)
                 return "INVALID_SIDE";
-            return root.setSidebarOpen(side, !current);
+            return root.setSidebarOpen(target, !current);
         }
-
     }
 
     mask: Region {
@@ -87,22 +110,44 @@ PanelWindow {
     Component.onCompleted: {
         if (root.fallbackScreen)
             root.retainedScreenName = root.fallbackScreen.name;
+        WidgetState.sidebarScreenName = root.screen ? root.screen.name : "";
+        root.reconcileSidebars();
     }
 
     Connections {
         target: WidgetState
 
-        function onQsScreenNameChanged() {
-            const requestedScreen =
-                Brightness.getScreenByName(WidgetState.qsScreenName);
+        function onQuickSettingsScreenNameChanged() {
+            const requestedScreen = Brightness.getScreenByName(WidgetState.quickSettingsScreenName);
             if (requestedScreen)
                 root.retainedScreenName = requestedScreen.name;
         }
 
-        function onLeftSidebarOpenChanged() {
-            if (WidgetState.leftSidebarOpen && !WidgetState.qsOpen
-                    && Brightness.activeScreen)
-                root.retainedScreenName = Brightness.activeScreen.name;
+        function onDashboardSidebarOpenChanged() {
+            if (WidgetState.dashboardSidebarOpen)
+                root.opened("dashboard");
+        }
+
+        function onQuickSettingsOpenChanged() {
+            if (WidgetState.quickSettingsOpen)
+                root.opened("quicksettings");
+        }
+    }
+
+    Connections {
+        target: PersonalizationConfig
+        function onSidebarPositionsChanged() {
+            if (SystemCardDragSession.active)
+                SystemCardDragSession.requestCancel();
+            root.reconcileSidebars();
+            // A settings change can move already visible panels onto the same
+            // edge. Retire the losing surface immediately instead of overlapping.
+            if (root.sameEdge) {
+                if (!WidgetState.dashboardSidebarOpen)
+                    dashboardSidebar.finishClosing();
+                if (!WidgetState.quickSettingsOpen)
+                    quickSettingsSidebar.finishClosing();
+            }
         }
     }
 
@@ -118,25 +163,25 @@ PanelWindow {
         acceptedButtons: Qt.LeftButton
 
         onClicked: mouse => {
-            if (WidgetState.leftSidebarOpen
-                    && !leftSidebar.containsPoint(mouse.x, mouse.y))
-                WidgetState.leftSidebarOpen = false;
+            if (WidgetState.dashboardSidebarOpen && !dashboardSidebar.containsPoint(mouse.x, mouse.y))
+                WidgetState.dashboardSidebarOpen = false;
 
-            if (WidgetState.qsOpen
-                    && !rightSidebar.containsPoint(mouse.x, mouse.y))
-                WidgetState.qsOpen = false;
+            if (WidgetState.quickSettingsOpen && !quickSettingsSidebar.containsPoint(mouse.x, mouse.y))
+                WidgetState.quickSettingsOpen = false;
         }
     }
 
-    LeftSidebarWindow {
-        id: leftSidebar
+    DashboardSidebar {
+        id: dashboardSidebar
+        presentationAllowed: !root.sameEdge || !quickSettingsSidebar.panelPresented
 
         anchors.fill: parent
         panelScreen: root.screen
     }
 
-    RightSidebar {
-        id: rightSidebar
+    QuickSettingsSidebar {
+        id: quickSettingsSidebar
+        presentationAllowed: !root.sameEdge || !dashboardSidebar.panelPresented
 
         anchors.fill: parent
         panelScreen: root.screen
@@ -144,10 +189,8 @@ PanelWindow {
 
     CompositorBlurRegion {
         targetWindow: root
-        backgroundItem: leftSidebar.blurBackgroundItem
-        additionalBackgroundItems: [
-            rightSidebar.blurBackgroundItem
-        ]
+        backgroundItem: dashboardSidebar.blurBackgroundItem
+        additionalBackgroundItems: [quickSettingsSidebar.blurBackgroundItem]
     }
 
     Shortcut {

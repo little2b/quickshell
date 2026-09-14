@@ -41,10 +41,13 @@ Item {
 
     Component.onCompleted: {
         I18nService.initialize();
+        DisplayColor.evaluate();
         LyricsTrackService.initialize();
         SystemIdentityService.initialize();
         PrimaryDisplayService.initialize();
     }
+
+    DisplayOverlays {}
 
     WallpaperBackground {}
 

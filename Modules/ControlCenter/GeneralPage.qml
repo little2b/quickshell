@@ -67,10 +67,12 @@ Item {
             anchors.right: parent.right
             title: {
                 switch (section) {
+                case "displays":
+                    return qsTr("Displays");
                 case "bar":
                     return qsTr("Bar");
                 case "dock":
-                    return qsTr("下方 Dock");
+                    return qsTr("Bottom Dock");
                 case "sidebar":
                     return qsTr("Sidebars");
                 case "spotlight":
@@ -79,12 +81,10 @@ Item {
                     return qsTr("Transparency and blur");
                 case "shortcuts":
                     return qsTr("Keyboard shortcuts");
-                case "displays":
-                    return qsTr("Displays");
                 case "power-management":
-                    return qsTr("电源管理");
+                    return qsTr("Power management");
                 case "mouse":
-                    return qsTr("鼠标与光标");
+                    return qsTr("Mouse and cursor");
                 case "language-region":
                     return qsTr("Language & region");
                 case "autostart":
@@ -108,6 +108,8 @@ Item {
             }
             iconName: {
                 switch (section) {
+                case "displays":
+                    return "monitor";
                 case "bar":
                     return "dock_to_bottom";
                 case "dock":
@@ -120,8 +122,6 @@ Item {
                     return "blur_on";
                 case "shortcuts":
                     return "keyboard";
-                case "displays":
-                    return "monitor";
                 case "power-management":
                     return "battery_charging_full";
                 case "mouse":
@@ -162,6 +162,8 @@ Item {
         headerComponent: root.currentSection === "overview" ? null : subpageHeader
         source: {
             switch (root.currentSection) {
+            case "displays":
+                return Qt.resolvedUrl("DisplaysPage.qml");
             case "bar":
                 return Qt.resolvedUrl("GeneralBarPage.qml");
             case "dock":
@@ -174,8 +176,6 @@ Item {
                 return Qt.resolvedUrl("GeneralEffectsPage.qml");
             case "shortcuts":
                 return Qt.resolvedUrl("ShortcutsPage.qml");
-            case "displays":
-                return Qt.resolvedUrl("DisplaysPage.qml");
             case "power-management":
                 return Qt.resolvedUrl("PowerManagementPage.qml");
             case "mouse":

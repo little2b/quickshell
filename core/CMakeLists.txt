@@ -5,10 +5,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # globally enable MOC to parse Q_OBJECT macros
 set(CMAKE_AUTOMOC ON)
 
-set(CLAVIS_RELEASE "development" CACHE STRING "Clavis date release")
+set(CLAVIS_RELEASE "${PROJECT_VERSION}")
 set(CLAVIS_COMMIT "unknown" CACHE STRING "Git commit embedded in the release")
 set(CLAVIS_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 get_filename_component(CLAVIS_SOURCE_ROOT "${CLAVIS_SOURCE_ROOT}" ABSOLUTE)
+if(EXISTS "${CLAVIS_SOURCE_ROOT}/RELEASE.json")
+    file(READ "${CLAVIS_SOURCE_ROOT}/RELEASE.json" CLAVIS_RELEASE_METADATA)
+    string(JSON CLAVIS_COMMIT GET "${CLAVIS_RELEASE_METADATA}" commit)
+    string(JSON CLAVIS_BUILD_TIME GET "${CLAVIS_RELEASE_METADATA}" buildTime)
+endif()
 if(CLAVIS_COMMIT STREQUAL "unknown")
     find_package(Git QUIET)
     if(Git_FOUND)
@@ -77,10 +82,12 @@ add_subdirectory(plugin/keyboard)
 add_subdirectory(plugin/lyrics)
 add_subdirectory(plugin/i18n)
 add_subdirectory(plugin/runtime)
+add_subdirectory(plugin/gamma)
 
 install(
     DIRECTORY "${CLAVIS_QML_BUILD_DIR}/Clavis/"
     DESTINATION "${CLAVIS_QML_INSTALL_DIR}/Clavis"
+    COMPONENT ClavisNative
     FILES_MATCHING
         PATTERN "qmldir"
         PATTERN "*.qmltypes"
@@ -114,6 +121,11 @@ install(
     USE_SOURCE_PERMISSIONS
     PATTERN "__pycache__" EXCLUDE
     PATTERN "*.pyc" EXCLUDE
+    PATTERN "dev" EXCLUDE
+    PATTERN "ci" EXCLUDE
+    PATTERN "install" EXCLUDE
+    PATTERN "release.py" EXCLUDE
+    PATTERN "check-package.py" EXCLUDE
 )
 install(
     DIRECTORY "${CLAVIS_SOURCE_ROOT}/matugen/templates/"

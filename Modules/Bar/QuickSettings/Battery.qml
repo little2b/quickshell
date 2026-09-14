@@ -102,7 +102,7 @@ Item {
     }
 
     implicitWidth: root.vertical ? Sizes.barControlCircleSize : 56
-    implicitHeight: root.vertical ? 40 : Sizes.barControlCircleSize
+    implicitHeight: root.vertical ? 56 : Sizes.barControlCircleSize
     Accessible.name: root.tooltipText
     Accessible.role: Accessible.StaticText
 
@@ -120,7 +120,7 @@ Item {
 
     Row {
         anchors.centerIn: parent
-        visible: !root.vertical
+        rotation: root.vertical ? (PersonalizationConfig.barPosition === "right" ? 90 : -90) : 0
         spacing: 2
 
         Item {
@@ -130,9 +130,6 @@ Item {
 
             BatteryGlyph {
                 id: batteryGlyph
-
-                showValue: true
-                embeddedCharging: false
             }
         }
 
@@ -145,25 +142,6 @@ Item {
             iconSize: width
             fill: 1
             color: root.foregroundColor
-        }
-    }
-
-    Column {
-        anchors.centerIn: parent
-        visible: root.vertical
-        spacing: 0
-
-        Item {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 16
-            height: 31
-
-            BatteryGlyph {
-                anchors.centerIn: parent
-                rotation: -90
-                showValue: false
-                embeddedCharging: true
-            }
         }
     }
 
@@ -181,11 +159,6 @@ Item {
     }
 
     component BatteryGlyph: Item {
-        id: glyphRoot
-
-        required property bool showValue
-        required property bool embeddedCharging
-
         width: 31
         height: 16
 
@@ -207,23 +180,12 @@ Item {
 
             Text {
                 anchors.centerIn: parent
-                visible: glyphRoot.showValue
                 text: root.displayText
                 color: root.valueAvailable ? root.containerColor : root.foregroundColor
                 font.family: Fonts.expressive
                 font.pixelSize: 11
                 font.weight: Font.Bold
                 font.hintingPreference: Font.PreferNoHinting
-            }
-
-            MaterialSymbol {
-                anchors.centerIn: parent
-                visible: glyphRoot.embeddedCharging && PowerService.charging
-                rotation: 90
-                text: "bolt"
-                iconSize: 12
-                fill: 1
-                color: root.valueAvailable ? root.containerColor : root.foregroundColor
             }
         }
 

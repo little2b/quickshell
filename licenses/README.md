@@ -3,6 +3,16 @@
 Existing license files in this directory continue to cover their respective
 components.
 
+## Animated Weather Cards
+
+Source: [Animated Weather Cards](https://codepen.io/ste-vg/pen/GqaZbo) by Steve Gardner.
+The current-weather animation at the top of Clavis's sidebar weather view
+recreates the original web project's visuals and animation in Qt/QML.
+
+The original project is licensed under MIT. [AnimatedWeatherCards-MIT.txt](AnimatedWeatherCards-MIT.txt)
+preserves the complete license and copyright notice verbatim from the downloaded
+CodePen project's `LICENSE.txt`.
+
 ## Zen Browser
 
 Source: [Zen Browser / zen-browser/desktop](https://github.com/zen-browser/desktop),
@@ -59,3 +69,10 @@ The retained `Modules/SystemCards/CookieClock/` QML geometry and presentation
 adaptations from end-4/dots-hyprland remain covered by
 `end-4-dots-hyprland-GPL-3.0.txt` and their source notices. They consume the external
 M3Shapes API and are not the removed vendored M3Shapes C++ implementation.
+
+## Meteocons
+
+Source: https://github.com/basmilius/meteocons, MIT © Bas Milius.
+The release bundles `@meteocons/svg@0.1.0` and `@meteocons/lottie@0.1.0` from npm.
+Their URLs and SHA-256 hashes are pinned in `packaging/dependencies.json`.
+The npm archives omit the license text; `Meteocons-MIT.txt` supplies it.

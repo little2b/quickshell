@@ -9,10 +9,15 @@ MouseArea {
     property real mouseStep: 120
     property real pixelMultiplier: 3
 
-    // Stay on the viewport and behind its contents so nested views and controls
-    // get first refusal. Do not scroll this input area with the contentItem.
-    parent: flickable
-    anchors.fill: parent
+    // Keep wheel input behind content, but inside the contentItem subtree so
+    // it is visited before Flickable's own wheel handler. A negative-z sibling
+    // of contentItem sits behind Flickable and never receives accepted events.
+    // Offset with the scroll position to keep this area on the viewport.
+    parent: flickable.contentItem
+    x: flickable.contentX
+    y: flickable.contentY
+    width: flickable.width
+    height: flickable.height
     z: -1
     acceptedButtons: Qt.NoButton
     scrollGestureEnabled: true
@@ -117,23 +122,28 @@ MouseArea {
         easing.bezierCurve: Appearance.animation.scroll.bezierCurve
     }
 
-    Connections {
-        target: root.flickable
-        function onContentXChanged() {
-            if (root.horizontal && !root.writingPosition)
-                root.stop();
-        }
-        function onContentYChanged() {
-            if (!root.horizontal && !root.writingPosition)
-                root.stop();
-        }
-        function onDraggingChanged() {
-            if (root.flickable.dragging)
-                root.stop();
-        }
-        function onInteractiveChanged() {
-            if (!root.flickable.interactive)
-                root.stop();
-        }
+    // Observe Flickable state through bindings. In Qt 6.11.2, asynchronous page
+    // creation crashed in connectSignalsToMethods() with a null JavaScript method.
+    // Property handlers avoid that Connections initialization path.
+    readonly property real observedContentX: flickable ? flickable.contentX : 0
+    readonly property real observedContentY: flickable ? flickable.contentY : 0
+    readonly property bool observedDragging: flickable ? flickable.dragging : false
+    readonly property bool observedInteractive: flickable ? flickable.interactive : false
+
+    onObservedContentXChanged: {
+        if (horizontal && !writingPosition)
+            stop();
+    }
+    onObservedContentYChanged: {
+        if (!horizontal && !writingPosition)
+            stop();
+    }
+    onObservedDraggingChanged: {
+        if (observedDragging)
+            stop();
+    }
+    onObservedInteractiveChanged: {
+        if (!observedInteractive)
+            stop();
     }
 }

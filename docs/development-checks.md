@@ -39,10 +39,13 @@ normalize。仅明确格式迁移时使用全树写入 `--all`；`--check-all` �
 
 ```bash
 sudo pacman -S --needed base-devel cmake ninja qt6-base qt6-declarative \
-  qt6-shadertools qt6-tools qtkeychain-qt6 libpipewire cava \
+  qt6-shadertools qt6-tools qt6-wayland qtkeychain-qt6 libpipewire \
   clang shellcheck python git libxkbcommon systemd-libs
+# libcava 的 AUR 包提供所需共享库与 pkg-config 接口，另行构建安装。
 # Matugen 集成测试需要：
 sudo pacman -S --needed matugen jq
+# Niri 配置与显示预览集成测试需要 niri validate（不会启动 compositor）：
+sudo pacman -S --needed niri
 ```
 
 M3Shapes 是另行安装的 QML 运行时依赖，Arch 包名为 `qt6-m3shapes-git`

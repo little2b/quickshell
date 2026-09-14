@@ -136,3 +136,20 @@ add_test(NAME niri_config_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURC
 qt_add_executable(device_state_tests device_state_test.cpp)
 target_link_libraries(device_state_tests PRIVATE ClavisRuntimeCore Qt6::Core Qt6::Test)
 add_test(NAME device_state_tests COMMAND device_state_tests)
+
+qt_add_executable(gamma_curve_tests gamma_curve_test.cpp
+    ../plugin/gamma/src/gamma_curve.cpp)
+target_include_directories(gamma_curve_tests PRIVATE ../plugin/gamma/src)
+target_link_libraries(gamma_curve_tests PRIVATE Qt6::Core Qt6::Test)
+add_test(NAME gamma_curve_tests COMMAND gamma_curve_tests)
+add_test(NAME display_preview_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_display_preview.py)
+qt_add_executable(niri_ipc_async_tests niri_ipc_async_test.cpp)
+target_link_libraries(niri_ipc_async_tests PRIVATE ClavisNiriCore Qt6::Core Qt6::Network Qt6::Test)
+add_test(NAME niri_ipc_async_tests COMMAND niri_ipc_async_tests)
+
+add_test(NAME release_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_release.py)
+add_test(NAME installer_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_installer.py)
+
+qt_add_executable(weather_location_tests weather_location_test.cpp)
+target_link_libraries(weather_location_tests PRIVATE ClavisWeatherCore Qt6::Core Qt6::Network Qt6::Test)
+add_test(NAME weather_location_tests COMMAND weather_location_tests)

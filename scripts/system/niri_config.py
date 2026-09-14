@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """On-demand niri configuration editor. JSON requests; never executes bindings."""
 import copy
+from contextlib import contextmanager
 import ctypes
 import fcntl
 import hashlib
@@ -15,12 +16,13 @@ import struct
 import subprocess
 import sys
 import tempfile
+import niri_outputs
 
 sys.path.insert(0, str(Path(__file__).parent / 'vendor'))
 import kdl
 
 PRINT = kdl.PrintConfig(indent='    ', semicolons=True)
-FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'mouse')
+FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'outputs', 'mouse')
 
 # Stable first-setup defaults. Existing fragments, including empty ones, are preserved.
 DEFAULT_BINDINGS = (
@@ -30,8 +32,8 @@ DEFAULT_BINDINGS = (
     ('Mod+Shift+Space', 'spotlight', 'web'),
     ('Mod+Alt+V', 'spotlight', 'openMode', 'clipboard'),
     ('Mod+Alt+W', 'spotlight', 'openMode', 'wallpapers'),
-    ('Mod+N', 'sidebar', 'toggle', 'left'),
-    ('Mod+A', 'sidebar', 'toggle', 'right'),
+    ('Mod+N', 'sidebar', 'toggle', 'dashboard'),
+    ('Mod+A', 'sidebar', 'toggle', 'quicksettings'),
     ('Mod+Ctrl+Comma', 'control-center', 'toggle', 'general'),
     ('Mod+Shift+W', 'keystone', 'hub'),
     ('Mod+Shift+T', 'keystone', 'tools'),
@@ -250,6 +252,8 @@ def initial(feature, request):
         return header + render(kdl.Node('input', nodes=[kdl.Node('mouse', nodes=[
             kdl.Node('accel-speed', args=[float(speed)]),
             kdl.Node('accel-profile', args=[profile])])]))
+    if feature == 'outputs':
+        return header
     if feature == 'binds':
         section = kdl.Node('binds')
         for key, *command in DEFAULT_BINDINGS:
@@ -310,6 +314,10 @@ def action_identity(action):
         entries = json.loads((Path(__file__).parent / 'niri-actions.json').read_text())
         if any(e.get('target') == action.args[3] and e.get('method') == action.args[4] for e in entries) if len(action.args) >= 5 else False:
             action.args = ['qs', '-c', 'clavis', 'ipc', 'call'] + action.args[3:]
+    if (action.name == 'spawn' and len(action.args) == 8
+            and action.args[:6] == ['qs', '-c', 'clavis', 'ipc', 'call', 'sidebar']
+            and action.args[6] in ('open', 'close', 'toggle')):
+        action.args[7] = {'left': 'dashboard', 'right': 'quicksettings'}.get(action.args[7], action.args[7])
     return canonical(action)
 
 
@@ -388,6 +396,7 @@ def status(request):
         if graph.error:
             raise graph.error
         state['revision'] = graph.revision()
+        state['outputs'] = niri_outputs.inspect(graph, path_key(managed_dir / 'outputs.kdl'))
         state['bindings'], state['modKey'] = bindings(graph, path_key(managed_dir / 'binds.kdl'))
         state['diagnostics']['conflicts'] = any(row['collision'] for row in state['bindings'])
         try:
@@ -519,6 +528,30 @@ def edit_bindings(graph, path, request):
     return text + '\nbinds {\n' + value + '}\n'
 
 
+@contextmanager
+def configuration_lock(main, nonblocking=False):
+    # Share the same lock across the editor and the ephemeral preview guardian.
+    lock_dir = Path(os.environ.get('XDG_RUNTIME_DIR', tempfile.gettempdir()))
+    lock_path = lock_dir / ('clavis-niri-' + str(os.getuid()) + '-' + hashlib.sha256(str(main).encode()).hexdigest()[:20] + '.lock')
+    fd = os.open(lock_path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    info = os.fstat(fd)
+    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_nlink != 1:
+        os.close(fd)
+        raise ValueError('Unsafe configuration lock file')
+    with os.fdopen(fd, 'w') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | (fcntl.LOCK_NB if nonblocking else 0))
+        yield
+
+
+def restore_output_publication(main, candidate, previous):
+    path = main.parent / 'clavis/outputs.kdl'
+    with configuration_lock(main, nonblocking=True):
+        safe_target(path)
+        if read_text(path) != candidate:
+            raise ValueError('Output configuration changed externally; the preview will not overwrite it')
+        replace_file(path, previous)
+
+
 def mutate(request):
     if request.get('operation') not in ('setup', 'update', 'save', 'delete', 'delete-group'):
         raise ValueError('Unknown write operation')
@@ -529,16 +562,7 @@ def mutate(request):
     path = main.parent / 'clavis' / (feature + '.kdl')
     safe_target(main)
     safe_target(path, missing=request['operation'] == 'setup')
-    # One lock for all features, without creating niri directories on reads.
-    lock_dir = Path(os.environ.get('XDG_RUNTIME_DIR', tempfile.gettempdir()))
-    lock_path = lock_dir / ('clavis-niri-' + str(os.getuid()) + '-' + hashlib.sha256(str(main).encode()).hexdigest()[:20] + '.lock')
-    fd = os.open(lock_path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    info = os.fstat(fd)
-    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_nlink != 1:
-        os.close(fd)
-        raise ValueError('Unsafe configuration lock file')
-    with os.fdopen(fd, 'w') as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+    with configuration_lock(main, nonblocking=feature == 'outputs' and request['operation'] != 'setup'):
         safe_target(main)
         safe_target(path, missing=request['operation'] == 'setup')
         graph = Graph(main, repair=path_key(path))
@@ -553,6 +577,8 @@ def mutate(request):
             parse(previous)
         if request['operation'] == 'setup':
             candidate = previous if exists else initial(feature, request)
+        elif feature == 'outputs':
+            candidate = niri_outputs.edit(graph, path_key(path), request, sys.modules[__name__])
         elif feature == 'binds':
             candidate = edit_bindings(graph, path_key(path), request)
         else:

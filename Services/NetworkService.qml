@@ -1036,18 +1036,6 @@ Singleton {
         function onConnectedChanged() {
             if (root._pendingOperation === "connect" && root._pendingNetwork.connected) {
                 root._finishOperationSucceeded();
-            } else if (root._pendingOperation === "connect" && root._pendingConnectPhase === "disconnecting"
-                       && !root._pendingNetwork.connected) {
-                root._pendingConnectPhase = "waiting";
-                root._pendingStateWasChanging = false;
-                Qt.callLater(() => {
-                    if (root._pendingOperation !== "connect" || root._pendingConnectPhase !== "waiting" ||
-                            !root._pendingNetwork || !root._pendingConnectSettings)
-                        return;
-
-                    root._pendingConnectPhase = "activating";
-                    root._pendingNetwork.connectWithSettings(root._pendingConnectSettings);
-                });
             } else if (root._pendingOperation === "disconnect" && !root._pendingNetwork.connected) {
                 root._finishOperationSucceeded();
             }
@@ -1062,7 +1050,28 @@ Singleton {
             if (!root._pendingNetwork)
                 return;
 
-            if (root._pendingNetwork.stateChanging)
+            // connected becomes false already in Disconnecting. A same-SSID
+            // profile switch must wait for the old connection to finish before
+            // activating the new one on the shared Network object.
+            if (root._pendingOperation === "connect" && root._pendingConnectPhase === "disconnecting") {
+                if (root._pendingNetwork.state === ConnectionState.Disconnected) {
+                    root._pendingConnectPhase = "waiting";
+                    Qt.callLater(() => {
+                        if (root._pendingOperation !== "connect" || root._pendingConnectPhase !== "waiting"
+                                || !root._pendingNetwork || !root._pendingConnectSettings)
+                            return;
+
+                        root._pendingStateWasChanging = false;
+                        root._pendingConnectPhase = "activating";
+                        root._pendingNetwork.connectWithSettings(root._pendingConnectSettings);
+                    });
+                }
+                return;
+            }
+
+            // Disconnecting is also stateChanging, but is not evidence that
+            // the requested connection attempt has started.
+            if (root._pendingNetwork.state === ConnectionState.Connecting)
                 root._pendingStateWasChanging = true;
 
             if (root._pendingOperation === "connect" && root._pendingConnectPhase !== "disconnecting"

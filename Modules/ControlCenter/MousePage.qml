@@ -15,7 +15,8 @@ StyledFlickable {
         NiriConfigService.refresh();
         ThemeService.detectAvailableThemes();
     }
-    onPresentationActiveChanged: if (presentationActive) NiriConfigService.refresh()
+    onPresentationActiveChanged: if (presentationActive)
+                                     NiriConfigService.refresh()
 
     ColumnLayout {
         id: contentColumn
@@ -26,8 +27,9 @@ StyledFlickable {
 
         InlineStatusBanner {
             Layout.fillWidth: true
-            message: NiriConfigService.busy || NiriConfigService.pendingMouseOptions !== null
-                     ? qsTr("正在保存…") : qsTr("调整后自动保存并立即生效")
+            message: NiriConfigService.busy || NiriConfigService.pendingMouseOptions !== null ? qsTr(
+                                                                                                    "Saving…") :
+                                                                                                qsTr("Changes are saved and applied automatically")
         }
 
         InlineStatusBanner {
@@ -39,13 +41,13 @@ StyledFlickable {
 
         SettingsSection {
             Layout.fillWidth: true
-            title: qsTr("鼠标移动")
+            title: qsTr("Pointer motion")
             iconName: "mouse"
 
             NiriSetupPrompt {
                 Layout.fillWidth: true
-                title: qsTr("启用鼠标设置")
-                description: qsTr("启用后可在这里调整鼠标移动速度。")
+                title: qsTr("Enable mouse settings")
+                description: qsTr("Enable this to adjust mouse pointer speed here.")
                 integrationState: NiriConfigService.state("mouse")
                 busy: NiriConfigService.busy
                 blocked: NiriConfigService.busy
@@ -55,48 +57,65 @@ StyledFlickable {
             GeneralSliderSetting {
                 objectName: "mouseSpeedSetting"
                 enabled: NiriConfigService.ready("mouse")
-                title: qsTr("移动速度")
-                description: qsTr("向左更慢，向右更快；0 为默认速度。仅影响鼠标。")
+                title: qsTr("Pointer speed")
+                description: qsTr(
+                                 "Move left for slower motion or right for faster motion. The default is 0. Only affects the mouse.")
                 from: -100
                 to: 100
                 stepSize: 5
                 value: Math.round(NiriConfigService.mouseOptions.speed * 100)
-                onMoved: value => NiriConfigService.setMouseOptions({speed: value / 100})
+                onMoved: value => NiriConfigService.setMouseOptions({
+                                                                        speed: value / 100
+                                                                    })
             }
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("加速模式")
-                supportingText: qsTr("自适应随移动速度加速；恒速保持固定比例。")
+                title: qsTr("Acceleration profile")
+                supportingText: qsTr(
+                                    "Adaptive acceleration depends on movement speed. Flat acceleration uses a fixed ratio.")
                 trailing: SearchSelectMenuField {
                     objectName: "mouseAccelerationField"
                     implicitWidth: 180
                     implicitHeight: 40
                     enabled: NiriConfigService.ready("mouse")
-                    options: [{label: qsTr("自适应"), value: "adaptive"},
-                              {label: qsTr("恒速"), value: "flat"}]
+                    options: [
+                        {
+                            label: qsTr("Adaptive"),
+                            value: "adaptive"
+                        },
+                        {
+                            label: qsTr("Flat"),
+                            value: "flat"
+                        }
+                    ]
                     value: NiriConfigService.mouseOptions.profile
-                    onAccepted: value => NiriConfigService.setMouseOptions({profile: value})
+                    onAccepted: value => NiriConfigService.setMouseOptions({
+                                                                               profile: value
+                                                                           })
                 }
             }
 
             ActionButton {
-                text: qsTr("恢复默认速度")
+                text: qsTr("Reset pointer speed")
                 iconName: "restart_alt"
                 enabled: NiriConfigService.ready("mouse")
-                onClicked: NiriConfigService.setMouseOptions({speed: 0, profile: "adaptive"})
+                onClicked: NiriConfigService.setMouseOptions({
+                                                                 speed: 0,
+                                                                 profile: "adaptive"
+                                                             })
             }
         }
 
         SettingsSection {
             Layout.fillWidth: true
-            title: qsTr("光标外观")
+            title: qsTr("Cursor appearance")
             iconName: "arrow_selector_tool"
 
             NiriSetupPrompt {
                 Layout.fillWidth: true
-                title: qsTr("启用光标设置")
-                description: qsTr("启用后可选择光标样式和大小。")
+                title: qsTr("Enable cursor settings")
+                description: qsTr("Enable this to select a cursor theme and size.")
                 integrationState: NiriConfigService.state("cursor")
                 busy: NiriConfigService.busy
                 blocked: NiriConfigService.busy
@@ -105,8 +124,8 @@ StyledFlickable {
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("光标样式")
-                supportingText: qsTr("选择已安装的光标主题")
+                title: qsTr("Cursor theme")
+                supportingText: qsTr("Choose an installed cursor theme")
                 trailing: SearchSelectMenuField {
                     objectName: "mouseCursorThemeField"
                     implicitWidth: 240
@@ -114,7 +133,7 @@ StyledFlickable {
                     enabled: NiriConfigService.ready("cursor")
                     options: ThemeService.availableCursorThemes
                     value: PersonalizationConfig.cursorTheme
-                    placeholder: qsTr("选择光标主题")
+                    placeholder: qsTr("Choose cursor theme")
                     onAccepted: value => ThemeService.setCursorTheme(value)
                 }
             }
@@ -122,12 +141,12 @@ StyledFlickable {
             GeneralSliderSetting {
                 objectName: "mouseCursorSizeSetting"
                 enabled: NiriConfigService.ready("cursor")
-                title: qsTr("光标大小")
-                description: qsTr("常用大小为 24、32 或 48 像素。")
+                title: qsTr("Cursor size")
+                description: qsTr("Common sizes are 24, 32 or 48 pixels.")
                 from: 12
                 to: 128
                 stepSize: 1
-                suffix: qsTr(" 像素")
+                suffix: qsTr(" px")
                 value: PersonalizationConfig.cursorSize
                 onMoved: value => ThemeService.setCursorSize(value)
             }

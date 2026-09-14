@@ -9,7 +9,7 @@ import qs.Widgets.common
 SettingsSection {
     id: root
 
-    title: qsTr("笔记本合盖")
+    title: qsTr("Laptop lid")
     iconName: "laptop_mac"
     property bool ready: false
     readonly property bool busy: operation.running
@@ -22,18 +22,38 @@ SettingsSection {
     property string message: ""
     property var inhibitors: []
     property bool docked: false
-    readonly property bool dirty: ready && (batteryAction !== saved.battery
-        || externalAction !== saved.external || dockedAction !== saved.docked)
+    readonly property bool dirty: ready && (batteryAction !== saved.battery || externalAction !== saved.external
+                                            || dockedAction !== saved.docked)
 
     function options(inherit) {
         const items = [
-            {label: qsTr("不执行动作"), value: "ignore", enabled: true},
-            {label: qsTr("睡眠"), value: "suspend", enabled: !!root.capabilities.suspend},
-            {label: qsTr("休眠"), value: "hibernate", enabled: !!root.capabilities.hibernate},
-            {label: qsTr("先睡眠后休眠"), value: "suspend-then-hibernate", enabled: !!root.capabilities["suspend-then-hibernate"]}
-        ];
+                  {
+                      label: qsTr("Do nothing"),
+                      value: "ignore",
+                      enabled: true
+                  },
+                  {
+                      label: qsTr("Suspend"),
+                      value: "suspend",
+                      enabled: !!root.capabilities.suspend
+                  },
+                  {
+                      label: qsTr("Hibernate"),
+                      value: "hibernate",
+                      enabled: !!root.capabilities.hibernate
+                  },
+                  {
+                      label: qsTr("Suspend then hibernate"),
+                      value: "suspend-then-hibernate",
+                      enabled: !!root.capabilities["suspend-then-hibernate"]
+                  }
+              ];
         if (inherit)
-            items.unshift({label: qsTr("与使用电池时相同"), value: "", enabled: true});
+            items.unshift({
+                              label: qsTr("Same as on battery"),
+                              value: "",
+                              enabled: true
+                          });
         return items;
     }
 
@@ -53,10 +73,12 @@ SettingsSection {
         root.error = "";
         root.message = "";
         operation.applying = true;
-        operation.command = ["/usr/bin/pkexec", "/usr/bin/python3", "-I",
-            Paths.systemScriptsDir + "/lid_settings.py", "apply", JSON.stringify({
-                battery: root.batteryAction, external: root.externalAction, docked: root.dockedAction
-            })];
+        operation.command = ["/usr/bin/pkexec", "/usr/bin/python3", "-I", Paths.systemScriptsDir
+                             + "/lid_settings.py", "apply", JSON.stringify({
+                                                                               battery: root.batteryAction,
+                                                                               external: root.externalAction,
+                                                                               docked: root.dockedAction
+                                                                           })];
         operation.running = true;
     }
 
@@ -64,8 +86,9 @@ SettingsSection {
 
     InlineStatusBanner {
         Layout.fillWidth: true
-        message: root.busy ? (operation.applying ? qsTr("正在验证身份并应用合盖设置…") : qsTr("正在读取合盖设置…"))
-            : qsTr("选择后点击“应用合盖设置”。系统会请求管理员身份验证，设置对所有桌面会话生效。")
+        message: root.busy ? (operation.applying ? qsTr("Authenticating and applying lid settings…") : qsTr(
+                                                       "Reading lid settings…")) : qsTr(
+                                 "Click Apply lid settings after making your selections. Administrator authentication is required, and these settings apply to all desktop sessions.")
     }
 
     InlineStatusBanner {
@@ -84,13 +107,15 @@ SettingsSection {
     InlineStatusBanner {
         Layout.fillWidth: true
         visible: root.inhibitors.length > 0
-        message: qsTr("以下程序正在接管合盖动作，系统合盖策略可能暂不执行：%1").arg(root.inhibitors.join("、"))
+        message: qsTr(
+                     "These applications are handling lid events and may override the system lid policy: %1").arg(
+                     root.inhibitors.join("、"))
     }
 
     SettingsRow {
         Layout.fillWidth: true
         iconName: "battery_std"
-        title: qsTr("使用电池时合盖")
+        title: qsTr("Lid closed on battery")
         trailing: SearchSelectMenuField {
             objectName: "lidBatteryAction"
             implicitWidth: 210
@@ -98,7 +123,7 @@ SettingsSection {
             options: root.options(false)
             value: root.batteryAction
             closeOnAccept: true
-            Accessible.name: qsTr("使用电池时合盖动作")
+            Accessible.name: qsTr("Lid action on battery")
             onAccepted: value => root.batteryAction = value
         }
     }
@@ -106,7 +131,7 @@ SettingsSection {
     SettingsRow {
         Layout.fillWidth: true
         iconName: "power"
-        title: qsTr("接通电源时合盖")
+        title: qsTr("Lid closed on external power")
         trailing: SearchSelectMenuField {
             objectName: "lidExternalAction"
             implicitWidth: 210
@@ -114,7 +139,7 @@ SettingsSection {
             options: root.options(true)
             value: root.externalAction
             closeOnAccept: true
-            Accessible.name: qsTr("接通电源时合盖动作")
+            Accessible.name: qsTr("Lid action on external power")
             onAccepted: value => root.externalAction = value
         }
     }
@@ -122,8 +147,10 @@ SettingsSection {
     SettingsRow {
         Layout.fillWidth: true
         iconName: "desktop_windows"
-        title: qsTr("外接显示器或扩展坞时合盖")
-        supportingText: root.docked ? qsTr("当前正在使用此场景，优先于电池与电源设置。") : qsTr("此场景优先于电池与电源设置。")
+        title: qsTr("Lid closed with an external display or dock")
+        supportingText: root.docked ? qsTr(
+                                          "This scenario is currently active and takes priority over battery and external power settings.") :
+                                      qsTr("This scenario takes priority over battery and external power settings.")
         trailing: SearchSelectMenuField {
             objectName: "lidDockedAction"
             implicitWidth: 210
@@ -131,14 +158,15 @@ SettingsSection {
             options: root.options(false)
             value: root.dockedAction
             closeOnAccept: true
-            Accessible.name: qsTr("外接显示器或扩展坞时合盖动作")
+            Accessible.name: qsTr("Lid action with an external display or dock")
             onAccepted: value => root.dockedAction = value
         }
     }
 
     InlineStatusBanner {
         Layout.fillWidth: true
-        message: qsTr("niri 会在合盖时关闭内置屏幕，开盖时恢复。“不执行动作”可用于合盖后继续使用外接显示器；保持唤醒开关不控制这里的合盖策略。")
+        message: qsTr(
+                     "Niri disables the internal display when the lid closes and restores it when opened. Choose Do nothing to keep using an external display with the lid closed. Keep awake does not control this lid policy.")
     }
 
     RowLayout {
@@ -147,7 +175,7 @@ SettingsSection {
 
         ActionButton {
             objectName: "lidApplyButton"
-            text: qsTr("应用合盖设置")
+            text: qsTr("Apply lid settings")
             iconName: "check"
             filled: true
             enabled: root.dirty && !root.busy
@@ -155,7 +183,7 @@ SettingsSection {
         }
 
         ActionButton {
-            text: root.dirty ? qsTr("撤销未应用改动") : qsTr("刷新")
+            text: root.dirty ? qsTr("Discard pending changes") : qsTr("Refresh")
             iconName: "refresh"
             enabled: !root.busy
             onClicked: root.refresh()
@@ -165,15 +193,20 @@ SettingsSection {
     Process {
         id: operation
         property bool applying: false
-        stdout: StdioCollector { id: response }
-        stderr: StdioCollector { id: diagnostics }
+        stdout: StdioCollector {
+            id: response
+        }
+        stderr: StdioCollector {
+            id: diagnostics
+        }
         onExited: code => {
             try {
                 if (code === 126)
-                    throw new Error(qsTr("已取消身份验证，合盖设置未更改。"));
+                    throw new Error(qsTr("Authentication was canceled. Lid settings were not changed."));
                 const result = JSON.parse(response.text || "{}");
                 if (code !== 0 || !result.ok)
-                    throw new Error(result.error || diagnostics.text.trim() || qsTr("无法读取或应用合盖设置。"));
+                    throw new Error(result.error || diagnostics.text.trim() || qsTr(
+                                        "Cannot read or apply lid settings."));
                 root.saved = result.values;
                 root.batteryAction = result.values.battery;
                 root.externalAction = result.values.external;
@@ -183,7 +216,8 @@ SettingsSection {
                 root.docked = result.docked;
                 root.ready = true;
                 if (operation.applying)
-                    root.message = qsTr("合盖设置已保存并生效，无需注销或重启。 ");
+                    root.message = qsTr(
+                                "Lid settings have been saved and applied. No logout or restart is required. ");
             } catch (exception) {
                 root.error = String(exception.message || exception);
             }

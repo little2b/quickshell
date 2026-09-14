@@ -42,8 +42,8 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 | Mod+Shift+Space | 网页搜索 | spotlight web |
 | Mod+Alt+V | 剪贴板历史 | spotlight openMode clipboard |
 | Mod+Alt+W | 壁纸选择 | spotlight openMode wallpapers |
-| Mod+N | 通知与信息侧栏 | sidebar toggle left |
-| Mod+A | 快捷设置侧栏 | sidebar toggle right |
+| Mod+N | 通知与信息侧栏 | sidebar toggle dashboard |
+| Mod+A | 快捷设置侧栏 | sidebar toggle quicksettings |
 | Mod+Ctrl+Comma | 设置中心 | control-center toggle general |
 | Mod+Shift+W | Keystone 主面板 | keystone hub |
 | Mod+Shift+T | 工具面板 | keystone tools |
@@ -64,3 +64,17 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 
 快捷键配置图独立于设置中心加载，使用 `qs -c clavis ipc call shortcut-map toggle`
 打开或关闭；也提供无参数的 `open` 和 `close`。账户页按钮与 IPC 共用同一个弹层。
+
+侧栏 IPC 的参数按内容区分：`dashboard` 表示信息、抽屉和天气侧栏，`quicksettings`
+表示快捷设置侧栏。通用设置 → 侧边栏中可独立选择各自的屏幕位置，默认仍为信息侧栏在左、快捷设置在右。
+不同侧可同时打开；同侧时，点击另一组按钮会自动收起当前侧栏，待其退出后展开新的侧栏，
+无需手动关闭。连续切换以最后一次请求为准，再次点击待展开侧栏可取消展开，Esc 可关闭全部。
+将已打开的两组调整到同侧时，保留最近打开的一组。
+`open`、`close`、`toggle` 均接受上述参数，返回 `DASHBOARD_OPEN/CLOSED` 或
+`QUICKSETTINGS_OPEN/CLOSED`。旧参数 `left`、`right` 继续分别指向信息和快捷设置内容，
+返回值保持 `LEFT_OPEN/CLOSED`、`RIGHT_OPEN/CLOSED`；它们不随实际位置重新解释。
+已有用户绑定无需改写，快捷键页面会将旧参数识别为对应的内容动作。
+
+灵动岛歌词界面通过 `qs -c clavis ipc call keystone lyrics` 切换展开与收起，返回
+`LYRICS_OPENED` / `LYRICS_CLOSED`。两种样式均作用于当前输出（无匹配时使用首个屏幕），
+展开时收起其他灵动岛面板。快捷键设置提供歌词动作占位，不绑定默认快捷键。
