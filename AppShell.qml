@@ -24,7 +24,7 @@ Item {
 
         const action = pendingSecurePowerAction;
         pendingSecurePowerAction = "";
-        Quickshell.execDetached(["loginctl", action]);
+        Quickshell.execDetached(["systemctl", action]);
     }
 
     function requestSecurePowerAction(action) {
@@ -43,6 +43,7 @@ Item {
         I18nService.initialize();
         LyricsTrackService.initialize();
         SystemIdentityService.initialize();
+        PrimaryDisplayService.initialize();
     }
 
     WallpaperBackground {}
@@ -80,6 +81,10 @@ Item {
         id: sessionLocker
     }
 
+    SleepLockBridge {
+        locker: sessionLocker
+    }
+
     PowerMenu {}
 
     Connections {
@@ -92,7 +97,7 @@ Item {
                 Quickshell.execDetached(["niri", "msg", "action", "quit", "--skip-confirmation"]);
                 break;
             case "suspend":
-                root.requestSecurePowerAction("suspend");
+                root.requestSecurePowerAction("suspend-then-hibernate");
                 break;
             case "poweroff":
                 Quickshell.execDetached(["systemctl", "poweroff"]);

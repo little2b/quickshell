@@ -5,6 +5,7 @@ import ctypes
 import fcntl
 import hashlib
 import json
+import math
 import os
 import re
 from pathlib import Path
@@ -19,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent / 'vendor'))
 import kdl
 
 PRINT = kdl.PrintConfig(indent='    ', semicolons=True)
-FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds')
+FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'mouse')
 
 # Stable first-setup defaults. Existing fragments, including empty ones, are preserved.
 DEFAULT_BINDINGS = (
@@ -239,6 +240,16 @@ def replace_file(path, text):
 
 def initial(feature, request):
     header = '// Managed by Clavis.\n'
+    if feature == 'mouse':
+        speed = request.get('speed', 0.0)
+        profile = request.get('profile', 'adaptive')
+        if isinstance(speed, bool) or not isinstance(speed, (int, float)) or not math.isfinite(speed) or not -1 <= speed <= 1:
+            raise ValueError('Mouse speed must be between -1 and 1')
+        if profile not in ('adaptive', 'flat'):
+            raise ValueError('Unknown mouse acceleration profile')
+        return header + render(kdl.Node('input', nodes=[kdl.Node('mouse', nodes=[
+            kdl.Node('accel-speed', args=[float(speed)]),
+            kdl.Node('accel-profile', args=[profile])])]))
     if feature == 'binds':
         section = kdl.Node('binds')
         for key, *command in DEFAULT_BINDINGS:
@@ -388,8 +399,16 @@ def status(request):
             included = path in graph.references
             state['fragments'][feature] = dict(path=str(path), state=('ready' if path.exists() else 'missing') if included else 'not-connected')
         state['keymap'] = {}
+        state['mouse'] = dict(speed=0.0, profile='adaptive')
         for _, node in graph.ordered:
             if node.name == 'input':
+                for mouse in node.nodes:
+                    if mouse.name == 'mouse':
+                        for option in mouse.nodes:
+                            if option.args and option.name == 'accel-speed':
+                                state['mouse']['speed'] = option.args[0]
+                            elif option.args and option.name == 'accel-profile':
+                                state['mouse']['profile'] = option.args[0]
                 for keyboard in node.nodes:
                     if keyboard.name == 'keyboard':
                         for xkb in keyboard.nodes:

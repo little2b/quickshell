@@ -3602,6 +3602,17 @@ Scroll to adjust</source>
         <source>Quick settings widgets</source>
         <translation>快速設定元件</translation>
     </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="45"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="60"/>
+        <source>Distance from screen edge</source>
+        <translation>距螢幕邊緣</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="48"/>
+        <source>%1 px</source>
+        <translation>%1 像素</translation>
+    </message>
 </context>
 <context>
     <name>GeneralEffectsPage</name>
@@ -3730,6 +3741,11 @@ Scroll to adjust</source>
         <source>Network unavailable</source>
         <translation>網路無法使用</translation>
     </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="70"/>
+        <source>Displays</source>
+        <translation>顯示器</translation>
+    </message>
 </context>
 <context>
     <name>GeneralPage</name>
@@ -3792,6 +3808,11 @@ Scroll to adjust</source>
         <location filename="../Modules/ControlCenter/GeneralPage.qml" line="98"/>
         <source>General</source>
         <translation>通用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
+        <source>Displays</source>
+        <translation>顯示器</translation>
     </message>
 </context>
 <context>
@@ -11678,6 +11699,202 @@ Windows: </source>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="440"/>
         <source>Grain: %1%</source>
         <translation>顆粒：%1%</translation>
+    </message>
+</context>
+<context>
+    <name>DisplaySettingsService</name>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="61"/>
+        <location filename="../Services/DisplaySettingsService.qml" line="79"/>
+        <source>Invalid display response</source>
+        <translation>顯示器傳回的資料無效</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="73"/>
+        <source>Display settings saved</source>
+        <translation>顯示器設定已儲存</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="75"/>
+        <source>Previous display settings restored</source>
+        <translation>已還原先前的顯示器設定</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="77"/>
+        <source>Unable to change display settings: %1</source>
+        <translation>無法變更顯示器設定：%1</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="108"/>
+        <source>Unable to read display settings: %1</source>
+        <translation>無法讀取顯示器設定：%1</translation>
+    </message>
+</context>
+<context>
+    <name>DisplaysPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="30"/>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="37"/>
+        <source>%1%</source>
+        <translation>%1%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="113"/>
+        <source>Keep these display settings?</source>
+        <translation>保留這些顯示器設定？</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="115"/>
+        <source>Restoring previous settings in %1 seconds</source>
+        <translation>%1 秒後還原先前的設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="119"/>
+        <source>Revert</source>
+        <translation>還原</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="124"/>
+        <source>Keep changes</source>
+        <translation>保留變更</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="134"/>
+        <source>Display settings are unavailable in this session</source>
+        <translation>目前工作階段不支援顯示器設定</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="142"/>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="146"/>
+        <source>Display</source>
+        <translation>顯示器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="152"/>
+        <source>Resolution</source>
+        <translation>解析度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="158"/>
+        <source>Refresh rate</source>
+        <translation>更新頻率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="164"/>
+        <source>Scale</source>
+        <translation>縮放</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="170"/>
+        <source>Rotation</source>
+        <translation>旋轉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="173"/>
+        <source>Normal</source>
+        <translation>正常</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="174"/>
+        <source>90°</source>
+        <translation>90°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="175"/>
+        <source>180°</source>
+        <translation>180°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="176"/>
+        <source>270°</source>
+        <translation>270°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="177"/>
+        <source>Flipped</source>
+        <translation>鏡像</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="178"/>
+        <source>Flipped 90°</source>
+        <translation>鏡像 90°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="179"/>
+        <source>Flipped 180°</source>
+        <translation>鏡像 180°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="180"/>
+        <source>Flipped 270°</source>
+        <translation>鏡像 270°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="188"/>
+        <source>Refresh</source>
+        <translation>重新整理</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="195"/>
+        <source>Apply</source>
+        <translation>套用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="214"/>
+        <source>No active displays</source>
+        <translation>沒有啟用的顯示器</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="174"/>
+        <source>Arrangement</source>
+        <translation>排列</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="176"/>
+        <source>Drag displays to match their physical arrangement.</source>
+        <translation>拖曳顯示器，使排列與實際擺放一致。</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayArrangement</name>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="136"/>
+        <source>Horizontal position (X)</source>
+        <translation>水平位置（X）</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="148"/>
+        <source>Vertical position (Y)</source>
+        <translation>垂直位置（Y）</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="162"/>
+        <source>Horizontal</source>
+        <translation>橫排</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="166"/>
+        <source>Vertical</source>
+        <translation>直排</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="171"/>
+        <source>Reset</source>
+        <translation>重設</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="181"/>
+        <source>Displays overlap. Move them apart before applying.</source>
+        <translation>顯示器重疊，請移開後再套用。</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="185"/>
+        <source>Apply layout</source>
+        <translation>套用排列</translation>
     </message>
 </context>
 </TS>

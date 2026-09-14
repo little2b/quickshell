@@ -79,6 +79,16 @@ FloatingWindow {
     }
 
     function openPage(pageId) {
+        if (pageId === "bar")
+            return root.openPageSection("general", "bar");
+        if (pageId === "displays")
+            return root.openPageSection("general", "displays");
+        if (pageId === "power-management")
+            return root.openPageSection("general", "power-management");
+        if (pageId === "dock")
+            return root.openPageSection("general", "dock");
+        if (pageId === "mouse")
+            return root.openPageSection("general", "mouse");
         if (pageId === "language-region")
             return root.openPageSection("general", "language-region");
 

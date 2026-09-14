@@ -44,12 +44,9 @@ RippleButton {
                 Layout.fillWidth: true
                 text: root.text
                 color: Appearance.colors.colOnSurface
-                font.family: root.description === ""
-                    ? Typography.bodyLarge.family : Typography.bodyMedium.family
-                font.pixelSize: root.description === ""
-                    ? Typography.bodyLarge.pixelSize : Typography.bodyMedium.pixelSize
-                font.weight: root.description === ""
-                    ? Font.Medium : Typography.bodyMedium.weight
+                font.family: Typography.bodyLarge.family
+                font.pixelSize: Typography.bodyLarge.pixelSize
+                font.weight: Font.Medium
                 elide: Text.ElideRight
             }
 

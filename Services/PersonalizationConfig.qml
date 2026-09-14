@@ -353,6 +353,7 @@ Singleton {
                                                                   })]
     property var keystoneKeyholeCards: root.defaultKeystoneKeyholeCards.slice()
     property string barPosition: "top"
+    property int barEdgeMargin: 8
     readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "tray",
         "systemMonitor", "quickSettings"]
     readonly property var defaultBarLeadingComponents: ["workspaces", "information", "activeWindow"]
@@ -464,7 +465,7 @@ Singleton {
             value: "tools",
             label: qsTr("Tools")
         }
-    ]
+    ].filter(option => RcloneService.enabled || option.value !== "upload")
 
     readonly property var keystoneHoverActionOptions: [
         {
@@ -1256,6 +1257,12 @@ Singleton {
         setValue("barPosition", normalizedEdgePosition(value));
     }
 
+    function setBarEdgeMargin(value, persist = true) {
+        root.barEdgeMargin = Math.round(normalizedBoundedReal(value, 8, 0, 48));
+        if (persist)
+            root.save();
+    }
+
     function normalizedBarComponents(raw, excluded) {
         const source = Array.isArray(raw) ? raw : [];
         const blocked = excluded || [];
@@ -1647,6 +1654,7 @@ Singleton {
             },
             "bar": {
                 "position": root.barPosition,
+                "edgeMargin": root.barEdgeMargin,
                 "barLeadingComponents": root.barLeadingComponents.slice(),
                 "barTrailingComponents": root.barTrailingComponents.slice(),
                 "quickSettingsComponents": root.quickSettingsComponents.slice()
@@ -1760,6 +1768,7 @@ Singleton {
         root.horizontalClockAxes = root.normalizedHorizontalClockAxes(horizontalClock.axes);
         root.horizontalClockDigits = root.normalizedHorizontalClockDigits(horizontalClock.digits);
         root.barPosition = normalizedEdgePosition(bar.position);
+        root.barEdgeMargin = Math.round(normalizedBoundedReal(bar.edgeMargin, 8, 0, 48));
         const hasBarLayout = Array.isArray(bar.barLeadingComponents) || Array.isArray(
                   bar.barTrailingComponents);
         const barLayout = root.normalizedBarLayout(bar.barLeadingComponents, bar.barTrailingComponents,

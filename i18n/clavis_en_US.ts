@@ -3602,6 +3602,17 @@ Scroll to adjust</translation>
         <source>Quick settings widgets</source>
         <translation>Quick settings widgets</translation>
     </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="45"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="60"/>
+        <source>Distance from screen edge</source>
+        <translation>Distance from screen edge</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="48"/>
+        <source>%1 px</source>
+        <translation>%1 px</translation>
+    </message>
 </context>
 <context>
     <name>GeneralEffectsPage</name>
@@ -3730,6 +3741,11 @@ Scroll to adjust</translation>
         <source>Network unavailable</source>
         <translation>Network unavailable</translation>
     </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="70"/>
+        <source>Displays</source>
+        <translation>Displays</translation>
+    </message>
 </context>
 <context>
     <name>GeneralPage</name>
@@ -3792,6 +3808,11 @@ Scroll to adjust</translation>
         <location filename="../Modules/ControlCenter/GeneralPage.qml" line="98"/>
         <source>General</source>
         <translation>General</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
+        <source>Displays</source>
+        <translation>Displays</translation>
     </message>
 </context>
 <context>
@@ -11683,6 +11704,202 @@ Windows: </translation>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="440"/>
         <source>Grain: %1%</source>
         <translation>Grain: %1%</translation>
+    </message>
+</context>
+<context>
+    <name>DisplaySettingsService</name>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="61"/>
+        <location filename="../Services/DisplaySettingsService.qml" line="79"/>
+        <source>Invalid display response</source>
+        <translation>Invalid display response</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="73"/>
+        <source>Display settings saved</source>
+        <translation>Display settings saved</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="75"/>
+        <source>Previous display settings restored</source>
+        <translation>Previous display settings restored</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="77"/>
+        <source>Unable to change display settings: %1</source>
+        <translation>Unable to change display settings: %1</translation>
+    </message>
+    <message>
+        <location filename="../Services/DisplaySettingsService.qml" line="108"/>
+        <source>Unable to read display settings: %1</source>
+        <translation>Unable to read display settings: %1</translation>
+    </message>
+</context>
+<context>
+    <name>DisplaysPage</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="30"/>
+        <source>%1 Hz</source>
+        <translation>%1 Hz</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="37"/>
+        <source>%1%</source>
+        <translation>%1%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="113"/>
+        <source>Keep these display settings?</source>
+        <translation>Keep these display settings?</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="115"/>
+        <source>Restoring previous settings in %1 seconds</source>
+        <translation>Restoring previous settings in %1 seconds</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="119"/>
+        <source>Revert</source>
+        <translation>Revert</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="124"/>
+        <source>Keep changes</source>
+        <translation>Keep changes</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="134"/>
+        <source>Display settings are unavailable in this session</source>
+        <translation>Display settings are unavailable in this session</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="142"/>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="146"/>
+        <source>Display</source>
+        <translation>Display</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="152"/>
+        <source>Resolution</source>
+        <translation>Resolution</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="158"/>
+        <source>Refresh rate</source>
+        <translation>Refresh rate</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="164"/>
+        <source>Scale</source>
+        <translation>Scale</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="170"/>
+        <source>Rotation</source>
+        <translation>Rotation</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="173"/>
+        <source>Normal</source>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="174"/>
+        <source>90°</source>
+        <translation>90°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="175"/>
+        <source>180°</source>
+        <translation>180°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="176"/>
+        <source>270°</source>
+        <translation>270°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="177"/>
+        <source>Flipped</source>
+        <translation>Flipped</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="178"/>
+        <source>Flipped 90°</source>
+        <translation>Flipped 90°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="179"/>
+        <source>Flipped 180°</source>
+        <translation>Flipped 180°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="180"/>
+        <source>Flipped 270°</source>
+        <translation>Flipped 270°</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="188"/>
+        <source>Refresh</source>
+        <translation>Refresh</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="195"/>
+        <source>Apply</source>
+        <translation>Apply</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplaysPage.qml" line="214"/>
+        <source>No active displays</source>
+        <translation>No active displays</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="174"/>
+        <source>Arrangement</source>
+        <translation>Arrangement</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplaysPage.qml" line="176"/>
+        <source>Drag displays to match their physical arrangement.</source>
+        <translation>Drag displays to match their physical arrangement.</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayArrangement</name>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="136"/>
+        <source>Horizontal position (X)</source>
+        <translation>Horizontal position (X)</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="148"/>
+        <source>Vertical position (Y)</source>
+        <translation>Vertical position (Y)</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="162"/>
+        <source>Horizontal</source>
+        <translation>Horizontal</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="166"/>
+        <source>Vertical</source>
+        <translation>Vertical</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="171"/>
+        <source>Reset</source>
+        <translation>Reset</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="181"/>
+        <source>Displays overlap. Move them apart before applying.</source>
+        <translation>Displays overlap. Move them apart before applying.</translation>
+    </message>
+    <message>
+        <location filename="../../../https-github-com-statindet-quickshell-https-3/work/clavis-shell/Modules/ControlCenter/DisplayArrangement.qml" line="185"/>
+        <source>Apply layout</source>
+        <translation>Apply layout</translation>
     </message>
 </context>
 </TS>

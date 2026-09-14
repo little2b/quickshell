@@ -69,6 +69,8 @@ Item {
                 switch (section) {
                 case "bar":
                     return qsTr("Bar");
+                case "dock":
+                    return qsTr("下方 Dock");
                 case "sidebar":
                     return qsTr("Sidebars");
                 case "spotlight":
@@ -77,6 +79,12 @@ Item {
                     return qsTr("Transparency and blur");
                 case "shortcuts":
                     return qsTr("Keyboard shortcuts");
+                case "displays":
+                    return qsTr("Displays");
+                case "power-management":
+                    return qsTr("电源管理");
+                case "mouse":
+                    return qsTr("鼠标与光标");
                 case "language-region":
                     return qsTr("Language & region");
                 case "autostart":
@@ -102,6 +110,8 @@ Item {
                 switch (section) {
                 case "bar":
                     return "dock_to_bottom";
+                case "dock":
+                    return "dock_to_bottom";
                 case "sidebar":
                     return "side_navigation";
                 case "spotlight":
@@ -110,6 +120,12 @@ Item {
                     return "blur_on";
                 case "shortcuts":
                     return "keyboard";
+                case "displays":
+                    return "monitor";
+                case "power-management":
+                    return "battery_charging_full";
+                case "mouse":
+                    return "mouse";
                 case "language-region":
                     return "language";
                 case "autostart":
@@ -148,6 +164,8 @@ Item {
             switch (root.currentSection) {
             case "bar":
                 return Qt.resolvedUrl("GeneralBarPage.qml");
+            case "dock":
+                return Qt.resolvedUrl("DockPage.qml");
             case "sidebar":
                 return Qt.resolvedUrl("GeneralSidebarPage.qml");
             case "spotlight":
@@ -156,6 +174,12 @@ Item {
                 return Qt.resolvedUrl("GeneralEffectsPage.qml");
             case "shortcuts":
                 return Qt.resolvedUrl("ShortcutsPage.qml");
+            case "displays":
+                return Qt.resolvedUrl("DisplaysPage.qml");
+            case "power-management":
+                return Qt.resolvedUrl("PowerManagementPage.qml");
+            case "mouse":
+                return Qt.resolvedUrl("MousePage.qml");
             case "language-region":
                 return Qt.resolvedUrl("LanguageAndRegionPage.qml");
             case "autostart":

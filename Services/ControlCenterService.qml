@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Clavis.Niri
 
 Singleton {
     id: root
@@ -12,6 +13,7 @@ Singleton {
 
     property bool _openRequested: false
     property string _pendingPage: ""
+    property bool _activationPending: false
 
     readonly property bool loaded: controlCenterWindow !== null
     readonly property bool visible: loaded && controlCenterWindow.visible
@@ -44,6 +46,54 @@ Singleton {
             window.showWindow();
         else
             window.visible = true;
+
+        root._activationPending = true;
+        if (!root.activateWindow()) {
+            activationRetry.attempts = 0;
+            activationRetry.restart();
+        }
+    }
+
+    function niriWindow() {
+        if (!root.controlCenterWindow || !Niri.connected)
+            return null;
+        const title = root.controlCenterWindow.title;
+        return Niri.searchWindows(title).find(window => window.title === title && window.pid
+                                                        === Quickshell.processId) || null;
+    }
+
+    function toplevel() {
+        if (!root.controlCenterWindow)
+            return null;
+        return ToplevelManager.toplevels.values.find(window => window.title
+                                                               === root.controlCenterWindow.title) || null;
+    }
+
+    function isFocused() {
+        const nativeWindow = root.niriWindow();
+        if (nativeWindow)
+            return nativeWindow.isFocused;
+        const target = root.toplevel();
+        return target ? target.activated : false;
+    }
+
+    function activateWindow() {
+        if (!root._activationPending || !root.visible || !root._openRequested)
+            return false;
+        const nativeWindow = root.niriWindow();
+        if (nativeWindow && Niri.focusWindow(nativeWindow.id)) {
+            root._activationPending = false;
+            activationRetry.stop();
+            return true;
+        }
+        const target = root.toplevel();
+        if (target) {
+            target.activate();
+            root._activationPending = false;
+            activationRetry.stop();
+            return true;
+        }
+        return false;
     }
 
     function open(pageId) {
@@ -66,20 +116,14 @@ Singleton {
     }
 
     function openOrFocus() {
-        if (root.visible) {
-            const target = ToplevelManager.toplevels.values.find(window => window.title
-                                                                           === root.controlCenterWindow.title);
-            if (target) {
-                target.activate();
-                return true;
-            }
-        }
         return root.open();
     }
 
     function close() {
         root._openRequested = false;
         root._pendingPage = "";
+        root._activationPending = false;
+        activationRetry.stop();
 
         const window = root.controlCenterWindow || (root.controlCenterLoader ? root.controlCenterLoader.item :
                                                                                null);
@@ -97,7 +141,7 @@ Singleton {
     }
 
     function toggle(pageId) {
-        if (root._openRequested || root.visible) {
+        if ((root.visible && root.isFocused()) || (!root.visible && root._openRequested)) {
             root.close();
             return false;
         }
@@ -112,7 +156,32 @@ Singleton {
         root.controlCenterWindow = null;
         root._openRequested = false;
         root._pendingPage = "";
+        root._activationPending = false;
+        activationRetry.stop();
         if (root.controlCenterLoader)
             root.controlCenterLoader.active = false;
+    }
+
+    Connections {
+        target: Niri
+        function onWindowsChanged() {
+            if (root._activationPending)
+                root.activateWindow();
+        }
+    }
+
+    // A newly created window is not in the compositor's window list yet.
+    // Retry only for this open request, never after a close or indefinitely.
+    Timer {
+        id: activationRetry
+        property int attempts: 0
+        interval: 50
+        repeat: true
+        onTriggered: {
+            if (!root.activateWindow() && ++attempts >= 40) {
+                root._activationPending = false;
+                stop();
+            }
+        }
     }
 }

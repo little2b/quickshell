@@ -22,6 +22,22 @@ Singleton {
     property var actionCatalog: []
     property bool catalogChecked: false
     property var pendingUpdates: ({})
+    property var pendingMouseOptions: null
+    property var activeMouseOptions: null
+    readonly property var mouseOptions: pendingMouseOptions || activeMouseOptions || snapshot.mouse || ({speed: 0, profile: "adaptive"})
+
+    function setMouseOptions(patch) {
+        if (!ready("mouse"))
+            return;
+        pendingMouseOptions = Object.assign({}, mouseOptions, patch);
+        mouseSaveTimer.restart();
+    }
+
+    Timer {
+        id: mouseSaveTimer
+        interval: 180
+        onTriggered: root.update("mouse")
+    }
     property string error: ""
     property string readError: ""
     property string errorFeature: ""
@@ -71,6 +87,8 @@ Singleton {
     }
 
     function options(feature) {
+        if (feature === "mouse")
+            return mouseOptions;
         if (feature === "effects")
             return {
                 xray: PersonalizationConfig.shellBlurXray
@@ -117,6 +135,10 @@ Singleton {
         if (!supported || operation.running)
             return;
         activeFeature = request.feature || "";
+        if (activeFeature === "mouse") {
+            activeMouseOptions = {speed: request.speed, profile: request.profile};
+            pendingMouseOptions = null;
+        }
         operation.writing = request.operation !== "status" && request.operation !== "catalog";
         operation.command = ["python3", Paths.systemScriptsDir + "/niri_config.py", JSON.stringify(request)];
         operation.running = true;
@@ -176,6 +198,7 @@ Singleton {
                 }
             }
             root.activeFeature = "";
+            root.activeMouseOptions = null;
             const pending = Object.keys(root.pendingUpdates);
             if (pending.length > 0) {
                 root.pendingUpdates = {};
