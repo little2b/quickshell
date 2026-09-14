@@ -23,9 +23,10 @@ Variants {
     id: styleSurface
 
     property bool detached: false
-    property int edgeMargin: 0
+    property int edgeMargin: PersonalizationConfig.barEdgeMargin
     property int maxPillRadius: 24
-    property bool showAttachedEdgeCurves: !detached
+    readonly property bool edgeAttached: !detached && edgeMargin === 0
+    property bool showAttachedEdgeCurves: edgeAttached
 
     signal avatarEditRequested(var screen)
 
@@ -88,6 +89,11 @@ Variants {
         property int edgeCurveDepth: styleSurface.showAttachedEdgeCurves ? 14 : 0
         property real edgeCurveSideControl: 0.58
         property real edgeCurveOuterControl: 0.42
+        // Logical screen dimensions keep popup content compact on HiDPI outputs.
+        // A shared reference size keeps typography stable when switching tabs.
+        readonly property real popupContentScale: Math.min(1, Math.max(1, width * 0.55) / 1040, Math.max(1,
+                                                                                                         height * 0.52)
+                                                           / 670)
 
         function cancelRecord(): string {
             return "RECORD_CANCELLED";
@@ -197,6 +203,20 @@ Variants {
             top: 0
         }
 
+        MouseArea {
+            id: outsideClickArea
+            anchors.fill: parent
+            z: -1
+            enabled: root.keyboardInteractionActive
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+            onClicked: event => {
+                const point = mapToItem(maskContainer, event.x, event.y);
+                if (point.x < 0 || point.y < 0 || point.x >= maskContainer.width || point.y
+                        >= maskContainer.height)
+                    keystoneWindow.closeAllOthers();
+            }
+        }
+
         // ============================================================
         // 【阴影源 (Shadow Source)】
         // ============================================================
@@ -293,14 +313,17 @@ Variants {
                     id: solidShadowBg
 
                     anchors.fill: parent
-                    topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
-                                                             !keystoneWindow.leftEdge) ? root.radius : 0
-                    topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
-                                                              !keystoneWindow.rightEdge) ? root.radius : 0
-                    bottomLeftRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
-                                                                !keystoneWindow.leftEdge) ? root.radius : 0
-                    bottomRightRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
-                                                                 !keystoneWindow.rightEdge) ? root.radius : 0
+                    topLeftRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
+                                                                  !keystoneWindow.leftEdge) ? root.radius : 0
+                    topRightRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
+                                                                   !keystoneWindow.rightEdge) ? root.radius :
+                                                                                                0
+                    bottomLeftRadius: !styleSurface.edgeAttached || (!keystoneWindow.bottomEdge &&
+                                                                     !keystoneWindow.leftEdge) ? root.radius :
+                                                                                                 0
+                    bottomRightRadius: !styleSurface.edgeAttached || (!keystoneWindow.bottomEdge &&
+                                                                      !keystoneWindow.rightEdge)
+                                       ? root.radius : 0
                     color: "black"
                 }
             }
@@ -336,7 +359,7 @@ Variants {
             radius: 20
             samples: 32
             color: "#80000000"
-            cached: true
+            cached: false
             opacity: root.color.a * (styleSurface.detached && root.recordingPresentationActive ? 0 : 1)
         }
 
@@ -445,6 +468,8 @@ Variants {
                 property bool hoverOpened: false
 
                 function activateMouseAction(action, toggle, fromHover = false) {
+                    if (action === "upload" && !RcloneService.enabled)
+                        return;
                     if (action === "none" || action === "peak" || root.contentPresentationActive
                             || root.isNotifMode || root.isVolumeMode)
                         return;
@@ -918,6 +943,8 @@ Variants {
 
                 HorizontalKeystoneLayout {
                     id: horizontalLayout
+                    expandedWidth: 540 * keystoneWindow.popupContentScale
+                    expandedHeight: 210 * keystoneWindow.popupContentScale
 
                     recordingActive: root.recordingPresentationActive
                     audioActive: root.audioGeometryActive
@@ -930,18 +957,20 @@ Variants {
                     collapsedHovered: root.isCollapsedHovered
                     recordingWidth: root.recordingVisualWidth
                     recordingHeight: root.recordingVisualHeight
-                    toolsWidth: toolsWidget.implicitWidth
-                    toolsHeight: toolsWidget.implicitHeight
-                    hubWidth: hub.implicitWidth
-                    hubHeight: hub.implicitHeight
-                    lyricsWidth: lyricsWidget.implicitWidth
-                    lyricsHeight: lyricsWidget.implicitHeight
+                    toolsWidth: toolsWidget.implicitWidth * keystoneWindow.popupContentScale
+                    toolsHeight: toolsWidget.implicitHeight * keystoneWindow.popupContentScale
+                    hubWidth: hub.implicitWidth * keystoneWindow.popupContentScale
+                    hubHeight: hub.implicitHeight * keystoneWindow.popupContentScale
+                    lyricsWidth: lyricsWidget.implicitWidth * keystoneWindow.popupContentScale
+                    lyricsHeight: lyricsWidget.implicitHeight * keystoneWindow.popupContentScale
                     notificationsWidth: root.notifW
                     notificationsHeight: root.notifH
                 }
 
                 VerticalKeystoneLayout {
                     id: verticalLayout
+                    expandedWidth: 540 * keystoneWindow.popupContentScale
+                    expandedHeight: 210 * keystoneWindow.popupContentScale
 
                     recordingActive: root.recordingPresentationActive
                     audioActive: root.audioGeometryActive
@@ -954,12 +983,12 @@ Variants {
                     collapsedHovered: root.isCollapsedHovered
                     recordingWidth: root.recordingVisualWidth
                     recordingHeight: root.recordingVisualHeight
-                    toolsWidth: toolsWidget.implicitWidth
-                    toolsHeight: toolsWidget.implicitHeight
-                    hubWidth: hub.implicitWidth
-                    hubHeight: hub.implicitHeight
-                    lyricsWidth: lyricsWidget.implicitWidth
-                    lyricsHeight: lyricsWidget.implicitHeight
+                    toolsWidth: toolsWidget.implicitWidth * keystoneWindow.popupContentScale
+                    toolsHeight: toolsWidget.implicitHeight * keystoneWindow.popupContentScale
+                    hubWidth: hub.implicitWidth * keystoneWindow.popupContentScale
+                    hubHeight: hub.implicitHeight * keystoneWindow.popupContentScale
+                    lyricsWidth: lyricsWidget.implicitWidth * keystoneWindow.popupContentScale
+                    lyricsHeight: lyricsWidget.implicitHeight * keystoneWindow.popupContentScale
                     notificationsWidth: root.notifW
                     notificationsHeight: root.notifH
                 }
@@ -1160,95 +1189,39 @@ Variants {
                 Rectangle {
                     id: dashboardKeyholeCutout
 
-                    width: 340
-                    height: 456
+                    width: 340 * keystoneWindow.popupContentScale
+                    height: 456 * keystoneWindow.popupContentScale
                     anchors.left: parent.horizontalCenter
-                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset
+                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset * keystoneWindow.popupContentScale
                     anchors.top: parent.top
-                    anchors.topMargin: 132
-                    radius: 24
+                    anchors.topMargin: 132 * keystoneWindow.popupContentScale
+                    radius: 24 * keystoneWindow.popupContentScale
                     color: "transparent"
                     visible: root.showDashboardKeyhole
                 }
 
-                Canvas {
+                KeystoneBackground {
                     id: rootSurface
-
-                    readonly property color surfaceColor: root.color
-                    readonly property real outerRadius: root.radius
-                    readonly property real topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge
-                                                                                    && !keystoneWindow.leftEdge)
-                                                          ? outerRadius : 0
-                    readonly property real topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge
-                                                                                     && !keystoneWindow.rightEdge)
-                                                           ? outerRadius : 0
-                    readonly property real bottomRightRadius: styleSurface.detached || (
-                                                                  !keystoneWindow.bottomEdge &&
-                                                                  !keystoneWindow.rightEdge) ? outerRadius : 0
-                    readonly property real bottomLeftRadius: styleSurface.detached || (
-                                                                 !keystoneWindow.bottomEdge &&
-                                                                 !keystoneWindow.leftEdge) ? outerRadius : 0
-                    readonly property bool cutoutVisible: root.showDashboardKeyhole
-                    readonly property real cutoutX: dashboardKeyholeCutout.x
-                    readonly property real cutoutY: dashboardKeyholeCutout.y
-                    readonly property real cutoutWidth: dashboardKeyholeCutout.width
-                    readonly property real cutoutHeight: dashboardKeyholeCutout.height
-                    readonly property real cutoutRadius: dashboardKeyholeCutout.radius
-
-                    function addRoundedRect(context, x, y, width, height, topLeft, topRight, bottomRight,
-                                            bottomLeft) {
-                        const maxRadius = Math.min(width / 2, height / 2);
-                        const tl = Math.min(topLeft, maxRadius);
-                        const tr = Math.min(topRight, maxRadius);
-                        const br = Math.min(bottomRight, maxRadius);
-                        const bl = Math.min(bottomLeft, maxRadius);
-                        context.beginPath();
-                        context.moveTo(x + tl, y);
-                        context.lineTo(x + width - tr, y);
-                        context.quadraticCurveTo(x + width, y, x + width, y + tr);
-                        context.lineTo(x + width, y + height - br);
-                        context.quadraticCurveTo(x + width, y + height, x + width - br, y + height);
-                        context.lineTo(x + bl, y + height);
-                        context.quadraticCurveTo(x, y + height, x, y + height - bl);
-                        context.lineTo(x, y + tl);
-                        context.quadraticCurveTo(x, y, x + tl, y);
-                        context.closePath();
-                    }
-
                     anchors.fill: parent
-                    antialiasing: true
                     opacity: styleSurface.detached && root.recordingPresentationActive ? 0 : 1
-                    onPaint: {
-                        const context = getContext("2d");
-                        context.reset();
-                        context.clearRect(0, 0, width, height);
-                        addRoundedRect(context, 0, 0, width, height, topLeftRadius, topRightRadius,
-                                       bottomRightRadius, bottomLeftRadius);
-                        context.fillStyle = surfaceColor;
-                        context.fill();
-                        if (cutoutVisible) {
-                            context.globalCompositeOperation = "destination-out";
-                            addRoundedRect(context, cutoutX, cutoutY, cutoutWidth, cutoutHeight, cutoutRadius,
-                                           cutoutRadius, cutoutRadius, cutoutRadius);
-                            context.fillStyle = "white";
-                            context.fill();
-                            context.globalCompositeOperation = "source-over";
-                        }
-                    }
-                    onWidthChanged: requestPaint()
-                    onHeightChanged: requestPaint()
-                    onSurfaceColorChanged: requestPaint()
-                    onOuterRadiusChanged: requestPaint()
-                    onTopLeftRadiusChanged: requestPaint()
-                    onTopRightRadiusChanged: requestPaint()
-                    onBottomRightRadiusChanged: requestPaint()
-                    onBottomLeftRadiusChanged: requestPaint()
-                    onCutoutVisibleChanged: requestPaint()
-                    onCutoutXChanged: requestPaint()
-                    onCutoutYChanged: requestPaint()
-                    onCutoutWidthChanged: requestPaint()
-                    onCutoutHeightChanged: requestPaint()
-                    onCutoutRadiusChanged: requestPaint()
+                    surfaceColor: root.color
+                    topLeftRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
+                                                                  !keystoneWindow.leftEdge) ? root.radius : 0
+                    topRightRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
+                                                                   !keystoneWindow.rightEdge) ? root.radius :
+                                                                                                0
+                    bottomRightRadius: !styleSurface.edgeAttached || (!keystoneWindow.bottomEdge &&
+                                                                      !keystoneWindow.rightEdge)
+                                       ? root.radius : 0
+                    bottomLeftRadius: !styleSurface.edgeAttached || (!keystoneWindow.bottomEdge &&
+                                                                     !keystoneWindow.leftEdge) ? root.radius :
+                                                                                                 0
+                    cutoutVisible: root.showDashboardKeyhole
+                    cutoutX: dashboardKeyholeCutout.x
+                    cutoutY: dashboardKeyholeCutout.y
+                    cutoutWidth: dashboardKeyholeCutout.width
+                    cutoutHeight: dashboardKeyholeCutout.height
+                    cutoutRadius: dashboardKeyholeCutout.radius
                 }
 
                 Connections {
@@ -1410,6 +1383,8 @@ Variants {
                     LyricsContent {
                         id: lyricsWidget
 
+                        scale: keystoneWindow.popupContentScale
+                        transformOrigin: Item.Top
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
@@ -1431,11 +1406,13 @@ Variants {
                     }
 
                     MediaContent {
+                        scale: keystoneWindow.popupContentScale
+                        transformOrigin: Item.Top
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.topMargin: 20
-                        width: root.activeLayout.expandedWidth - 40
-                        height: root.activeLayout.expandedHeight - 40
+                        anchors.topMargin: 20 * keystoneWindow.popupContentScale
+                        width: 500
+                        height: 170
                         opacity: (!root.contentPresentationActive && root.expanded && !root.isLyricsMode &&
                                   !root.isHubMode) ? 1 : 0
                         visible: opacity > 0.01
@@ -1452,6 +1429,8 @@ Variants {
                     HubContent {
                         id: hub
 
+                        scale: keystoneWindow.popupContentScale
+                        transformOrigin: Item.Top
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
@@ -1488,6 +1467,8 @@ Variants {
                         id: toolsWidget
 
                         keyboardActive: root.isToolsMode
+                        scale: keystoneWindow.popupContentScale
+                        transformOrigin: Item.Top
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
@@ -1515,7 +1496,8 @@ Variants {
 
                     anchors.fill: parent
                     z: 20000
-                    enabled: !root.contentPresentationActive && (root.isCollapsedMode || root.isHubMode)
+                    enabled: RcloneService.enabled && !root.contentPresentationActive && (
+                                 root.isCollapsedMode || root.isHubMode)
                     onEntered: drag => {
                         const supportsUrls = drag.hasUrls && drag.formats.indexOf("text/uri-list") >= 0
                               && CloudUploadService.hasLocalUrls(drag.urls);
@@ -1779,7 +1761,7 @@ Variants {
 
         mask: Region {
             Region {
-                item: maskContainer
+                item: root.keyboardInteractionActive ? outsideClickArea : maskContainer
             }
         }
     }

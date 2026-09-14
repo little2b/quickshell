@@ -18,8 +18,9 @@ Item {
     property bool panoramaEnabled: false
     property real horizontalProgress: 0.5
     property var sharedTransform: null
-    property int textureWidth: Math.min(Math.max(1, Math.round(width)), 8192)
-    property int textureHeight: Math.min(Math.max(1, Math.round(height)), 8192)
+    // Texture sizes are physical pixels; item geometry is in logical pixels.
+    property int textureWidth: Math.min(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), 8192)
+    property int textureHeight: Math.min(Math.max(1, Math.ceil(height * Screen.devicePixelRatio)), 8192)
 
     property int currentViewportIndex: 0
     readonly property Item currentViewport: currentViewportIndex === 0 ? viewportA : viewportB

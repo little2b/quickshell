@@ -97,8 +97,8 @@ Variants {
                 transitionEasingMode: PersonalizationConfig.transitionEasingMode
                 transitionBezierCurve: PersonalizationConfig.transitionBezierCurve
                 transitionsEnabled: AwwwWallpaperService.quickshellContentVisible
-                textureWidth: Math.min(Math.max(1, Math.round(root.width)), 8192)
-                textureHeight: Math.min(Math.max(1, Math.round(root.height)), 8192)
+                textureWidth: Math.min(Math.max(1, Math.ceil(root.width * Screen.devicePixelRatio)), 8192)
+                textureHeight: Math.min(Math.max(1, Math.ceil(root.height * Screen.devicePixelRatio)), 8192)
 
                 onLoadFailed: (source, message) => {
                     WallpaperService.reportDesktopError(modelData.name, message);

@@ -39,6 +39,34 @@ StyledFlickable {
                     }
                 }
             }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Distance from screen edge")
+
+                trailing: Text {
+                    text: qsTr("%1 px").arg(PersonalizationConfig.barEdgeMargin)
+                    color: Appearance.colors.colOnSurfaceVariant
+                    font.family: Fonts.numeric
+                    font.pixelSize: Typography.bodyMedium.pixelSize
+                }
+            }
+
+            MaterialSlider {
+                Layout.fillWidth: true
+                Layout.leftMargin: Metrics.spacingS
+                Layout.rightMargin: Metrics.spacingS
+                enabled: PersonalizationConfig.ready
+                accessibleName: qsTr("Distance from screen edge")
+                from: 0
+                to: 48
+                stepSize: 1
+                discrete: true
+                value: PersonalizationConfig.barEdgeMargin
+                valueSuffix: " px"
+                onMoved: value => PersonalizationConfig.setBarEdgeMargin(value, !pressed)
+                onCommitted: value => PersonalizationConfig.setBarEdgeMargin(value)
+            }
         }
 
         SettingsSection {
@@ -55,7 +83,9 @@ StyledFlickable {
                 trailing: SortableMultiSelectField {
                     id: leadingField
 
-                    Layout.preferredWidth: 380
+                    Layout.preferredWidth: Math.min(380, Math.max(0, root.width - Metrics.pageMargin * 2
+                                                                  - 96))
+
                     values: PersonalizationConfig.barLeadingComponents
                     options: PersonalizationConfig.barComponentOptions
                     zone: "leading"
@@ -76,7 +106,9 @@ StyledFlickable {
                 trailing: SortableMultiSelectField {
                     id: trailingField
 
-                    Layout.preferredWidth: 380
+                    Layout.preferredWidth: Math.min(380, Math.max(0, root.width - Metrics.pageMargin * 2
+                                                                  - 96))
+
                     values: PersonalizationConfig.barTrailingComponents
                     options: PersonalizationConfig.barComponentOptions
                     zone: "trailing"

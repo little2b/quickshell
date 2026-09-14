@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import qs.Common
+import qs.Services
 import qs.Widgets.common
 
 PanelWindow {
@@ -9,7 +10,7 @@ PanelWindow {
 
     required property string edge
     readonly property real visualThickness: Sizes.barVisualThickness
-    readonly property real outerEdgeMargin: Sizes.barOuterEdgeMargin
+    readonly property real outerEdgeMargin: PersonalizationConfig.barEdgeMargin
     // Shadow pixels need surface space, but must not reserve desktop space.
     readonly property real surfaceThickness: outerEdgeMargin + visualThickness + Sizes.barShadowBuffer
     readonly property real exclusiveThickness: outerEdgeMargin + visualThickness

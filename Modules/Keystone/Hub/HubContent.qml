@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import qs.Common
 import qs.Components
+import qs.Services
 import qs.Modules.Keystone.CloudUploadContent
 import qs.Modules.Keystone.DashboardContent
 import qs.Modules.Keystone.Media
@@ -14,12 +15,24 @@ Item {
     property var player: null
     property var screen: null
     property int currentIndex: 0
+    readonly property var tabIndexes: RcloneService.enabled ? [0, 1, 2, 3] : [0, 1, 3]
     property bool dragActive: false
     readonly property var dashboardKeyholeGlassItems: dashboardContent.keyholeGlassItems
     readonly property real dashboardKeyholeCenterOffset: dashboardContent.keyholeCenterOffset
 
     signal closeRequested
     signal avatarEditRequested
+
+    onCurrentIndexChanged: {
+        if (root.tabIndexes.indexOf(root.currentIndex) < 0)
+            root.currentIndex = 0;
+    }
+
+    function cycleTab(direction) {
+        const current = root.tabIndexes.indexOf(root.currentIndex);
+        const next = (current + direction + root.tabIndexes.length) % root.tabIndexes.length;
+        root.currentIndex = root.tabIndexes[next];
+    }
 
     function finishCloudUploadDrop(addedCount) {
         cloudUploadContent.finishDrop(addedCount);
@@ -33,12 +46,12 @@ Item {
 
     Shortcut {
         sequence: "Tab"
-        onActivated: root.currentIndex = (root.currentIndex + 1) % 4
+        onActivated: root.cycleTab(1)
     }
 
     Shortcut {
         sequence: "Shift+Tab"
-        onActivated: root.currentIndex = (root.currentIndex + 3) % 4
+        onActivated: root.cycleTab(-1)
     }
 
     RowLayout {
@@ -65,6 +78,7 @@ Item {
 
         TabBtn {
             icon: "cloud_upload"
+            visible: RcloneService.enabled
             title: qsTr("Upload")
             index: 2
         }
@@ -197,7 +211,7 @@ Item {
             width: parent.width * 0.95
             height: 480
             dragActive: root.dragActive
-            visible: root.currentIndex === 2
+            visible: RcloneService.enabled && root.currentIndex === 2
             opacity: visible ? 1 : 0
 
             Behavior on opacity {

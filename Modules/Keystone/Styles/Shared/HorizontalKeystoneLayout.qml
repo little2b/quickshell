@@ -23,14 +23,44 @@ QtObject {
     required property real notificationsHeight
     readonly property real audioWidth: KeystoneMotion.audioRecordingWidth
     readonly property real audioHeight: KeystoneMotion.audioRecordingHeight
-    readonly property real expandedWidth: 540
-    readonly property real expandedHeight: 210
+    property real expandedWidth: 540
+    property real expandedHeight: 210
     readonly property real volumeWidth: 320
     readonly property real volumeHeight: 64
     readonly property real collapsedWidth: 220
     readonly property real collapsedHeight: 42
     readonly property real attachedRecordingWidth: 220
     readonly property real attachedRecordingHeight: 42
-    readonly property real targetWidth: recordingActive ? recordingWidth : audioActive ? audioWidth : toolsActive ? toolsWidth : hubActive ? hubWidth : lyricsActive ? lyricsWidth : expandedActive ? expandedWidth : volumeActive ? volumeWidth : notificationsActive ? notificationsWidth : collapsedWidth + (collapsedHovered ? 16 : 0)
-    readonly property real targetHeight: recordingActive ? recordingHeight : audioActive ? audioHeight : toolsActive ? toolsHeight : hubActive ? hubHeight : lyricsActive ? lyricsHeight : expandedActive ? expandedHeight : volumeActive ? volumeHeight : notificationsActive ? notificationsHeight : collapsedHeight + (collapsedHovered ? 6 : 0)
+    readonly property real targetWidth: recordingActive ? recordingWidth : audioActive ? audioWidth :
+                                                                                         toolsActive
+                                                                                         ? toolsWidth :
+                                                                                           hubActive
+                                                                                           ? hubWidth :
+                                                                                             lyricsActive
+                                                                                             ? lyricsWidth :
+                                                                                               expandedActive
+                                                                                               ? expandedWidth :
+                                                                                                 volumeActive
+                                                                                                 ? volumeWidth :
+                                                                                                   notificationsActive
+                                                                                                   ? notificationsWidth :
+                                                                                                     collapsedWidth
+                                                                                                     + (collapsedHovered
+                                                                                                        ? 16 : 0)
+    readonly property real targetHeight: recordingActive ? recordingHeight : audioActive ? audioHeight :
+                                                                                           toolsActive
+                                                                                           ? toolsHeight :
+                                                                                             hubActive
+                                                                                             ? hubHeight :
+                                                                                               lyricsActive
+                                                                                               ? lyricsHeight :
+                                                                                                 expandedActive
+                                                                                                 ? expandedHeight :
+                                                                                                   volumeActive
+                                                                                                   ? volumeHeight :
+                                                                                                     notificationsActive
+                                                                                                     ? notificationsHeight :
+                                                                                                       collapsedHeight
+                                                                                                       + (collapsedHovered
+                                                                                                          ? 6 : 0)
 }

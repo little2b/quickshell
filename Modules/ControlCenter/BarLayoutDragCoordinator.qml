@@ -36,7 +36,6 @@ Item {
             const field = root.fields[index];
             if (field && field.containsScenePoint(root, sceneX, sceneY))
                 return field;
-
         }
         return null;
     }
@@ -46,19 +45,18 @@ Item {
             const field = root.fields[index];
             if (field)
                 callback(field);
-
         }
     }
 
     function updateFieldPreviews(targetZone, targetIndex) {
-        root.forEachField((field) => {
+        root.forEachField(field => {
             field.showDropPreview(root.componentId, root.sourceZone, targetZone, targetIndex);
         });
     }
 
     function updateDrag(point) {
         if (!root.dragActive)
-            return ;
+            return;
 
         const mapped = root.mapFromItem(null, point.x, point.y);
         root.pointerX = mapped.x;
@@ -69,9 +67,6 @@ Item {
     function updateTarget() {
         const targetField = root.fieldAt(root.pointerX, root.pointerY);
         root.activeTargetField = targetField;
-        root.forEachField((field) => {
-            field.autoScrollVelocity = 0;
-        });
         if (!targetField) {
             const previewChanged = root.targetZone !== "" || root.targetIndex !== -1;
             root.targetZone = "";
@@ -79,7 +74,7 @@ Item {
             if (previewChanged)
                 root.updateFieldPreviews("", -1);
 
-            return ;
+            return;
         }
         const nextZone = targetField.zone;
         const nextIndex = targetField.insertionIndexAt(root, root.pointerX, root.pointerY);
@@ -88,13 +83,11 @@ Item {
         root.targetIndex = nextIndex;
         if (previewChanged)
             root.updateFieldPreviews(root.targetZone, root.targetIndex);
-
-        targetField.updateAutoScroll(root, root.pointerX);
     }
 
     function finishDrag() {
         if (!root.dragActive)
-            return ;
+            return;
 
         const id = root.componentId;
         const zone = root.targetZone;
@@ -103,7 +96,7 @@ Item {
             root.dropped(id, zone, index);
 
         root.dragActive = false;
-        root.forEachField((field) => {
+        root.forEachField(field => {
             field.clearDropPreview();
         });
         root.activeTargetField = null;
@@ -112,16 +105,6 @@ Item {
         root.sourceZone = "";
         root.targetZone = "";
         root.targetIndex = -1;
-    }
-
-    FrameAnimation {
-        running: root.dragActive && root.activeTargetField !== null && root.activeTargetField.autoScrollVelocity !== 0
-        onTriggered: {
-            if (root.activeTargetField) {
-                root.activeTargetField.stepAutoScroll();
-                root.updateTarget();
-            }
-        }
     }
 
     Rectangle {
@@ -162,9 +145,6 @@ Item {
                 rightMargin: 12
                 verticalCenter: parent.verticalCenter
             }
-
         }
-
     }
-
 }

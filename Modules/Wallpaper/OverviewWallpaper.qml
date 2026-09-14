@@ -68,8 +68,8 @@ Variants {
                 transitionDurationMs: PersonalizationConfig.transitionDurationMs
                 transitionEasingMode: PersonalizationConfig.transitionEasingMode
                 transitionBezierCurve: PersonalizationConfig.transitionBezierCurve
-                textureWidth: Math.min(Math.max(1, Math.round(root.width)), 8192)
-                textureHeight: Math.min(Math.max(1, Math.round(root.height)), 8192)
+                textureWidth: Math.min(Math.max(1, Math.ceil(root.width * Screen.devicePixelRatio)), 8192)
+                textureHeight: Math.min(Math.max(1, Math.ceil(root.height * Screen.devicePixelRatio)), 8192)
 
                 layer.enabled: PersonalizationConfig.overviewBlurRadius > 0
                                || PersonalizationConfig.overviewSaturation !== 1
