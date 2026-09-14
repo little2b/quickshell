@@ -14,10 +14,12 @@ TestCase {
         compare(state.cards.cpu.desktop.placementSpace, "screen");
     }
 
-    function test_containerTransferCreatesScreenPlacement() {
+    function test_desktopPlacementKeepsDrawerCard() {
         let state = CardState.normalize({});
         state = CardState.setContainer(state, "cpu", "desktop", "DP-2", 0.25, 0.4, "screen");
-        compare(CardState.activeSidebarIds(state).indexOf("cpu"), -1);
+        compare(CardState.activeSidebarIds(state).indexOf("cpu") >= 0, true);
+        compare(CardState.activeSidebarIds(CardState.normalize(CardState.serialize(state))).indexOf("cpu")
+                >= 0, true);
         compare(CardState.activeDesktopIds(state).indexOf("cpu") >= 0, true);
         compare(state.cards.cpu.screenName, "DP-2");
         compare(state.cards.cpu.desktop.placementSpace, "screen");
@@ -34,6 +36,8 @@ TestCase {
         state = CardState.setDesktopWallpaperPosition(state, "weather", 0.13, 0.77);
         state = CardState.setEnabled(state, "weather", false);
         compare(state.cards.weather.enabled, false);
+        compare(CardState.activeSidebarIds(state).indexOf("weather"), -1);
+        compare(CardState.activeDesktopIds(state).indexOf("weather"), -1);
         compare(state.cards.weather.container, "desktop");
         compare(state.cards.weather.screenName, "DP-1");
         compare(state.cards.weather.desktop.placementSpace, "screen");

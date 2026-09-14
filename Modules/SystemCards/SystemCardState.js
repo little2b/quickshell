@@ -286,7 +286,8 @@ function activeSidebarIds(state) {
     var normalized = normalize(state);
     return ids().filter(function(id) {
         var item = normalized.cards[id];
-        return item.enabled && item.container === "sidebar";
+        // Desktop placement adds a presentation; the drawer remains a catalog.
+        return item.enabled;
     });
 }
 

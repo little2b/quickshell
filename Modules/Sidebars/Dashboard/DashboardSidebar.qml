@@ -52,11 +52,19 @@ Item {
 
     function beginClosing() {
         presentationOpen = false;
-        if (panelPresented)
+        if (panelPresented) {
+            // A skipped or interrupted transition must still retire its surface.
+            Qt.callLater(finishIdleClose);
             return;
+        }
         if (!keepLoaded)
             contentRetained = false;
         root.presentationClosed();
+    }
+
+    function finishIdleClose() {
+        if (!requestedOpen && !closeTransition.running)
+            finishClosing();
     }
 
     function finishClosing() {
@@ -149,18 +157,17 @@ Item {
                 id: closeTransition
                 to: "closed"
 
-                SequentialAnimation {
-                    NumberAnimation {
-                        target: animController
-                        property: "slideOffset"
-                        duration: root.exitDuration
-                        easing.type: Easing.InBack
-                        easing.overshoot: 0.18
-                    }
+                onRunningChanged: {
+                    if (!running)
+                        root.finishIdleClose();
+                }
 
-                    ScriptAction {
-                        script: root.finishClosing()
-                    }
+                NumberAnimation {
+                    target: animController
+                    property: "slideOffset"
+                    duration: root.exitDuration
+                    easing.type: Easing.InBack
+                    easing.overshoot: 0.18
                 }
             }
         ]

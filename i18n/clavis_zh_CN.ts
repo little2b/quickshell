@@ -3393,8 +3393,8 @@ Scroll to adjust</source>
     <name>DesktopCard</name>
     <message>
         <location filename="../Modules/DesktopCards/DesktopCard.qml" line="156"/>
-        <source>Return to sidebar</source>
-        <translation>收回到侧边栏</translation>
+        <source>Remove from desktop</source>
+        <translation>从桌面移除</translation>
     </message>
 </context>
 <context>

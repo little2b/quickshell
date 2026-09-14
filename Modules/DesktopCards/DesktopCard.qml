@@ -152,8 +152,8 @@ Item {
         id: menu
 
         StyledMenuItem {
-            iconName: "dock_to_right"
-            text: qsTr("Return to sidebar")
+            iconName: "remove"
+            text: qsTr("Remove from desktop")
             onTriggered: SystemCardService.setContainer(root.tileId, "sidebar", "")
         }
     }

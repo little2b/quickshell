@@ -68,7 +68,11 @@ PanelWindow {
 
     screen: retainedScreen || fallbackScreen
     onScreenChanged: WidgetState.sidebarScreenName = screen ? screen.name : ""
-    visible: retainedScreen !== null || fallbackScreen !== null
+    // Unmap the Wayland surface after both closing animations have settled.
+    // A transparent but mapped surface can retain stale compositor blur/damage.
+    visible: (retainedScreen !== null || fallbackScreen !== null) && (anySidebarOpen
+                                                                      || dashboardSidebar.panelPresented
+                                                                      || quickSettingsSidebar.panelPresented)
     color: "transparent"
     exclusiveZone: 0
 
