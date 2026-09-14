@@ -39,6 +39,10 @@ class WeatherLocationTest : public QObject {
         QVERIFY(m_directory.isValid());
         QSettings::setDefaultFormat(QSettings::IniFormat);
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, m_directory.path());
+        // The organization/application constructor uses NativeFormat, even when
+        // setDefaultFormat() selects IniFormat for default-constructed settings.
+        QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, m_directory.path());
+        QVERIFY(QSettings("Clavis", "Weather").fileName().startsWith(m_directory.path() + '/'));
         qputenv("XDG_CACHE_HOME", m_directory.path().toUtf8());
     }
     void init()
