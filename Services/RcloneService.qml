@@ -6,6 +6,7 @@ import Quickshell.Io
 Singleton {
     id: root
 
+    readonly property bool enabled: Quickshell.env("CLAVIS_DISABLE_CLOUD") !== "1"
     readonly property string commandName: Quickshell.env("CLAVIS_RCLONE") || "rclone"
     property bool available: false
     property bool remotesLoading: false
@@ -189,6 +190,8 @@ Singleton {
     }
 
     function reconcileDefaultRemote() {
+        if (!root.enabled)
+            return;
         if (!UiPreferences.preferencesReady)
             return;
 
@@ -230,6 +233,8 @@ Singleton {
     }
 
     function refreshRemotes() {
+        if (!root.enabled)
+            return;
         if (remoteListProcess.running) {
             _remotesRefreshPending = true;
             return;
@@ -245,7 +250,7 @@ Singleton {
     }
 
     function loadProviders() {
-        if (providersProcess.running)
+        if (!root.enabled || providersProcess.running)
             return;
 
         providersLoading = true;
@@ -263,6 +268,8 @@ Singleton {
     }
 
     function startRemoteConfiguration(name, type) {
+        if (!root.enabled)
+            return false;
         const normalizedName = normalizeRemoteName(name).trim();
         const normalizedType = String(type || "").trim();
         if (configBusy || !validRemoteName(normalizedName) || remoteByName(normalizedName) || !providerByName(
@@ -288,6 +295,8 @@ Singleton {
     }
 
     function answerConfigQuestion(stateToken, answer) {
+        if (!root.enabled)
+            return false;
         if (!configBusy || configProcess.running || configRemoteName === "" || String(stateToken || "")
                 === "")
 
@@ -305,6 +314,8 @@ Singleton {
     }
 
     function deleteRemote(name) {
+        if (!root.enabled)
+            return false;
         const normalized = normalizeRemoteName(name);
         if (configBusy || backupActive || !remoteByName(normalized))
             return false;
@@ -339,6 +350,8 @@ Singleton {
     }
 
     function cleanupPartialRemote() {
+        if (!root.enabled)
+            return;
         if (!_configCreatedRemote || configRemoteName === "") {
             finishConfigCancelled();
             return;
@@ -427,7 +440,7 @@ Singleton {
     }
 
     function refreshQuota() {
-        if (!selectedRemote || quotaProcess.running)
+        if (!root.enabled || !selectedRemote || quotaProcess.running)
             return;
 
         quotaState = "loading";
@@ -478,6 +491,8 @@ Singleton {
     }
 
     function beginBackup(sources, remoteName, backupRoot) {
+        if (!root.enabled)
+            return false;
         const remote = remoteByName(remoteName);
         if (backupActive || backupProcess.running || sources.length === 0 || !remote)
             return false;
@@ -585,6 +600,8 @@ Singleton {
     }
 
     function startNextBackupFolder() {
+        if (!root.enabled)
+            return;
         if (backupState !== "running")
             return;
 
@@ -942,7 +959,7 @@ Singleton {
     Timer {
         interval: 300000
         repeat: true
-        running: root.selectedRemoteName !== ""
+        running: root.enabled && root.selectedRemoteName !== ""
         onTriggered: root.refreshQuota()
     }
 }

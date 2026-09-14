@@ -450,6 +450,7 @@ Item {
                 MaterialCard {
                     id: cloudCard
 
+                    visible: RcloneService.enabled
                     x: root.wideLayout ? root.columnWidth + root.cardGap : 0
                     y: root.wideLayout ? 0 : shortcutsCard.y + shortcutsCard.height + root.cardGap
                     width: root.columnWidth
@@ -601,7 +602,7 @@ Item {
                     id: personalizationCard
 
                     x: cloudCard.x
-                    y: cloudCard.y + cloudCard.height + root.cardGap
+                    y: cloudCard.y + (cloudCard.visible ? cloudCard.height + root.cardGap : 0)
                     width: root.columnWidth
                     title: qsTr("Personalization")
                     iconName: "palette"

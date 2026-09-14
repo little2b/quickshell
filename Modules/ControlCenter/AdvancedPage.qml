@@ -137,6 +137,7 @@ StyledFlickable {
         SettingsSection {
             Layout.fillWidth: true
             title: qsTr("Cloud storage")
+            visible: RcloneService.enabled
             iconName: "cloud"
 
             RowLayout {

@@ -8,8 +8,8 @@ Singleton {
     id: root
 
     readonly property string uploadRoot: UiPreferences.cloudUploadRoot
-    readonly property bool hasWritableRemote: RcloneService.selectedRemote !== null &&
-                                              !RcloneService.isReadOnly(RcloneService.selectedRemote)
+    readonly property bool hasWritableRemote: RcloneService.enabled && RcloneService.selectedRemote !== null
+                                              && !RcloneService.isReadOnly(RcloneService.selectedRemote)
     readonly property bool uploadActive: currentJobId >= 0 || uploadProcess.running
     readonly property int uploadJobCount: uploadJobs.length
     readonly property bool hasPendingUploads: uploadJobs.some(job => {
@@ -78,6 +78,8 @@ Singleton {
     }
 
     function enqueueUrls(urls) {
+        if (!RcloneService.enabled)
+            return 0;
         const infos = localUrlInfos(urls);
         if (infos.length === 0) {
             lastMessage = qsTr("No local files or folders are available to upload");
@@ -127,7 +129,7 @@ Singleton {
     }
 
     function startNextJob() {
-        if (uploadsPaused || uploadProcess.running || currentJobId >= 0)
+        if (!RcloneService.enabled || uploadsPaused || uploadProcess.running || currentJobId >= 0)
             return;
 
         let job = null;
