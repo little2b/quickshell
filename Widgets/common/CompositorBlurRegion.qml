@@ -1,4 +1,7 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
+import QtQuick.Window
 import Quickshell
 import Quickshell.Wayland
 import qs.Services
@@ -16,6 +19,9 @@ Item {
     property bool blurEnabled: true
     property bool compositorEnabled: BlurService.enabled
     property real radius: 0
+    // Optional inset keeps integer protocol regions inside antialiased outlines.
+    property real inset: 0
+    property bool pillShapes: false
     property Item clipItem: null
 
     property bool surfaceReady: false
@@ -27,31 +33,22 @@ Item {
 
     readonly property int visibleBackgroundCount: {
         let count = 0;
-        const items = root.allBackgroundItems().concat(
-            root.allPostSubtractionBackgroundItems());
+        const items = root.allBackgroundItems().concat(root.allPostSubtractionBackgroundItems());
         for (let index = 0; index < items.length; ++index) {
             const item = items[index];
-            if (item && item.visible && item.opacity > 0
-                    && item.width > 0 && item.height > 0)
+            if (item && item.visible && item.opacity > 0 && item.width > 0 && item.height > 0)
                 ++count;
         }
         return count;
     }
-    readonly property bool shouldSubmit:
-        root.compositorEnabled
-        && root.blurEnabled
-        && root.surfaceReady
-        && root.targetWindow
-        && root.targetWindow.visible
-        && root.visibleBackgroundCount > 0
-    readonly property var submittedRegion:
-        root.shouldSubmit ? combinedRegion : null
+    readonly property bool shouldSubmit: root.compositorEnabled && root.blurEnabled && root.surfaceReady
+                                         && root.targetWindow && root.targetWindow.visible
+                                         && root.visibleBackgroundCount > 0
+    readonly property var submittedRegion: root.shouldSubmit ? combinedRegion : null
     readonly property alias region: combinedRegion
     readonly property alias regionObjects: root._regionObjects
-    readonly property alias subtractionRegionObjects:
-        root._subtractionRegionObjects
-    readonly property alias postSubtractionRegionObjects:
-        root._postSubtractionRegionObjects
+    readonly property alias subtractionRegionObjects: root._subtractionRegionObjects
+    readonly property alias postSubtractionRegionObjects: root._postSubtractionRegionObjects
 
     visible: false
 
@@ -85,8 +82,7 @@ Item {
 
     function allPostSubtractionBackgroundItems() {
         const items = [];
-        const postSubtraction =
-            root.postSubtractionBackgroundItems || [];
+        const postSubtraction = root.postSubtractionBackgroundItems || [];
         for (let index = 0; index < postSubtraction.length; ++index) {
             const item = postSubtraction[index];
             if (item && items.indexOf(item) < 0)
@@ -98,18 +94,17 @@ Item {
     function rebuildRegions() {
         for (let index = 0; index < root._regionObjects.length; ++index)
             root._regionObjects[index].destroy();
-        for (let index = 0;
-                index < root._subtractionRegionObjects.length; ++index)
+        for (let index = 0; index < root._subtractionRegionObjects.length; ++index)
             root._subtractionRegionObjects[index].destroy();
-        for (let index = 0;
-                index < root._postSubtractionRegionObjects.length; ++index)
+        for (let index = 0; index < root._postSubtractionRegionObjects.length; ++index)
             root._postSubtractionRegionObjects[index].destroy();
 
         const regions = [];
         const items = root.allBackgroundItems();
         for (let index = 0; index < items.length; ++index) {
-            const region = itemRegionComponent.createObject(
-                combinedRegion, { "sourceItem": items[index] });
+            const region = itemRegionComponent.createObject(combinedRegion, {
+                                                                "sourceItem": items[index]
+                                                            });
             if (region)
                 regions.push(region);
         }
@@ -118,25 +113,23 @@ Item {
         const subtractionRegions = [];
         const subtractedItems = root.allSubtractedBackgroundItems();
         for (let index = 0; index < subtractedItems.length; ++index) {
-            const region = subtractionRegionComponent.createObject(
-                combinedRegion,
-                { "sourceItem": subtractedItems[index] });
+            const region = subtractionRegionComponent.createObject(combinedRegion, {
+                                                                       "sourceItem": subtractedItems[index]
+                                                                   });
             if (region)
                 subtractionRegions.push(region);
         }
         root._subtractionRegionObjects = subtractionRegions;
 
         const postSubtractionRegions = [];
-        const postSubtractionItems =
-            root.allPostSubtractionBackgroundItems();
-        for (let index = 0;
-                index < postSubtractionItems.length; ++index) {
-            const region = postSubtractionRegionComponent.createObject(
-                combinedRegion,
-                {
-                    "sourceItem": postSubtractionItems[index],
-                    "clipItem": root.postSubtractionClipItem
-                });
+        const postSubtractionItems = root.allPostSubtractionBackgroundItems();
+        for (let index = 0; index < postSubtractionItems.length; ++index) {
+            const region = postSubtractionRegionComponent.createObject(combinedRegion, {
+                                                                           "sourceItem":
+                                                                           postSubtractionItems[index],
+                                                                           "clipItem":
+                                                                           root.postSubtractionClipItem
+                                                                       });
             if (region)
                 postSubtractionRegions.push(region);
         }
@@ -145,11 +138,9 @@ Item {
         // Region children are evaluated in order. Keep the operation chain
         // explicit: (base + additional) - subtraction + post-subtraction.
         const combinedRegions = regions.slice();
-        for (let index = 0;
-                index < subtractionRegions.length; ++index)
+        for (let index = 0; index < subtractionRegions.length; ++index)
             combinedRegions.push(subtractionRegions[index]);
-        for (let index = 0;
-                index < postSubtractionRegions.length; ++index)
+        for (let index = 0; index < postSubtractionRegions.length; ++index)
             combinedRegions.push(postSubtractionRegions[index]);
         if (root.clipItem)
             combinedRegions.push(clipRegion);
@@ -170,19 +161,38 @@ Item {
         commitTimer.restart();
     }
 
+    function requestFrame() {
+        const item = root.targetWindow ? root.targetWindow.contentItem : null;
+        const window = item ? item.Window.window : null;
+        if (window && window.visible)
+            window.update();
+    }
+
     function commit() {
         root.publishPending = false;
         if (!root.targetWindow)
             return;
+        if (!root.submittedRegion) {
+            root.clear();
+            return;
+        }
         root.targetWindow.BackgroundEffect.blurRegion = null;
-        if (root.submittedRegion)
-            root.targetWindow.BackgroundEffect.blurRegion =
-                root.submittedRegion;
+        root.targetWindow.BackgroundEffect.blurRegion = root.submittedRegion;
+        // Protocol changes are double-buffered and need a surface commit,
+        // even if transparent content has stopped producing scene damage.
+        root.requestFrame();
     }
 
     function clear() {
-        if (root.targetWindow)
-            root.targetWindow.BackgroundEffect.blurRegion = null;
+        commitTimer.stop();
+        root.publishPending = false;
+        if (!root.targetWindow)
+            return;
+        // A new attachment may inherit the old native blur across hot reload
+        // while its QML property already equals null. An explicit empty Region
+        // forces a clear in that case too.
+        root.targetWindow.BackgroundEffect.blurRegion = emptyRegion;
+        root.requestFrame();
     }
 
     onBackgroundItemChanged: rebuildRegions()
@@ -194,8 +204,7 @@ Item {
     onSubmittedRegionChanged: publish()
 
     Component.onCompleted: {
-        root.surfaceReady = !!root.targetWindow
-            && root.targetWindow.visible;
+        root.surfaceReady = !!root.targetWindow && root.targetWindow.visible;
         root.rebuildRegions();
     }
 
@@ -258,16 +267,20 @@ Item {
     }
 
     Region {
+        id: emptyRegion
+        width: 0
+        height: 0
+    }
+
+    Region {
         id: combinedRegion
     }
 
     Region {
         id: clipRegion
 
-        item: root.clipItem && root.clipItem.visible
-            && root.clipItem.width > 0
-            && root.clipItem.height > 0
-            ? root.clipItem : null
+        item: root.clipItem && root.clipItem.visible && root.clipItem.width > 0 && root.clipItem.height > 0
+              ? root.clipItem : null
         intersection: Intersection.Intersect
     }
 
@@ -275,26 +288,34 @@ Item {
         id: itemRegionComponent
 
         Region {
+            id: itemRegion
+
             required property Item sourceItem
 
+            property Item insetItem: Item {
+                parent: root.inset > 0 ? itemRegion.sourceItem : null
+                x: root.inset
+                y: root.inset
+                width: itemRegion.sourceItem ? Math.max(0, itemRegion.sourceItem.width - 2 * root.inset) : 0
+                height: itemRegion.sourceItem ? Math.max(0, itemRegion.sourceItem.height - 2 * root.inset) : 0
+            }
+
             property TransformWatcher geometryWatcher: TransformWatcher {
-                a: root.targetWindow
-                    ? root.targetWindow.contentItem : null
-                b: sourceItem
+                a: root.targetWindow ? root.targetWindow.contentItem : null
+                b: root.inset > 0 ? itemRegion.insetItem : itemRegion.sourceItem
                 onTransformChanged: root.publish()
             }
 
             onChanged: root.publish()
 
-            item: sourceItem && sourceItem.visible
-                && sourceItem.opacity > 0
-                && sourceItem.width > 0
-                && sourceItem.height > 0
-                ? sourceItem : null
-            radius: sourceItem
-                && sourceItem.radius !== undefined
-                ? Math.max(0, Math.round(sourceItem.radius))
-                : Math.max(0, Math.round(root.radius))
+            item: sourceItem && sourceItem.visible && sourceItem.opacity > 0 && sourceItem.width > 0
+                  && sourceItem.height > 0 ? (root.inset > 0 ? insetItem : sourceItem) : null
+            radius: Math.max(0, Math.round((root.pillShapes && sourceItem ? Math.min(sourceItem.width,
+                                                                                     sourceItem.height) / 2 :
+                                                                            sourceItem && sourceItem.radius
+                                                                            !== undefined ? sourceItem.radius :
+                                                                                            root.radius)
+                                           - root.inset))
             intersection: Intersection.Combine
         }
     }
@@ -306,22 +327,18 @@ Item {
             required property Item sourceItem
 
             property TransformWatcher geometryWatcher: TransformWatcher {
-                a: root.targetWindow
-                    ? root.targetWindow.contentItem : null
+                a: root.targetWindow ? root.targetWindow.contentItem : null
                 b: sourceItem
                 onTransformChanged: root.publish()
             }
 
             onChanged: root.publish()
 
-            item: sourceItem && sourceItem.visible
-                && sourceItem.width > 0
-                && sourceItem.height > 0
-                ? sourceItem : null
-            radius: sourceItem
-                && sourceItem.radius !== undefined
-                ? Math.max(0, Math.round(sourceItem.radius))
-                : Math.max(0, Math.round(root.radius))
+            item: sourceItem && sourceItem.visible && sourceItem.width > 0 && sourceItem.height > 0
+                  ? sourceItem : null
+            radius: sourceItem && sourceItem.radius !== undefined ? Math.max(0, Math.round(
+                                                                                 sourceItem.radius)) :
+                                                                    Math.max(0, Math.round(root.radius))
             intersection: Intersection.Subtract
         }
     }
@@ -336,48 +353,35 @@ Item {
             required property Item sourceItem
             property Item clipItem: null
 
-            property TransformWatcher sourceGeometryWatcher:
-                TransformWatcher {
-                    a: root.targetWindow
-                        ? root.targetWindow.contentItem : null
-                    b: sourceItem
-                    onTransformChanged: root.publish()
-                }
+            property TransformWatcher sourceGeometryWatcher: TransformWatcher {
+                a: root.targetWindow ? root.targetWindow.contentItem : null
+                b: sourceItem
+                onTransformChanged: root.publish()
+            }
 
-            property TransformWatcher clipGeometryWatcher:
-                TransformWatcher {
-                    a: root.targetWindow
-                        ? root.targetWindow.contentItem : null
-                    b: clipItem
-                    onTransformChanged: root.publish()
-                }
+            property TransformWatcher clipGeometryWatcher: TransformWatcher {
+                a: root.targetWindow ? root.targetWindow.contentItem : null
+                b: clipItem
+                onTransformChanged: root.publish()
+            }
 
             onChanged: root.publish()
 
             Region {
-                item: sourceItem && sourceItem.visible
-                    && sourceItem.opacity > 0
-                    && sourceItem.width > 0
-                    && sourceItem.height > 0
-                    ? sourceItem : null
-                radius: sourceItem
-                    && sourceItem.radius !== undefined
-                    ? Math.max(0, Math.round(sourceItem.radius))
-                    : Math.max(0, Math.round(root.radius))
+                item: sourceItem && sourceItem.visible && sourceItem.opacity > 0 && sourceItem.width > 0
+                      && sourceItem.height > 0 ? sourceItem : null
+                radius: sourceItem && sourceItem.radius !== undefined ? Math.max(0, Math.round(
+                                                                                     sourceItem.radius)) :
+                                                                        Math.max(0, Math.round(root.radius))
                 intersection: Intersection.Combine
             }
 
             Region {
-                item: clipItem && clipItem.visible
-                    && clipItem.width > 0
-                    && clipItem.height > 0
-                    ? clipItem : null
-                radius: clipItem
-                    && clipItem.radius !== undefined
-                    ? Math.max(0, Math.round(clipItem.radius))
-                    : Math.max(0, Math.round(root.radius))
-                intersection: clipItem
-                    ? Intersection.Intersect : Intersection.Combine
+                item: clipItem && clipItem.visible && clipItem.width > 0 && clipItem.height > 0 ? clipItem :
+                                                                                                  null
+                radius: clipItem && clipItem.radius !== undefined ? Math.max(0, Math.round(clipItem.radius)) :
+                                                                    Math.max(0, Math.round(root.radius))
+                intersection: clipItem ? Intersection.Intersect : Intersection.Combine
             }
         }
     }

@@ -154,6 +154,79 @@ Variants {
             return "TOOLS_OPENED";
         }
 
+        property bool notificationPeekActive: false
+
+        Timer {
+            id: notificationPeekTimer
+            // Bound the automatic reveal even for notifications with no expiry.
+            interval: NotificationManager.defaultPopupTimeoutMs
+            onTriggered: keystoneWindow.notificationPeekActive = false
+        }
+
+        Connections {
+            target: NotificationManager
+
+            function onNotify(notification) {
+                if (!notification || !notification.popup || NotificationManager.popupInhibited)
+                    return;
+                keystoneWindow.notificationPeekActive = true;
+                notificationPeekTimer.restart();
+            }
+
+            function onHasNotifsChanged() {
+                if (!NotificationManager.hasNotifs) {
+                    notificationPeekTimer.stop();
+                    keystoneWindow.notificationPeekActive = false;
+                }
+            }
+
+            function onPopupInhibitedChanged() {
+                if (NotificationManager.popupInhibited) {
+                    notificationPeekTimer.stop();
+                    keystoneWindow.notificationPeekActive = false;
+                }
+            }
+        }
+
+        readonly property bool showSurface: !MaximizedWindowService.coversScreen(modelData)
+                                            || MaximizedWindowService.revealed(modelData) || root.showHub
+                                            || root.showTools || root.showLyrics || root.expanded
+                                            || RecordingService.isRecording || RecordingService.isFinalizing
+                                            || AudioRecordingService.isActive || (notificationPeekActive
+                                                                                  && NotificationManager.hasNotifs
+                                                                                  && !NotificationManager.popupInhibited)
+        property real revealProgress: showSurface ? 1 : 0
+        // Retire the native surface after exit so a stale compositor effect
+        // cannot outlive the hidden island. The QML content stays loaded.
+        visible: showSurface || revealProgress > 0
+        contentItem.opacity: revealProgress
+
+        Behavior on revealProgress {
+            NumberAnimation {
+                duration: 140
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        HoverHandler {
+            onHoveredChanged: {
+                if (hovered) {
+                    barHideDelay.stop();
+                    MaximizedWindowService.setHovered(keystoneWindow.screen, "keystone", true);
+                } else {
+                    barHideDelay.restart();
+                }
+            }
+        }
+
+        Timer {
+            id: barHideDelay
+            interval: 500
+            onTriggered: MaximizedWindowService.setHovered(keystoneWindow.screen, "keystone", false)
+        }
+
+        Component.onDestruction: MaximizedWindowService.setHovered(keystoneWindow.screen, "keystone", false)
+
         screen: modelData
         color: "transparent"
         exclusiveZone: -1
@@ -373,7 +446,7 @@ Variants {
             radius: 20
             samples: 32
             color: "#80000000"
-            cached: false
+            cached: styleSurface.detached && root.isCollapsedMode
             opacity: root.color.a * (styleSurface.detached && root.recordingPresentationActive ? 0 : 1)
         }
 
@@ -1238,6 +1311,16 @@ Variants {
                     cutoutRadius: dashboardKeyholeCutout.radius
                 }
 
+                Rectangle {
+                    anchors.fill: rootSurface
+                    visible: styleSurface.detached && root.isCollapsedMode && BlurService.enabled
+                    radius: root.radius
+                    color: "transparent"
+                    border.width: 1
+                    border.color: Appearance.applyAlpha(Appearance.colors.colLayer0Border, 1)
+                    antialiasing: true
+                }
+
                 Connections {
                     target: KeyboardLockService
                     function onAvailabilityChanged() {
@@ -1762,6 +1845,10 @@ Variants {
             }
 
             CompositorBlurRegion {
+                // Compositor blur does not inherit the QML opacity animation.
+                // Enable only after content fades in; clear as soon as exit starts.
+                blurEnabled: keystoneWindow.showSurface && keystoneWindow.revealProgress >= 1
+                inset: styleSurface.detached && root.isCollapsedMode ? 1 : 0
                 targetWindow: keystoneWindow
                 backgroundItem: root.useRecordingBlurRegions ? null : root
                 additionalBackgroundItems: root.recordingBlurBackgroundItems
@@ -1775,7 +1862,8 @@ Variants {
 
         mask: Region {
             Region {
-                item: root.keyboardInteractionActive ? outsideClickArea : maskContainer
+                item: keystoneWindow.showSurface ? (root.keyboardInteractionActive ? outsideClickArea :
+                                                                                     maskContainer) : null
             }
         }
     }

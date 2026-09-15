@@ -8,6 +8,37 @@ import qs.Widgets.common
 PanelWindow {
     id: root
 
+    readonly property bool autoHidden: MaximizedWindowService.coversScreen(root.screen)
+    readonly property bool showContents: !autoHidden || MaximizedWindowService.revealed(root.screen)
+
+    property real revealProgress: root.showContents ? 1 : 0
+
+    Behavior on revealProgress {
+        NumberAnimation {
+            duration: 140
+            easing.type: Easing.OutCubic
+        }
+    }
+
+    HoverHandler {
+        onHoveredChanged: {
+            if (hovered) {
+                hideDelay.stop();
+                MaximizedWindowService.setHovered(root.screen, "bar", true);
+            } else {
+                hideDelay.restart();
+            }
+        }
+    }
+
+    Timer {
+        id: hideDelay
+        interval: 500
+        onTriggered: MaximizedWindowService.setHovered(root.screen, "bar", false)
+    }
+
+    Component.onDestruction: MaximizedWindowService.setHovered(root.screen, "bar", false)
+
     required property string edge
     readonly property real visualThickness: Sizes.barVisualThickness
     readonly property real outerEdgeMargin: PersonalizationConfig.barEdgeMargin
@@ -17,7 +48,7 @@ PanelWindow {
 
     implicitWidth: surfaceThickness
     color: "transparent"
-    exclusiveZone: exclusiveThickness
+    exclusiveZone: root.autoHidden ? 0 : exclusiveThickness
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-bar-vertical"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
@@ -37,6 +68,7 @@ PanelWindow {
 
     Item {
         id: visualBand
+        opacity: root.revealProgress
 
         x: axis.isLeft ? root.outerEdgeMargin : Sizes.barShadowBuffer
         y: 0
@@ -52,7 +84,20 @@ PanelWindow {
         }
     }
 
+    Item {
+        id: edgeTrigger
+        x: axis.isLeft ? 0 : parent.width - 1
+        y: 0
+        width: 1
+        height: parent.height
+    }
+
     CompositorBlurRegion {
+        // Compositor blur does not inherit the QML opacity animation.
+        // Enable only after content fades in; clear as soon as exit starts.
+        blurEnabled: root.showContents && root.revealProgress >= 1
+        inset: 1
+        pillShapes: true
         targetWindow: root
         backgroundItem: content.backgroundItems.length > 0 ? content.backgroundItems[0] : null
         additionalBackgroundItems: content.backgroundItems.slice(1)
@@ -61,11 +106,15 @@ PanelWindow {
 
     mask: Region {
         Region {
-            item: content.leadingInputRegionItem
+            item: root.autoHidden ? (root.showContents ? visualBand : edgeTrigger) : null
         }
 
         Region {
-            item: content.trailingInputRegionItem
+            item: root.autoHidden ? null : content.leadingInputRegionItem
+        }
+
+        Region {
+            item: root.autoHidden ? null : content.trailingInputRegionItem
         }
     }
 }
