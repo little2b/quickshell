@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Effects
+import Qt5Compat.GraphicalEffects
 import qs.Common
 import qs.Services
 
@@ -9,6 +9,8 @@ Item {
     property color fillColor: BlurService.backgroundColor(Appearance.colors.colLayer0)
     property real cornerRadius: height / 2
     property real shadowPadding: Sizes.barShadowBuffer
+    property bool shadowCached: true
+    property bool shadowEnabled: true
     readonly property string contextualEdge: findContextEdge(root.parent)
 
     function findContextEdge(item) {
@@ -21,15 +23,26 @@ Item {
         return "top";
     }
 
-    RectangularShadow {
+    Rectangle {
+        id: shadowSource
+
         anchors.fill: parent
+        color: root.fillColor
         radius: root.cornerRadius
-        blur: 16
-        spread: 0
+        visible: false
+    }
+
+    DropShadow {
+        anchors.fill: shadowSource
+        source: shadowSource
+        visible: root.shadowEnabled
+        radius: 16
+        samples: 32
+        transparentBorder: true
         color: Appearance.applyAlpha(Appearance.colors.colShadow, 0.4)
-        offset: Qt.vector2d(root.contextualEdge === "left" ? 3 : root.contextualEdge === "right" ? -3 : 0,
-                            root.contextualEdge === "top" ? 3 : root.contextualEdge === "bottom" ? -3 : 0)
-        cached: true
+        horizontalOffset: root.contextualEdge === "left" ? 3 : root.contextualEdge === "right" ? -3 : 0
+        verticalOffset: root.contextualEdge === "top" ? 3 : root.contextualEdge === "bottom" ? -3 : 0
+        cached: root.shadowCached
     }
 
     Rectangle {
@@ -37,8 +50,6 @@ Item {
         color: root.fillColor
         radius: root.cornerRadius
         antialiasing: true
-        // Cover the integer blur-region edge with a smooth, opaque outline.
-        border.width: BlurService.enabled ? 1 : 0
-        border.color: Appearance.applyAlpha(Appearance.colors.colLayer0Border, 1)
+        clip: true
     }
 }

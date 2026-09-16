@@ -16,17 +16,49 @@ MouseArea {
     property var screen: null
     property string edge: "top"
     property var barVisualItem: null
+    property bool pinned: true
     property int activationPid: 0
     property bool activationPending: false
+    property bool dragActive: false
+    property point lastDragGlobalPosition: Qt.point(0, 0)
 
     signal menuOpened(var qsWindow)
-    signal menuClosed()
+    signal menuClosed
+    signal dragStarted(string itemId, bool pinned, var iconSource, real globalX, real globalY)
+    signal dragMoved(real globalX, real globalY)
+    signal dragFinished(real globalX, real globalY, bool canceled)
 
     implicitWidth: 20
     implicitHeight: 20
     hoverEnabled: true
-    cursorShape: Qt.PointingHandCursor
+    cursorShape: root.dragActive ? Qt.ClosedHandCursor : Qt.PointingHandCursor
     acceptedButtons: Qt.LeftButton | Qt.RightButton
+    pressAndHoldInterval: 260
+    preventStealing: true
+    opacity: root.dragActive ? 0.32 : 1
+    scale: root.dragActive ? 0.82 : 1
+
+    Behavior on opacity {
+        NumberAnimation {
+            duration: Appearance.animation.expressiveFastEffects.duration
+            easing.type: Appearance.animation.expressiveFastEffects.type
+            easing.bezierCurve: Appearance.animation.expressiveFastEffects.bezierCurve
+        }
+    }
+
+    Behavior on scale {
+        NumberAnimation {
+            duration: Appearance.animation.expressiveFastEffects.duration
+            easing.type: Appearance.animation.expressiveFastEffects.type
+            easing.bezierCurve: Appearance.animation.expressiveFastEffects.bezierCurve
+        }
+    }
+
+    function updateDragPosition(event) {
+        const globalPosition = root.mapToGlobal(event.x, event.y);
+        root.lastDragGlobalPosition = globalPosition;
+        return globalPosition;
+    }
 
     function closeMenu() {
         if (menu.active && menu.item && typeof menu.item.close === "function")
@@ -50,8 +82,8 @@ MouseArea {
     function focusApplicationWindow() {
         const windows = Niri.searchWindows("");
         const ownedWindows = activationPid > 0 ? windows.filter(window => window.pid === activationPid) : [];
-        const target = ownedWindows.find(window => window.isFocused) || ownedWindows[0]
-            || TrayActivation.resolve(root.modelData, ApplicationService.applications, windows);
+        const target = ownedWindows.find(window => window.isFocused) || ownedWindows[0] || TrayActivation.resolve(
+                  root.modelData, ApplicationService.applications, windows);
         return target ? Niri.focusWindow(target.id) : false;
     }
 
@@ -67,9 +99,15 @@ MouseArea {
             return;
         focusRetry.initialWindowId = Niri.focusedWindow.id || 0;
         root.activationPending = true;
-        ownerLookup.command = ["python3", Paths.systemScriptsDir + "/tray-owner.py",
-                               JSON.stringify({id: root.modelData.id || "", title: root.modelData.title || "",
-                                               tooltipTitle: root.modelData.tooltipTitle || ""})];
+        ownerLookup.command = ["python3", Paths.systemScriptsDir + "/tray-owner.py", JSON.stringify({
+                                                                                                        id: root.modelData.id
+                                                                                                            || "",
+                                                                                                        title: root.modelData.title
+                                                                                                               || "",
+                                                                                                        tooltipTitle:
+                                                                                                        root.modelData.tooltipTitle
+                                                                                                        || ""
+                                                                                                    })];
         ownerLookup.running = true;
     }
 
@@ -93,7 +131,9 @@ MouseArea {
         stdout: StdioCollector {
             onStreamFinished: {
                 let pid = 0;
-                try { pid = Number(JSON.parse(text).pid) || 0; } catch (error) {}
+                try {
+                    pid = Number(JSON.parse(text).pid) || 0;
+                } catch (error) {}
                 root.finishActivation(pid);
             }
         }
@@ -113,13 +153,55 @@ MouseArea {
             attempts += 1;
             const currentId = Niri.focusedWindow.id || 0;
             // Stop waiting if the user or application already switched focus.
-            if ((currentId && currentId !== initialWindowId)
-                    || root.focusApplicationWindow() || attempts >= 20)
+            if ((currentId && currentId !== initialWindowId) || root.focusApplicationWindow() || attempts
+                    >= 20)
                 stop();
         }
     }
 
-    onPressed: event => {
+    onPressAndHold: event => {
+        if (event.button !== Qt.LeftButton)
+            return;
+
+        root.activationPending = false;
+        focusRetry.stop();
+        root.closeOtherMenus();
+        root.closeMenu();
+        root.dragActive = true;
+        const globalPosition = root.updateDragPosition(event);
+        root.dragStarted(root.modelData.id || "", root.pinned, root.modelData.icon || "", globalPosition.x,
+                         globalPosition.y);
+        event.accepted = true;
+    }
+
+    onPositionChanged: event => {
+        if (!root.dragActive)
+            return;
+
+        const globalPosition = root.updateDragPosition(event);
+        root.dragMoved(globalPosition.x, globalPosition.y);
+        event.accepted = true;
+    }
+
+    onReleased: event => {
+        if (!root.dragActive)
+            return;
+
+        const globalPosition = root.updateDragPosition(event);
+        root.dragActive = false;
+        root.dragFinished(globalPosition.x, globalPosition.y, false);
+        event.accepted = true;
+    }
+
+    onCanceled: {
+        if (!root.dragActive)
+            return;
+
+        root.dragActive = false;
+        root.dragFinished(root.lastDragGlobalPosition.x, root.lastDragGlobalPosition.y, true);
+    }
+
+    onClicked: event => {
         if (event.button === Qt.LeftButton && !root.modelData.onlyMenu) {
             root.closeOtherMenus();
             root.closeMenu();
@@ -178,7 +260,7 @@ MouseArea {
     }
 
     PopupToolTip {
-        extraVisibleCondition: root.containsMouse
+        extraVisibleCondition: root.containsMouse && !root.dragActive
         text: TrayService.getTooltipForItem(root.modelData)
     }
 }

@@ -32,16 +32,22 @@ Singleton {
         const revision = root.selectionRevision;
         if (!screen || Niri.inOverview)
             return false;
-        const workspace = Niri.activeWorkspaceForOutput(screen.name);
-        if (!workspace.activeWindowId)
+        const screenName = screen.name;
+        if (!screenName)
+            return false;
+        const workspace = Niri.activeWorkspaceForOutput(screenName);
+        if (!workspace || !workspace.activeWindowId)
             return false;
         const selected = Niri.windowById(workspace.activeWindowId);
-        if (!selected.id)
+        if (!selected || !selected.id)
             return false;
-        const candidates = root.toplevels.filter(window => window.appId === selected.appId && window.title
-                                                           === selected.title && window.screens.some(output
-                                                                                                     => output.name
-                                                                                                        === screen.name));
+        // Output objects may be destroyed while window handles survive a resume
+        // or monitor reconnect. Ignore missing outputs until the list is refreshed.
+        const candidates = root.toplevels.filter(window => window && window.appId === selected.appId
+                                                           && window.title === selected.title
+                                                           && window.screens.some(output => output
+                                                                                            && output.name
+                                                                                            === screenName));
         // Prefer the active handle when indistinguishable titles exist. During
         // a panel focus grab, only hide if all matching handles agree.
         const active = ToplevelManager.activeToplevel;
@@ -50,8 +56,8 @@ Singleton {
             return candidates.length > 0 && candidates.every(candidate => candidate.maximized &&
                                                                           !candidate.fullscreen);
         while (window) {
-            if (window.maximized && !window.fullscreen && window.screens.some(output => output.name
-                                                                                        === screen.name))
+            if (window.maximized && !window.fullscreen && window.screens.some(output => output && output.name
+                                                                                        === screenName))
                 return true;
             window = window.parent;
         }

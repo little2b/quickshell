@@ -11,15 +11,6 @@ PanelWindow {
     readonly property bool autoHidden: MaximizedWindowService.coversScreen(root.screen)
     readonly property bool showContents: !autoHidden || MaximizedWindowService.revealed(root.screen)
 
-    property real revealProgress: root.showContents ? 1 : 0
-
-    Behavior on revealProgress {
-        NumberAnimation {
-            duration: 140
-            easing.type: Easing.OutCubic
-        }
-    }
-
     HoverHandler {
         onHoveredChanged: {
             if (hovered) {
@@ -68,7 +59,7 @@ PanelWindow {
 
     Item {
         id: visualBand
-        opacity: root.revealProgress
+        visible: root.showContents
 
         x: 0
         y: axis.isTop ? root.outerEdgeMargin : Sizes.barShadowBuffer
@@ -93,9 +84,9 @@ PanelWindow {
     }
 
     CompositorBlurRegion {
-        // Compositor blur does not inherit the QML opacity animation.
-        // Enable only after content fades in; clear as soon as exit starts.
-        blurEnabled: root.showContents && root.revealProgress >= 1
+        // Reattaching a rounded native blur region after auto-hide produces
+        // visibly polygonal edges on fractional/high-DPI compositor surfaces.
+        blurEnabled: root.showContents && !root.autoHidden
         inset: 1
         pillShapes: true
         targetWindow: root

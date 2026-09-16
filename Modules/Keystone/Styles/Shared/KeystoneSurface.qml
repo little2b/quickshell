@@ -89,6 +89,7 @@ Variants {
         readonly property bool bottomEdge: edge === "bottom"
         readonly property bool leftEdge: edge === "left"
         readonly property bool rightEdge: edge === "right"
+        readonly property bool autoHidden: MaximizedWindowService.coversScreen(modelData)
         property int edgeCurveAlong: styleSurface.showAttachedEdgeCurves ? 8 : 0
         property int edgeCurveDepth: styleSurface.showAttachedEdgeCurves ? 14 : 0
         property real edgeCurveSideControl: 0.58
@@ -134,12 +135,13 @@ Variants {
         }
 
         function lyrics(): string {
-            if (root.showLyrics) {
-                root.showLyrics = false;
+            if (root.lyricsPinned) {
+                root.lyricsPinned = false;
+                closeAllOthers();
                 return "LYRICS_CLOSED";
             }
             closeAllOthers();
-            root.showLyrics = true;
+            root.lyricsPinned = true;
             return "LYRICS_OPENED";
         }
 
@@ -188,10 +190,12 @@ Variants {
             }
         }
 
-        readonly property bool showSurface: !MaximizedWindowService.coversScreen(modelData)
-                                            || MaximizedWindowService.revealed(modelData) || root.showHub
-                                            || root.showTools || root.showLyrics || root.expanded
-                                            || RecordingService.isRecording || RecordingService.isFinalizing
+        // Pinned lyrics are the idle surface, so they follow the bar's auto-hide
+        // policy without clearing the user's selected mode.
+        readonly property bool showSurface: !autoHidden || MaximizedWindowService.revealed(modelData)
+                                            || root.showHub || root.showTools || root.showLyrics
+                                            || root.expanded || RecordingService.isRecording
+                                            || RecordingService.isFinalizing
                                             || AudioRecordingService.isActive || (notificationPeekActive
                                                                                   && NotificationManager.hasNotifs
                                                                                   && !NotificationManager.popupInhibited)
@@ -441,6 +445,7 @@ Variants {
         DropShadow {
             anchors.fill: shadowSource
             source: root.showDashboardKeyhole ? rootSurface : shadowSource
+            visible: !root.useBarPillBackground
             horizontalOffset: keystoneWindow.leftEdge ? 6 : keystoneWindow.rightEdge ? -6 : 0
             verticalOffset: keystoneWindow.topEdge ? 6 : keystoneWindow.bottomEdge ? -6 : 0
             radius: 20
@@ -560,6 +565,10 @@ Variants {
                     if (action === "none" || action === "peak" || root.contentPresentationActive
                             || root.isNotifMode || root.isVolumeMode)
                         return;
+                    if (action === "lyrics" && !fromHover) {
+                        keystoneWindow.lyrics();
+                        return;
+                    }
                     const tabs = {
                         dashboard: 0,
                         library: 1,
@@ -613,6 +622,9 @@ Variants {
                 }
 
                 property bool showLyrics: false
+                // Explicitly opened lyrics remain the idle surface until toggled off.
+                // Hover previews and other panels still follow transient dismissal.
+                property bool lyricsPinned: false
                 property bool expanded: false
                 property bool showVolume: false
                 property bool showHub: false
@@ -644,7 +656,8 @@ Variants {
                                                             === audioPhaseExpanded
                 readonly property bool contentPresentationActive: recordingPresentationActive
                                                                   || audioPresentationActive
-                property bool isLyricsMode: showLyrics && !contentPresentationActive
+                property bool isLyricsMode: (showLyrics || lyricsPinned) && !contentPresentationActive &&
+                                            !expanded && !showHub && !showTools
                 property bool isToolsMode: !contentPresentationActive && showTools && !isLyricsMode
                 property bool isHubMode: !contentPresentationActive && showHub && !isToolsMode &&
                                          !isLyricsMode
@@ -655,10 +668,14 @@ Variants {
                                            !isLyricsMode
                 property bool isCollapsedMode: !contentPresentationActive && !expanded && !isNotifMode &&
                                                !isVolumeMode && !isLyricsMode && !isHubMode && !isToolsMode
+                readonly property bool useBarPillBackground: styleSurface.detached && isCollapsedMode
+                readonly property bool collapsedOverMaximizedWindow: isCollapsedMode
+                                                                     && keystoneWindow.autoHidden
                 property bool isCollapsedHovered: PersonalizationConfig.keystoneHoverAction === "peak"
                                                   && isCollapsedMode && root.hoverOpened
-                readonly property bool escapeDismissActive: !contentPresentationActive && (expanded
-                                                                                           || isLyricsMode
+                readonly property bool escapeDismissActive: !contentPresentationActive && (expanded || (
+                                                                                               isLyricsMode
+                                                                                               && !lyricsPinned)
                                                                                            || isHubMode
                                                                                            || isToolsMode
                                                                                            || isCollapsedHovered)
@@ -774,7 +791,7 @@ Variants {
 
                 function triggerSliderOSD(mode) {
                     if (root.contentPresentationActive || root.showHub || root.showTools || root.expanded
-                            || root.showLyrics)
+                            || root.isLyricsMode)
                         return;
 
                     root.sliderMode = mode;
@@ -1291,7 +1308,7 @@ Variants {
                     id: rootSurface
                     anchors.fill: parent
                     opacity: styleSurface.detached && root.recordingPresentationActive ? 0 : 1
-                    surfaceColor: root.color
+                    surfaceColor: root.useBarPillBackground ? "transparent" : root.color
                     topLeftRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
                                                                   !keystoneWindow.leftEdge) ? root.radius : 0
                     topRightRadius: !styleSurface.edgeAttached || (!keystoneWindow.topEdge &&
@@ -1311,14 +1328,18 @@ Variants {
                     cutoutRadius: dashboardKeyholeCutout.radius
                 }
 
-                Rectangle {
+                Item {
                     anchors.fill: rootSurface
-                    visible: styleSurface.detached && root.isCollapsedMode && BlurService.enabled
-                    radius: root.radius
-                    color: "transparent"
-                    border.width: 1
-                    border.color: Appearance.applyAlpha(Appearance.colors.colLayer0Border, 1)
-                    antialiasing: true
+                    visible: root.useBarPillBackground
+                    property string popupEdge: keystoneWindow.edge
+
+                    TopBarPillBackground {
+                        anchors.fill: parent
+                        fillColor: root.color
+                        cornerRadius: root.radius
+                        shadowCached: false
+                        shadowEnabled: false
+                    }
                 }
 
                 Connections {
@@ -1847,7 +1868,8 @@ Variants {
             CompositorBlurRegion {
                 // Compositor blur does not inherit the QML opacity animation.
                 // Enable only after content fades in; clear as soon as exit starts.
-                blurEnabled: keystoneWindow.showSurface && keystoneWindow.revealProgress >= 1
+                blurEnabled: keystoneWindow.showSurface && keystoneWindow.revealProgress >= 1 &&
+                             !root.collapsedOverMaximizedWindow
                 inset: styleSurface.detached && root.isCollapsedMode ? 1 : 0
                 targetWindow: keystoneWindow
                 backgroundItem: root.useRecordingBlurRegions ? null : root

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Widgets
 import qs.Common
 import qs.Components
 import qs.Services
@@ -26,8 +27,21 @@ Item {
     property real overflowAnchorWidth: 0
     property real overflowAnchorHeight: 0
     property bool overflowAnchorReady: false
+    property bool trayDragActive: false
+    property string trayDragItemId: ""
+    property bool trayDragFromPinned: false
+    property var trayDragIconSource: ""
+    property real trayDragGlobalX: 0
+    property real trayDragGlobalY: 0
     readonly property var pinnedItems: TrayService.pinnedItems
     readonly property var unpinnedItems: TrayService.unpinnedItems
+    readonly property bool dragOverOverflowButton: root.trayDragActive && root.trayDragFromPinned
+                                                   && root.containsGlobalPoint(trayOverflowButton,
+                                                                               root.trayDragGlobalX,
+                                                                               root.trayDragGlobalY, 6)
+    readonly property bool dragOverPinnedArea: root.trayDragActive && !root.trayDragFromPinned
+                                               && root.containsGlobalPoint(root, root.trayDragGlobalX,
+                                                                           root.trayDragGlobalY, 6)
 
     implicitHeight: vertical ? content.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : content.implicitWidth + 24
@@ -43,6 +57,63 @@ Item {
 
     function clamp(value, minimum, maximum) {
         return Math.max(minimum, Math.min(maximum, value));
+    }
+
+    function containsGlobalPoint(item, globalX, globalY, padding) {
+        if (!item || !item.visible || item.width <= 0 || item.height <= 0)
+            return false;
+
+        const topLeft = item.mapToGlobal(0, 0);
+        const inset = padding || 0;
+        return globalX >= topLeft.x - inset && globalX <= topLeft.x + item.width + inset && globalY
+                >= topLeft.y - inset && globalY <= topLeft.y + item.height + inset;
+    }
+
+    function beginTrayItemDrag(itemId, pinned, iconSource, globalX, globalY) {
+        if (!itemId || itemId.length === 0)
+            return;
+
+        root.closeActiveMenu();
+        root.trayDragItemId = itemId;
+        root.trayDragFromPinned = pinned;
+        root.trayDragIconSource = iconSource || "";
+        root.trayDragActive = true;
+        root.updateTrayItemDrag(globalX, globalY);
+    }
+
+    function updateTrayItemDrag(globalX, globalY) {
+        if (!root.trayDragActive)
+            return;
+
+        root.trayDragGlobalX = globalX;
+        root.trayDragGlobalY = globalY;
+    }
+
+    function finishTrayItemDrag(globalX, globalY, canceled) {
+        if (!root.trayDragActive)
+            return;
+
+        root.updateTrayItemDrag(globalX, globalY);
+        const itemId = root.trayDragItemId;
+        const hideItem = !canceled && root.trayDragFromPinned && root.dragOverOverflowButton;
+        const showItem = !canceled && !root.trayDragFromPinned && root.dragOverPinnedArea;
+
+        root.trayDragActive = false;
+        root.trayDragItemId = "";
+        root.trayDragIconSource = "";
+
+        if (hideItem) {
+            TrayService.setHidden(itemId, true);
+            Qt.callLater(() => {
+                if (root.unpinnedItems.length === 0)
+                    return;
+                root.captureOverflowAnchor();
+                root.updateOverflowPosition();
+                root.trayOverflowOpen = true;
+            });
+        } else if (showItem) {
+            TrayService.setHidden(itemId, false);
+        }
     }
 
     function captureOverflowAnchor() {
@@ -82,45 +153,37 @@ Item {
         const surfaceHeight = Math.max(1, overflowSurface.implicitHeight);
         const screenWidth = root.screen ? (root.screen.width || 0) : 0;
         const screenHeight = root.screen ? (root.screen.height || 0) : 0;
-        const availableWidth = Math.max(surfaceWidth + root.overflowEdgeMargin * 2, overflowPopup.width, screenWidth);
-        const availableHeight = Math.max(surfaceHeight + root.overflowEdgeMargin * 2, overflowPopup.height, screenHeight);
+        const availableWidth = Math.max(surfaceWidth + root.overflowEdgeMargin * 2, overflowPopup.width,
+                                        screenWidth);
+        const availableHeight = Math.max(surfaceHeight + root.overflowEdgeMargin * 2, overflowPopup.height,
+                                         screenHeight);
         const anchorX = root.overflowAnchorReady ? root.overflowAnchorX : root.overflowEdgeMargin;
         const anchorY = root.overflowAnchorReady ? root.overflowAnchorY : root.overflowEdgeMargin;
         const anchorWidth = root.overflowAnchorReady ? root.overflowAnchorWidth : 0;
         const anchorHeight = root.overflowAnchorReady ? root.overflowAnchorHeight : 0;
         const barBounds = root.barVisualBounds();
 
-        const rightX = barBounds
-            ? barBounds.x + barBounds.width + root.overflowPopupGap
-                - root.overflowSurfacePadding
-            : anchorX + anchorWidth + root.overflowPopupGap;
-        const leftX = barBounds
-            ? barBounds.x - surfaceWidth - root.overflowPopupGap
-                + root.overflowSurfacePadding
-            : anchorX - surfaceWidth - root.overflowPopupGap;
+        const rightX = barBounds ? barBounds.x + barBounds.width + root.overflowPopupGap - root.overflowSurfacePadding :
+                                   anchorX + anchorWidth + root.overflowPopupGap;
+        const leftX = barBounds ? barBounds.x - surfaceWidth - root.overflowPopupGap
+                                  + root.overflowSurfacePadding : anchorX - surfaceWidth
+                                  - root.overflowPopupGap;
         const maxX = availableWidth - surfaceWidth - root.overflowEdgeMargin;
-        root.overflowX = root.edge === "left"
-            ? root.clamp(rightX, root.overflowEdgeMargin, maxX)
-            : root.edge === "right"
-                ? root.clamp(leftX, root.overflowEdgeMargin, maxX)
-                : root.clamp(anchorX + anchorWidth / 2 - surfaceWidth / 2,
-                    root.overflowEdgeMargin, maxX);
+        root.overflowX = root.edge === "left" ? root.clamp(rightX, root.overflowEdgeMargin, maxX) : root.edge === "right"
+                                                ? root.clamp(leftX, root.overflowEdgeMargin, maxX) :
+                                                  root.clamp(anchorX + anchorWidth / 2 - surfaceWidth / 2,
+                                                             root.overflowEdgeMargin, maxX);
 
-        const belowY = barBounds
-            ? barBounds.y + barBounds.height + root.overflowPopupGap
-                - root.overflowSurfacePadding
-            : anchorY + anchorHeight + root.overflowPopupGap;
-        const aboveY = barBounds
-            ? barBounds.y - surfaceHeight - root.overflowPopupGap
-                + root.overflowSurfacePadding
-            : anchorY - surfaceHeight - root.overflowPopupGap;
+        const belowY = barBounds ? barBounds.y + barBounds.height + root.overflowPopupGap - root.overflowSurfacePadding :
+                                   anchorY + anchorHeight + root.overflowPopupGap;
+        const aboveY = barBounds ? barBounds.y - surfaceHeight - root.overflowPopupGap
+                                   + root.overflowSurfacePadding : anchorY - surfaceHeight
+                                   - root.overflowPopupGap;
         const maxY = availableHeight - surfaceHeight - root.overflowEdgeMargin;
-        root.overflowY = root.vertical
-            ? root.clamp(anchorY + anchorHeight / 2 - surfaceHeight / 2,
-                root.overflowEdgeMargin, maxY)
-            : root.edge === "bottom"
-                ? root.clamp(aboveY, root.overflowEdgeMargin, maxY)
-                : root.clamp(belowY, root.overflowEdgeMargin, maxY);
+        root.overflowY = root.vertical ? root.clamp(anchorY + anchorHeight / 2 - surfaceHeight / 2,
+                                                    root.overflowEdgeMargin, maxY) : root.edge === "bottom"
+                                         ? root.clamp(aboveY, root.overflowEdgeMargin, maxY) : root.clamp(
+                                               belowY, root.overflowEdgeMargin, maxY);
     }
 
     function setActiveMenu(window) {
@@ -149,7 +212,9 @@ Item {
             Qt.callLater(root.updateOverflowPosition);
     }
 
-    TopBarPillBackground { anchors.fill: parent }
+    TopBarPillBackground {
+        anchors.fill: parent
+    }
 
     GridLayout {
         id: content
@@ -162,22 +227,41 @@ Item {
         RippleButton {
             id: trayOverflowButton
 
-            visible: root.unpinnedItems.length > 0
-            toggled: root.trayOverflowOpen
+            visible: TrayService.visibleItems.length > 0
+            toggled: root.trayOverflowOpen || root.dragOverOverflowButton
             implicitWidth: 24
             implicitHeight: 24
             buttonRadius: Appearance.rounding.full
-            containerColor: root.trayOverflowOpen ? Appearance.colors.colSecondaryContainer : "transparent"
-            stateLayerColor: root.trayOverflowOpen ? Appearance.colors.colSecondaryContainerHover : Appearance.colors.colSecondaryContainer
+            containerColor: root.dragOverOverflowButton ? Appearance.colors.colPrimaryContainer :
+                                                          root.trayOverflowOpen
+                                                          ? Appearance.colors.colSecondaryContainer :
+                                                            "transparent"
+            stateLayerColor: root.dragOverOverflowButton ? Appearance.colors.colPrimaryContainerHover :
+                                                           root.trayOverflowOpen
+                                                           ? Appearance.colors.colSecondaryContainerHover :
+                                                             Appearance.colors.colSecondaryContainer
             pressedStateLayerColor: Appearance.colors.colSecondaryContainerActive
             rippleColor: Appearance.colors.colOnSecondaryContainer
             Layout.alignment: Qt.AlignVCenter
+            scale: root.dragOverOverflowButton ? 1.16 : 1
+
+            Behavior on scale {
+                NumberAnimation {
+                    duration: Appearance.animation.expressiveFastEffects.duration
+                    easing.type: Appearance.animation.expressiveFastEffects.type
+                    easing.bezierCurve: Appearance.animation.expressiveFastEffects.bezierCurve
+                }
+            }
+
             releaseAction: () => {
                 if (root.trayOverflowOpen) {
                     root.trayOverflowOpen = false;
                     root.closeActiveMenu();
                     return;
                 }
+
+                if (root.unpinnedItems.length === 0)
+                    return;
 
                 root.closeActiveMenu();
                 root.captureOverflowAnchor();
@@ -189,12 +273,11 @@ Item {
                 anchors.centerIn: parent
                 text: "expand_more"
                 iconSize: 19
-                color: root.trayOverflowOpen || trayOverflowButton.pointerHovered
-                    ? Appearance.colors.colOnSecondaryContainer
-                    : Appearance.colors.colOnLayer0
-                rotation: (root.edge === "left" ? -90
-                    : root.edge === "right" ? 90 : 0)
-                    + (root.trayOverflowOpen ? 180 : 0)
+                color: root.trayOverflowOpen || root.dragOverOverflowButton
+                       || trayOverflowButton.pointerHovered ? Appearance.colors.colOnSecondaryContainer :
+                                                              Appearance.colors.colOnLayer0
+                rotation: (root.edge === "left" ? -90 : root.edge === "right" ? 90 : 0) + (
+                              root.trayOverflowOpen ? 180 : 0)
 
                 Behavior on rotation {
                     NumberAnimation {
@@ -220,10 +303,57 @@ Item {
                 screen: root.screen
                 edge: root.edge
                 barVisualItem: root.barVisualItem
+                pinned: true
                 Layout.alignment: Qt.AlignVCenter
                 onMenuOpened: window => root.setActiveMenu(window)
                 onMenuClosed: root.releaseActiveMenu(null)
+                onDragStarted: (itemId, pinned, iconSource, globalX, globalY) => root.beginTrayItemDrag(itemId,
+                                                                                                        pinned, iconSource,
+                                                                                                        globalX, globalY)
+                onDragMoved: (globalX, globalY) => root.updateTrayItemDrag(globalX, globalY)
+                onDragFinished: (globalX, globalY, canceled) => root.finishTrayItemDrag(globalX, globalY,
+                                                                                        canceled)
             }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        z: 90
+        visible: root.dragOverPinnedArea
+        color: "transparent"
+        radius: Appearance.rounding.full
+        border.width: 2
+        border.color: Appearance.colors.colPrimary
+    }
+
+    Item {
+        readonly property point localPosition: root.mapFromGlobal(Qt.point(root.trayDragGlobalX,
+                                                                           root.trayDragGlobalY))
+
+        visible: root.trayDragActive && root.trayDragFromPinned
+        x: localPosition.x - width / 2
+        y: localPosition.y - height / 2
+        width: 30
+        height: 30
+        z: 100
+        scale: 1.08
+
+        Rectangle {
+            anchors.fill: parent
+            radius: Appearance.rounding.full
+            color: Appearance.colors.colLayer0
+            border.width: 1
+            border.color: Appearance.colors.colLayer0Border
+        }
+
+        IconImage {
+            anchors.centerIn: parent
+            width: 20
+            height: 20
+            source: root.trayDragIconSource
+            asynchronous: true
+            mipmap: true
         }
     }
 
@@ -244,10 +374,13 @@ Item {
 
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.namespace: "clavis-shell-tray-overflow"
-        WlrLayershell.keyboardFocus: overflowPopup.visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+        WlrLayershell.keyboardFocus: overflowPopup.visible ? WlrKeyboardFocus.Exclusive :
+                                                             WlrKeyboardFocus.None
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
-        mask: Region { item: overflowInputRegion }
+        mask: Region {
+            item: overflowInputRegion
+        }
 
         onVisibleChanged: {
             if (visible)
@@ -269,10 +402,9 @@ Item {
             z: -1
 
             onClicked: event => {
-                const outsideMenu = event.x < overflowSurface.x
-                    || event.x > overflowSurface.x + overflowSurface.width
-                    || event.y < overflowSurface.y
-                    || event.y > overflowSurface.y + overflowSurface.height;
+                const outsideMenu = event.x < overflowSurface.x || event.x > overflowSurface.x
+                      + overflowSurface.width || event.y < overflowSurface.y || event.y > overflowSurface.y
+                      + overflowSurface.height;
                 if (outsideMenu) {
                     root.trayOverflowOpen = false;
                     root.closeActiveMenu();
@@ -297,10 +429,8 @@ Item {
 
                 x: root.overflowX
                 y: root.overflowY
-                implicitWidth: popupBackground.implicitWidth
-                    + root.overflowSurfacePadding * 2
-                implicitHeight: popupBackground.implicitHeight
-                    + root.overflowSurfacePadding * 2
+                implicitWidth: popupBackground.implicitWidth + root.overflowSurfacePadding * 2
+                implicitHeight: popupBackground.implicitHeight + root.overflowSurfacePadding * 2
                 width: implicitWidth
                 height: implicitHeight
 
@@ -321,8 +451,7 @@ Item {
                     y: root.overflowSurfacePadding
                     implicitWidth: overflowLayout.implicitWidth + popupPadding * 2
                     implicitHeight: overflowLayout.implicitHeight + popupPadding * 2
-                    color: BlurService.backgroundColor(
-                        Appearance.colors.colLayer0)
+                    color: BlurService.backgroundColor(Appearance.colors.colLayer0)
                     radius: 18
                     border.width: 1
                     border.color: Appearance.colors.colLayer0Border
@@ -368,12 +497,47 @@ Item {
                             delegate: TrayItem {
                                 screen: root.screen
                                 edge: root.edge
+                                pinned: false
                                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                                 onMenuOpened: window => root.setActiveMenu(window)
                                 onMenuClosed: root.releaseActiveMenu(null)
+                                onDragStarted: (itemId, pinned, iconSource, globalX, globalY)
+                                               => root.beginTrayItemDrag(itemId, pinned, iconSource, globalX,
+                                                                         globalY)
+                                onDragMoved: (globalX, globalY) => root.updateTrayItemDrag(globalX, globalY)
+                                onDragFinished: (globalX, globalY, canceled) => root.finishTrayItemDrag(
+                                                                                    globalX, globalY,
+                                                                                    canceled)
                             }
                         }
                     }
+                }
+            }
+
+            Item {
+                visible: root.trayDragActive && !root.trayDragFromPinned
+                x: root.trayDragGlobalX - (root.screen ? root.screen.x || 0 : 0) - width / 2
+                y: root.trayDragGlobalY - (root.screen ? root.screen.y || 0 : 0) - height / 2
+                width: 30
+                height: 30
+                z: 100
+                scale: 1.08
+
+                Rectangle {
+                    anchors.fill: parent
+                    radius: Appearance.rounding.full
+                    color: Appearance.colors.colLayer0
+                    border.width: 1
+                    border.color: Appearance.colors.colLayer0Border
+                }
+
+                IconImage {
+                    anchors.centerIn: parent
+                    width: 20
+                    height: 20
+                    source: root.trayDragIconSource
+                    asynchronous: true
+                    mipmap: true
                 }
             }
         }

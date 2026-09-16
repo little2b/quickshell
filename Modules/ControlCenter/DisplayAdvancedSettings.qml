@@ -49,7 +49,7 @@ ColumnLayout {
     GridLayout {
         Layout.fillWidth: true
         columns: width > 420 ? 2 : 1
-        visible: root.settings.hotCorners && root.settings.hotCorners.indexOf("off") < 0
+        visible: !!root.settings.hotCorners && root.settings.hotCorners.indexOf("off") < 0
         Repeater {
             model: [
                 {

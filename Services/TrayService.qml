@@ -83,26 +83,35 @@ Singleton {
     }
 
     function isPinned(itemId) {
-        for (let i = 0; i < root.pinnedItems.length; i += 1) {
-            if (root.pinnedItems[i].id === itemId)
-                return true;
-        }
-        return false;
+        const listed = root.pinnedItemIds.indexOf(itemId) !== -1;
+        return root.invertPinnedItems ? !listed : listed;
     }
 
-    function togglePin(itemId) {
+    function setPinned(itemId, pinned) {
         if (!itemId || itemId.length === 0)
             return;
 
         const nextIds = root.pinnedItemIds.slice();
         const index = nextIds.indexOf(itemId);
-        if (index === -1)
+        const shouldBeListed = root.invertPinnedItems ? !pinned : pinned;
+        if ((index !== -1) === shouldBeListed)
+            return;
+
+        if (shouldBeListed)
             nextIds.push(itemId);
         else
             nextIds.splice(index, 1);
 
         root.pinnedItemIds = nextIds;
         root.save();
+    }
+
+    function setHidden(itemId, hidden) {
+        root.setPinned(itemId, !hidden);
+    }
+
+    function togglePin(itemId) {
+        root.setPinned(itemId, !root.isPinned(itemId));
     }
 
     Process {

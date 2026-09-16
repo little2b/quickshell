@@ -160,6 +160,8 @@ Singleton {
         id: config
         path: Paths.configHome + "/display-color.json"
         atomicWrites: true
+        // An absent optional configuration uses defaults; report actual I/O errors below.
+        printErrors: false
         watchChanges: true
         onFileChanged: reload()
         onLoaded: {
@@ -176,9 +178,14 @@ Singleton {
             if (error === FileViewError.FileNotFound) {
                 root.ready = true;
                 root.evaluate();
-            } else
+            } else {
                 root.error = qsTr("Unable to read display preferences");
+                console.warn("DisplayColor failed to load preferences:", FileViewError.toString(error));
+            }
         }
-        onSaveFailed: root.error = qsTr("Unable to save display preferences")
+        onSaveFailed: error => {
+            root.error = qsTr("Unable to save display preferences");
+            console.warn("DisplayColor failed to save preferences:", FileViewError.toString(error));
+        }
     }
 }

@@ -14,6 +14,7 @@ Loader {
     required property var axis
     required property Item barVisualItem
     property bool vertical: false
+    active: root.screen !== null && root.screen !== undefined
 
     sourceComponent: {
         switch (root.componentId) {
@@ -38,7 +39,7 @@ Loader {
         id: workspacesComponent
 
         Workspaces {
-            screenName: root.screen.name
+            screenName: root.screen ? root.screen.name : ""
             vertical: root.vertical
         }
     }
@@ -76,7 +77,7 @@ Loader {
         id: systemMonitorComponent
 
         SysMonitor {
-            ownerId: "bar-sysmonitor:" + root.screen.name
+            ownerId: "bar-sysmonitor:" + (root.screen ? root.screen.name : "")
             vertical: root.vertical
         }
     }

@@ -199,7 +199,7 @@ Singleton {
             replaced.forEach(notif => root.stopPopupTimer(notif));
 
             const now = Date.now();
-            const timeoutMs = root.popupTimeoutMs(notification.expireTimeout);
+            const timeoutMs = root.popupTimeoutMs(notification.expireTimeout, notification.urgency);
             root.idOffset++;
             const newNotifObject = notifComponent.createObject(root, {
                                                                    "notificationId": root.idOffset,
@@ -312,12 +312,16 @@ Singleton {
         return root.list.find(notif => notif.notificationId === id) || null;
     }
 
-    function popupTimeoutMs(expireTimeoutSeconds) {
-        if (expireTimeoutSeconds === 0)
+    function popupTimeoutMs(expireTimeoutSeconds, urgency) {
+        // Ordinary banners must not pin the island indefinitely. The snapshot
+        // remains in history after expiry, so unread messages are still available.
+        if (expireTimeoutSeconds === 0 && urgency === NotificationUrgency.Critical)
             return 0;
-        if (expireTimeoutSeconds < 0)
+        if (!Number.isFinite(expireTimeoutSeconds) || expireTimeoutSeconds <= 0)
             return root.defaultPopupTimeoutMs;
-        return Math.max(1, Math.round(expireTimeoutSeconds * 1000));
+        const requestedMs = Math.max(1, Math.round(expireTimeoutSeconds * 1000));
+        return urgency === NotificationUrgency.Critical ? requestedMs : Math.min(root.defaultPopupTimeoutMs,
+                                                                                 requestedMs);
     }
 
     function nativeActions(notifObject) {

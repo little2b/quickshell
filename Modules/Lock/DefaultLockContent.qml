@@ -11,7 +11,7 @@ Item {
     property date now: new Date()
     readonly property bool authenticating: context.authRevealed
     readonly property bool busy: context.unlockInProgress
-    readonly property real uiScale: Math.min(1, (width - 48) / 360, height / 720)
+    readonly property real uiScale: Math.max(0, Math.min(1, (width - 48) / 360, height / 720))
     readonly property real contentWidth: 360 * uiScale
     readonly property real avatarSize: 240 * uiScale
     readonly property real fieldHeight: 64 * uiScale
@@ -274,7 +274,7 @@ Item {
 
                 ListView {
                     id: dotsView
-                    readonly property real availableWidth: field.width - 48 * root.uiScale
+                    readonly property real availableWidth: Math.max(0, field.width - 48 * root.uiScale)
                     readonly property real naturalWidth: count > 0 ? count * (26 * root.uiScale) - spacing + 8
                                                                      * root.uiScale : 0
                     anchors.centerIn: parent
