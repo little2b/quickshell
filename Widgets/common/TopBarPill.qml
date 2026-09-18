@@ -7,6 +7,7 @@ Item {
 
     default property alias contentData: contentViewport.data
     property bool animateResize: true
+    readonly property real blurFillOpacity: pillBackground.fillColor.a
 
     // Animate the size consumed by the bar layout so the surface, shadow and
     // neighbouring pills follow the same geometry throughout a resize.
@@ -16,6 +17,7 @@ Item {
     // Keep the shadow outside the clipped content subtree.
     data: [
         TopBarPillBackground {
+            id: pillBackground
             anchors.fill: parent
         },
         Rectangle {

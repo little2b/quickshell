@@ -8,6 +8,7 @@ import qs.Widgets.common
 
 Rectangle {
     id: root
+    readonly property real blurFillOpacity: color.a
     required property SpotlightStyle style
     required property SpotlightTemplateController templateController
     required property SpotlightCurrencyController currencyController

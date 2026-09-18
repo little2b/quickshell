@@ -701,6 +701,7 @@ Variants {
                     return height + (NotificationManager.normalActions(notif).length > 0 ? 104 : 64);
                 }, 0) + Math.max(0, NotificationManager.popupList.length - 1) * 10
                 property color color: BlurService.backgroundColor(Appearance.colors.colLayer0)
+                readonly property real blurFillOpacity: color.a
                 readonly property QtObject activeLayout: keystoneWindow.horizontalEdge ? horizontalLayout :
                                                                                          verticalLayout
                 readonly property real recordingVisualWidth: styleSurface.detached
@@ -1508,7 +1509,7 @@ Variants {
                         width: implicitWidth
                         height: implicitHeight
                         player: root.currentPlayer
-                        active: root.isLyricsMode
+                        active: root.isLyricsMode && keystoneWindow.showSurface
                         vertical: !keystoneWindow.horizontalEdge
                         edge: keystoneWindow.edge
                         opacity: root.isLyricsMode ? 1 : 0

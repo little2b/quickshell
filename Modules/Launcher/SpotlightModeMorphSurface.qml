@@ -158,6 +158,7 @@ Item {
 
     component ShapeBlurRegion: Item {
         required property vector4d shape
+        readonly property real blurFillOpacity: root.surfaceColor.a
         property real inset: root.blurEdgeInset
         x: shape.x - width / 2
         y: shape.y - height / 2

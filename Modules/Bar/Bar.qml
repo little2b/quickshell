@@ -6,8 +6,7 @@ Item {
     id: root
 
     readonly property string edge: PersonalizationConfig.barPosition
-    readonly property bool horizontal:
-        edge === "top" || edge === "bottom"
+    readonly property bool horizontal: edge === "top" || edge === "bottom"
 
     // Changing orientation changes the Variants model. Quickshell destroys
     // the old topology before creating the new per-output surface, so a
@@ -16,7 +15,6 @@ Item {
         model: root.horizontal ? Quickshell.screens : []
 
         HorizontalBarWindow {
-            required property var modelData
             screen: modelData
             edge: root.edge
         }
@@ -26,7 +24,6 @@ Item {
         model: root.horizontal ? [] : Quickshell.screens
 
         VerticalBarWindow {
-            required property var modelData
             screen: modelData
             edge: root.edge
         }

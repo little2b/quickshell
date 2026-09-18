@@ -18,6 +18,7 @@ MouseArea {
     property var barVisualItem: null
     property bool pinned: true
     property int activationPid: 0
+    property string activationProcessName: ""
     property bool activationPending: false
     property bool dragActive: false
     property point lastDragGlobalPosition: Qt.point(0, 0)
@@ -81,9 +82,11 @@ MouseArea {
 
     function focusApplicationWindow() {
         const windows = Niri.searchWindows("");
-        const ownedWindows = activationPid > 0 ? windows.filter(window => window.pid === activationPid) : [];
-        const target = ownedWindows.find(window => window.isFocused) || ownedWindows[0] || TrayActivation.resolve(
-                  root.modelData, ApplicationService.applications, windows);
+        const target = TrayActivation.resolveOwner({
+                                                       pid: root.activationPid,
+                                                       processName: root.activationProcessName
+                                                   }, ApplicationService.applications, windows)
+              || TrayActivation.resolve(root.modelData, ApplicationService.applications, windows);
         return target ? Niri.focusWindow(target.id) : false;
     }
 
@@ -92,6 +95,7 @@ MouseArea {
         if (ownerLookup.running)
             return;
         root.activationPid = 0;
+        root.activationProcessName = "";
         root.activationPending = false;
         // Tray Activate alone cannot reliably focus windows on Niri, and some
         // applications toggle visibility instead of raising an existing window.
@@ -111,7 +115,7 @@ MouseArea {
         ownerLookup.running = true;
     }
 
-    function finishActivation(pid) {
+    function finishActivation(pid, processName) {
         if (!root.activationPending)
             return;
         root.activationPending = false;
@@ -119,6 +123,7 @@ MouseArea {
         if (currentId && currentId !== focusRetry.initialWindowId)
             return;
         root.activationPid = pid;
+        root.activationProcessName = processName || "";
         if (root.focusApplicationWindow())
             return;
         root.modelData.activate();
@@ -131,15 +136,18 @@ MouseArea {
         stdout: StdioCollector {
             onStreamFinished: {
                 let pid = 0;
+                let processName = "";
                 try {
-                    pid = Number(JSON.parse(text).pid) || 0;
+                    const owner = JSON.parse(text);
+                    pid = Number(owner.pid) || 0;
+                    processName = String(owner.processName || "");
                 } catch (error) {}
-                root.finishActivation(pid);
+                root.finishActivation(pid, processName);
             }
         }
         onExited: (exitCode, exitStatus) => {
             if (exitCode !== 0)
-                root.finishActivation(0);
+                root.finishActivation(0, "");
         }
     }
 

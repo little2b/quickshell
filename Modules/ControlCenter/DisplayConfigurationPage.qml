@@ -52,6 +52,54 @@ StyledFlickable {
             tone: "error"
             message: DisplayConfigService.error
         }
+        SettingsSection {
+            id: displaySwitches
+            Layout.fillWidth: true
+            flat: true
+            title: displaySwitchesAnchor.title
+            iconName: "monitor"
+            SettingsSearchAnchor {
+                id: displaySwitchesAnchor
+                target: displaySwitches
+                declaration:
+                    '{"id":"general.displays.configuration.section.display-switches","route":"general.displays.configuration","title":"Display","context":"DisplayConfigurationPage","icon":"monitor","aliases":[]}'
+            }
+            Repeater {
+                // Keep delegates stable when a switch updates the draft.
+                model: DisplayConfigService.draft.length
+                delegate: SettingsRow {
+                    id: displaySwitchRow
+                    required property int index
+                    readonly property var row: DisplayConfigService.draft[index]
+                    readonly property bool lastEnabled: row.connected && row.settings.enabled !== false
+                                                        && DisplayConfigService.draft.filter(r => r.connected
+                                                                                                  && !r.deleted
+                                                                                                  && r.settings.enabled
+                                                                                                  !== false).length
+                                                        <= 1
+                    Layout.fillWidth: true
+                    visible: !row.deleted
+                    title: row.connected ? row.label : qsTr("%1 (disconnected)").arg(row.label)
+                    iconName: "monitor"
+                    supportingText: !row.editable ? qsTr(
+                                                        "This output is read-only. Resolve conflicting or unsupported settings in %1.").arg(
+                                                        row.source) : lastEnabled ? qsTranslate(
+                                                                                        "DisplayConfigService",
+                                                                                        "At least one connected display must remain enabled") :
+                                                                                    ""
+                    trailing: StyledSwitch {
+                        checked: displaySwitchRow.row.settings.enabled !== false
+                        enabled: displaySwitchRow.row.editable && !DisplayConfigService.busy &&
+                                 !displaySwitchRow.lastEnabled
+                        Accessible.name: displaySwitchRow.title
+                        onToggled: {
+                            DisplayConfigService.selection = displaySwitchRow.row.key;
+                            DisplayConfigService.edit(displaySwitchRow.row.key, "enabled", checked);
+                        }
+                    }
+                }
+            }
+        }
         PrimaryDisplaySection {
             Layout.fillWidth: true
         }
@@ -121,19 +169,6 @@ StyledFlickable {
                 Layout.fillWidth: true
                 spacing: Metrics.spacingXS
                 enabled: root.selected && root.selected.editable && !DisplayConfigService.busy
-                SettingsRow {
-                    Layout.fillWidth: true
-                    title: qsTr("Enabled")
-                    iconName: "monitor"
-                    trailing: StyledSwitch {
-                        checked: root.settings.enabled !== false
-                        enabled: !root.selected || !root.selected.connected || !checked
-                                 || DisplayConfigService.draft.filter(r => r.connected && r.settings.enabled
-                                                                           !== false).length > 1
-                        Accessible.name: qsTr("Enabled")
-                        onToggled: root.edit("enabled", checked)
-                    }
-                }
                 DisplayChoice {
                     Layout.fillWidth: true
                     visible: root.selected && root.selected.connected

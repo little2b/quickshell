@@ -96,66 +96,15 @@ Item {
                                                                                               qsTr("No lyrics available")
     }
 
-    Item {
-        id: spectrum
-
-        property var smoothValues: [0, 0, 0, 0, 0, 0]
-
+    LyricsSpectrum {
+        active: root.active
+        dataAvailable: AudioSpectrum.available
+        values: AudioSpectrum.values
+        barColor: Appearance.colors.colPrimary
         anchors.right: parent.right
         anchors.rightMargin: 15
         anchors.verticalCenter: parent.verticalCenter
         width: 21
         height: 16
-
-        Timer {
-            interval: 16
-            running: root.active && AudioSpectrum.available
-            repeat: true
-            onTriggered: {
-                const values = AudioSpectrum.values;
-                if (!values || values.length < 6)
-                    return;
-
-                const ranges = [[0.55, 0.78, 1.5], [0.18, 0.33, 1.2], [0, 0.08, 1], [0.08, 0.18, 1], [0.33, 0.55,
-                                                                                                      1.2], [0.78,
-                                                                                                             0.98, 1.5]];
-                const next = spectrum.smoothValues.slice();
-                for (let index = 0; index < ranges.length; ++index) {
-                    const range = ranges[index];
-                    const start = Math.floor(values.length * range[0]);
-                    const end = Math.min(values.length - 1, Math.floor(values.length * range[1]));
-                    let maximum = 0;
-                    for (let sample = start; sample <= end; ++sample)
-                        maximum = Math.max(maximum, values[sample]);
-                    const target = Math.min(100, maximum * 100 * range[2]);
-                    const difference = target - next[index];
-                    next[index] += (difference > 0 ? 0.85 : 0.08) * difference;
-                }
-                spectrum.smoothValues = next;
-                spectrumCanvas.requestPaint();
-            }
-        }
-
-        Canvas {
-            id: spectrumCanvas
-
-            anchors.fill: parent
-            onPaint: {
-                const context = getContext("2d");
-                context.clearRect(0, 0, width, height);
-                context.beginPath();
-                context.lineCap = "round";
-                context.lineWidth = 2.5;
-                context.strokeStyle = String(Appearance.colors.colPrimary);
-                for (let index = 0; index < 6; ++index) {
-                    const amount = Math.min(1, spectrum.smoothValues[index] / 100);
-                    const barHeight = Math.max(3, amount * height);
-                    const x = 1.25 + index * 3.7;
-                    context.moveTo(x, height / 2 - barHeight / 2);
-                    context.lineTo(x, height / 2 + barHeight / 2);
-                }
-                context.stroke();
-            }
-        }
     }
 }

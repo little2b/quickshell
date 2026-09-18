@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
+import QtQuick.Window
 import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Services.Mpris
@@ -131,6 +132,10 @@ Item {
                 width: parent.width * 1.5
                 height: parent.height * 1.5
                 source: root.artUrl
+                sourceSize: Qt.size(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), Math.max(1, Math.ceil(
+                                                                                                          height * Screen.devicePixelRatio)))
+                asynchronous: true
+                retainWhileLoading: true
                 fillMode: Image.PreserveAspectCrop
                 visible: false
             }
@@ -276,6 +281,10 @@ Item {
                         id: artImg
                         anchors.fill: parent
                         source: root.artUrl !== "" ? root.artUrl : ""
+                        sourceSize: Qt.size(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), Math.max(
+                                                1, Math.ceil(height * Screen.devicePixelRatio)))
+                        asynchronous: true
+                        retainWhileLoading: true
                         fillMode: Image.PreserveAspectCrop
                         layer.enabled: true
                         layer.effect: OpacityMask {

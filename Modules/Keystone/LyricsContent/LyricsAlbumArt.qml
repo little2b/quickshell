@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Effects
+import QtQuick.Window
 import qs.Common
 import qs.Components
 
@@ -14,6 +15,10 @@ Item {
     Image {
         anchors.fill: parent
         source: root.sourceUrl
+        sourceSize: Qt.size(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), Math.max(1, Math.ceil(
+                                                                                                  height * Screen.devicePixelRatio)))
+        asynchronous: true
+        retainWhileLoading: true
         visible: source !== ""
         fillMode: Image.PreserveAspectCrop
         layer.enabled: true
@@ -24,7 +29,6 @@ Item {
             maskThresholdMin: 0.5
             maskSpreadAtMin: 1
         }
-
     }
 
     Rectangle {
@@ -44,5 +48,4 @@ Item {
         iconSize: 14
         color: Appearance.applyAlpha(Appearance.colors.colOnLayer0, 0.5)
     }
-
 }

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Window
 import Clavis.Lyrics
 import qs.Services
 
@@ -11,27 +12,36 @@ Item {
     property string edge: "top"
     readonly property var lyricsModel: Lyrics.lyrics
     readonly property string artUrl: player ? player.trackArtUrl || "" : ""
-    readonly property string spectrumToken: "keystone-lyrics"
+    readonly property string spectrumToken: "keystone-lyrics-" + String(root)
+    readonly property bool spectrumActive: root.active && root.visible && root.opacity > 0
+                                           && root.Window.window !== null && root.Window.window.visible
     readonly property int currentLineIndex: {
         const lines = Lyrics.lyrics;
         if (!root.player || !Lyrics.hasSynchronizedLyrics || !lines || lines.length === 0)
             return -1;
 
-        const position = root.player === MediaManager.active ? MediaManager.currentPosition : Math.max(0, Number(root.player.position) || 0);
+        const position = root.player === MediaManager.active ? MediaManager.currentPosition : Math.max(0, Number(
+                                                                                                           root.player.position)
+                                                                                                       || 0);
         return Lyrics.indexForTime(position);
     }
-    readonly property string currentLyric: currentLineIndex >= 0 && currentLineIndex < lyricsModel.length ? String(lyricsModel[currentLineIndex].text || "") : lyricsModel && lyricsModel.length > 0 ? String(lyricsModel[0].text || "") : ""
+    readonly property string currentLyric: currentLineIndex >= 0 && currentLineIndex < lyricsModel.length ? String(
+                                                                                                                lyricsModel[currentLineIndex].text
+                                                                                                                || "") : lyricsModel
+                                                                                                            && lyricsModel.length
+                                                                                                            > 0 ? String(
+                                                                                                                      lyricsModel[0].text
+                                                                                                                      || "") : ""
 
     implicitWidth: presenter.item ? presenter.item.implicitWidth : 0
     implicitHeight: presenter.item ? presenter.item.implicitHeight : 0
     Component.onCompleted: {
-        if (active)
+        if (root.spectrumActive)
             AudioSpectrum.acquire(spectrumToken);
-
     }
     Component.onDestruction: AudioSpectrum.release(spectrumToken)
-    onActiveChanged: {
-        if (active)
+    onSpectrumActiveChanged: {
+        if (root.spectrumActive)
             AudioSpectrum.acquire(spectrumToken);
         else
             AudioSpectrum.release(spectrumToken);
@@ -51,11 +61,10 @@ Item {
             lyricsModel: root.lyricsModel
             currentLineIndex: root.currentLineIndex
             artUrl: root.artUrl
-            active: root.active
+            active: root.spectrumActive
             status: Lyrics.status
             errorText: Lyrics.error
         }
-
     }
 
     Component {
@@ -64,12 +73,10 @@ Item {
         VerticalLyricsLayout {
             lyric: root.currentLyric
             artUrl: root.artUrl
-            active: root.active
+            active: root.spectrumActive
             edge: root.edge
             status: Lyrics.status
             errorText: Lyrics.error
         }
-
     }
-
 }

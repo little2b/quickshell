@@ -23,6 +23,7 @@ Item {
 
     Rectangle {
         id: backgroundRectangle
+        readonly property real blurFillOpacity: color.a
 
         anchors {
             bottom: root.bottom

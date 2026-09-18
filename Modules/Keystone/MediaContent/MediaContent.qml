@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Window
 import Qt5Compat.GraphicalEffects
 import Quickshell.Services.Mpris
 import qs.Common
@@ -119,8 +120,11 @@ Item {
                         id: rawImg
                         anchors.fill: parent
                         source: root.artUrl
+                        sourceSize: Qt.size(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), Math.max(
+                                                1, Math.ceil(height * Screen.devicePixelRatio)))
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
+                        retainWhileLoading: true
                         visible: false
                     }
 

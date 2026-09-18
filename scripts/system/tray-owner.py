@@ -1,6 +1,7 @@
 """Resolve a tray item's owner without activating it or reading application data."""
 import concurrent.futures
 import json
+from pathlib import Path
 import subprocess
 import sys
 
@@ -46,6 +47,13 @@ def resolve(wanted):
 
 if __name__ == "__main__":
     try:
-        print(json.dumps({"pid": resolve(json.loads(sys.argv[1]))}))
+        pid = resolve(json.loads(sys.argv[1]))
+        process_name = ""
+        if pid:
+            try:
+                process_name = Path(f"/proc/{pid}/exe").readlink().name
+            except OSError:
+                pass
+        print(json.dumps({"pid": pid, "processName": process_name}))
     except (subprocess.SubprocessError, ValueError, IndexError, KeyError):
         print('{"pid":0}')

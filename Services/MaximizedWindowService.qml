@@ -14,6 +14,9 @@ Singleton {
     readonly property var toplevels: ToplevelManager.toplevels.values
     property int selectionRevision: 0
     property var hoveredSurfaces: ({})
+    // Mutate this queue in place: only flushHoverChanges publishes reactive
+    // state, after window visibility/hover signal delivery has unwound.
+    property var _pendingHoverChanges: ({})
 
     Connections {
         target: Niri
@@ -74,13 +77,30 @@ Singleton {
         if (!screen)
             return;
         const key = screen.name + "/" + owner;
-        if (!!root.hoveredSurfaces[key] === hovered)
+        root._pendingHoverChanges[key] = !!hovered;
+        Qt.callLater(root.flushHoverChanges);
+    }
+
+    function flushHoverChanges() {
+        const keys = Object.keys(root._pendingHoverChanges);
+        if (keys.length === 0)
             return;
         const next = Object.assign({}, root.hoveredSurfaces);
-        if (hovered)
-            next[key] = true;
-        else
-            delete next[key];
-        root.hoveredSurfaces = next;
+        let changed = false;
+        for (const key of keys) {
+            const hovered = root._pendingHoverChanges[key];
+            delete root._pendingHoverChanges[key];
+            if (!!next[key] === hovered)
+                continue;
+            changed = true;
+            if (hovered)
+                next[key] = true;
+            else
+                delete next[key];
+        }
+        // Mapping a bar can queue another hover update here. It will be
+        // published on a later turn, never inside its own visibility binding.
+        if (changed)
+            root.hoveredSurfaces = next;
     }
 }

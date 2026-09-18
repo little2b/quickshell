@@ -214,6 +214,7 @@ Item {
 
     Item {
         id: panelBlurRegion
+        readonly property real blurFillOpacity: root.style.panelColor.a
 
         anchors.fill: parent
         anchors.margins: root.style.blurEdgeInset

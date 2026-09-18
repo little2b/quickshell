@@ -1254,6 +1254,21 @@ var catalog = {
       "anchor": true,
       "context": "DisplayConfigurationPage",
       "icon": "monitor",
+      "id": "general.displays.configuration.section.display-switches",
+      "path": [
+        "general",
+        "displays",
+        "configuration"
+      ],
+      "route": "general.displays.configuration",
+      "source": "DisplayConfigurationPage.qml",
+      "title": "Display"
+    },
+    {
+      "aliases": [],
+      "anchor": true,
+      "context": "DisplayConfigurationPage",
+      "icon": "monitor",
       "id": "general.displays.configuration.section.layout",
       "path": [
         "general",
@@ -1912,6 +1927,7 @@ function title(id) {
     case "general.default-apps.section.utilities": return qsTranslate("DefaultAppsPage", "Utilities");
     case "general.default-apps.section.documents": return qsTranslate("DefaultAppsPage", "Documents");
     case "general.default-apps.section.multimedia": return qsTranslate("DefaultAppsPage", "Multimedia");
+    case "general.displays.configuration.section.display-switches": return qsTranslate("DisplayConfigurationPage", "Display");
     case "general.displays.configuration.section.layout": return qsTranslate("DisplayConfigurationPage", "Layout");
     case "general.displays.configuration.section.output-settings": return qsTranslate("DisplayConfigurationPage", "Output settings");
     case "general.displays.gamma.section.color": return qsTranslate("GammaControlPage", "Color");

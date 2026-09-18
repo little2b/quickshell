@@ -181,6 +181,7 @@ FloatingWindow {
 
     Rectangle {
         id: outerBackground
+        readonly property real blurFillOpacity: color.a
 
         anchors.fill: parent
         radius: Appearance.rounding.large

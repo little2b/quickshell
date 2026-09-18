@@ -8,14 +8,23 @@ import qs.Widgets.common
 PanelWindow {
     id: root
 
-    readonly property bool autoHidden: MaximizedWindowService.coversScreen(root.screen)
-    readonly property bool showContents: !autoHidden || MaximizedWindowService.revealed(root.screen)
+    required property var modelData
+
+    readonly property bool autoHidden: MaximizedWindowService.coversScreen(root.modelData)
+    readonly property bool showContents: !autoHidden || MaximizedWindowService.revealed(root.modelData)
+    visible: root.showContents
+
+    property var edgeSensor: BarEdgeTrigger {
+        screen: root.modelData
+        edge: root.edge
+        visible: root.autoHidden
+    }
 
     HoverHandler {
         onHoveredChanged: {
             if (hovered) {
                 hideDelay.stop();
-                MaximizedWindowService.setHovered(root.screen, "bar", true);
+                MaximizedWindowService.setHovered(root.modelData, "bar", true);
             } else {
                 hideDelay.restart();
             }
@@ -25,10 +34,10 @@ PanelWindow {
     Timer {
         id: hideDelay
         interval: 500
-        onTriggered: MaximizedWindowService.setHovered(root.screen, "bar", false)
+        onTriggered: MaximizedWindowService.setHovered(root.modelData, "bar", false)
     }
 
-    Component.onDestruction: MaximizedWindowService.setHovered(root.screen, "bar", false)
+    Component.onDestruction: MaximizedWindowService.setHovered(root.modelData, "bar", false)
 
     required property string edge
     readonly property real visualThickness: Sizes.barVisualThickness
@@ -70,17 +79,9 @@ PanelWindow {
             id: content
 
             anchors.fill: parent
-            screen: root.screen
+            screen: root.modelData
             axis: axis
         }
-    }
-
-    Item {
-        id: edgeTrigger
-        x: 0
-        y: axis.isTop ? 0 : parent.height - 1
-        width: parent.width
-        height: 1
     }
 
     CompositorBlurRegion {
@@ -97,7 +98,7 @@ PanelWindow {
 
     mask: Region {
         Region {
-            item: root.autoHidden ? (root.showContents ? visualBand : edgeTrigger) : null
+            item: root.autoHidden ? visualBand : null
         }
 
         Region {

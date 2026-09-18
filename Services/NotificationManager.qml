@@ -24,6 +24,14 @@ Singleton {
     property var pendingSavedFiles: []
     property int unread: 0
     property int idOffset: 0
+    property int activationRevision: 0
+
+    Connections {
+        target: Niri
+        function onWindowsChanged() {
+            root.activationRevision += 1;
+        }
+    }
     property list<Notif> list: []
     property var popupList: list.filter(notif => notif.popup).sort((a, b) => b.receivedAt - a.receivedAt)
     property var latestTimeForApp: ({})
@@ -350,6 +358,9 @@ Singleton {
     }
 
     function applicationTarget(notifObject) {
+        // searchWindows is an invokable, not a notifying property. Include
+        // the revision so a window arriving later enables the notification.
+        const revision = root.activationRevision;
         return NotificationActivation.resolve(notifObject, ApplicationService.applications, Niri.searchWindows(
                                                   ""));
     }
@@ -361,6 +372,21 @@ Singleton {
     }
 
     function defaultAction(notifObject) {
+        const nativeAction = root.nativeActions(notifObject).find(action => action.identifier === "default");
+        if (nativeAction) {
+            const id = notifObject.notificationId;
+            return {
+                identifier: "default",
+                text: nativeAction.text || qsTr("Open"),
+                invoke: () => {
+                    nativeAction.invoke();
+                    // XWayland apps may handle the action but cannot raise
+                    // their own window across workspaces on Niri.
+                    root.focusNotificationWindow(id);
+                    return true;
+                }
+            };
+        }
         const target = root.applicationTarget(notifObject);
         if (!target || !target.window)
             return null;
@@ -576,11 +602,14 @@ Singleton {
     function invokeDefaultAction(id) {
         const notifObject = root.notificationById(id);
         const action = root.defaultAction(notifObject);
-        if (!action || action.invoke() === false)
+        if (!action)
             return false;
         root.finishPopupLifetime(notifObject);
         root.triggerListChange();
         WidgetState.closeAllPopups();
+        // Unmapping the notification surface can otherwise restore focus
+        // over the application activation performed earlier in this callback.
+        Qt.callLater(() => action.invoke());
         return true;
     }
 

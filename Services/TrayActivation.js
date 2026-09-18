@@ -4,6 +4,18 @@ function normalize(value) {
     return String(value || "").trim().replace(/\.desktop$/i, "").toLowerCase();
 }
 
+function resolveOwner(owner, applications, windows) {
+    if (!owner)
+        return null;
+    const owned = owner.pid > 0 ? windows.filter(window => window.pid === owner.pid) : [];
+    if (owned.length)
+        return owned.find(window => window.isFocused) || owned.find(window => window.isUrgent) || owned[0];
+    // XWayland satellite windows can expose the bridge's PID, not the app's.
+    // Use the tray's verified D-Bus owner executable as exact app metadata;
+    // never infer an application from a generic chrome_status_icon_* ID.
+    return owner.processName ? resolve({id: owner.processName}, applications, windows) : null;
+}
+
 function resolve(item, applications, windows) {
     if (!item || item.onlyMenu)
         return null;
