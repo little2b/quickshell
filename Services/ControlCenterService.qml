@@ -1,6 +1,7 @@
 pragma Singleton
 
 import QtQuick
+import qs.Services
 import Quickshell
 import Quickshell.Wayland
 import Clavis.Niri
@@ -10,6 +11,102 @@ Singleton {
 
     property var controlCenterLoader: null
     property var controlCenterWindow: null
+
+    property bool applyingSearch: false
+    property int searchSerial: 0
+    property var searchTarget: null
+    property var searchAnchors: ({})
+    property string searchError: ""
+    property string settledGeometry: ""
+
+    function registerSearchAnchor(anchor) {
+        const next = Object.assign({}, searchAnchors);
+        next[anchor.entry.id] = anchor;
+        searchAnchors = next;
+        retrySearch();
+    }
+    function unregisterSearchAnchor(anchor) {
+        if (searchAnchors[anchor.entry.id] !== anchor)
+            return;
+        const next = Object.assign({}, searchAnchors);
+        delete next[anchor.entry.id];
+        searchAnchors = next;
+    }
+    function cancelSearch() {
+        searchSerial += 1;
+        searchTarget = null;
+        settledGeometry = "";
+        searchDeadline.stop();
+    }
+    function reportSearchError(message) {
+        searchError = message;
+        if (!visible)
+            Quickshell.execDetached(["notify-send", "-a", "Clavis Shell", qsTranslate("ControlCenterWindow",
+                                                                                      "Settings"), message]);
+    }
+    function openSearch(id) {
+        const entry = SpotlightCatalog.setting(id);
+        cancelSearch();
+        searchError = "";
+        if (!SpotlightCatalog.available(entry)) {
+            reportSearchError(qsTr("This setting is currently unavailable"));
+            return false;
+        }
+        searchTarget = entry;
+        searchDeadline.restart();
+        const accepted = open(entry.path[0], true);
+        if (!accepted) {
+            cancelSearch();
+            reportSearchError(qsTr("Settings could not be opened"));
+        }
+        retrySearch();
+        return accepted;
+    }
+    function retrySearch() {
+        if (searchTarget)
+            Qt.callLater(trySearch);
+    }
+    function trySearch() {
+        if (!searchTarget || !visible)
+            return;
+        applyingSearch = true;
+        const state = controlCenterWindow.advanceSearchTarget(searchTarget, searchSerial);
+        applyingSearch = false;
+        if (state === "cancelled") {
+            cancelSearch();
+            return;
+        }
+        if (state !== "ready")
+            return;
+        const anchor = searchTarget.anchor ? searchAnchors[searchTarget.id] :
+                                             controlCenterWindow.searchPageAnchor;
+        if (anchor)
+            anchor.polishTarget();
+        if (!anchor || !anchor.target || !anchor.target.visible || anchor.target.width <= 0
+                || anchor.target.height <= 0)
+            return;
+        const geometry = [searchSerial, anchor.target.x, anchor.target.y, anchor.target.width,
+                          anchor.target.height].join(":");
+        if (settledGeometry !== geometry) {
+            settledGeometry = geometry;
+            Qt.callLater(trySearch);
+            return;
+        }
+        if (anchor.reveal(searchSerial)) {
+            searchTarget = null;
+            searchDeadline.stop();
+        }
+    }
+    Timer {
+        id: searchDeadline
+        interval: 4000
+        onTriggered: {
+            if (!root.searchTarget)
+                return;
+            root.cancelSearch();
+            root.reportSearchError(qsTr("This setting is currently unavailable"));
+        }
+    }
 
     property bool _openRequested: false
     property string _pendingPage: ""
@@ -37,6 +134,7 @@ Singleton {
         if (!window)
             return;
 
+        root.applyingSearch = true;
         const page = root._pendingPage;
         root._pendingPage = "";
         if (page !== "" && window.openPage)
@@ -46,7 +144,10 @@ Singleton {
             window.showWindow();
         else
             window.visible = true;
-
+        if (root.searchTarget)
+            window.prepareSearchTarget(root.searchTarget, root.searchSerial);
+        root.applyingSearch = false;
+        root.retrySearch();
         root._activationPending = true;
         if (!root.activateWindow()) {
             activationRetry.attempts = 0;
@@ -96,7 +197,11 @@ Singleton {
         return false;
     }
 
-    function open(pageId) {
+    function open(pageId, preserveSearch) {
+        if (!preserveSearch) {
+            cancelSearch();
+            searchError = "";
+        }
         root._openRequested = true;
         if (pageId !== undefined && pageId !== null && String(pageId) !== "") {
             root._pendingPage = String(pageId);
@@ -115,11 +220,21 @@ Singleton {
         return true;
     }
 
+    function focusWindow() {
+        if (!root.visible)
+            return;
+        const target = ToplevelManager.toplevels.values.find(window => window.title
+                                                                       === root.controlCenterWindow.title);
+        if (target)
+            target.activate();
+    }
+
     function openOrFocus() {
         return root.open();
     }
 
     function close() {
+        root.cancelSearch();
         root._openRequested = false;
         root._pendingPage = "";
         root._activationPending = false;
@@ -149,6 +264,7 @@ Singleton {
     }
 
     function windowClosed(window) {
+        root.cancelSearch();
         if (root.controlCenterWindow && root.controlCenterWindow !== window) {
             return;
         }

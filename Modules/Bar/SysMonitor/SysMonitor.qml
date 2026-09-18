@@ -6,7 +6,7 @@ import qs.Services
 import qs.Widgets.common
 import "../../../Common/functions/SystemFormat.js" as Format
 
-Item {
+TopBarPill {
     id: root
 
     property bool vertical: false
@@ -78,10 +78,6 @@ Item {
                                     Sizes.barPillThickness
     Component.onCompleted: SystemMonitorService.setConsumerModules(root.ownerId, ["cpu", "memory", "disk"])
     Component.onDestruction: SystemMonitorService.clearConsumer(root.ownerId)
-
-    TopBarPillBackground {
-        anchors.fill: parent
-    }
 
     GridLayout {
         id: resourceLayout

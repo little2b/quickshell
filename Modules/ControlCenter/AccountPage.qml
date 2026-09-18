@@ -13,6 +13,7 @@ import qs.Widgets.common
 
 Item {
     id: root
+    readonly property var searchLeaf: accountScroll
 
     property var parentModal: null
     property bool presentationActive: false
@@ -189,6 +190,7 @@ Item {
     }
 
     StyledFlickable {
+        id: accountScroll
         anchors.fill: parent
         contentWidth: width
         contentHeight: pageColumn.implicitHeight + Appearance.spacing.large * 2
@@ -237,7 +239,13 @@ Item {
                     id: languageCard
 
                     width: root.columnWidth
-                    title: qsTr("Language")
+                    title: extraSearchAnchor0.title
+                    SettingsSearchAnchor {
+                        id: extraSearchAnchor0
+                        target: languageCard
+                        declaration:
+                            '{"id":"account.section.language","route":"account","title":"Language","context":"AccountPage","icon":"settings","aliases":[]}'
+                    }
                     iconName: "translate"
                     containerColor: Appearance.m3colors.m3surfaceContainerHigh
 
@@ -273,7 +281,13 @@ Item {
                     x: 0
                     y: languageCard.y + languageCard.height + root.cardGap
                     width: root.columnWidth
-                    title: qsTr("Bluetooth devices")
+                    title: extraSearchAnchor1.title
+                    SettingsSearchAnchor {
+                        id: extraSearchAnchor1
+                        target: bluetoothCard
+                        declaration:
+                            '{"id":"account.section.bluetooth-devices","route":"account","title":"Bluetooth devices","context":"AccountPage","icon":"settings","aliases":[]}'
+                    }
                     iconName: BluetoothService.enabled ? "bluetooth" : "bluetooth_disabled"
                     containerColor: Appearance.m3colors.m3surfaceContainerHigh
 
@@ -430,7 +444,13 @@ Item {
                     id: shortcutsCard
                     y: bluetoothCard.y + bluetoothCard.height + root.cardGap
                     width: root.columnWidth
-                    title: qsTr("Keyboard shortcuts")
+                    title: extraSearchAnchor2.title
+                    SettingsSearchAnchor {
+                        id: extraSearchAnchor2
+                        target: shortcutsCard
+                        declaration:
+                            '{"id":"account.section.keyboard-shortcuts","route":"account","title":"Keyboard shortcuts","context":"AccountPage","icon":"settings","aliases":[]}'
+                    }
                     iconName: "keyboard"
                     containerColor: Appearance.m3colors.m3surfaceContainerHigh
 
@@ -455,7 +475,13 @@ Item {
                     x: root.wideLayout ? root.columnWidth + root.cardGap : 0
                     y: root.wideLayout ? 0 : shortcutsCard.y + shortcutsCard.height + root.cardGap
                     width: root.columnWidth
-                    title: qsTr("Cloud storage")
+                    title: extraSearchAnchor3.title
+                    SettingsSearchAnchor {
+                        id: extraSearchAnchor3
+                        target: cloudCard
+                        declaration:
+                            '{"id":"account.section.cloud-storage","route":"account","title":"Cloud storage","context":"AccountPage","icon":"settings","aliases":[]}'
+                    }
                     iconName: "cloud"
                     containerColor: Appearance.m3colors.m3surfaceContainerHigh
 
@@ -605,7 +631,13 @@ Item {
                     x: cloudCard.x
                     y: cloudCard.y + (cloudCard.visible ? cloudCard.height + root.cardGap : 0)
                     width: root.columnWidth
-                    title: qsTr("Personalization")
+                    title: extraSearchAnchor4.title
+                    SettingsSearchAnchor {
+                        id: extraSearchAnchor4
+                        target: personalizationCard
+                        declaration:
+                            '{"id":"account.section.personalization","route":"account","title":"Personalization","context":"AccountPage","icon":"settings","aliases":[]}'
+                    }
                     iconName: "palette"
                     containerColor: Appearance.m3colors.m3surfaceContainerHigh
 

@@ -202,9 +202,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             visible: NetworkService.wiredDevices.length > 0
-            title: qsTr("Wired connections")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.network.section.wired-connections","route":"general.network","title":"Wired connections","context":"NetworkPage","icon":"wifi","aliases":[]}'
+            }
             iconName: "lan"
 
             Repeater {
@@ -279,8 +286,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
-            title: qsTr("Wi-Fi")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.network.section.wi-fi","route":"general.network","title":"Wi-Fi","context":"NetworkPage","icon":"wifi","aliases":[]}'
+            }
             iconName: "wifi"
 
             SettingsRow {
@@ -510,8 +524,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
-            title: qsTr("Other settings")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.network.section.other-settings","route":"general.network","title":"Other settings","context":"NetworkPage","icon":"wifi","aliases":[]}'
+            }
             iconName: "tune"
 
             SettingsActionRow {
@@ -532,8 +553,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection3
             Layout.fillWidth: true
-            title: qsTr("Connection information")
+            title: searchAnchor3.title
+            SettingsSearchAnchor {
+                id: searchAnchor3
+                target: searchSection3
+                declaration:
+                    '{"id":"general.network.section.connection-information","route":"general.network","title":"Connection information","context":"NetworkPage","icon":"wifi","aliases":[]}'
+            }
             iconName: root.activeNetwork ? (root.activeNetwork.type === "wired" ? "link" : "wifi") :
                                            "link_off"
 

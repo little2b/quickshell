@@ -1,4 +1,5 @@
 qt_add_library(ClavisI18n SHARED)
+add_dependencies(ClavisI18n search_catalog)
 
 set_target_properties(ClavisI18n PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CLAVIS_QML_BUILD_DIR}/Clavis/I18n
@@ -47,6 +48,7 @@ qt_add_translations(ClavisI18n
     LUPDATE_OPTIONS -no-obsolete -source-language en_US
     RESOURCE_PREFIX "/i18n"
 )
+add_dependencies(update_translations search_catalog)
 
 target_include_directories(ClavisI18n PUBLIC src)
 

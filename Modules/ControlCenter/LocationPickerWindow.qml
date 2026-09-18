@@ -11,6 +11,8 @@ FloatingWindow {
     id: root
 
     property var parentModal: null
+    property bool locationLoading: false
+    signal automaticLocationRequested
     property real centerLatitude: 0
     property real centerLongitude: 0
     property real markerLatitude: 0
@@ -30,9 +32,6 @@ FloatingWindow {
     }
 
     function showWindow() {
-        if (!root.parentModal)
-            return;
-
         root.visible = true;
     }
 
@@ -120,27 +119,46 @@ FloatingWindow {
             }
         }
 
-        ActionButton {
+        RowLayout {
+            id: mapActions
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.margins: Metrics.spacingL
-            text: qsTr("Save location")
-            iconName: "save"
-            contentColor: "#FF111111"
-            rippleColor: "#FF111111"
-            stateLayerColor: "#FF111111"
-            hoverStateLayerColor: "#FF111111"
-            pressedStateLayerColor: "#FF111111"
-            onClicked: root.saveRequested()
+            InlineBusyIndicator {
+                busy: root.locationLoading
+            }
+            ActionButton {
+                text: qsTranslate("LocationPicker", "Use automatic location")
+                iconName: "my_location"
+                enabled: !root.locationLoading
+                contentColor: "#FF111111"
+                rippleColor: "#FF111111"
+                stateLayerColor: "#FF111111"
+                hoverStateLayerColor: "#FF111111"
+                pressedStateLayerColor: "#FF111111"
+                onClicked: root.automaticLocationRequested()
+            }
+            ActionButton {
+                text: qsTr("Save location")
+                iconName: "save"
+                contentColor: "#FF111111"
+                rippleColor: "#FF111111"
+                stateLayerColor: "#FF111111"
+                hoverStateLayerColor: "#FF111111"
+                pressedStateLayerColor: "#FF111111"
+                onClicked: root.saveRequested()
+            }
         }
 
         Text {
             id: coordinateLabel
-
             anchors.left: parent.left
             anchors.bottom: parent.bottom
             anchors.margins: Metrics.spacingL
+            width: Math.max(0, mapActions.x - x - Metrics.spacingM)
             text: Number(root.markerLatitude).toFixed(6) + ", " + Number(root.markerLongitude).toFixed(6)
+            textFormat: Text.PlainText
+            elide: Text.ElideRight
             color: "#FF111111"
             font.family: Typography.labelMedium.family
             font.pixelSize: Typography.labelMedium.pixelSize

@@ -7,6 +7,8 @@ import qs.Widgets.common
 Item {
     id: root
 
+    readonly property bool resizing: expansionAnimation.running
+
     property var screen: null
     property bool vertical: false
     readonly property bool active: WidgetState.quickSettingsOpen && WidgetState.quickSettingsView
@@ -142,6 +144,7 @@ Item {
 
     Behavior on expansionProgress {
         NumberAnimation {
+            id: expansionAnimation
             duration: Appearance.animation.standard.duration
             easing.type: Appearance.animation.standard.type
             easing.bezierCurve: Appearance.animation.standard.bezierCurve

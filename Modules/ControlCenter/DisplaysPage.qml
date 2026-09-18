@@ -6,6 +6,22 @@ import qs.Widgets.common
 
 ColumnLayout {
     id: root
+
+    property int searchRequestSerial: -1
+    readonly property var searchLeaf: pageLoader.item ? (pageLoader.item.searchLeaf || pageLoader.item) : root
+    function openSearchPath(path, serial) {
+        const section = path.length ? path[0] : "configuration";
+        if (searchRequestSerial !== serial) {
+            searchRequestSerial = serial;
+            root.section = section;
+        }
+        if (root.section !== section)
+            return "cancelled";
+        if (!(pageLoader.status === Loader.Ready) || !pageLoader.item)
+            return "loading";
+        return typeof pageLoader.item.openSearchPath === "function" ? pageLoader.item.openSearchPath(
+                                                                          path.slice(1), serial) : "ready";
+    }
     property string section: "configuration"
     property bool presentationActive: false
     property var parentModal: null
@@ -14,6 +30,10 @@ ColumnLayout {
             pageLoader.item.closeChildWindows();
     }
     onSectionChanged: {
+        if (ControlCenterService.searchTarget && !ControlCenterService.applyingSearch && searchRequestSerial
+                === ControlCenterService.searchSerial)
+            ControlCenterService.cancelSearch();
+        ControlCenterService.retrySearch();
         closeChildWindows();
         DisplayConfigService.clearCompletionNotice();
     }
@@ -36,11 +56,11 @@ ColumnLayout {
         model: [
             {
                 value: "configuration",
-                label: qsTr("Display configuration")
+                label: SpotlightCatalog.title("general.displays.configuration")
             },
             {
                 value: "gamma",
-                label: qsTr("Gamma Control")
+                label: SpotlightCatalog.title("general.displays.gamma")
             }
         ]
         onValueSelected: value => root.section = value
@@ -48,11 +68,15 @@ ColumnLayout {
     Loader {
         id: pageLoader
         onLoaded: {
+            ControlCenterService.retrySearch();
             if (item && "parentModal" in item)
                 item.parentModal = Qt.binding(() => root.parentModal);
         }
         Layout.fillWidth: true
         Layout.fillHeight: true
-        source: root.section === "configuration" ? "DisplayConfigurationPage.qml" : "GammaControlPage.qml"
+        source: {
+            const route = SpotlightCatalog.route("general.displays." + root.section);
+            return route ? Qt.resolvedUrl(route.source) : "";
+        }
     }
 }

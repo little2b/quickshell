@@ -42,6 +42,9 @@ Singleton {
     property var lastActionError: null
     property int lastActionExitCode: -1
     property string lastActionStderr: ""
+    property int _historyGeneration: 0
+    property int _listGeneration: 0
+    property bool _discardInspect: false
     property int revision: 0
     property int detailsRevision: 0
     property string _listOutput: ""
@@ -59,6 +62,7 @@ Singleton {
     property int _actionExitCode: -1
 
     property var _inspectQueue: []
+    property string _priorityInspectId: ""
     property string _inspectId: ""
     property string _inspectOutput: ""
     property bool _inspectExited: false
@@ -268,6 +272,7 @@ Singleton {
             return false;
         const safeLimit = Math.max(1, Math.min(750, Number(limit) || 100));
         root.loading = true;
+        root._listGeneration = root._historyGeneration;
         root._listOutput = "";
         root._listErrorOutput = "";
         root._listExited = false;
@@ -283,6 +288,10 @@ Singleton {
         if (!root._listExited || !root._listStdoutFinished)
             return;
         root.loading = false;
+        if (root._listGeneration !== root._historyGeneration) {
+            Qt.callLater(() => root.refresh(750));
+            return;
+        }
         root.applyListResponse(root._listOutput);
     }
 
@@ -346,6 +355,11 @@ Singleton {
         if (root._actionName === "restore") {
             root.restored(responseId);
         } else if (root._actionName === "delete") {
+            root._historyGeneration += 1;
+            if (root._inspectId === responseId)
+                root._discardInspect = true;
+            root.cancelInspect(responseId);
+            root.releasePriorityInspect(responseId);
             root.entries = (root.entries || []).filter(entry => String(entry.id || "") !== responseId);
             const nextDetails = Object.assign({}, root.detailsById);
             delete nextDetails[responseId];
@@ -353,6 +367,10 @@ Singleton {
             root.detailsRevision += 1;
             root.deleted(responseId);
         } else if (root._actionName === "clear") {
+            root._historyGeneration += 1;
+            root._discardInspect = true;
+            root._inspectQueue = [];
+            root._priorityInspectId = "";
             root.entries = [];
             root.detailsById = {};
             root.detailsRevision += 1;
@@ -364,17 +382,38 @@ Singleton {
         return root.detailsById[String(id)] || null;
     }
 
-    function inspect(id) {
+    function inspect(id, priority, refresh) {
         const normalizedId = String(id || "");
-        if (normalizedId === "" || root.detailsById[normalizedId])
+        if (normalizedId === "" || (!refresh && root.detailsById[normalizedId]))
             return normalizedId !== "";
-        if (root._inspectId === normalizedId || root._inspectQueue.indexOf(normalizedId) >= 0)
+        if (root._inspectId === normalizedId)
             return true;
-        const nextQueue = root._inspectQueue.slice();
-        nextQueue.push(normalizedId);
-        root._inspectQueue = nextQueue;
+        if (priority) {
+            // Keep ordinary search demand independent of the selected preview.
+            root._priorityInspectId = normalizedId;
+        } else if (root._inspectQueue.indexOf(normalizedId) < 0) {
+            const nextQueue = root._inspectQueue.slice();
+            nextQueue.push(normalizedId);
+            root._inspectQueue = nextQueue;
+        }
         root.startNextInspect();
         return true;
+    }
+
+    function releasePriorityInspect(id) {
+        if (root._priorityInspectId !== String(id || ""))
+            return;
+        root._priorityInspectId = "";
+        root.inspecting = root._inspectId !== "" || root._priorityInspectId !== "" || root._inspectQueue.length
+                > 0;
+    }
+
+    function cancelPendingInspections() {
+        // Allow the one in-flight read to finish; no more old demand is drained.
+        // The watcher and restore/delete processes are independent.
+        _inspectQueue = [];
+        _priorityInspectId = "";
+        inspecting = _inspectId !== "";
     }
 
     function cancelInspect(id) {
@@ -385,16 +424,26 @@ Singleton {
         if (nextQueue.length === root._inspectQueue.length)
             return false;
         root._inspectQueue = nextQueue;
-        root.inspecting = root._inspectId !== "" || root._inspectQueue.length > 0;
+        root.inspecting = root._inspectId !== "" || root._priorityInspectId !== "" || root._inspectQueue.length
+                > 0;
         return true;
     }
 
     function startNextInspect() {
-        if (inspectProcess.running || root._inspectId !== "" || root._inspectQueue.length === 0)
+        if (inspectProcess.running || root._inspectId !== "" || (root._inspectQueue.length === 0
+                                                                 && root._priorityInspectId === ""))
             return;
         const nextQueue = root._inspectQueue.slice();
-        root._inspectId = String(nextQueue.shift());
-        root._inspectQueue = nextQueue;
+        root._inspectId = root._priorityInspectId || String(nextQueue.shift());
+        root._priorityInspectId = "";
+        root._inspectQueue = nextQueue.filter(id => id !== root._inspectId);
+        if (!root.entries.some(entry => String(entry.id) === root._inspectId)) {
+            root._inspectId = "";
+            root.inspecting = root._priorityInspectId !== "" || root._inspectQueue.length > 0;
+            Qt.callLater(root.startNextInspect);
+            return;
+        }
+        root._discardInspect = false;
         root._inspectOutput = "";
         root._inspectExited = false;
         root._inspectStdoutFinished = false;
@@ -411,9 +460,10 @@ Singleton {
         const id = root._inspectId;
         const response = root.parseResponse(root._inspectOutput);
         if (root._inspectExitCode === 0 && response && !Array.isArray(response) && response.schemaVersion
-                === 1 && response.command === "clipboard.inspect" && response.ok === true) {
+                === 1 && response.command === "clipboard.inspect" && response.ok === true && String(
+                    response.id) === id && root.responseHasCurrentCapabilities(response)) {
             const stillListed = (root.entries || []).some(entry => String(entry.id || "") === id);
-            if (stillListed) {
+            if (stillListed && !root._discardInspect) {
                 const nextDetails = Object.assign({}, root.detailsById);
                 nextDetails[id] = response;
                 root.detailsById = nextDetails;
@@ -426,7 +476,7 @@ Singleton {
             root.inspectFailed(id, failure.code, failure.message);
         }
         root._inspectId = "";
-        root.inspecting = root._inspectQueue.length > 0;
+        root.inspecting = root._priorityInspectId !== "" || root._inspectQueue.length > 0;
         Qt.callLater(root.startNextInspect);
     }
 

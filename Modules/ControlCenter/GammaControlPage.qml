@@ -37,8 +37,15 @@ StyledFlickable {
             message: DisplayColor.error
         }
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Color")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.displays.gamma.section.color","route":"general.displays.gamma","title":"Color","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
+            }
             iconName: "contrast"
             flat: true
             enabled: DisplayColor.ready
@@ -95,9 +102,16 @@ StyledFlickable {
             }
         }
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             visible: root.preferences.nightEnabled
-            title: qsTr("Schedule")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.displays.gamma.section.schedule","route":"general.displays.gamma","title":"Schedule","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
+            }
             iconName: "schedule"
             flat: true
             DisplayChoice {
@@ -250,9 +264,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
             visible: root.preferences.nightEnabled && root.preferences.mode !== "fixed"
-            title: qsTr("Current status")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.displays.gamma.section.current-status","route":"general.displays.gamma","title":"Current status","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
+            }
             iconName: DisplayColor.schedule.period === "day" ? "light_mode" : "nightlight"
             flat: true
             SettingsRow {

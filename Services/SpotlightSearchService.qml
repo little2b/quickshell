@@ -19,8 +19,8 @@ Singleton {
     property double openedAt: 0
     property var initialActiveWindow: null
 
-    function searchUrl(query) {
-        return SpotlightSearch.searchUrl(UiPreferences.spotlightSearchEngine, query);
+    function searchUrl(query, preserveWhitespace) {
+        return SpotlightSearch.searchUrl(UiPreferences.spotlightSearchEngine, query, preserveWhitespace);
     }
 
     function normalizedId(value) {

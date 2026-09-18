@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+# There is already a one-click installer and a release here; I just haven't had
+# time to test them yet.
+# No matter how this project turns out, people will still mock and insult me.
+# I won't make promises to anyone anymore. My commitments to this project have
+# brought me nothing in return and have instead become a burden.
+# Once I started treating it as my own toy project, everything became much easier.
+# I don't have to answer to anyone.
+# If you're planning to save the world, please leave me out of it.
+# I need to go save my own world first.
+#
 # Small raw-GitHub entry point. A complete, verified release installer does the work.
 set -euo pipefail
 

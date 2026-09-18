@@ -138,8 +138,15 @@ StyledFlickable {
         spacing: Metrics.spacingXL
 
         DefaultAppsGroup {
+            id: extraSearchSection0
             Layout.fillWidth: true
-            groupTitle: qsTr("Internet")
+            groupTitle: extraSearchAnchor0.title
+            SettingsSearchAnchor {
+                id: extraSearchAnchor0
+                target: extraSearchSection0
+                declaration:
+                    '{"id":"general.default-apps.section.internet","route":"general.default-apps","title":"Internet","context":"DefaultAppsPage","icon":"settings","aliases":[]}'
+            }
             groupIcon: "public"
 
             DefaultAppSettingRow {
@@ -156,8 +163,15 @@ StyledFlickable {
         }
 
         DefaultAppsGroup {
+            id: extraSearchSection1
             Layout.fillWidth: true
-            groupTitle: qsTr("Utilities")
+            groupTitle: extraSearchAnchor1.title
+            SettingsSearchAnchor {
+                id: extraSearchAnchor1
+                target: extraSearchSection1
+                declaration:
+                    '{"id":"general.default-apps.section.utilities","route":"general.default-apps","title":"Utilities","context":"DefaultAppsPage","icon":"settings","aliases":[]}'
+            }
             groupIcon: "terminal"
 
             DefaultAppSettingRow {
@@ -174,8 +188,15 @@ StyledFlickable {
         }
 
         DefaultAppsGroup {
+            id: extraSearchSection2
             Layout.fillWidth: true
-            groupTitle: qsTr("Documents")
+            groupTitle: extraSearchAnchor2.title
+            SettingsSearchAnchor {
+                id: extraSearchAnchor2
+                target: extraSearchSection2
+                declaration:
+                    '{"id":"general.default-apps.section.documents","route":"general.default-apps","title":"Documents","context":"DefaultAppsPage","icon":"settings","aliases":[]}'
+            }
             groupIcon: "description"
 
             DefaultAppSettingRow {
@@ -192,8 +213,15 @@ StyledFlickable {
         }
 
         DefaultAppsGroup {
+            id: extraSearchSection3
             Layout.fillWidth: true
-            groupTitle: qsTr("Multimedia")
+            groupTitle: extraSearchAnchor3.title
+            SettingsSearchAnchor {
+                id: extraSearchAnchor3
+                target: extraSearchSection3
+                declaration:
+                    '{"id":"general.default-apps.section.multimedia","route":"general.default-apps","title":"Multimedia","context":"DefaultAppsPage","icon":"settings","aliases":[]}'
+            }
             groupIcon: "movie"
 
             DefaultAppSettingRow {

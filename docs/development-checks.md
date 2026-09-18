@@ -23,6 +23,9 @@ format-check 和 lint。`--native` 强制构建/CTest；`--full` 扩展为全仓
 `ctest --test-dir build -R '<test-name>' --output-on-failure --no-tests=error`
 运行受影响测试；需要原生构建时先 build。QML 单元测试注册为 `qml_unit_tests`。
 
+Spotlight 的设置声明、快捷操作目录或生成器变更时，入口也会生成并校验搜索目录；
+无原生构建需求时单独运行目录协议测试，有构建需求时由 CTest 统一运行。
+
 ## QML 工具与生成物
 
 Qt 6 工具优先使用 `/usr/lib/qt6/bin/`，可用 `QMLFORMAT` / `QMLLINT` 覆盖；

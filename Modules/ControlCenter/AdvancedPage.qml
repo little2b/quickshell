@@ -121,8 +121,15 @@ StyledFlickable {
         spacing: Appearance.spacing.medium
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Map and weather services")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"advanced.section.map-and-weather-services","route":"advanced","title":"Map and weather services","context":"AdvancedPage","icon":"tune","aliases":[]}'
+            }
             iconName: "map"
 
             MapTilerApiSettingsCard {
@@ -135,9 +142,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
-            title: qsTr("Cloud storage")
             visible: RcloneService.enabled
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"advanced.section.cloud-storage","route":"advanced","title":"Cloud storage","context":"AdvancedPage","icon":"tune","aliases":[]}'
+            }
             iconName: "cloud"
 
             RowLayout {
@@ -234,8 +248,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
-            title: qsTr("Matugen template generation")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"advanced.section.matugen-template-generation","route":"advanced","title":"Matugen template generation","context":"AdvancedPage","icon":"tune","aliases":[]}'
+            }
 
             Item {
                 Layout.fillWidth: true

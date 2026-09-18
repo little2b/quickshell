@@ -18,37 +18,46 @@ FloatingWindow {
     property int currentPage: 0
     property bool navExpanded: width > 900
     property string pendingPageSection: ""
-    readonly property var pages: [({
-                                       "id": "account",
-                                       "title": qsTr("Account"),
-                                       "icon": "account_circle",
-                                       "source": "AccountPage.qml"
-                                   }), ({
-                                            "id": "general",
-                                            "title": qsTr("General"),
-                                            "icon": "settings",
-                                            "source": "GeneralPage.qml"
-                                        }), ({
-                                                 "id": "wallpaper",
-                                                 "title": qsTr("Wallpaper"),
-                                                 "icon": "wallpaper",
-                                                 "source": "WallpaperPage.qml"
-                                             }), ({
-                                                      "id": "theme",
-                                                      "title": qsTr("Theme"),
-                                                      "icon": "palette",
-                                                      "source": "ThemePage.qml"
-                                                  }), ({
-                                                           "id": "keystone",
-                                                           "title": qsTr("Keystone"),
-                                                           "icon": "toggle_off",
-                                                           "source": "KeystonePage.qml"
-                                                       }), ({
-                                                                "id": "advanced",
-                                                                "title": qsTr("Advanced"),
-                                                                "icon": "tune",
-                                                                "source": "AdvancedPage.qml"
-                                                            })]
+    readonly property var pages: SpotlightCatalog.routes.filter(entry => entry.path.length === 1).map(entry
+                                                                                                      => Object.assign(
+                                                                                                             {}, entry,
+                                                                                                             {
+                                                                                                                 title: SpotlightCatalog.title(
+                                                                                                                            entry.id)
+                                                                                                             }))
+    property int searchRequestSerial: -1
+    property var searchLeaf: null
+    readonly property var searchPageAnchor: pageSearchAnchor
+
+    function prepareSearchTarget(entry, serial) {
+        searchRequestSerial = serial;
+        root.openPage(entry.path[0]);
+        root.advanceSearchTarget(entry, serial);
+    }
+
+    function advanceSearchTarget(entry, serial) {
+        if (searchRequestSerial !== serial)
+            return "cancelled";
+        if (pages[currentPage].id !== entry.path[0])
+            return "cancelled";
+        if (!pageLoader.ready || !pageLoader.item)
+            return "loading";
+        const page = pageLoader.item;
+        const state = typeof page.openSearchPath === "function" ? page.openSearchPath(entry.path.slice(1),
+                                                                                      serial) : "ready";
+        searchLeaf = page.searchLeaf || page;
+        return state;
+    }
+
+    SettingsSearchAnchor {
+        id: pageSearchAnchor
+        registerAnchor: false
+        declaration: JSON.stringify({
+                                        id: "page"
+                                    })
+        target: root.searchLeaf
+        wholePage: true
+    }
 
     signal popoutClosed
 
@@ -150,12 +159,19 @@ FloatingWindow {
     Material.accent: Appearance.colors.colPrimary
     onVisibleChanged: {
         if (!root.visible && root._wasShown) {
+            ControlCenterService.cancelSearch();
             root.closeChildWindows();
             root._wasShown = false;
             root.popoutClosed();
         }
     }
-    onCurrentPageChanged: root.closeChildWindows()
+    onCurrentPageChanged: {
+        if (ControlCenterService.searchTarget && !ControlCenterService.applyingSearch && searchRequestSerial
+                === ControlCenterService.searchSerial)
+            ControlCenterService.cancelSearch();
+        root.closeChildWindows();
+        ControlCenterService.retrySearch();
+    }
 
     Timer {
         id: copiedTimer
@@ -359,6 +375,17 @@ FloatingWindow {
                                                         Appearance.m3colors.m3surfaceContainerLow)
                     clip: true
 
+                    InlineStatusBanner {
+                        z: 200
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        anchors.margins: Metrics.spacingM
+                        visible: ControlCenterService.searchError !== ""
+                        tone: "error"
+                        message: ControlCenterService.searchError
+                    }
+
                     SettingsPageHost {
                         id: pageLoader
 
@@ -378,6 +405,7 @@ FloatingWindow {
                                 });
 
                             root.applyPendingPageSection();
+                            ControlCenterService.retrySearch();
                         }
                     }
 

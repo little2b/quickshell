@@ -22,14 +22,21 @@ StyledFlickable {
         spacing: Metrics.spacingL
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Interface")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.section.interface","route":"general","title":"Interface","context":"GeneralOverviewPage","icon":"settings","aliases":[],"source":"GeneralOverviewPage.qml"}'
+            }
             iconName: "dashboard"
 
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "dock_to_bottom"
-                text: qsTr("Bar")
+                text: SpotlightCatalog.title("general.bar")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("bar")
             }
@@ -46,7 +53,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "side_navigation"
-                text: qsTr("Sidebar")
+                text: SpotlightCatalog.title("general.sidebar")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("sidebar")
             }
@@ -62,15 +69,22 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "blur_on"
-                text: qsTr("Transparency and blur")
+                text: SpotlightCatalog.title("general.effects")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("effects")
             }
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
-            title: qsTr("System")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.section.system","route":"general","title":"System","context":"GeneralOverviewPage","icon":"settings","aliases":[],"source":"GeneralOverviewPage.qml"}'
+            }
             iconName: "settings_suggest"
 
             SettingsActionRow {
@@ -85,7 +99,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "monitor"
-                text: qsTr("Displays")
+                text: SpotlightCatalog.title("general.displays")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("displays")
             }
@@ -102,7 +116,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "keyboard"
-                text: qsTr("Keyboard shortcuts")
+                text: SpotlightCatalog.title("general.shortcuts")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("shortcuts")
             }
@@ -110,7 +124,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "language"
-                text: qsTr("Language & region")
+                text: SpotlightCatalog.title("general.language-region")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("language-region")
             }
@@ -118,7 +132,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "wifi"
-                text: qsTr("Network")
+                text: SpotlightCatalog.title("general.network")
                 description: NetworkService.available ? NetworkService.activeConnection : qsTr(
                                                             "Network unavailable")
                 trailingIconName: "chevron_right"
@@ -128,7 +142,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "devices_other"
-                text: qsTr("Connected devices")
+                text: SpotlightCatalog.title("general.connected-devices")
                 description: {
                     if (!BluetoothService.available)
                         return qsTr("Bluetooth unavailable");
@@ -150,14 +164,21 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
-            title: qsTr("Applications")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.section.applications","route":"general","title":"Applications","context":"GeneralOverviewPage","icon":"settings","aliases":[],"source":"GeneralOverviewPage.qml"}'
+            }
             iconName: "apps"
 
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "rocket_launch"
-                text: qsTr("Autostart")
+                text: SpotlightCatalog.title("general.autostart")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("autostart")
             }
@@ -165,7 +186,7 @@ StyledFlickable {
             SettingsActionRow {
                 Layout.fillWidth: true
                 iconName: "apps"
-                text: qsTr("Default applications")
+                text: SpotlightCatalog.title("general.default-apps")
                 trailingIconName: "chevron_right"
                 onClicked: root.sectionRequested("default-apps")
             }

@@ -477,6 +477,11 @@
           "package": "wl-clipboard",
           "purpose": "Copy editor curves and clipboard integration",
           "defaultInstall": true
+        },
+        {
+          "package": "fd",
+          "purpose": "Spotlight literal file search",
+          "defaultInstall": true
         }
       ],
       "optional": [

@@ -6,7 +6,7 @@ import qs.Components
 import qs.Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property bool vertical: false
@@ -27,8 +27,9 @@ Item {
                 root.lastApplicationByWorkspace[focused.workspaceId] = focused.id;
             return;
         }
-        const candidates = Niri.windowsForWorkspace(focused.workspaceId)
-            .filter(window => window.id && !root.isCaptureHelper(window));
+        const candidates = Niri.windowsForWorkspace(focused.workspaceId).filter(window => window.id &&
+                                                                                          !root.isCaptureHelper(
+                                                                                              window));
         const previousId = root.lastApplicationByWorkspace[focused.workspaceId];
         const target = candidates.find(window => window.id === previousId) || candidates[0];
         if (target)
@@ -37,8 +38,12 @@ Item {
 
     Connections {
         target: Niri
-        function onFocusedWindowChanged() { Qt.callLater(root.restoreApplicationFocus); }
-        function onWindowsChanged() { Qt.callLater(root.restoreApplicationFocus); }
+        function onFocusedWindowChanged() {
+            Qt.callLater(root.restoreApplicationFocus);
+        }
+        function onWindowsChanged() {
+            Qt.callLater(root.restoreApplicationFocus);
+        }
     }
     Component.onCompleted: Qt.callLater(root.restoreApplicationFocus)
     readonly property string activeTitle: activeWindow.title || qsTr("Desktop")
@@ -71,10 +76,6 @@ Item {
 
     implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 24
-
-    TopBarPillBackground {
-        anchors.fill: parent
-    }
 
     GridLayout {
         id: layout
@@ -184,19 +185,5 @@ Item {
     PopupToolTip {
         extraVisibleCondition: root.vertical && activeHover.containsMouse
         text: root.detailedTooltipText
-    }
-
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: 300
-            easing.type: Easing.OutCubic
-        }
-    }
-
-    Behavior on implicitHeight {
-        NumberAnimation {
-            duration: 300
-            easing.type: Easing.OutCubic
-        }
     }
 }

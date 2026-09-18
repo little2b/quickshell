@@ -153,3 +153,5 @@ add_test(NAME installer_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_
 qt_add_executable(weather_location_tests weather_location_test.cpp)
 target_link_libraries(weather_location_tests PRIVATE ClavisWeatherCore Qt6::Core Qt6::Network Qt6::Test)
 add_test(NAME weather_location_tests COMMAND weather_location_tests)
+
+add_test(NAME search_catalog_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_search_catalog.py)

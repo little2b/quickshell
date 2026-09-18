@@ -1,6 +1,7 @@
 pragma Singleton
 import QtCore
 import QtQuick
+import "../Common/functions/SpotlightAppOrder.js" as AppOrder
 import Quickshell
 import Quickshell.Io
 import Clavis.I18n
@@ -13,7 +14,9 @@ Singleton {
     readonly property string configDir: Paths.configHome
     readonly property string filePath: configDir + "/ui-preferences.json"
     property string spotlightSearchEngine: "google"
+    property string spotlightAppOrder: "name"
     property string spotlightAppStyle: "list"
+    property string spotlightClipboardStyle: "default"
     property bool dndEnabled: false
     property bool darkMode: false
     property string language: I18nManager.systemLanguage
@@ -81,12 +84,28 @@ Singleton {
         root.save();
     }
 
+    function setSpotlightAppOrder(value) {
+        const normalized = AppOrder.normalizedOrder(value);
+        if (root.spotlightAppOrder === normalized)
+            return;
+        root.spotlightAppOrder = normalized;
+        root.save();
+    }
+
     function setSpotlightAppStyle(value) {
         const normalized = root.allowedValue(value, ["list", "grid"], "list");
         if (root.spotlightAppStyle === normalized)
             return;
 
         root.spotlightAppStyle = normalized;
+        root.save();
+    }
+
+    function setSpotlightClipboardStyle(value) {
+        const normalized = root.allowedValue(value, ["default", "details"], "default");
+        if (root.spotlightClipboardStyle === normalized)
+            return;
+        root.spotlightClipboardStyle = normalized;
         root.save();
     }
 
@@ -514,6 +533,8 @@ Singleton {
                                              "systemTemperatureUnit": root.systemTemperatureUnit,
                                              "spotlightSearchEngine": root.spotlightSearchEngine,
                                              "spotlightAppStyle": root.spotlightAppStyle,
+                                             "spotlightAppOrder": root.spotlightAppOrder,
+                                             "spotlightClipboardStyle": root.spotlightClipboardStyle,
                                              "weatherMapBaseProvider": root.weatherMapBaseProvider,
                                              "weatherMapOverlayProvider": root.weatherMapOverlayProvider,
                                              "systemMonitorGpuId": root.systemMonitorGpuId,
@@ -582,7 +603,11 @@ Singleton {
                 root.language = root.normalizedLanguage(parsed.language || I18nManager.systemLanguage);
                 root.weatherTemperatureUnit = root.normalizedTemperatureUnit(parsed.weatherTemperatureUnit);
                 root.systemTemperatureUnit = root.normalizedTemperatureUnit(parsed.systemTemperatureUnit);
+                root.spotlightClipboardStyle = root.allowedValue(parsed.spotlightClipboardStyle, ["default",
+                                                                                                  "details"],
+                                                                 "default");
                 root.spotlightSearchEngine = SpotlightSearch.normalizedEngine(parsed.spotlightSearchEngine);
+                root.spotlightAppOrder = AppOrder.normalizedOrder(parsed.spotlightAppOrder);
                 root.spotlightAppStyle = root.allowedValue(parsed.spotlightAppStyle, ["list", "grid"],
                                                            "list");
                 root.weatherMapBaseProvider = root.normalizedWeatherMapBaseProvider(

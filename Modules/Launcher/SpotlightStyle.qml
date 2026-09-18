@@ -22,7 +22,7 @@ QtObject {
     readonly property int searchHeight: 64
     readonly property int searchHorizontalPadding: 22
     readonly property int searchIconSize: 24
-    readonly property int modeButtonCount: 3
+    readonly property int modeButtonCount: 4
     readonly property int modeButtonDiameter: searchHeight
     readonly property int modeButtonGap: 10
     readonly property int modeRailReservedWidth: modeButtonCount * (modeButtonDiameter + modeButtonGap)
@@ -31,10 +31,19 @@ QtObject {
     readonly property int resultGap: 12
     readonly property int resultRadius: Appearance.rounding.extraLarge
     readonly property int resultPadding: 10
+    readonly property int clipboardDetailsWidth: 1100
+    readonly property int clipboardDetailsHeight: 600
+    readonly property int clipboardDetailsBreakpoint: 720
+    readonly property int clipboardDetailsRowHeight: 48
     readonly property int resultMaxHeight: 440
     readonly property int resultRowHeight: 64
     readonly property int resultIconSize: 40
     readonly property int resultScrollDuration: 240
+    readonly property int searchAppCellWidth: 104
+    readonly property int searchAppRowHeight: 88
+    readonly property int searchWallpaperCellWidth: 156
+    readonly property int searchListRowHeight: 52
+    readonly property int searchHeaderHeight: 28
     readonly property int appGridPanelWidth: 920
     readonly property int appGridMaxHeight: 560
     readonly property int appGridCellWidth: 148
@@ -68,17 +77,14 @@ QtObject {
     readonly property int windowBottomMargin: 40
     readonly property int emptyHeight: 150
     readonly property int enginePillHeight: 34
-    readonly property int enginePillWidth: 86
     readonly property int windowOpenDuration: 210
     readonly property int windowCloseDuration: 175
-    readonly property int railDuration: 700
-    readonly property int railStagger: 28
+    readonly property int railDuration: 620
     readonly property int webDuration: 340
     readonly property int panelDuration: 210
     readonly property real initialScale: 0.96
     readonly property real initialYOffset: -8
     readonly property real railWidthContraction: modeRailReservedWidth
-    readonly property real edgeSoftness: 0.9
     readonly property real shadowBlur: 0.72
     readonly property real shadowVerticalOffset: 7
     readonly property var windowEnterCurve: Appearance.animationCurves.emphasizedDecel
@@ -86,10 +92,6 @@ QtObject {
     readonly property var panelCurve: Appearance.animationCurves.emphasized
     readonly property var effectsCurve: Appearance.animationCurves.standardDecel
     readonly property var wallpaperHoverCurve: Appearance.animationCurves.standard
-    // railProgress itself stays reversible and bounded. The morph surface
-    // derives its small, deliberate overshoot from this progress so a rapid
-    // reverse never has to jump between independent animations.
-    readonly property var railCurve: [0.33, 0, 0.67, 1, 1, 1]
     readonly property var webCurve: Appearance.animationCurves.standard
 
     function clamp(value, lower, upper) {

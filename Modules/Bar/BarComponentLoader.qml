@@ -4,6 +4,7 @@ import qs.Modules.Bar.Workspaces
 import qs.Modules.Bar.ActiveWindow
 import qs.Modules.Bar.Tray
 import qs.Modules.Bar.SysMonitor
+import qs.Modules.Bar.Media
 import qs.Modules.Bar.QuickSettings
 
 Loader {
@@ -24,6 +25,8 @@ Loader {
             return informationComponent;
         case "activeWindow":
             return activeWindowComponent;
+        case "media":
+            return mediaComponent;
         case "tray":
             return trayComponent;
         case "systemMonitor":
@@ -58,6 +61,16 @@ Loader {
         ActiveWindow {
             maximumTitleWidth: root.vertical ? 250 : Math.max(48, Math.min(250, root.barVisualItem.width
                                                                            * 0.18))
+            vertical: root.vertical
+        }
+    }
+
+    Component {
+        id: mediaComponent
+
+        MediaBar {
+            maximumTitleWidth: Math.max(48, Math.min(180, (root.vertical ? root.barVisualItem.height :
+                                                                           root.barVisualItem.width) * 0.12))
             vertical: root.vertical
         }
     }

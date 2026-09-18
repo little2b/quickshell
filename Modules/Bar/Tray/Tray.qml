@@ -8,7 +8,7 @@ import qs.Components
 import qs.Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property bool trayOverflowOpen: false
@@ -210,10 +210,6 @@ Item {
     onEdgeChanged: {
         if (root.trayOverflowOpen)
             Qt.callLater(root.updateOverflowPosition);
-    }
-
-    TopBarPillBackground {
-        anchors.fill: parent
     }
 
     GridLayout {

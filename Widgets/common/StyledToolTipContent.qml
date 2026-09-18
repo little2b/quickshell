@@ -5,6 +5,7 @@ import qs.Services
 Item {
     id: root
 
+    property int textFormat: Text.AutoText
     required property string text
     property bool shown: false
     property real horizontalPadding: 10
@@ -28,8 +29,7 @@ Item {
             horizontalCenter: root.horizontalCenter
         }
 
-        color: BlurService.backgroundColor(
-            Appearance.colors.colTooltip)
+        color: BlurService.backgroundColor(Appearance.colors.colTooltip)
         radius: 8
         opacity: root.shown ? 1 : 0
         width: root.shown ? root.implicitWidth : 0
@@ -68,6 +68,7 @@ Item {
 
             anchors.centerIn: parent
             text: root.text
+            textFormat: root.textFormat
             color: Appearance.colors.colOnTooltip
             wrapMode: Text.Wrap
             font.family: Fonts.ui

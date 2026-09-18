@@ -8,6 +8,7 @@ Item {
     id: root
 
     property string text: ""
+    property int textFormat: Text.AutoText
     property bool extraVisibleCondition: true
     property bool alternativeVisibleCondition: false
     property real horizontalPadding: 10
@@ -37,28 +38,29 @@ Item {
 
     function edgeToAnchor(edge) {
         switch (edge) {
-        case "bottom": return Edges.Top;
-        case "left": return Edges.Right;
-        case "right": return Edges.Left;
-        default: return Edges.Bottom;
+        case "bottom":
+            return Edges.Top;
+        case "left":
+            return Edges.Right;
+        case "right":
+            return Edges.Left;
+        default:
+            return Edges.Bottom;
         }
     }
 
     readonly property var anchorWindow: root.QsWindow.window
-    readonly property bool anchorWindowReady:
-        root.anchorWindow !== null
-        && root.anchorWindow !== undefined
-        && root.anchorWindow.backingWindowVisible
+    readonly property bool anchorWindowReady: root.anchorWindow !== null && root.anchorWindow !== undefined
+                                              && root.anchorWindow.backingWindowVisible
     readonly property bool usingFallback: fallbackTooltip.visible
     // Visibility is intentionally based on the direct anchor only. Walking
     // the QML parent hierarchy from a binding makes the tooltip's Loader and
     // its Controls/layout ancestors depend on one another.
-    readonly property bool internalVisibleCondition:
-        (extraVisibleCondition
-            && (root.parent === null
-                || root.parent.hovered === undefined
-                || root.parent.hovered))
-        || alternativeVisibleCondition
+    readonly property bool internalVisibleCondition: (extraVisibleCondition && (root.parent === null
+                                                                                || root.parent.hovered
+                                                                                === undefined
+                                                                                || root.parent.hovered))
+                                                     || alternativeVisibleCondition
     readonly property var popupWindow: tooltipLoader.item
 
     function updateAnchor() {
@@ -70,8 +72,7 @@ Item {
         id: tooltipLoader
 
         anchors.fill: parent
-        active: root.internalVisibleCondition
-            && root.anchorWindowReady
+        active: root.internalVisibleCondition && root.anchorWindowReady
 
         sourceComponent: PopupWindow {
             id: tooltipWindow
@@ -80,10 +81,8 @@ Item {
 
             visible: true
             color: "transparent"
-            implicitWidth: tooltipContent.implicitWidth
-                + root.horizontalMargin * 2
-            implicitHeight: tooltipContent.implicitHeight
-                + root.verticalMargin * 2
+            implicitWidth: tooltipContent.implicitWidth + root.horizontalMargin * 2
+            implicitHeight: tooltipContent.implicitHeight + root.verticalMargin * 2
 
             Component.onCompleted: tooltipContent.shown = true
 
@@ -104,6 +103,7 @@ Item {
                 x: root.horizontalMargin
                 y: root.verticalMargin
                 text: root.text
+                textFormat: root.textFormat
                 shown: false
                 horizontalPadding: root.horizontalPadding
                 verticalPadding: root.verticalPadding
@@ -121,15 +121,15 @@ Item {
     ToolTip {
         id: fallbackTooltip
 
-        visible: root.internalVisibleCondition
-            && (root.anchorWindow === null
-                || root.anchorWindow === undefined)
+        visible: root.internalVisibleCondition && (root.anchorWindow === null || root.anchorWindow
+                                                   === undefined)
         delay: 0
         padding: 0
         background: null
 
         contentItem: StyledToolTipContent {
             text: root.text
+            textFormat: root.textFormat
             shown: fallbackTooltip.visible
             horizontalPadding: root.horizontalPadding
             verticalPadding: root.verticalPadding

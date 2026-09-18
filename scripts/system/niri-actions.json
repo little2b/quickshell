@@ -951,7 +951,21 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"lock\" \"open\"",
     "parameters": false,
     "target": "lock",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "include",
+      "title": "Lock screen",
+      "description": "Lock the current session",
+      "context": "SpotlightActions",
+      "icon": "lock",
+      "args": [],
+      "aliases": [
+        "lock",
+        "secure"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:lock:isLocked",
@@ -960,7 +974,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"lock\" \"isLocked\"",
     "parameters": false,
     "target": "lock",
-    "method": "isLocked"
+    "method": "isLocked",
+    "search": {
+      "policy": "internal"
+    }
   },
   {
     "id": "clavis:spotlight:toggle",
@@ -969,7 +986,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"toggle\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:spotlight:open",
@@ -978,7 +998,32 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"open\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:search",
+    "category": "clavis",
+    "name": "Spotlight: Search",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"search\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "search",
+    "search": {
+      "policy": "include",
+      "title": "Search",
+      "description": "Open Spotlight Search",
+      "context": "SpotlightActions",
+      "icon": "search",
+      "args": [],
+      "aliases": [
+        "find"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:spotlight:close",
@@ -987,7 +1032,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"close\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:spotlight:web",
@@ -996,7 +1044,129 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"web\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "web"
+    "method": "web",
+    "search": {
+      "policy": "include",
+      "title": "Web search",
+      "description": "Enter Spotlight Web search",
+      "context": "SpotlightActions",
+      "icon": "language",
+      "args": [],
+      "aliases": [
+        "browser",
+        "internet"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
+  },
+  {
+    "id": "clavis:spotlight:commands",
+    "category": "clavis",
+    "name": "Spotlight: Commands",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"commands\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "commands",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:calc",
+    "category": "clavis",
+    "name": "Spotlight: Calculator",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"calc\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:fx",
+    "category": "clavis",
+    "name": "Spotlight: Currency",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"fx\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:time",
+    "category": "clavis",
+    "name": "Spotlight: Time zone",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"time\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:light",
+    "category": "clavis",
+    "name": "Spotlight: Light theme",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"light\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:dark",
+    "category": "clavis",
+    "name": "Spotlight: Dark theme",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"dark\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:find-settings",
+    "category": "clavis",
+    "name": "Spotlight: Search settings",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"find-settings\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:actions",
+    "category": "clavis",
+    "name": "Spotlight: Search IPC actions",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"actions\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
+  },
+  {
+    "id": "clavis:spotlight:command:map",
+    "category": "clavis",
+    "name": "Spotlight: Location picker",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"map\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "command",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:spotlight:openMode",
@@ -1005,7 +1175,32 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"<mode>\"",
     "parameters": true,
     "target": "spotlight",
-    "method": "openMode"
+    "method": "openMode",
+    "search": {
+      "policy": "parameters"
+    }
+  },
+  {
+    "id": "clavis:spotlight:files",
+    "category": "clavis",
+    "name": "Spotlight: Find files",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"files\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "files",
+    "search": {
+      "policy": "include",
+      "title": "Find files",
+      "description": "Open Spotlight Files",
+      "context": "SpotlightActions",
+      "icon": "draft",
+      "args": [],
+      "aliases": [
+        "folder"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:spotlight:openMode:apps",
@@ -1014,7 +1209,23 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"apps\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "openMode"
+    "method": "openMode",
+    "search": {
+      "policy": "include",
+      "title": "Applications",
+      "description": "Open the application launcher",
+      "context": "SpotlightActions",
+      "icon": "grid_view",
+      "args": [
+        "apps"
+      ],
+      "aliases": [
+        "launch",
+        "apps"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:spotlight:openMode:clipboard",
@@ -1023,7 +1234,22 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"clipboard\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "openMode"
+    "method": "openMode",
+    "search": {
+      "policy": "include",
+      "title": "Clipboard history",
+      "description": "Open clipboard history",
+      "context": "SpotlightActions",
+      "icon": "content_paste",
+      "args": [
+        "clipboard"
+      ],
+      "aliases": [
+        "paste"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:spotlight:openMode:wallpapers",
@@ -1032,7 +1258,22 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"wallpapers\"",
     "parameters": false,
     "target": "spotlight",
-    "method": "openMode"
+    "method": "openMode",
+    "search": {
+      "policy": "include",
+      "title": "Wallpaper picker",
+      "description": "Browse and apply wallpapers",
+      "context": "SpotlightActions",
+      "icon": "image",
+      "args": [
+        "wallpapers"
+      ],
+      "aliases": [
+        "background"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:wallpaper:set",
@@ -1041,7 +1282,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"set\" \"<path>\"",
     "parameters": true,
     "target": "wallpaper",
-    "method": "set"
+    "method": "set",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:wallpaper:setForScreen",
@@ -1050,7 +1294,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"setForScreen\" \"<path>\" \"<screenName>\"",
     "parameters": true,
     "target": "wallpaper",
-    "method": "setForScreen"
+    "method": "setForScreen",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:wallpaper:clear",
@@ -1059,7 +1306,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"clear\"",
     "parameters": false,
     "target": "wallpaper",
-    "method": "clear"
+    "method": "clear",
+    "search": {
+      "policy": "include",
+      "title": "Reset wallpaper",
+      "description": "Clear the global wallpaper selection",
+      "context": "SpotlightActions",
+      "icon": "hide_image",
+      "args": [],
+      "aliases": [
+        "background"
+      ],
+      "availability": "wallpaper-idle",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:wallpaper:clearForScreen",
@@ -1068,7 +1328,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"clearForScreen\" \"<screenName>\"",
     "parameters": true,
     "target": "wallpaper",
-    "method": "clearForScreen"
+    "method": "clearForScreen",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:wallpaper:previous",
@@ -1077,7 +1340,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"previous\"",
     "parameters": false,
     "target": "wallpaper",
-    "method": "previous"
+    "method": "previous",
+    "search": {
+      "policy": "include",
+      "title": "Previous wallpaper",
+      "description": "Apply the previous wallpaper",
+      "context": "SpotlightActions",
+      "icon": "skip_previous",
+      "args": [],
+      "aliases": [
+        "background"
+      ],
+      "availability": "wallpaper-idle",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:wallpaper:next",
@@ -1086,7 +1362,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"next\"",
     "parameters": false,
     "target": "wallpaper",
-    "method": "next"
+    "method": "next",
+    "search": {
+      "policy": "include",
+      "title": "Next wallpaper",
+      "description": "Apply the next wallpaper",
+      "context": "SpotlightActions",
+      "icon": "skip_next",
+      "args": [],
+      "aliases": [
+        "background"
+      ],
+      "availability": "wallpaper-idle",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:wallpaper:random",
@@ -1095,7 +1384,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"random\"",
     "parameters": false,
     "target": "wallpaper",
-    "method": "random"
+    "method": "random",
+    "search": {
+      "policy": "include",
+      "title": "Random wallpaper",
+      "description": "Apply a random wallpaper",
+      "context": "SpotlightActions",
+      "icon": "shuffle",
+      "args": [],
+      "aliases": [
+        "background"
+      ],
+      "availability": "wallpaper-idle",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:wallpaper:setFolder",
@@ -1104,7 +1406,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"setFolder\" \"<path>\"",
     "parameters": true,
     "target": "wallpaper",
-    "method": "setFolder"
+    "method": "setFolder",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:control-center:open",
@@ -1113,7 +1418,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"<pageId>\"",
     "parameters": true,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:control-center:open:account",
@@ -1122,7 +1430,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"account\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:general",
@@ -1131,7 +1442,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"general\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:wallpaper",
@@ -1140,7 +1454,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"wallpaper\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:theme",
@@ -1149,7 +1466,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"theme\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:keystone",
@@ -1158,7 +1478,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"keystone\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:advanced",
@@ -1167,7 +1490,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"advanced\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:language-region",
@@ -1176,7 +1502,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"language-region\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:open:current",
@@ -1185,7 +1514,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"\"",
     "parameters": false,
     "target": "control-center",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:close",
@@ -1194,7 +1526,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"close\"",
     "parameters": false,
     "target": "control-center",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:control-center:toggle",
@@ -1203,7 +1538,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"<pageId>\"",
     "parameters": true,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:control-center:toggle:account",
@@ -1212,7 +1550,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"account\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:general",
@@ -1221,7 +1562,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"general\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:wallpaper",
@@ -1230,7 +1574,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"wallpaper\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:theme",
@@ -1239,7 +1586,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"theme\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:keystone",
@@ -1248,7 +1598,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"keystone\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:advanced",
@@ -1257,7 +1610,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"advanced\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:language-region",
@@ -1266,7 +1622,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"language-region\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:control-center:toggle:current",
@@ -1275,7 +1634,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"\"",
     "parameters": false,
     "target": "control-center",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "settings"
+    }
   },
   {
     "id": "clavis:keystone:cancelRecord",
@@ -1284,7 +1646,11 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"cancelRecord\"",
     "parameters": false,
     "target": "keystone",
-    "method": "cancelRecord"
+    "method": "cancelRecord",
+    "search": {
+      "policy": "internal",
+      "reason": "Reserved no-op; does not cancel a recording"
+    }
   },
   {
     "id": "clavis:keystone:closeAllOthers",
@@ -1293,7 +1659,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"closeAllOthers\"",
     "parameters": false,
     "target": "keystone",
-    "method": "closeAllOthers"
+    "method": "closeAllOthers",
+    "search": {
+      "policy": "include",
+      "title": "Close Keystone panels",
+      "description": "Dismiss open Keystone panels",
+      "context": "SpotlightActions",
+      "icon": "close",
+      "args": [],
+      "aliases": [
+        "island"
+      ],
+      "availability": "keystone",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:keystone:currentStyle",
@@ -1302,7 +1681,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"currentStyle\"",
     "parameters": false,
     "target": "keystone",
-    "method": "currentStyle"
+    "method": "currentStyle",
+    "search": {
+      "policy": "internal"
+    }
   },
   {
     "id": "clavis:keystone:dashboard",
@@ -1311,7 +1693,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"dashboard\"",
     "parameters": false,
     "target": "keystone",
-    "method": "dashboard"
+    "method": "dashboard",
+    "search": {
+      "policy": "include",
+      "title": "Keystone dashboard",
+      "description": "Toggle the Keystone dashboard",
+      "context": "SpotlightActions",
+      "icon": "dashboard",
+      "args": [],
+      "aliases": [
+        "island"
+      ],
+      "availability": "keystone",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:keystone:hub",
@@ -1320,7 +1715,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"hub\"",
     "parameters": false,
     "target": "keystone",
-    "method": "hub"
+    "method": "hub",
+    "search": {
+      "policy": "include",
+      "title": "Keystone hub",
+      "description": "Toggle the Keystone hub",
+      "context": "SpotlightActions",
+      "icon": "hub",
+      "args": [],
+      "aliases": [
+        "island"
+      ],
+      "availability": "keystone",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:keystone:lyrics",
@@ -1329,7 +1737,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"lyrics\"",
     "parameters": false,
     "target": "keystone",
-    "method": "lyrics"
+    "method": "lyrics",
+    "search": {
+      "policy": "include",
+      "title": "Lyrics",
+      "description": "Toggle Keystone lyrics",
+      "context": "SpotlightActions",
+      "icon": "lyrics",
+      "args": [],
+      "aliases": [
+        "music"
+      ],
+      "availability": "keystone",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:keystone:tools",
@@ -1338,7 +1759,21 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"tools\"",
     "parameters": false,
     "target": "keystone",
-    "method": "tools"
+    "method": "tools",
+    "search": {
+      "policy": "include",
+      "title": "Keystone tools",
+      "description": "Toggle the Keystone tools panel",
+      "context": "SpotlightActions",
+      "icon": "handyman",
+      "args": [],
+      "aliases": [
+        "record",
+        "timer"
+      ],
+      "availability": "keystone",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:sidebar:open",
@@ -1347,7 +1782,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:sidebar:open:dashboard",
@@ -1356,7 +1794,22 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "include",
+      "title": "Notifications",
+      "description": "Open the notifications sidebar",
+      "context": "SpotlightActions",
+      "icon": "notifications",
+      "args": [
+        "dashboard"
+      ],
+      "aliases": [
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:sidebar:open:quicksettings",
@@ -1365,7 +1818,72 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "include",
+      "title": "Quick settings",
+      "description": "Open the Quick settings sidebar",
+      "context": "SpotlightActions",
+      "icon": "tune",
+      "args": [
+        "quicksettings"
+      ],
+      "aliases": [
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
+  },
+  {
+    "id": "clavis:sidebar:toggle:weather",
+    "category": "clavis",
+    "name": "Weather sidebar: toggle",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"weather\"",
+    "parameters": false,
+    "target": "sidebar",
+    "method": "toggle",
+    "search": {
+      "policy": "include",
+      "title": "Weather sidebar",
+      "description": "Toggle the weather sidebar",
+      "context": "SpotlightActions",
+      "icon": "partly_cloudy_day",
+      "args": [
+        "weather"
+      ],
+      "aliases": [
+        "weather",
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
+  },
+  {
+    "id": "clavis:sidebar:toggle:drawer",
+    "category": "clavis",
+    "name": "Sidebar drawer: toggle",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"drawer\"",
+    "parameters": false,
+    "target": "sidebar",
+    "method": "toggle",
+    "search": {
+      "policy": "include",
+      "title": "Sidebar drawer",
+      "description": "Toggle the sidebar drawer",
+      "context": "SpotlightActions",
+      "icon": "widgets",
+      "args": [
+        "drawer"
+      ],
+      "aliases": [
+        "drawer",
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:sidebar:close",
@@ -1374,7 +1892,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:sidebar:close:dashboard",
@@ -1383,7 +1904,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:sidebar:close:quicksettings",
@@ -1392,7 +1916,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:sidebar:toggle",
@@ -1401,7 +1928,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "parameters"
+    }
   },
   {
     "id": "clavis:sidebar:toggle:dashboard",
@@ -1410,7 +1940,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:sidebar:toggle:quicksettings",
@@ -1419,7 +1952,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:shortcut-map:open",
@@ -1428,7 +1964,20 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"open\"",
     "parameters": false,
     "target": "shortcut-map",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "include",
+      "title": "Shortcut map",
+      "description": "Show keyboard shortcuts",
+      "context": "SpotlightActions",
+      "icon": "keyboard",
+      "args": [],
+      "aliases": [
+        "keys"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
   },
   {
     "id": "clavis:shortcut-map:close",
@@ -1437,7 +1986,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"close\"",
     "parameters": false,
     "target": "shortcut-map",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:shortcut-map:toggle",
@@ -1446,7 +1998,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"toggle\"",
     "parameters": false,
     "target": "shortcut-map",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:power-menu:open",
@@ -1455,7 +2010,23 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"open\"",
     "parameters": false,
     "target": "power-menu",
-    "method": "open"
+    "method": "open",
+    "search": {
+      "policy": "include",
+      "title": "Power menu",
+      "description": "Choose a session or power action",
+      "context": "SpotlightActions",
+      "icon": "power_settings_new",
+      "args": [],
+      "aliases": [
+        "shutdown",
+        "restart",
+        "logout",
+        "suspend"
+      ],
+      "availability": "always",
+      "confirmation": "power-menu"
+    }
   },
   {
     "id": "clavis:power-menu:close",
@@ -1464,7 +2035,10 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"close\"",
     "parameters": false,
     "target": "power-menu",
-    "method": "close"
+    "method": "close",
+    "search": {
+      "policy": "alias"
+    }
   },
   {
     "id": "clavis:power-menu:toggle",
@@ -1473,6 +2047,9 @@
     "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"toggle\"",
     "parameters": false,
     "target": "power-menu",
-    "method": "toggle"
+    "method": "toggle",
+    "search": {
+      "policy": "alias"
+    }
   }
 ]

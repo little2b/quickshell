@@ -9,6 +9,8 @@ import qs.Modules.Keystone.Styles.Pill
 Item {
     id: root
 
+    readonly property bool searchActionsAvailable: styleLoader.item !== null
+
     function invoke(methodName): string {
         if (!styleLoader.item || typeof styleLoader.item[methodName] !== "function")
             return "KEYSTONE_UNAVAILABLE";

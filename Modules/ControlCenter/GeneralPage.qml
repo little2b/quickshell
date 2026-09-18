@@ -1,17 +1,41 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import qs.Widgets.common
 import qs.Common
 import qs.Services
 
 Item {
     id: root
 
+    property int searchRequestSerial: -1
+    readonly property var searchLeaf: pageLoader.item ? (pageLoader.item.searchLeaf || pageLoader.item) : root
+    function openSearchPath(path, serial) {
+        const section = path.length ? path[0] : "overview";
+        if (searchRequestSerial !== serial) {
+            searchRequestSerial = serial;
+            root.currentSection = section;
+        }
+        if (root.currentSection !== section)
+            return "cancelled";
+        if (!(pageLoader.ready) || !pageLoader.item)
+            return "loading";
+        return typeof pageLoader.item.openSearchPath === "function" ? pageLoader.item.openSearchPath(
+                                                                          path.slice(1), serial) : "ready";
+    }
+
     property var parentModal: null
     property string currentSection: "overview"
     property bool presentationActive: false
     property string selectedBluetoothAddress: ""
     property string selectedBluetoothAdapterId: ""
+
+    onCurrentSectionChanged: {
+        if (ControlCenterService.searchTarget && !ControlCenterService.applyingSearch && searchRequestSerial
+                === ControlCenterService.searchSerial)
+            ControlCenterService.cancelSearch();
+        ControlCenterService.retrySearch();
+    }
 
     signal navigateRequested(string pageId)
 
@@ -66,85 +90,21 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             title: {
-                switch (section) {
-                case "displays":
-                    return qsTr("Displays");
-                case "bar":
-                    return qsTr("Bar");
-                case "dock":
-                    return qsTr("Bottom Dock");
-                case "sidebar":
-                    return qsTr("Sidebars");
-                case "spotlight":
-                    return "Spotlight";
-                case "effects":
-                    return qsTr("Transparency and blur");
-                case "shortcuts":
-                    return qsTr("Keyboard shortcuts");
-                case "power-management":
-                    return qsTr("Power management");
-                case "mouse":
-                    return qsTr("Mouse and cursor");
-                case "language-region":
-                    return qsTr("Language & region");
-                case "autostart":
-                    return qsTr("Autostart");
-                case "default-apps":
-                    return qsTr("Default applications");
-                case "network":
-                    return qsTr("Network");
-                case "connected-devices":
-                    return qsTr("Connected devices");
-                case "bluetooth-pairing":
-                    return qsTr("Pair new device");
-                case "bluetooth-device":
-                {
+                const route = SpotlightCatalog.route("general." + section);
+                if (route)
+                    return SpotlightCatalog.title(route.id);
+                if (section === "bluetooth-device") {
                     const device = root.selectedBluetoothDevice();
                     return device ? device.name : qsTr("Bluetooth device");
                 }
-                default:
-                    return qsTr("General");
-                }
+                return SpotlightCatalog.title("general");
             }
             iconName: {
-                switch (section) {
-                case "displays":
-                    return "monitor";
-                case "bar":
-                    return "dock_to_bottom";
-                case "dock":
-                    return "dock_to_bottom";
-                case "sidebar":
-                    return "side_navigation";
-                case "spotlight":
-                    return "search";
-                case "effects":
-                    return "blur_on";
-                case "shortcuts":
-                    return "keyboard";
-                case "power-management":
-                    return "battery_charging_full";
-                case "mouse":
-                    return "mouse";
-                case "language-region":
-                    return "language";
-                case "autostart":
-                    return "rocket_launch";
-                case "default-apps":
-                    return "apps";
-                case "network":
-                    return "wifi";
-                case "connected-devices":
-                case "bluetooth-pairing":
-                    return "devices_other";
-                case "bluetooth-device":
-                {
-                    const device = root.selectedBluetoothDevice();
-                    return BluetoothDeviceIcon.iconName(device);
-                }
-                default:
-                    return "settings";
-                }
+                const route = SpotlightCatalog.route("general." + section);
+                if (route)
+                    return route.icon;
+                return section === "bluetooth-device" ? BluetoothDeviceIcon.iconName(
+                                                            root.selectedBluetoothDevice()) : "settings";
             }
             onBackRequested: root.goBack()
         }
@@ -161,44 +121,14 @@ Item {
         presentationActive: root.presentationActive
         headerComponent: root.currentSection === "overview" ? null : subpageHeader
         source: {
-            switch (root.currentSection) {
-            case "displays":
-                return Qt.resolvedUrl("DisplaysPage.qml");
-            case "bar":
-                return Qt.resolvedUrl("GeneralBarPage.qml");
-            case "dock":
-                return Qt.resolvedUrl("DockPage.qml");
-            case "sidebar":
-                return Qt.resolvedUrl("GeneralSidebarPage.qml");
-            case "spotlight":
-                return Qt.resolvedUrl("SpotlightPage.qml");
-            case "effects":
-                return Qt.resolvedUrl("GeneralEffectsPage.qml");
-            case "shortcuts":
-                return Qt.resolvedUrl("ShortcutsPage.qml");
-            case "power-management":
-                return Qt.resolvedUrl("PowerManagementPage.qml");
-            case "mouse":
-                return Qt.resolvedUrl("MousePage.qml");
-            case "language-region":
-                return Qt.resolvedUrl("LanguageAndRegionPage.qml");
-            case "autostart":
-                return Qt.resolvedUrl("AutostartPage.qml");
-            case "default-apps":
-                return Qt.resolvedUrl("DefaultAppsPage.qml");
-            case "network":
-                return Qt.resolvedUrl("NetworkPage.qml");
-            case "connected-devices":
-                return Qt.resolvedUrl("ConnectedDevicesPage.qml");
-            case "bluetooth-pairing":
-                return Qt.resolvedUrl("BluetoothPairingPage.qml");
-            case "bluetooth-device":
-                return Qt.resolvedUrl("BluetoothDevicePage.qml");
-            default:
-                return Qt.resolvedUrl("GeneralOverviewPage.qml");
-            }
+            const route = SpotlightCatalog.route("general." + root.currentSection);
+            if (route)
+                return Qt.resolvedUrl(route.source);
+            return Qt.resolvedUrl(root.currentSection === "bluetooth-device" ? "BluetoothDevicePage.qml" :
+                                                                               "GeneralOverviewPage.qml");
         }
         onLoaded: {
+            ControlCenterService.retrySearch();
             if (!item)
                 return;
 

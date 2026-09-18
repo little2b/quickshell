@@ -28,18 +28,22 @@ PanelWindow {
     }
 
     function sidebarOpen(target) {
-        const role = SidebarPolicy.normalizeTarget(target);
-        if (role === "dashboard")
-            return WidgetState.dashboardSidebarOpen;
-        if (role === "quicksettings")
-            return WidgetState.quickSettingsOpen;
-        return null;
+        return SidebarPolicy.targetOpen(target, WidgetState.dashboardSidebarOpen,
+                                        WidgetState.quickSettingsOpen, WidgetState.dashboardSidebarView);
+    }
+
+    function toggleSidebar(target) {
+        const current = root.sidebarOpen(target);
+        return current === null ? "INVALID_SIDE" : root.setSidebarOpen(target, !current);
     }
 
     function setSidebarOpen(target, open) {
         const role = SidebarPolicy.normalizeTarget(target);
         if (role === "")
             return "INVALID_SIDE";
+        const requestedView = String(target || "").trim().toLowerCase();
+        if (open && (requestedView === "weather" || requestedView === "drawer"))
+            WidgetState.dashboardSidebarView = requestedView;
         if (role === "dashboard")
             WidgetState.dashboardSidebarOpen = open;
         else
@@ -100,10 +104,7 @@ PanelWindow {
         }
 
         function toggle(target: string): string {
-            const current = root.sidebarOpen(target);
-            if (current === null)
-                return "INVALID_SIDE";
-            return root.setSidebarOpen(target, !current);
+            return root.toggleSidebar(target);
         }
     }
 

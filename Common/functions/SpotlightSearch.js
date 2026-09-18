@@ -112,7 +112,8 @@ function normalizedEngine(value) {
     return engineFor(String(value || "")).id;
 }
 
-function searchUrl(engineId, query) {
-    var value = String(query || "").trim();
-    return value ? engineFor(engineId).url + encodeURIComponent(value) : "";
+function searchUrl(engineId, query, preserveWhitespace) {
+    var value = String(query || "");
+    if (!preserveWhitespace) value = value.trim();
+    return value.trim() ? engineFor(engineId).url + encodeURIComponent(value) : "";
 }

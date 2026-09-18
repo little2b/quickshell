@@ -118,9 +118,16 @@ StyledFlickable {
         spacing: Metrics.spacingXL
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Sidebars")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.sidebar.section.sidebars","route":"general.sidebar","title":"Sidebars","context":"GeneralSidebarPage","icon":"side_navigation","aliases":[]}'
+            }
             iconName: "side_navigation"
 
             SettingsRow {
@@ -178,9 +185,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Desktop card layout")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.sidebar.section.desktop-card-layout","route":"general.sidebar","title":"Desktop card layout","context":"GeneralSidebarPage","icon":"side_navigation","aliases":[]}'
+            }
             iconName: "dashboard_customize"
 
             StyledButtonGroup {
@@ -262,9 +276,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Clock style")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.sidebar.section.clock-style","route":"general.sidebar","title":"Clock style","context":"GeneralSidebarPage","icon":"side_navigation","aliases":[]}'
+            }
             iconName: "schedule"
 
             StyledButtonGroup {
@@ -578,9 +599,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection3
             Layout.fillWidth: true
             flat: true
-            title: qsTr("System cards")
+            title: searchAnchor3.title
+            SettingsSearchAnchor {
+                id: searchAnchor3
+                target: searchSection3
+                declaration:
+                    '{"id":"general.sidebar.section.system-cards","route":"general.sidebar","title":"System cards","context":"GeneralSidebarPage","icon":"side_navigation","aliases":[]}'
+            }
             iconName: "widgets"
 
             GridLayout {

@@ -17,6 +17,8 @@ class ShortcutRecorder : public QObject {
   public:
     explicit ShortcutRecorder(QObject *parent = nullptr);
     ~ShortcutRecorder() override;
+    // Snapshot only: no device subscription or event interception is enabled.
+    Q_INVOKABLE int currentModifiers() const;
     Q_INVOKABLE void captureMouse(int button, int modifiers);
   signals:
     void captured(const QString &key);

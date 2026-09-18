@@ -41,6 +41,47 @@ class ConfigurationContracts(unittest.TestCase):
         self.run_config('setup')
         return self.run_config()
 
+    def test_files_catalog_action_starts_unbound_and_round_trips(self):
+        with mock.patch.object(config.subprocess, 'run', return_value=mock.Mock(returncode=0, stderr='')):
+            catalog = self.run_config('catalog')['catalog']
+        action = next(item for item in catalog if item['id'] == 'clavis:spotlight:files')
+        self.assertTrue(action['supported'])
+        self.assertFalse(action['parameters'])
+        state = self.run_config('setup')
+        self.assertFalse(any(row['action'].rstrip(';') == action['expression'] for row in state['bindings']))
+        self.run_config('save', key='Mod+F12', action=action['expression'])
+        saved = next(row for row in self.run_config()['bindings'] if row['key'] == 'Mod+F12')
+        self.assertEqual(saved['action'].rstrip(';'), action['expression'])
+        self.assertTrue(saved['editable'])
+        self.run_config('delete', id=saved['id'])
+        self.assertFalse(any(row['key'] == 'Mod+F12' for row in self.run_config()['bindings']))
+
+    def test_palette_shortcuts_remain_available_without_default_bindings(self):
+        with mock.patch.object(config.subprocess, 'run', return_value=mock.Mock(returncode=0, stderr='')):
+            catalog = self.run_config('catalog')['catalog']
+        ids = ['clavis:spotlight:commands'] + [
+            'clavis:spotlight:command:' + name for name in
+            ['calc', 'fx', 'time', 'light', 'dark', 'find-settings', 'actions', 'map']] + [
+            'clavis:sidebar:toggle:weather', 'clavis:sidebar:toggle:drawer']
+        actions = {entry['id']: entry for entry in catalog}
+        state = self.run_config('setup')
+        for action_id in ids:
+            with self.subTest(action=action_id):
+                action = actions[action_id]
+                self.assertTrue(action['supported'])
+                self.assertFalse(action['parameters'])
+                argv = config.parse(action['expression']).nodes[0].args
+                self.assertEqual(argv[:6], ['qs', '-c', 'clavis', 'ipc', 'call', action['target']])
+                self.assertNotIn('<', action['expression'])
+                self.assertFalse(any(row['action'].rstrip(';') == action['expression'] for row in state['bindings']))
+                self.run_config('save', key='Mod+F12', action=action['expression'])
+                saved = next(row for row in self.run_config()['bindings'] if row['key'] == 'Mod+F12')
+                self.assertEqual(saved['action'].rstrip(';'), action['expression'])
+                self.run_config('delete', id=saved['id'])
+        with mock.patch.object(config.subprocess, 'run', return_value=mock.Mock(returncode=0, stderr='')):
+            remaining = {entry['id'] for entry in self.run_config('catalog')['catalog']}
+        self.assertTrue(set(ids).issubset(remaining))
+
     def test_mouse_bindings_remain_visible_after_save_and_reload(self):
         self.setup_binds()
         keys = ['MouseLeft', 'MouseMiddle', 'MouseRight', 'MouseBack', 'Ctrl+MouseForward']

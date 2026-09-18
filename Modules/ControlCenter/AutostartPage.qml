@@ -131,10 +131,17 @@ StyledFlickable {
             visible: AutostartService.ready
 
             SettingsSection {
+                id: searchSection0
                 Layout.fillWidth: true
                 flat: true
                 iconName: "rocket_launch"
-                title: qsTr("Add application to autostart")
+                title: searchAnchor0.title
+                SettingsSearchAnchor {
+                    id: searchAnchor0
+                    target: searchSection0
+                    declaration:
+                        '{"id":"general.autostart.section.add-application-to-autostart","route":"general.autostart","title":"Add application to autostart","context":"AutostartPage","icon":"rocket_launch","aliases":[]}'
+                }
 
                 SettingsRow {
                     Layout.fillWidth: true
@@ -151,10 +158,17 @@ StyledFlickable {
             }
 
             SettingsSection {
+                id: searchSection1
                 Layout.fillWidth: true
                 flat: true
                 iconName: "list_alt"
-                title: qsTr("User autostart applications")
+                title: searchAnchor1.title
+                SettingsSearchAnchor {
+                    id: searchAnchor1
+                    target: searchSection1
+                    declaration:
+                        '{"id":"general.autostart.section.user-autostart-applications","route":"general.autostart","title":"User autostart applications","context":"AutostartPage","icon":"rocket_launch","aliases":[]}'
+                }
 
                 RowLayout {
                     Layout.fillWidth: true

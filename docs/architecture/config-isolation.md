@@ -122,3 +122,23 @@ rename 替换；Clavis 写入者通过 flock 串行化，提交前检查配置�
 成功，3 表示核心成功但外部失败，其他非零表示核心或调用失败。外部失败仍继续后续
 模板，设置中心显示错误并通过 tooltip 提供详细信息。挂起的 hook 会延迟后续外部
 模板，但不会延迟已经完成的核心配色重载；这里不提供命令沙箱或 hook 超时策略。
+
+## Spotlight 应用排序与使用记录
+
+设置中心 Spotlight → Applications → Application order 提供 Smart、Most used、
+Recently used、Name；`ui-preferences.json` 的 `spotlightAppOrder` 分别保存
+`smart`、`most-used`、`recently-used`、`name`，缺失或非法值默认 Name。
+列表和网格共用排序；搜索时关键词相关度始终优先，使用排序只比较相同相关度，
+最后按名称、desktop ID 确定稳定顺序。
+
+使用记录单独保存在 `Paths.stateHome/spotlight-app-usage.json`（默认
+`$XDG_STATE_HOME/clavis`，未设置时为 `~/.local/state/clavis`），按 desktop ID
+记录 `launchCount` 和 Unix 毫秒 `lastLaunchedAt`。只记录 Spotlight 经现有启动
+链路发出的有效请求，不统计终端或其他入口，也不声称确认应用窗口已成功出现。
+历史文件缺失时从空记录开始，首次启动应用后原子保存；读取期间的启动先累积再
+合并。无法读取、格式损坏或未知 schema 的文件保留原样，本次会话继续内存计数。
+
+Most used 比较累计次数；Recently used 比较最后启动时间；Smart 使用
+`log2(launchCount + 1)` 加最近使用分数：距上次启动不足 1 小时、1 天、7 天、
+30 天分别加 8、6、4、2 分，更早或未知时间不加分。每次打开 Apps 或重新搜索时
+按当前时间计算，不增加定时轮询；启动后不重排正在关闭的网格。

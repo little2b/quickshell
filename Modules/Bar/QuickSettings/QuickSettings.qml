@@ -4,11 +4,22 @@ import qs.Common
 import qs.Services as Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property var screen: null
     property bool vertical: false
+
+    // The network button already animates its width. Follow those frames
+    // directly instead of applying a second, lagging size animation.
+    animateResize: {
+        for (let index = 0; index < componentRepeater.count; ++index) {
+            const loader = componentRepeater.itemAt(index);
+            if (loader && loader.modelData === "network" && loader.item && loader.item.resizing)
+                return false;
+        }
+        return true;
+    }
 
     function componentFor(componentId) {
         switch (componentId) {
@@ -34,12 +45,8 @@ Item {
     }
 
     implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 2 * Sizes.barPillHorizontalPadding
-
-    TopBarPillBackground {
-        anchors.fill: parent
-        fillColor: Services.BlurService.backgroundColor(Appearance.colors.colLayer0)
-    }
+    implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 2
+                              * Sizes.barPillHorizontalPadding
 
     GridLayout {
         id: layout
@@ -50,6 +57,7 @@ Item {
         columns: root.vertical ? 1 : 8
 
         Repeater {
+            id: componentRepeater
             model: Services.PersonalizationConfig.quickSettingsComponents
 
             Loader {
@@ -59,9 +67,7 @@ Item {
 
                 sourceComponent: root.componentFor(componentLoader.modelData)
             }
-
         }
-
     }
 
     Component {
@@ -71,7 +77,6 @@ Item {
             screen: root.screen
             vertical: root.vertical
         }
-
     }
 
     Component {
@@ -80,7 +85,6 @@ Item {
         BluetoothButton {
             screen: root.screen
         }
-
     }
 
     Component {
@@ -89,7 +93,6 @@ Item {
         Brightness {
             screen: root.screen
         }
-
     }
 
     Component {
@@ -98,7 +101,6 @@ Item {
         Volume {
             screen: root.screen
         }
-
     }
 
     Component {
@@ -107,7 +109,6 @@ Item {
         Microphone {
             screen: root.screen
         }
-
     }
 
     Component {
@@ -116,7 +117,6 @@ Item {
         Battery {
             vertical: root.vertical
         }
-
     }
 
     Component {
@@ -125,7 +125,6 @@ Item {
         SettingsButton {
             screen: root.screen
         }
-
     }
 
     Component {
@@ -134,7 +133,5 @@ Item {
         PowerButton {
             screen: root.screen
         }
-
     }
-
 }

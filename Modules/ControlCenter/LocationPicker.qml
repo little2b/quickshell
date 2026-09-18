@@ -55,6 +55,7 @@ ColumnLayout {
         root.cameraLatitude = latitudeValue;
         root.cameraLongitude = longitudeValue;
         embeddedMap.recenter(latitudeValue, longitudeValue, root.mapZoom);
+        expandedWindow.recenter(latitudeValue, longitudeValue, root.mapZoom);
     }
 
     function returnToSavedLocation() {
@@ -83,6 +84,12 @@ ColumnLayout {
 
     function useAutomaticLocation() {
         WeatherPlugin.clearManualLocation();
+    }
+
+    function openWindow() {
+        if (!expanded)
+            returnToSavedLocation();
+        expandedWindow.showWindow();
     }
 
     function closeChildWindows() {
@@ -230,6 +237,7 @@ ColumnLayout {
             root.cameraLongitude = root.candidateLongitude;
             root.setCandidate(root.candidateLatitude, root.candidateLongitude);
             embeddedMap.recenter(root.candidateLatitude, root.candidateLongitude, root.mapZoom);
+            expandedWindow.recenter(root.candidateLatitude, root.candidateLongitude, root.mapZoom);
         }
 
         target: WeatherPlugin
@@ -239,6 +247,8 @@ ColumnLayout {
         id: expandedWindow
 
         parentModal: root.parentModal
+        locationLoading: WeatherPlugin.loading
+        onAutomaticLocationRequested: root.useAutomaticLocation()
         centerLatitude: root.cameraLatitude
         centerLongitude: root.cameraLongitude
         markerLatitude: root.candidateLatitude

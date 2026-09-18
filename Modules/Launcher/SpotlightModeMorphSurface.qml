@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Effects
 import qs.Common
@@ -16,240 +18,107 @@ Item {
     required property real blurEdgeInset
 
     property color surfaceColor: Appearance.colors.colSurfaceContainerHigh
-    property real edgeSoftness: 0.9
-    property real staggerFraction: 0.0875
     property color shadowColor: Appearance.colors.colShadow
     property real shadowBlur: 0.72
     property real shadowVerticalOffset: 7
-    readonly property var blurRegionItems: [
-        mainBlurRegion,
-        button0BlurRegion,
-        button1BlurRegion,
-        button2BlurRegion,
-        bridge0BlurRegion,
-        bridge1BlurRegion,
-        bridge2BlurRegion
-    ]
+    readonly property var blurRegionItems: [mainBlurRegion, button0BlurRegion, button1BlurRegion,
+        button2BlurRegion, button3BlurRegion, neck0BlurRegion, neck1BlurRegion, neck2BlurRegion,
+        neck3BlurRegion]
 
-    // The reference motion is intentionally staged. The pill first makes
-    // room, then the satellites are squeezed from its new trailing edge.
-    // Keeping these phases separate makes the liquid chain readable instead
-    // of reducing the whole transition to three circles translating at once.
-    readonly property real mainGeometryProgress:
-        mainProgressForRail(railProgress)
-    readonly property real mainWidth: interpolate(
-        collapsedMainWidth,
-        expandedMainWidth,
-        mainGeometryProgress
-    )
+    // The pill leads the motion; the trailing buttons follow with progressively
+    // slower responses. Continuous damping avoids stops between authored poses.
+    readonly property real mainWidth: interpolate(collapsedMainWidth, expandedMainWidth, response(0, 6.2, 7.5,
+                                                                                                  0.4))
     readonly property real mainCenterX: mainLeft + mainWidth / 2
     readonly property real mainRight: mainLeft + mainWidth
-    readonly property real collapsedMainRight:
-        mainLeft + collapsedMainWidth
-    readonly property real expandedMainRight:
-        mainLeft + expandedMainWidth
-    readonly property real buttonSpawnProgress: 0.18
-    readonly property real buttonSpawnCenterX:
-        mainLeft + interpolate(
-            collapsedMainWidth,
-            expandedMainWidth,
-            mainProgressForRail(buttonSpawnProgress)
-        ) - buttonDiameter / 2 + 4
+    readonly property real expandedMainRight: mainLeft + expandedMainWidth
+    readonly property vector4d mainShape: Qt.vector4d(mainCenterX, shapeCenterY, mainWidth, shapeHeight)
+    readonly property var buttonShapes: [buttonShape(0), buttonShape(1), buttonShape(2), buttonShape(3)]
+    readonly property var travelDelays: [0.06, 0.036, 0.032]
+    readonly property var travelDecays: [7.2, 5.4, 5.4]
+    readonly property var travelFrequencies: [8.9, 6.2, 5.35]
+    readonly property var growthRates: [3.8, 3.1, 2.7]
 
-    function clamp(value) {
-        return Math.max(0, Math.min(1, value));
+    function smoothstep(value) {
+        const progress = Math.max(0, Math.min(1, value));
+        return progress * progress * (3 - 2 * progress);
     }
 
-    function smooth(value) {
-        const progress = clamp(value);
-        return progress * progress * (3 - 2 * progress);
+    function stage(start, end) {
+        return smoothstep((root.railProgress - start) / (end - start));
     }
 
     function interpolate(from, to, progress) {
         return from + (to - from) * progress;
     }
 
-    function mainProgressForRail(progress) {
-        const bounded = clamp(progress);
-        if (bounded <= 0.22)
-            return 0.70 * smooth(bounded / 0.22);
-        if (bounded <= 0.70)
-            return 0.70 + 0.345
-                * smooth((bounded - 0.22) / 0.48);
-        return 1.045 - 0.045
-            * smooth((bounded - 0.70) / 0.30);
+    // Normalize the damped response at the endpoint so interruption/reversal
+    // remains a pure function of railProgress and the final layout is exact.
+    function response(delay, decay, frequency, phase) {
+        const time = Math.max(0, Math.min(1, root.railProgress) - delay);
+        const end = 1 - delay;
+        const value = 1 - Math.exp(-decay * time) * (Math.cos(frequency * time) + phase * Math.sin(frequency
+                                                                                                   * time));
+        const terminal = 1 - Math.exp(-decay * end) * (Math.cos(frequency * end) + phase * Math.sin(frequency
+                                                                                                    * end));
+        return value / terminal;
     }
 
-    function rawButtonProgress(index) {
-        const start = index * root.staggerFraction;
-        return clamp((root.railProgress - start) / (1 - start));
-    }
-
-    function buttonProgress(index) {
-        // railProgress already follows the rail's bounded Bézier curve.
-        // Keeping the provider progress raw avoids compressing most visible
-        // geometry into the middle of the animation a second time.
-        return rawButtonProgress(index);
-    }
-
-    function stageProgress(progress, start, end) {
-        return smooth((progress - start) / (end - start));
-    }
-
-    function iconProgress(index) {
-        return stageProgress(buttonProgress(index), 0.68, 0.94);
+    function buttonGrowth(index) {
+        if (index === 0)
+            return response(0.055, 10.5, 10.5, 1);
+        const rate = root.growthRates[index - 1];
+        return response(0, rate, rate, 0);
     }
 
     function buttonCenterX(index) {
-        const progress = root.railProgress;
-        const stagger = index * root.staggerFraction;
-        const start = root.buttonSpawnProgress + stagger;
-        const overshootAt = Math.min(0.80, 0.70 + stagger);
-        const finalCenter =
-            root.expandedMainRight
-            + root.buttonGap + root.buttonDiameter / 2
-            + index * (root.buttonDiameter + root.buttonGap);
-        const overshootCenter = interpolate(
-            root.buttonSpawnCenterX,
-            finalCenter,
-            1.045
-        );
-        if (progress <= overshootAt)
-            return interpolate(
-                root.buttonSpawnCenterX,
-                overshootCenter,
-                stageProgress(progress, start, overshootAt)
-            );
-        return interpolate(
-            overshootCenter,
-            finalCenter,
-            stageProgress(progress, overshootAt, 1)
-        );
+        const diameter = root.buttonDiameter;
+        const emergence = diameter * 0.3 * (buttonGrowth(0) - 1);
+        const firstCenter = root.expandedMainRight + root.buttonGap + diameter / 2 + emergence;
+        if (index === 0)
+            return firstCenter;
+        const decay = root.travelDecays[index - 1];
+        const frequency = root.travelFrequencies[index - 1];
+        const travel = response(root.travelDelays[index - 1], decay, frequency, decay / frequency);
+        return firstCenter + index * (diameter + root.buttonGap) * travel;
     }
 
-    function buttonRadius(index) {
-        const stagger = index * root.staggerFraction;
-        return interpolate(
-            3,
-            root.buttonDiameter / 2,
-            stageProgress(
-                root.railProgress,
-                0.16 + stagger,
-                0.46 + stagger
-            )
-        );
-    }
-
-    function bridgeProximity(index) {
-        const radius = buttonRadius(index);
-        const leftEdge = buttonCenterX(index) - radius;
-        const previousRightEdge = index === 0
-            ? root.mainRight
-            : buttonCenterX(index - 1)
-                + buttonRadius(index - 1);
-        const gap = Math.max(0, leftEdge - previousRightEdge);
-        return 1 - stageProgress(
-            gap,
-            root.buttonDiameter * 0.04,
-            root.buttonDiameter * 0.28
-        );
-    }
-
-    function bridgeStartX(index) {
-        if (index === 0) {
-            return root.mainCenterX + root.mainWidth / 2
-                - root.shapeHeight / 2 * 0.42;
-        }
-        return root.buttonCenterX(index - 1);
-    }
-
-    function bridgeLeft(index) {
-        const radius = root.buttonBridgeRadius(index);
-        return Math.min(
-            root.bridgeStartX(index),
-            root.buttonCenterX(index)
-        ) - radius;
-    }
-
-    function bridgeWidth(index) {
-        const radius = root.buttonBridgeRadius(index);
-        return Math.abs(
-            root.buttonCenterX(index)
-                - root.bridgeStartX(index)
-        ) + radius * 2;
+    function buttonShape(index) {
+        const diameter = root.buttonDiameter * buttonGrowth(index);
+        return Qt.vector4d(buttonCenterX(index), root.shapeCenterY, diameter, diameter);
     }
 
     function buttonBlend(index) {
-        const progress = root.railProgress;
-        const stagger = index * root.staggerFraction;
-        const growStart = 0.16 + stagger;
-        const peakAt = 0.34 + stagger;
-        const holdUntil = 0.44 + stagger;
-        const detachAt = [0.60, 0.69, 0.77][index];
-        const peakBlend = root.buttonDiameter
-            * (index === 0 ? 0.20 : 0.27);
-        const neckBlend = root.buttonDiameter
-            * (index === 0 ? 0.07 : 0.11);
-
-        if (progress <= growStart || progress >= detachAt)
-            return 0;
-        if (progress <= peakAt)
-            return interpolate(
-                0,
-                peakBlend,
-                stageProgress(progress, growStart, peakAt)
-            );
-        if (progress <= holdUntil)
-            return interpolate(
-                peakBlend,
-                neckBlend,
-                stageProgress(progress, peakAt, holdUntil)
-            );
-        return interpolate(
-            neckBlend,
-            0,
-            stageProgress(progress, holdUntil, detachAt)
-        );
+        const shape = root.buttonShapes[index];
+        // Suppress blending while one lobe is still buried in another; this
+        // keeps the pill from inflating as the chain emerges. The same short
+        // fade follows each lobe, so receding buttons cannot reconnect later.
+        const previous = index === 0 ? root.mainShape : root.buttonShapes[index - 1];
+        const previousCenter = index === 0 ? root.mainRight - root.shapeHeight / 2 : previous.x;
+        const radii = (Math.min(previous.z, previous.w) + Math.min(shape.z, shape.w)) / 2;
+        const separation = radii > 0 ? Math.abs(shape.x - previousCenter) / radii : 0;
+        const exposed = smoothstep((separation - 0.5) / 0.5);
+        const release = stage(0.27 + index * 0.063, 0.47 + index * 0.063);
+        return Math.min(shape.z, shape.w, root.buttonDiameter) * 0.78 * exposed * (1 - release);
     }
 
-    // Capsules make the neck legible only while two surfaces are genuinely
-    // close. They taper out before the positional rebound, so overshoot breaks
-    // the connection cleanly instead of stretching a thread across the gap.
-    function buttonBridgeRadius(index) {
-        const progress = root.railProgress;
-        const stagger = index * root.staggerFraction;
-        const growStart = 0.18 + stagger;
-        const peakAt = 0.35 + stagger;
-        const holdUntil = 0.45 + stagger;
-        const detachAt = [0.60, 0.69, 0.77][index];
-        const peakRadius = root.buttonDiameter
-            * (index === 0 ? 0.13 : 0.19);
-        const neckRadius = root.buttonDiameter
-            * (index === 0 ? 0.045 : 0.075);
+    function iconProgress(index) {
+        return stage(0.36 + index * 0.025, 0.55 + index * 0.025);
+    }
 
-        if (progress <= growStart || progress >= detachAt)
-            return 0;
-        let scheduledRadius = 0;
-        if (progress <= peakAt) {
-            scheduledRadius = interpolate(
-                0,
-                peakRadius,
-                stageProgress(progress, growStart, peakAt)
-            );
-        } else if (progress <= holdUntil) {
-            scheduledRadius = interpolate(
-                peakRadius,
-                neckRadius,
-                stageProgress(progress, peakAt, holdUntil)
-            );
-        } else {
-            scheduledRadius = interpolate(
-                neckRadius,
-                0,
-                stageProgress(progress, holdUntil, detachAt)
-            );
-        }
-        return scheduledRadius * bridgeProximity(index);
+    // A conservative blur-only rectangle inside the natural SDF neck. The
+    // inscribed equal circles give a lower bound even for unequal capsules.
+    // This never draws a bridge or blurs across an already detached gap.
+    function neckBlurShape(index) {
+        const shape = root.buttonShapes[index];
+        const previous = index === 0 ? root.mainShape : root.buttonShapes[index - 1];
+        const previousX = index === 0 ? root.mainRight - root.shapeHeight / 2 : previous.x;
+        const radius = Math.min(shape.z, shape.w, previous.z, previous.w) / 2;
+        const distance = Math.abs(shape.x - previousX);
+        const reach = radius + buttonBlend(index) / 4;
+        const halfHeight = Math.max(0, Math.min(radius, Math.sqrt(Math.max(0, reach * reach - distance * distance
+                                                                           / 4))) - root.blurEdgeInset);
+        return Qt.vector4d((previousX + shape.x) / 2, root.shapeCenterY, distance, halfHeight * 2);
     }
 
     ShaderEffect {
@@ -259,40 +128,26 @@ Item {
         visible: false
 
         property vector2d resolution: Qt.vector2d(width, height)
-        property color fillColor: root.surfaceColor
-        property vector2d mainCenter:
-            Qt.vector2d(root.mainCenterX, root.shapeCenterY)
-        property vector2d mainSize:
-            Qt.vector2d(root.mainWidth, root.shapeHeight)
-        property real mainRadius: root.shapeHeight / 2
-        property vector2d button0Center:
-            Qt.vector2d(root.buttonCenterX(0), root.shapeCenterY)
-        property vector2d button1Center:
-            Qt.vector2d(root.buttonCenterX(1), root.shapeCenterY)
-        property vector2d button2Center:
-            Qt.vector2d(root.buttonCenterX(2), root.shapeCenterY)
-        property real button0Radius: root.buttonRadius(0)
-        property real button1Radius: root.buttonRadius(1)
-        property real button2Radius: root.buttonRadius(2)
-        property real button0Blend: root.buttonBlend(0)
-        property real button1Blend: root.buttonBlend(1)
-        property real button2Blend: root.buttonBlend(2)
-        property real button0BridgeRadius:
-            root.buttonBridgeRadius(0)
-        property real button1BridgeRadius:
-            root.buttonBridgeRadius(1)
-        property real button2BridgeRadius:
-            root.buttonBridgeRadius(2)
-        property real edgeSoftness: root.edgeSoftness
+        // Keep the intermediate texture opaque. MultiEffect's shadow mixing
+        // otherwise changes the alpha/color of an already translucent fill.
+        property color fillColor: Qt.rgba(root.surfaceColor.r, root.surfaceColor.g, root.surfaceColor.b, 1)
+        property vector4d mainShape: root.mainShape
+        property vector4d button0Shape: root.buttonShapes[0]
+        property vector4d button1Shape: root.buttonShapes[1]
+        property vector4d button2Shape: root.buttonShapes[2]
+        property vector4d button3Shape: root.buttonShapes[3]
+        property vector4d blends: Qt.vector4d(root.buttonBlend(0), root.buttonBlend(1), root.buttonBlend(2),
+                                              root.buttonBlend(3))
 
-        fragmentShader: Paths.fileUrl(
-            Paths.assetsDir
-                + "/shaders/launcher/qsb/spotlight_mode_morph.frag.qsb")
+        // A distinct resource URL for this uniform layout also invalidates
+        // Qt's process-wide cache of the previous circle/bridge shader.
+        fragmentShader: Paths.fileUrl(Paths.assetsDir + "/shaders/launcher/qsb/spotlight_mode_field.frag.qsb")
     }
 
     MultiEffect {
         anchors.fill: surfaceSource
         source: surfaceSource
+        opacity: root.surfaceColor.a
         autoPaddingEnabled: true
         shadowEnabled: true
         shadowColor: root.shadowColor
@@ -301,98 +156,67 @@ Item {
         shadowHorizontalOffset: 0
     }
 
-    Item {
+    component ShapeBlurRegion: Item {
+        required property vector4d shape
+        property real inset: root.blurEdgeInset
+        x: shape.x - width / 2
+        y: shape.y - height / 2
+        width: Math.max(0, shape.z - inset * 2)
+        height: Math.max(0, shape.w - inset * 2)
+        property real radius: Math.min(width, height) / 2
+        visible: width > 0 && height > 0
+    }
+
+    ShapeBlurRegion {
         id: mainBlurRegion
-
-        x: root.mainLeft + root.blurEdgeInset
-        y: root.shapeCenterY - root.shapeHeight / 2
-            + root.blurEdgeInset
-        width: Math.max(0,
-            root.mainWidth - root.blurEdgeInset * 2)
-        height: Math.max(0,
-            root.shapeHeight - root.blurEdgeInset * 2)
-        property real radius: Math.max(0,
-            root.shapeHeight / 2 - root.blurEdgeInset)
+        shape: root.mainShape
     }
 
-    Item {
+    ShapeBlurRegion {
         id: button0BlurRegion
-
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonRadius(0) - root.blurEdgeInset)
-        x: root.buttonCenterX(0) - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: shapeRadius * 2
-        height: width
-        property real radius: shapeRadius
+        shape: root.buttonShapes[0]
     }
 
-    Item {
+    ShapeBlurRegion {
         id: button1BlurRegion
-
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonRadius(1) - root.blurEdgeInset)
-        x: root.buttonCenterX(1) - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: shapeRadius * 2
-        height: width
-        property real radius: shapeRadius
+        shape: root.buttonShapes[1]
     }
 
-    Item {
+    ShapeBlurRegion {
         id: button2BlurRegion
-
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonRadius(2) - root.blurEdgeInset)
-        x: root.buttonCenterX(2) - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: shapeRadius * 2
-        height: width
-        property real radius: shapeRadius
+        shape: root.buttonShapes[2]
     }
 
-    Item {
-        id: bridge0BlurRegion
-
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonBridgeRadius(0) - root.blurEdgeInset)
-        x: Math.min(root.bridgeStartX(0), root.buttonCenterX(0))
-            - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: Math.abs(root.buttonCenterX(0)
-            - root.bridgeStartX(0)) + shapeRadius * 2
-        height: shapeRadius * 2
-        property real radius: shapeRadius
-        visible: shapeRadius > 0.001
+    ShapeBlurRegion {
+        id: button3BlurRegion
+        shape: root.buttonShapes[3]
     }
 
-    Item {
-        id: bridge1BlurRegion
-
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonBridgeRadius(1) - root.blurEdgeInset)
-        x: Math.min(root.bridgeStartX(1), root.buttonCenterX(1))
-            - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: Math.abs(root.buttonCenterX(1)
-            - root.bridgeStartX(1)) + shapeRadius * 2
-        height: shapeRadius * 2
-        property real radius: shapeRadius
-        visible: shapeRadius > 0.001
+    ShapeBlurRegion {
+        id: neck0BlurRegion
+        shape: root.neckBlurShape(0)
+        inset: 0
+        radius: 0
     }
 
-    Item {
-        id: bridge2BlurRegion
+    ShapeBlurRegion {
+        id: neck1BlurRegion
+        shape: root.neckBlurShape(1)
+        inset: 0
+        radius: 0
+    }
 
-        readonly property real shapeRadius: Math.max(0,
-            root.buttonBridgeRadius(2) - root.blurEdgeInset)
-        x: Math.min(root.bridgeStartX(2), root.buttonCenterX(2))
-            - shapeRadius
-        y: root.shapeCenterY - shapeRadius
-        width: Math.abs(root.buttonCenterX(2)
-            - root.bridgeStartX(2)) + shapeRadius * 2
-        height: shapeRadius * 2
-        property real radius: shapeRadius
-        visible: shapeRadius > 0.001
+    ShapeBlurRegion {
+        id: neck2BlurRegion
+        shape: root.neckBlurShape(2)
+        inset: 0
+        radius: 0
+    }
+
+    ShapeBlurRegion {
+        id: neck3BlurRegion
+        shape: root.neckBlurShape(3)
+        inset: 0
+        radius: 0
     }
 }

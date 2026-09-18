@@ -5,6 +5,23 @@ import "../../Common/SidebarPolicy.js" as SidebarPolicy
 TestCase {
     name: "SidebarPolicy"
 
+    function test_viewToggleState() {
+        verify(!SidebarPolicy.targetOpen("weather", false, false, "weather"));
+        verify(SidebarPolicy.targetOpen("weather", true, false, "weather"));
+        verify(!SidebarPolicy.targetOpen("drawer", true, false, "weather"));
+        verify(SidebarPolicy.targetOpen("drawer", true, false, "drawer"));
+        verify(!SidebarPolicy.targetOpen("weather", true, false, "drawer"));
+        verify(SidebarPolicy.targetOpen("dashboard", true, false, "drawer"));
+        compare(SidebarPolicy.targetOpen("unknown", true, true, "weather"), null);
+    }
+
+    function test_dashboardViewTargets() {
+        compare(SidebarPolicy.normalizeTarget("weather"), "dashboard");
+        compare(SidebarPolicy.normalizeTarget(" Drawer "), "dashboard");
+        compare(SidebarPolicy.normalizeTarget("quicksettings"), "quicksettings");
+        compare(SidebarPolicy.normalizeTarget("unknown"), "");
+    }
+
     function test_restorePositions() {
         compare(SidebarPolicy.restoredPositions(null), {
                     dashboard: "left",

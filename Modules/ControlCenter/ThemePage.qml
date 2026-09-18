@@ -483,7 +483,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("matugen color scheme")
+            id: searchSection0
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"theme.section.matugen-color-scheme","route":"theme","title":"matugen color scheme","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "colors"
 
             ColumnLayout {
@@ -509,7 +516,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Super key appearance")
+            id: searchSection1
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"theme.section.super-key-appearance","route":"theme","title":"Super key appearance","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "keyboard"
             Flow {
                 Layout.fillWidth: true
@@ -549,7 +563,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Lock screen")
+            id: searchSection2
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"theme.section.lock-screen","route":"theme","title":"Lock screen","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "lock"
 
             SearchSelectMenuField {
@@ -564,7 +585,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Cursor theme")
+            id: searchSection3
+            title: searchAnchor3.title
+            SettingsSearchAnchor {
+                id: searchAnchor3
+                target: searchSection3
+                declaration:
+                    '{"id":"theme.section.cursor-theme","route":"theme","title":"Cursor theme","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "mouse"
 
             CursorThemeSelect {
@@ -613,7 +641,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Icon theme")
+            id: searchSection4
+            title: searchAnchor4.title
+            SettingsSearchAnchor {
+                id: searchAnchor4
+                target: searchSection4
+                declaration:
+                    '{"id":"theme.section.icon-theme","route":"theme","title":"Icon theme","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "interests"
 
             SearchSelectSettingRow {
@@ -626,7 +661,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Fonts")
+            id: searchSection5
+            title: searchAnchor5.title
+            SettingsSearchAnchor {
+                id: searchAnchor5
+                target: searchSection5
+                declaration:
+                    '{"id":"theme.section.fonts","route":"theme","title":"Fonts","context":"ThemePage","icon":"palette","aliases":[]}'
+            }
             iconName: "text_format"
 
             SearchSelectSettingRow {

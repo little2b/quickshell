@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import qs.Common
 import qs.Services
+import qs.Widgets.common
 
 GridView {
     id: root
@@ -28,9 +29,7 @@ GridView {
     highlight: Item {}
     highlightMoveDuration: root.style.resultScrollDuration
 
-    ScrollBar.vertical: ScrollBar {
-        policy: ScrollBar.AsNeeded
-    }
+    ScrollBar.vertical: StyledScrollBar {}
 
     delegate: Item {
         id: tile

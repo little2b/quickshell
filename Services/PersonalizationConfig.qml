@@ -355,35 +355,40 @@ Singleton {
     property var keystoneKeyholeCards: root.defaultKeystoneKeyholeCards.slice()
     property string barPosition: "top"
     property int barEdgeMargin: 8
-    readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "tray",
+    readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "media", "tray",
         "systemMonitor", "quickSettings"]
     readonly property var defaultBarLeadingComponents: ["workspaces", "information", "activeWindow"]
     readonly property var defaultBarTrailingComponents: ["tray", "systemMonitor", "quickSettings"]
     readonly property var barComponentOptions: [({
-                                                     "value": "workspaces",
-                                                     "label": qsTr("Workspaces"),
-                                                     "icon": "grid_view"
+                                                     "value": "media",
+                                                     "label": qsTr("Media"),
+                                                     "icon": "music_note"
                                                  }), ({
-                                                          "value": "information",
-                                                          "label": qsTr("Information"),
-                                                          "icon": "info"
+                                                          "value": "workspaces",
+                                                          "label": qsTr("Workspaces"),
+                                                          "icon": "grid_view"
                                                       }), ({
-                                                               "value": "activeWindow",
-                                                               "label": qsTr("Active Window"),
-                                                               "icon": "web_asset"
+                                                               "value": "information",
+                                                               "label": qsTr("Information"),
+                                                               "icon": "info"
                                                            }), ({
-                                                                    "value": "tray",
-                                                                    "label": qsTr("Tray"),
-                                                                    "icon": "inbox"
+                                                                    "value": "activeWindow",
+                                                                    "label": qsTr("Active Window"),
+                                                                    "icon": "web_asset"
                                                                 }), ({
-                                                                         "value": "systemMonitor",
-                                                                         "label": qsTr("System Monitor"),
-                                                                         "icon": "monitoring"
+                                                                         "value": "tray",
+                                                                         "label": qsTr("Tray"),
+                                                                         "icon": "inbox"
                                                                      }), ({
-                                                                              "value": "quickSettings",
-                                                                              "label": qsTr("Quick Settings"),
-                                                                              "icon": "tune"
-                                                                          })]
+                                                                              "value": "systemMonitor",
+                                                                              "label": qsTr("System Monitor"),
+                                                                              "icon": "monitoring"
+                                                                          }), ({
+                                                                                   "value": "quickSettings",
+                                                                                   "label": qsTr(
+                                                                                                "Quick Settings"),
+                                                                                   "icon": "tune"
+                                                                               })]
     readonly property var quickSettingsComponentIds: ["network", "bluetooth", "brightness", "volume",
         "microphone", "battery", "settings", "power"]
     readonly property var defaultQuickSettingsComponents: root.quickSettingsComponentIds.slice()

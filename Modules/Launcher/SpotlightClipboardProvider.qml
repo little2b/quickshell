@@ -1,10 +1,19 @@
 import QtQuick
 import qs.Common
+import "../../Common/functions/FileUtils.js" as FileUtils
 import qs.Services
 
 Item {
     id: root
 
+    property bool active: false
+    onActiveChanged: {
+        if (active) {
+            rebuild();
+            inspectSearchCandidates();
+        } else
+            ClipboardService.cancelPendingInspections();
+    }
     property string query: ""
     property var results: []
     readonly property bool loading: ClipboardService.loading
@@ -36,21 +45,6 @@ Item {
                                                                                                              )).filter(
                   line => line !== "");
         return lines;
-    }
-
-    function humanReadableSize(value) {
-        const bytes = Number(value);
-        if (!isFinite(bytes) || bytes <= 0)
-            return "";
-        const units = ["B", "KB", "MB", "GB", "TB"];
-        let amount = bytes;
-        let unit = 0;
-        while (amount >= 1024 && unit < units.length - 1) {
-            amount /= 1024;
-            unit += 1;
-        }
-        const digits = unit === 0 || amount >= 100 ? 0 : amount >= 10 ? 1 : 2;
-        return amount.toFixed(digits) + " " + units[unit];
     }
 
     function compactParentPath(value) {
@@ -123,7 +117,7 @@ Item {
         const category = String(file && file.category || "file").toLowerCase();
         parts.push(root.friendlyFileType(file));
         if (category !== "folder") {
-            const size = root.humanReadableSize(file && file.byteSize);
+            const size = FileUtils.humanReadableSize(file && file.byteSize);
             if (size !== "")
                 parts.push(size);
         }
@@ -246,6 +240,8 @@ Item {
     }
 
     function rebuild() {
+        if (!active)
+            return;
         const needle = String(root.query || "").trim().toLocaleLowerCase();
         const source = ClipboardService.entries || [];
         const next = [];
@@ -260,6 +256,8 @@ Item {
     }
 
     function updateResult(id) {
+        if (!active)
+            return false;
         if (String(root.query || "").trim() !== "")
             return false;
         const normalizedId = String(id || "");
@@ -298,11 +296,12 @@ Item {
     }
 
     function refresh() {
-        ClipboardService.refresh(750);
+        if (active)
+            ClipboardService.refresh(750);
     }
 
     function requestDetails(id) {
-        return ClipboardService.inspect(id);
+        return active && ClipboardService.inspect(id);
     }
 
     function releaseDetails(id) {
@@ -310,6 +309,8 @@ Item {
     }
 
     function inspectSearchCandidates() {
+        if (!active)
+            return;
         if (String(root.query || "").trim() === "")
             return;
         const source = ClipboardService.entries || [];
@@ -348,6 +349,7 @@ Item {
     }
 
     onQueryChanged: {
+        ClipboardService.cancelPendingInspections();
         root.rebuild();
         root.inspectSearchCandidates();
     }

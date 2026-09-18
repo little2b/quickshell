@@ -55,7 +55,14 @@ StyledFlickable {
         spacing: 30
 
         KeystoneSection {
-            title: qsTr("Horizontal clock style")
+            id: searchSection0
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"keystone.horizontal-clock.section.horizontal-clock-style","route":"keystone.horizontal-clock","title":"Horizontal clock style","context":"HorizontalClockPage","icon":"schedule","aliases":[]}'
+            }
             iconName: "tune"
 
             Item {

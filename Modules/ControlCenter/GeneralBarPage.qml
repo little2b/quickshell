@@ -23,9 +23,16 @@ StyledFlickable {
         spacing: Metrics.spacingL
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Position")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.bar.section.position","route":"general.bar","title":"Position","context":"GeneralBarPage","icon":"dock_to_bottom","aliases":[]}'
+            }
             iconName: "dock_to_bottom"
 
             SettingsRow {
@@ -70,9 +77,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Components")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.bar.section.components","route":"general.bar","title":"Components","context":"GeneralBarPage","icon":"dock_to_bottom","aliases":[]}'
+            }
             iconName: "view_agenda"
             supportingText: qsTr("Drag components to reorder them or move them to the other side.")
 

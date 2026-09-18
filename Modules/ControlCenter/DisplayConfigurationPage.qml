@@ -56,8 +56,15 @@ StyledFlickable {
             Layout.fillWidth: true
         }
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Layout")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.displays.configuration.section.layout","route":"general.displays.configuration","title":"Layout","context":"DisplayConfigurationPage","icon":"monitor","aliases":[]}'
+            }
             iconName: "monitor"
             flat: true
             DisplayLayoutCanvas {
@@ -87,10 +94,17 @@ StyledFlickable {
                          root.selected ? root.selected.source : "")
         }
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             visible: root.selected !== null
             flat: true
-            title: qsTr("Output settings")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.displays.configuration.section.output-settings","route":"general.displays.configuration","title":"Output settings","context":"DisplayConfigurationPage","icon":"monitor","aliases":[]}'
+            }
             iconName: "tune"
             DisplayChoice {
                 Layout.fillWidth: true

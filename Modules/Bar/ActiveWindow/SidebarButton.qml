@@ -4,17 +4,13 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property bool vertical: false
 
     implicitHeight: vertical ? buttonRow.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : buttonRow.implicitWidth + 16
-
-    TopBarPillBackground {
-        anchors.fill: parent
-    }
 
     GridLayout {
         id: buttonRow
@@ -41,15 +37,5 @@ Item {
         SidebarWeatherButton {
             vertical: root.vertical
         }
-
     }
-
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: 220
-            easing.type: Easing.OutCubic
-        }
-
-    }
-
 }

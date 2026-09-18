@@ -9,7 +9,34 @@ import qs.Widgets.common
 Item {
     id: root
 
+    property int searchRequestSerial: -1
+    readonly property var searchLeaf: currentSection === "overview" ? overviewFlickable : pageLoader.item ? (
+                                                                                                                pageLoader.item.searchLeaf
+                                                                                                                || pageLoader.item) :
+                                                                                                            root
+    function openSearchPath(path, serial) {
+        const section = path.length ? path[0] : "overview";
+        if (searchRequestSerial !== serial) {
+            searchRequestSerial = serial;
+            root.currentSection = section;
+        }
+        if (root.currentSection !== section)
+            return "cancelled";
+        if (section === "overview")
+            return "ready";
+        if (!(pageLoader.status === Loader.Ready) || !pageLoader.item)
+            return "loading";
+        return typeof pageLoader.item.openSearchPath === "function" ? pageLoader.item.openSearchPath(
+                                                                          path.slice(1), serial) : "ready";
+    }
+
     property var parentModal: null
+    onCurrentSectionChanged: {
+        if (ControlCenterService.searchTarget && !ControlCenterService.applyingSearch && searchRequestSerial
+                === ControlCenterService.searchSerial)
+            ControlCenterService.cancelSearch();
+        ControlCenterService.retrySearch();
+    }
     property string currentSection: "overview"
     property string editingDirectoryKey: ""
     property var editingDirectoryField: null
@@ -51,7 +78,7 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         visible: root.currentSection !== "overview"
-        title: qsTr("Horizontal clock style")
+        title: SpotlightCatalog.title("keystone." + root.currentSection)
         backAccessibleName: qsTr("Back to Keystone settings")
         z: 2
         onBackRequested: root.showOverview()
@@ -74,7 +101,14 @@ Item {
             spacing: 30
 
             KeystoneSection {
-                title: qsTr("Keystone style")
+                id: searchSection0
+                title: searchAnchor0.title
+                SettingsSearchAnchor {
+                    id: searchAnchor0
+                    target: searchSection0
+                    declaration:
+                        '{"id":"keystone.section.keystone-style","route":"keystone","title":"Keystone style","context":"KeystonePage","icon":"toggle_off","aliases":[]}'
+                }
                 iconName: "toggle_off"
 
                 SearchSelectSettingRow {
@@ -101,7 +135,14 @@ Item {
             }
 
             KeystoneSection {
-                title: qsTr("Mouse actions")
+                id: searchSection1
+                title: searchAnchor1.title
+                SettingsSearchAnchor {
+                    id: searchAnchor1
+                    target: searchSection1
+                    declaration:
+                        '{"id":"keystone.section.mouse-actions","route":"keystone","title":"Mouse actions","context":"KeystonePage","icon":"toggle_off","aliases":[]}'
+                }
                 iconName: "mouse"
 
                 SearchSelectSettingRow {
@@ -127,8 +168,15 @@ Item {
             }
 
             KeystoneSection {
+                id: extraSearchSection0
                 visible: KeyboardLockService.available
-                title: qsTr("Keyboard indicators")
+                title: extraSearchAnchor0.title
+                SettingsSearchAnchor {
+                    id: extraSearchAnchor0
+                    target: extraSearchSection0
+                    declaration:
+                        '{"id":"keystone.section.keyboard-indicators","route":"keystone","title":"Keyboard indicators","context":"KeystonePage","icon":"settings","aliases":[],"availability":"keyboard-lock"}'
+                }
                 iconName: "keyboard"
 
                 SettingsRow {
@@ -153,7 +201,14 @@ Item {
             }
 
             KeystoneSection {
-                title: qsTr("Keyhole")
+                id: extraSearchSection1
+                title: extraSearchAnchor1.title
+                SettingsSearchAnchor {
+                    id: extraSearchAnchor1
+                    target: extraSearchSection1
+                    declaration:
+                        '{"id":"keystone.section.keyhole","route":"keystone","title":"Keyhole","context":"KeystonePage","icon":"settings","aliases":[]}'
+                }
                 iconName: "view_carousel"
 
                 SortableMultiSelectField {
@@ -176,7 +231,14 @@ Item {
             }
 
             KeystoneSection {
-                title: qsTr("Horizontal clock")
+                id: searchSection2
+                title: searchAnchor2.title
+                SettingsSearchAnchor {
+                    id: searchAnchor2
+                    target: searchSection2
+                    declaration:
+                        '{"id":"keystone.section.horizontal-clock","route":"keystone","title":"Horizontal clock","context":"KeystonePage","icon":"toggle_off","aliases":[]}'
+                }
                 iconName: "schedule"
 
                 Item {
@@ -217,7 +279,14 @@ Item {
             }
 
             KeystoneSection {
-                title: qsTr("Recording")
+                id: searchSection3
+                title: searchAnchor3.title
+                SettingsSearchAnchor {
+                    id: searchAnchor3
+                    target: searchSection3
+                    declaration:
+                        '{"id":"keystone.section.recording","route":"keystone","title":"Recording","context":"KeystonePage","icon":"toggle_off","aliases":[]}'
+                }
                 iconName: "video_camera_front"
 
                 RecordingDirectoryField {
@@ -254,13 +323,17 @@ Item {
 
     Loader {
         id: pageLoader
+        onLoaded: ControlCenterService.retrySearch()
 
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: subpageHeader.bottom
         anchors.bottom: parent.bottom
         visible: root.currentSection !== "overview"
-        source: root.currentSection === "horizontal-clock" ? Qt.resolvedUrl("HorizontalClockPage.qml") : ""
+        source: {
+            const route = SpotlightCatalog.route("keystone." + root.currentSection);
+            return route ? Qt.resolvedUrl(route.source) : "";
+        }
     }
 
     BarLayoutDragCoordinator {

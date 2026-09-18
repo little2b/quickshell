@@ -59,10 +59,14 @@ step whitespace git diff --check HEAD
 mapfile -d '' -t files < <(clavis_files "${scope}")
 cpp_files=() shell_files=() python_files=()
 qml=false
+catalog=false
 for file in "${files[@]}"; do
     # Include deletions when deciding whether native build/tests are affected.
     case ${file} in
         core/*|CMakeLists.txt|VERSION|*.cmake|tests/qml/*|scripts/release.py|scripts/install/*|install.sh|tests/test_release.py|tests/test_installer.py|packaging/*) native=true ;;
+    esac
+    case ${file} in
+        Common/settings-routes.json|Common/generated/SearchCatalog.js|Modules/ControlCenter/*.qml|scripts/system/niri-actions.json|scripts/dev/generate-search-catalog.py|tests/test_search_catalog.py) catalog=true ;;
     esac
     [[ -f ${file} ]] || continue
     case ${file} in
@@ -112,6 +116,10 @@ for test_name in niri_cursor_config manage_niri_effects matugen_registry; do
         step "${test_name}" bash "tests/test_${test_name}.sh"
     fi
 done
+if ${catalog} && ! ${native}; then
+    step search-catalog python3 "${script_dir}/generate-search-catalog.py"
+    step search-catalog-contracts python3 tests/test_search_catalog.py
+fi
 if ${native}; then
     require cmake cmake
     require ninja ninja

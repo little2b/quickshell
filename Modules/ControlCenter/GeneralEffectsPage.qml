@@ -32,9 +32,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Background")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.effects.section.background","route":"general.effects","title":"Background","context":"GeneralEffectsPage","icon":"blur_on","aliases":[]}'
+            }
             iconName: "wallpaper"
 
             GeneralSliderSetting {

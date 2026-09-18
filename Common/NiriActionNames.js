@@ -1,6 +1,20 @@
 // Names extracted from the bundled action catalog. IDs are language-independent.
 function translated(name) {
     switch (name) {
+    case "Weather sidebar: toggle": return qsTranslate("NiriActions", "Weather sidebar: toggle");
+    case "Sidebar drawer: toggle": return qsTranslate("NiriActions", "Sidebar drawer: toggle");
+    case "Spotlight: Commands": return qsTranslate("NiriActions", "Spotlight: Commands");
+    case "Spotlight: Calculator": return qsTranslate("NiriActions", "Spotlight: Calculator");
+    case "Spotlight: Currency": return qsTranslate("NiriActions", "Spotlight: Currency");
+    case "Spotlight: Time zone": return qsTranslate("NiriActions", "Spotlight: Time zone");
+    case "Spotlight: Light theme": return qsTranslate("NiriActions", "Spotlight: Light theme");
+    case "Spotlight: Dark theme": return qsTranslate("NiriActions", "Spotlight: Dark theme");
+    case "Spotlight: Search settings": return qsTranslate("NiriActions", "Spotlight: Search settings");
+    case "Spotlight: Search IPC actions": return qsTranslate("NiriActions", "Spotlight: Search IPC actions");
+    case "Spotlight: Location picker": return qsTranslate("NiriActions", "Spotlight: Location picker");
+
+    case "Spotlight: Search": return qsTranslate("NiriActions", "Spotlight: Search");
+    case "Spotlight: Find files": return qsTranslate("NiriActions", "Spotlight: Find files");
     case "Quit": return qsTranslate("NiriActions", "Quit");
     case "Suspend": return qsTranslate("NiriActions", "Suspend");
     case "Power off monitors": return qsTranslate("NiriActions", "Power off monitors");

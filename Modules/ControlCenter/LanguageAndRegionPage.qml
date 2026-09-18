@@ -30,9 +30,16 @@ StyledFlickable {
         spacing: Metrics.spacingXL
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Language")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.language-region.section.language","route":"general.language-region","title":"Language","context":"LanguageAndRegionPage","icon":"language","aliases":[]}'
+            }
             iconName: "translate"
 
             SettingsRow {
@@ -56,9 +63,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Region & weather location")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.language-region.section.region-weather-location","route":"general.language-region","title":"Region & weather location","context":"LanguageAndRegionPage","icon":"language","aliases":[]}'
+            }
             iconName: "map"
 
             LocationPicker {
@@ -71,9 +85,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Weather map")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.language-region.section.weather-map","route":"general.language-region","title":"Weather map","context":"LanguageAndRegionPage","icon":"language","aliases":[]}'
+            }
             iconName: "layers"
 
             SettingsRow {
@@ -144,9 +165,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection3
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Units")
+            title: searchAnchor3.title
+            SettingsSearchAnchor {
+                id: searchAnchor3
+                target: searchSection3
+                declaration:
+                    '{"id":"general.language-region.section.units","route":"general.language-region","title":"Units","context":"LanguageAndRegionPage","icon":"language","aliases":[]}'
+            }
             iconName: "thermostat"
 
             SettingsRow {
@@ -191,9 +219,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection4
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Time & date")
+            title: searchAnchor4.title
+            SettingsSearchAnchor {
+                id: searchAnchor4
+                target: searchSection4
+                declaration:
+                    '{"id":"general.language-region.section.time-date","route":"general.language-region","title":"Time & date","context":"LanguageAndRegionPage","icon":"language","aliases":[]}'
+            }
             iconName: "schedule"
 
             SettingsRow {

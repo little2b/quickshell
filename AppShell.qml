@@ -18,6 +18,48 @@ Item {
 
     property string pendingSecurePowerAction: ""
 
+    // The catalog only supplies fixed, build-validated calls. Both IPC and
+    // Search use the same existing business functions, without self-IPC.
+    function executeSearchAction(action) {
+        switch (action.target) {
+        case "lock":
+            const status = sessionLocker.open();
+            return status === "LOCKED" || status === "ALREADY_LOCKED";
+        case "wallpaper":
+            switch (action.method) {
+            case "clear":
+                return WallpaperService.clearWallpaper("");
+            case "previous":
+                return WallpaperService.cyclePrevious() || WallpaperService.pendingCycleAction === "previous";
+            case "next":
+                return WallpaperService.cycleNext() || WallpaperService.pendingCycleAction === "next";
+            case "random":
+                return WallpaperService.cycleRandom() || WallpaperService.pendingCycleAction === "random";
+            }
+            return false;
+        case "keystone":
+            switch (action.method) {
+            case "closeAllOthers":
+            case "dashboard":
+            case "hub":
+            case "lyrics":
+            case "tools":
+                return keystone.invoke(action.method) !== "KEYSTONE_UNAVAILABLE";
+            }
+            return false;
+        case "sidebar":
+            return (action.method === "toggle" ? sidebarHost.toggleSidebar(action.args[0]) : sidebarHost.setSidebarOpen(
+                                                     action.args[0], true)) !== "INVALID_SIDE";
+        case "shortcut-map":
+            ShortcutMapService.open();
+            return true;
+        case "power-menu":
+            return PowerMenuService.open();
+        default:
+            return false;
+        }
+    }
+
     function runSecurePowerAction() {
         if (pendingSecurePowerAction === "" || !sessionLocker.secure)
             return;
@@ -40,6 +82,8 @@ Item {
     }
 
     Component.onCompleted: {
+        SpotlightCatalog.actionExecutor = root.executeSearchAction;
+        SpotlightCatalog.keystoneAvailable = Qt.binding(() => keystone.searchActionsAvailable);
         I18nService.initialize();
         DisplayColor.evaluate();
         LyricsTrackService.initialize();
@@ -74,11 +118,15 @@ Item {
 
     Bar {}
 
-    Keystone {}
+    Keystone {
+        id: keystone
+    }
 
     RegionSelector {}
 
-    SidebarHostWindow {}
+    SidebarHostWindow {
+        id: sidebarHost
+    }
 
     Lock {
         id: sessionLocker
@@ -199,15 +247,31 @@ Item {
                     return spotlightLauncher.windowPhase.toUpperCase();
                 }
 
+                function search(): string {
+                    spotlightLauncher.openSpotlight("search");
+                    return "SEARCH";
+                }
+
                 function close(): string {
                     spotlightLauncher.requestClose();
                     return spotlightLauncher.windowPhase.toUpperCase();
                 }
 
                 function web(): string {
-                    spotlightLauncher.openSpotlight();
-                    spotlightLauncher.enterWeb();
+                    spotlightLauncher.openWebMode();
                     return "WEB";
+                }
+
+                function command(name: string): string {
+                    return spotlightLauncher.runCommand(name);
+                }
+
+                function commands(): string {
+                    return openMode("commands");
+                }
+
+                function files(): string {
+                    return openMode("files");
                 }
 
                 function openMode(mode: string): string {

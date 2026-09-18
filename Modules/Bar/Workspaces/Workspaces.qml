@@ -6,7 +6,7 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property string screenName: ""
@@ -16,16 +16,21 @@ Item {
     implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 24
 
+    animateResize: {
+        for (let index = 0; index < workspaceRepeater.count; ++index) {
+            const workspace = workspaceRepeater.itemAt(index);
+            if (workspace && workspace.resizing)
+                return false;
+        }
+        return true;
+    }
+
     function acceptsOutput(outputName) {
         if (root.screenName === "")
             return true;
         if (!root.hasMultipleOutputs && outputName === "")
             return true;
         return outputName === root.screenName;
-    }
-
-    TopBarPillBackground {
-        anchors.fill: parent
     }
 
     GridLayout {
@@ -36,10 +41,13 @@ Item {
         columns: root.vertical ? 1 : Math.max(1, Niri.workspaces.count)
 
         Repeater {
+            id: workspaceRepeater
             model: Niri.workspaces
 
             delegate: Item {
                 id: delegateRoot
+
+                readonly property bool resizing: widthAnimation.running || heightAnimation.running
 
                 property bool belongsToScreen: root.acceptsOutput(model.output)
                 property bool active: model.isActive
@@ -52,12 +60,14 @@ Item {
 
                 Behavior on implicitWidth {
                     NumberAnimation {
+                        id: widthAnimation
                         duration: 300
                         easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on implicitHeight {
                     NumberAnimation {
+                        id: heightAnimation
                         duration: 300
                         easing.type: Easing.OutCubic
                     }

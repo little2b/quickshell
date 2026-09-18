@@ -75,8 +75,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Saved devices")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.connected-devices.section.saved-devices","route":"general.connected-devices","title":"Saved devices","context":"ConnectedDevicesPage","icon":"devices_other","aliases":[]}'
+            }
             iconName: "devices_other"
 
             Repeater {
@@ -123,9 +130,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             visible: BluetoothService.adapters.length > 1
-            title: qsTr("Bluetooth adapter")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.connected-devices.section.bluetooth-adapter","route":"general.connected-devices","title":"Bluetooth adapter","context":"ConnectedDevicesPage","icon":"devices_other","aliases":[]}'
+            }
             iconName: "settings_bluetooth"
 
             Repeater {
@@ -155,8 +169,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
-            title: qsTr("Advanced settings")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.connected-devices.section.advanced-settings","route":"general.connected-devices","title":"Advanced settings","context":"ConnectedDevicesPage","icon":"devices_other","aliases":[]}'
+            }
             iconName: "tune"
 
             SettingsRow {

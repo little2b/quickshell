@@ -10,6 +10,8 @@
 ShortcutRecorder::ShortcutRecorder(QObject *parent) : QObject(parent) { qGuiApp->installEventFilter(this); }
 ShortcutRecorder::~ShortcutRecorder() { qGuiApp->removeEventFilter(this); }
 
+int ShortcutRecorder::currentModifiers() const { return int(QGuiApplication::queryKeyboardModifiers()); }
+
 bool ShortcutRecorder::eventFilter(QObject *object, QEvent *event)
 {
     if (!m_target || object != m_target->window())

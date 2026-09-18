@@ -87,8 +87,15 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
-            title: qsTr("Nearby devices")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.bluetooth-pairing.section.nearby-devices","route":"general.bluetooth-pairing","title":"Nearby devices","context":"BluetoothPairingPage","icon":"bluetooth_searching","aliases":[]}'
+            }
             iconName: "bluetooth_searching"
 
             SettingsRow {

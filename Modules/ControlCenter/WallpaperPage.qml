@@ -288,7 +288,14 @@ StyledFlickable {
             id: desktopManagerSectionComponent
 
             Section {
-                title: qsTr("Desktop wallpaper manager")
+                id: searchSection0
+                title: searchAnchor0.title
+                SettingsSearchAnchor {
+                    id: searchAnchor0
+                    target: searchSection0
+                    declaration:
+                        '{"id":"wallpaper.section.desktop-wallpaper-manager","route":"wallpaper","title":"Desktop wallpaper manager","context":"WallpaperPage","icon":"wallpaper","aliases":[]}'
+                }
                 iconName: "display_settings"
 
                 headerTrailing: SearchSelectMenuField {
@@ -331,7 +338,14 @@ StyledFlickable {
             id: currentWallpaperSectionComponent
 
             Section {
-                title: qsTr("Current wallpaper")
+                id: searchSection1
+                title: searchAnchor1.title
+                SettingsSearchAnchor {
+                    id: searchAnchor1
+                    target: searchSection1
+                    declaration:
+                        '{"id":"wallpaper.section.current-wallpaper","route":"wallpaper","title":"Current wallpaper","context":"WallpaperPage","icon":"wallpaper","aliases":[]}'
+                }
                 iconName: "wallpaper"
 
                 RowLayout {
@@ -456,7 +470,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Transition")
+            id: searchSection2
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"wallpaper.section.transition","route":"wallpaper","title":"Transition","context":"WallpaperPage","icon":"wallpaper","aliases":[]}'
+            }
             iconName: "animation"
 
             ColumnLayout {
@@ -788,7 +809,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Parallax effects")
+            id: searchSection3
+            title: searchAnchor3.title
+            SettingsSearchAnchor {
+                id: searchAnchor3
+                target: searchSection3
+                declaration:
+                    '{"id":"wallpaper.section.parallax-effects","route":"wallpaper","title":"Parallax effects","context":"WallpaperPage","icon":"wallpaper","aliases":[]}'
+            }
             iconName: "view_in_ar"
 
             FlatSettingsSection {
@@ -933,7 +961,14 @@ StyledFlickable {
         }
 
         Section {
-            title: qsTr("Overview background")
+            id: searchSection4
+            title: searchAnchor4.title
+            SettingsSearchAnchor {
+                id: searchAnchor4
+                target: searchSection4
+                declaration:
+                    '{"id":"wallpaper.section.overview-background","route":"wallpaper","title":"Overview background","context":"WallpaperPage","icon":"wallpaper","aliases":[]}'
+            }
             iconName: "overview"
 
             FlatSettingsSection {

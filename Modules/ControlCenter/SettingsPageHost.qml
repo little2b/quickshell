@@ -12,6 +12,8 @@ Item {
     property bool presentationActive: false
     property Component headerComponent: null
     readonly property var item: currentLayer ? currentLayer.page : null
+    readonly property bool ready: currentLayer !== null && currentLayer.pageSource === source && pendingLayer
+                                  === null
     property var currentLayer: null
     property var pendingLayer: null
 
