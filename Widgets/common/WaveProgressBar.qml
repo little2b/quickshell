@@ -35,6 +35,13 @@ Item {
 
     implicitHeight: 36
 
+    AnimationVisibility {
+        id: animationVisibility
+        target: root
+        onActiveChanged: if (active)
+                             waveCanvas.requestPaint()
+    }
+
     // --- 内部状态 ---
     property real _targetX: root.progress * root.width
     property real _activeX: seekMa.pressed ? Math.max(0, Math.min(seekMa.mouseX, root.width)) : _targetX
@@ -46,7 +53,7 @@ Item {
                                                                  Math.max(0, Math.min(_visualX, width))
 
     Behavior on _visualX {
-        enabled: root.visible && !seekMa.pressed
+        enabled: animationVisibility.active && !seekMa.pressed
         SmoothedAnimation {
             velocity: root.smoothingVelocity
             duration: root.smoothingDuration
@@ -81,27 +88,30 @@ Item {
             to: Math.PI * 2
             duration: root.phaseDuration
             easing.type: Easing.Linear
-            running: root.isPlaying
+            running: root.isPlaying && animationVisibility.active && waveCanvas.visible
         }
 
-        onPhaseChanged: requestPaint()
+        onPhaseChanged: if (animationVisibility.active)
+                            requestPaint()
         onAvailableChanged: {
-            if (available)
+            if (available && animationVisibility.active)
                 requestPaint();
         }
         onVisibleChanged: {
-            if (visible)
+            if (visible && animationVisibility.active)
                 requestPaint();
         }
 
         Connections {
             target: root
             function on_VisualXChanged() {
-                waveCanvas.requestPaint();
+                if (animationVisibility.active)
+                    waveCanvas.requestPaint();
             }
             // Theme colors may arrive after the first paint, even while paused.
             function onWaveColorChanged() {
-                waveCanvas.requestPaint();
+                if (animationVisibility.active)
+                    waveCanvas.requestPaint();
             }
         }
 

@@ -32,23 +32,31 @@ Item {
 
     implicitHeight: 26
 
+    AnimationVisibility {
+        id: animationVisibility
+        target: root
+    }
+
     Item {
         id: waveContainer
         anchors.fill: parent
 
-        property real targetPlayhead: seekMa.pressed ? Math.max(0, Math.min(seekMa.mouseX, width)) : (root.progress * width)
+        property real targetPlayhead: seekMa.pressed ? Math.max(0, Math.min(seekMa.mouseX, width)) : (
+                                                           root.progress * width)
         property real playheadX: targetPlayhead
         property real wavePhase: 0
         property real centerY: height / 2
         property real waveEndX: Math.max(root.lineWidth / 2, playheadX - (root.gap + root.lineWidth / 2))
-        property string wavePath: buildWavePath()
+        property string wavePath: animationVisibility.active ? buildWavePath() : ""
 
         function waveY(x) {
-            return centerY + Math.sin((x - root.lineWidth / 2) * root.waveFrequency + wavePhase) * root.waveAmplitude;
+            return centerY + Math.sin((x - root.lineWidth / 2) * root.waveFrequency + wavePhase)
+                    * root.waveAmplitude;
         }
 
         function waveSlope(x) {
-            return Math.cos((x - root.lineWidth / 2) * root.waveFrequency + wavePhase) * root.waveAmplitude * root.waveFrequency;
+            return Math.cos((x - root.lineWidth / 2) * root.waveFrequency + wavePhase) * root.waveAmplitude
+                    * root.waveFrequency;
         }
 
         function buildWavePath() {
@@ -71,15 +79,14 @@ Item {
                 const c2x = nextX - dx / 3;
                 const c2y = y1 - waveSlope(nextX) * dx / 3;
 
-                path += " C " + c1x.toFixed(2) + " " + c1y.toFixed(2)
-                    + " " + c2x.toFixed(2) + " " + c2y.toFixed(2)
-                    + " " + nextX.toFixed(2) + " " + y1.toFixed(2);
+                path += " C " + c1x.toFixed(2) + " " + c1y.toFixed(2) + " " + c2x.toFixed(2) + " "
+                        + c2y.toFixed(2) + " " + nextX.toFixed(2) + " " + y1.toFixed(2);
             }
             return path;
         }
 
         Behavior on playheadX {
-            enabled: root.visible && !seekMa.pressed
+            enabled: animationVisibility.active && !seekMa.pressed
             SmoothedAnimation {
                 velocity: root.smoothingVelocity
                 duration: root.smoothingDuration
@@ -92,7 +99,8 @@ Item {
             to: Math.PI * 2
             duration: root.phaseDuration
             loops: Animation.Infinite
-            running: root.isPlaying
+            running: root.isPlaying && animationVisibility.active && waveContainer.waveEndX > root.lineWidth
+                     / 2
         }
 
         Shape {
@@ -150,7 +158,7 @@ Item {
             anchors.margins: -root.seekMargin
             cursorShape: Qt.PointingHandCursor
 
-            onReleased: (mouse) => {
+            onReleased: mouse => {
                 let clampedX = Math.max(0, Math.min(mouse.x, waveContainer.width));
                 root.seekRequested(clampedX / waveContainer.width);
             }

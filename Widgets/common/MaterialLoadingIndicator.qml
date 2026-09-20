@@ -20,6 +20,13 @@ Item {
 
     Accessible.name: accessibleName
 
+    AnimationVisibility {
+        id: animationVisibility
+        target: root
+        onActiveChanged: if (active)
+                             shapeCanvas.requestPaint()
+    }
+
     function segmentForProgress(progress) {
         for (let index = 0; index < phaseStops.length - 1; index += 1) {
             if (progress < phaseStops[index + 1])
@@ -172,12 +179,17 @@ Item {
         to: 1
         duration: 4800
         loops: Animation.Infinite
-        running: root.running
+        running: root.running && animationVisibility.active
     }
 
-    onAnimationProgressChanged: shapeCanvas.requestPaint()
-    onIndicatorColorChanged: shapeCanvas.requestPaint()
-    onWidthChanged: shapeCanvas.requestPaint()
-    onHeightChanged: shapeCanvas.requestPaint()
-    Component.onCompleted: shapeCanvas.requestPaint()
+    onAnimationProgressChanged: if (animationVisibility.active)
+                                    shapeCanvas.requestPaint()
+    onIndicatorColorChanged: if (animationVisibility.active)
+                                 shapeCanvas.requestPaint()
+    onWidthChanged: if (animationVisibility.active)
+                        shapeCanvas.requestPaint()
+    onHeightChanged: if (animationVisibility.active)
+                         shapeCanvas.requestPaint()
+    Component.onCompleted: if (animationVisibility.active)
+                               shapeCanvas.requestPaint()
 }
