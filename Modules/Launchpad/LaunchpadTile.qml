@@ -7,6 +7,10 @@ import "../../Common/functions/LaunchpadLayout.js" as Layout
 
 Item {
     id: root
+
+    function refreshItems() {
+        previewRevision++;
+    }
     required property var entry
     property real iconSize: 76
     property bool highlighted: false
@@ -15,6 +19,19 @@ Item {
     readonly property string entryKey: Layout.key(entry)
     readonly property string title: LaunchpadService.title(entry)
     readonly property real iconTop: 12
+    property int previewRevision: 0
+    readonly property bool ready: {
+        const revision = previewRevision;
+        if (entry.kind === "app")
+            return appIcon.status === Image.Ready || appIcon.status === Image.Error ||
+                    !appIcon.iconSource.toString();
+        for (let i = 0; i < previews.count; ++i) {
+            const icon = previews.itemAt(i) as ThemeIcon;
+            if (!icon || (icon.status !== Image.Ready && icon.status !== Image.Error))
+                return false;
+        }
+        return previews.count === Math.min(9, entry.children.length);
+    }
     signal activated
 
     Accessible.name: title
@@ -46,11 +63,14 @@ Item {
             }
         }
         ThemeIcon {
+            id: appIcon
+            cacheThemeIcons: true
             anchors.fill: parent
             visible: root.entry.kind === "app"
             iconSource: visible ? LaunchpadService.icon(root.entry.id) : ""
             sourceSize: Qt.size(160, 160)
             asynchronous: true
+            retainWhileLoading: true
             fillMode: Image.PreserveAspectFit
         }
         Rectangle {
@@ -65,8 +85,12 @@ Item {
                 columns: 3
                 spacing: root.iconSize * 0.055
                 Repeater {
+                    id: previews
                     model: root.entry.kind === "folder" ? root.entry.children.slice(0, 9) : []
+                    onItemAdded: Qt.callLater(root.refreshItems)
+                    onItemRemoved: Qt.callLater(root.refreshItems)
                     ThemeIcon {
+                        cacheThemeIcons: true
                         required property string modelData
                         width: root.iconSize * 0.23
                         height: width
@@ -74,6 +98,7 @@ Item {
                         iconSource: LaunchpadService.icon(modelData)
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
+                        retainWhileLoading: true
                     }
                 }
             }

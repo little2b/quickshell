@@ -7,10 +7,8 @@ import qs.Services
 Item {
     id: root
 
-    Loader {
-        active: LaunchpadService.visible
-        sourceComponent: LaunchpadWindow {}
-    }
+    // Retain the menu, its decoded icons and page snapshots between sessions.
+    LaunchpadWindow {}
     IpcHandler {
         target: "launchpad"
         function open(): bool {

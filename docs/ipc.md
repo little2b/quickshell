@@ -99,6 +99,12 @@ The layout is saved atomically in `$CLAVIS_CONFIG_HOME/launchpad.json` (normally
 single-application folders collapse. Invalid saved layouts are preserved;
 read/write failures are shown in the menu and changes remain in the session.
 
+Opening and closing use a fade and zoom transition. Pages slide horizontally;
+horizontal touchpad scrolling and dragging the empty background follow the
+gesture before snapping to a page. The menu retains decoded icons, a small
+wallpaper texture, and page snapshots between sessions, invalidating snapshots
+when the layout, language, or icon theme changes.
+
 ### Spotlight Files
 
 `qs -c clavis ipc call spotlight openMode files` and

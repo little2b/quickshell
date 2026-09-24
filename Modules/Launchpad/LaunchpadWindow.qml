@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Window
 import QtQuick.Controls
-import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import qs.Common
@@ -12,8 +12,10 @@ import "../../Common/functions/LaunchpadLayout.js" as Layout
 
 PanelWindow {
     id: root
-    screen: LaunchpadService.targetScreen
-    visible: true
+    screen: LaunchpadService.targetScreen || Quickshell.screens[0] || null
+    implicitWidth: screen ? screen.width : 1280
+    implicitHeight: screen ? screen.height : 720
+    visible: false
     color: "transparent"
     anchors {
         top: true
@@ -23,8 +25,37 @@ PanelWindow {
     }
     WlrLayershell.namespace: "clavis-shell-launchpad"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    WlrLayershell.keyboardFocus: LaunchpadService.visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
+
+    readonly property real viewWidth: screen ? screen.width : 1280
+    readonly property real viewHeight: screen ? screen.height : 720
+    property real openProgress: 0
+    property string phase: "hidden"
+    property bool initialized: false
+    property bool warmed: false
+    property bool awaitingFrame: false
+    property int openingFrames: 0
+    property int preloadRevision: 0
+    readonly property bool iconsPreloaded: {
+        const revision = preloadRevision;
+        if (iconPreload.count !== LaunchpadService.applications.length)
+            return false;
+        for (let index = 0; index < iconPreload.count; ++index) {
+            const icon = iconPreload.itemAt(index) as ThemeIcon;
+            if (!icon || (icon.status !== Image.Ready && icon.status !== Image.Error))
+                return false;
+        }
+        return true;
+    }
+    function refreshPreload() {
+        preloadRevision++;
+    }
+    readonly property bool prepared: pager.ready && backdrop.ready
+    property bool pagingGesture: false
+    property bool gestureCancelled: false
+    property real lastPointerX: 0
+    property real wheelDistance: 0
 
     property string folderId: ""
     property string query: ""
@@ -46,13 +77,126 @@ PanelWindow {
     readonly property var folder: Layout.folder(LaunchpadService.entries, folderId)
     readonly property var entries: searching ? LaunchpadService.search(query) : Layout.contents(
                                                    LaunchpadService.entries, folderId)
-    readonly property int columns: Math.max(1, Math.min(7, Math.floor(appGrid.width / 142)))
+    readonly property int columns: Math.max(1, Math.min(7, Math.floor(gridArea.width / 142)))
     readonly property int rows: Math.max(1, Math.min(5, Math.floor(gridArea.height / 144)))
     readonly property int pageSize: columns * rows
     readonly property int pageCount: Math.max(1, Math.ceil(entries.length / pageSize))
-    readonly property var pageEntries: entries.slice(page * pageSize, (page + 1) * pageSize)
     readonly property real tileHeight: Math.min(154, gridArea.height / rows)
     readonly property real iconSize: Math.min(80, Math.max(48, tileHeight - 65))
+
+    Component.onCompleted: {
+        initialized = true;
+        Qt.callLater(root.syncVisibility);
+        Qt.callLater(root.prewarm);
+    }
+    onPreparedChanged: {
+        Qt.callLater(root.tryReveal);
+        Qt.callLater(root.prewarm);
+    }
+
+    // A transparent surface warms the native window and its DPR-sized icons
+    // once. It takes neither pointer nor keyboard input while doing so.
+    mask: Region {
+        width: LaunchpadService.visible ? root.viewWidth : 0
+        height: LaunchpadService.visible ? root.viewHeight : 0
+    }
+    function prewarm() {
+        if (!initialized || warmed || phase !== "hidden" || LaunchpadService.visible || !prepared)
+            return;
+        warmed = true;
+        phase = "warming";
+        openingFrames = 0;
+        awaitingFrame = true;
+        visible = true;
+    }
+
+    function animateOpen(target) {
+        opening.stop();
+        opening.from = openProgress;
+        opening.to = target;
+        opening.duration = Math.max(1, (target > openProgress ? 300 : 200) * Math.abs(target - openProgress));
+        opening.start();
+    }
+    function syncVisibility() {
+        if (!initialized)
+            return;
+        if (LaunchpadService.visible) {
+            if (phase === "warming") {
+                phase = "opening";
+                search.forceActiveFocus();
+            } else if (phase === "closing") {
+                phase = "opening";
+                animateOpen(1);
+                search.forceActiveFocus();
+            } else if (phase === "hidden") {
+                phase = "preparing";
+                tryReveal();
+            }
+        } else {
+            awaitingFrame = false;
+            cancelDrag();
+            pagingGesture = false;
+            swipeEnd.stop();
+            pager.finishTransition();
+            contextMenu.close();
+            if (visible) {
+                phase = "closing";
+                animateOpen(0);
+            } else {
+                phase = "hidden";
+            }
+        }
+    }
+    function tryReveal() {
+        if (phase !== "preparing" || !LaunchpadService.visible || !prepared)
+            return;
+        awaitingFrame = true;
+        openingFrames = 0;
+        phase = "opening";
+        visible = true;
+        Qt.callLater(() => search.forceActiveFocus());
+    }
+    Connections {
+        target: LaunchpadService
+        function onVisibleChanged() {
+            root.syncVisibility();
+        }
+    }
+    FrameAnimation {
+        running: root.awaitingFrame
+        onTriggered: {
+            if (++root.openingFrames < 2 || !root.prepared)
+                return;
+            if (root.phase === "warming") {
+                if (!pager.cached || !root.iconsPreloaded)
+                    return;
+                root.awaitingFrame = false;
+                root.visible = false;
+                root.phase = "hidden";
+                return;
+            }
+            root.awaitingFrame = false;
+            if (LaunchpadService.visible && root.phase === "opening")
+                root.animateOpen(1);
+        }
+    }
+    NumberAnimation {
+        id: opening
+        target: root
+        property: "openProgress"
+        easing.type: Easing.OutCubic
+        onFinished: {
+            if (LaunchpadService.visible) {
+                root.phase = "open";
+            } else {
+                root.visible = false;
+                root.phase = "hidden";
+                root.query = "";
+                root.folderId = "";
+                root.selected = -1;
+            }
+        }
+    }
 
     onQueryChanged: {
         page = 0;
@@ -83,9 +227,10 @@ PanelWindow {
             LaunchpadService.launch(entry.id);
     }
     function back() {
-        if (dragging)
+        if (dragging) {
             cancelDrag();
-        else if (folderId) {
+            gestureCancelled = true;
+        } else if (folderId) {
             folderId = "";
             search.forceActiveFocus();
         } else if (query)
@@ -94,6 +239,9 @@ PanelWindow {
             LaunchpadService.close();
     }
     function changePage(delta) {
+        dropKey = "";
+        mergeReady = false;
+        mergeDelay.stop();
         page = Math.max(0, Math.min(pageCount - 1, page + delta));
         selected = Math.min(entries.length - 1, page * pageSize);
         if (dragging)
@@ -105,17 +253,7 @@ PanelWindow {
         content.forceActiveFocus();
     }
     function tileAt(point) {
-        for (let i = 0; i < tiles.count; ++i) {
-            const tile = tiles.itemAt(i);
-            const local = tile.mapFromItem(content, point.x, point.y);
-            if (local.x >= 0 && local.x < tile.width && local.y >= 0 && local.y < tile.height)
-                return {
-                    tile: tile,
-                    index: page * pageSize + i,
-                    point: local
-                };
-        }
-        return null;
+        return pager.tileAt(content, point);
     }
     function overBack() {
         const point = backButton.mapFromItem(content, pointerPoint.x, pointerPoint.y);
@@ -155,6 +293,10 @@ PanelWindow {
         folderExit.stop();
     }
     function finishDrag() {
+        if (pager.moving) {
+            pager.finishTransition();
+            updateDrop();
+        }
         const source = Layout.key(draggedEntry);
         if (overBack() || (leftFolderByDrag && pointerPoint.y < gridArea.y))
             LaunchpadService.move(source, "", LaunchpadService.entries.length);
@@ -191,25 +333,41 @@ PanelWindow {
         repeat: true
         running: root.dragging && (root.pointerPoint.x < gridArea.x + 22 || root.pointerPoint.x > gridArea.x
                                    + gridArea.width - 22)
-        onTriggered: root.changePage(root.pointerPoint.x < root.width / 2 ? -1 : 1)
+        onTriggered: root.changePage(root.pointerPoint.x < root.viewWidth / 2 ? -1 : 1)
+    }
+    Timer {
+        id: swipeEnd
+        interval: 150
+        onTriggered: pager.endSwipe()
     }
 
     Item {
         id: content
-        anchors.fill: parent
+        width: root.viewWidth
+        height: root.viewHeight
         focus: true
-        opacity: 0
-        Component.onCompleted: {
-            reveal.start();
-            search.forceActiveFocus();
-        }
-        NumberAnimation {
-            id: reveal
-            target: content
-            property: "opacity"
-            to: 1
-            duration: 180
-            easing.type: Easing.OutCubic
+        enabled: LaunchpadService.visible
+        // Render the first, nearly transparent frame before starting the
+        // entrance animation, so texture uploads do not consume its duration.
+        opacity: Math.max(0.001, root.openProgress)
+
+        // Keep full-size icons for folder contents too, not just the small
+        // folder previews, so entering a group reuses the same pixmaps.
+        Repeater {
+            id: iconPreload
+            model: LaunchpadService.applications
+            onItemAdded: Qt.callLater(root.refreshPreload)
+            onItemRemoved: Qt.callLater(root.refreshPreload)
+            ThemeIcon {
+                required property var modelData
+                visible: false
+                iconSource: LaunchpadService.icon(String(modelData.id))
+                sourceSize: Qt.size(160, 160)
+                fillMode: Image.PreserveAspectFit
+                cacheThemeIcons: true
+                asynchronous: true
+                retainWhileLoading: true
+            }
         }
 
         Keys.onPressed: event => {
@@ -239,32 +397,13 @@ PanelWindow {
             event.accepted = true;
         }
 
-        Rectangle {
+        LaunchpadBackdrop {
+            id: backdrop
             anchors.fill: parent
-            color: "#202938"
-        }
-        Image {
-            id: wallpaper
-            anchors.fill: parent
-            visible: false
-            readonly property string path: WallpaperService.overviewWallpaperForScreen(root.screen
-                                                                                       ? root.screen.name :
-                                                                                         "")
-            source: WallpaperService.isImagePath(path) ? "file://" + path : ""
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
-        }
-        MultiEffect {
-            anchors.fill: parent
-            source: wallpaper
-            blurEnabled: true
-            blurMax: 64
-            blur: 1
-            saturation: -0.15
-        }
-        Rectangle {
-            anchors.fill: parent
-            color: "#730c1220"
+            screenName: root.screen ? root.screen.name : ""
+            viewportSize: Qt.size(root.screen ? root.screen.width : 1280, root.screen ? root.screen.height :
+                                                                                        720)
+            scale: 1.035 - 0.035 * root.openProgress
         }
 
         Rectangle {
@@ -273,6 +412,7 @@ PanelWindow {
             y: gridArea.y - 24
             width: gridArea.width + 48
             height: gridArea.height + 48
+            scale: gridArea.scale
             radius: 32
             color: "#65202839"
             border.width: 1
@@ -281,41 +421,31 @@ PanelWindow {
 
         Item {
             id: gridArea
-            x: (root.width - width) / 2
+            x: (root.viewWidth - width) / 2
             y: 148
-            width: Math.max(160, Math.min(root.folderId ? 920 : 1220, root.width - 96))
-            height: Math.max(100, root.height - 280)
-            Grid {
-                id: appGrid
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.width
+            width: Math.max(160, Math.min(root.folderId ? 920 : 1220, root.viewWidth - 96))
+            height: Math.max(100, root.viewHeight - 280)
+            scale: 0.94 + 0.06 * root.openProgress
+            LaunchpadPager {
+                id: pager
+                anchors.fill: parent
+                entries: root.entries
                 columns: root.columns
-                Repeater {
-                    id: tiles
-                    model: root.pageEntries
-                    LaunchpadTile {
-                        id: tile
-                        required property var modelData
-                        required property int index
-                        entry: modelData
-                        width: appGrid.width / root.columns
-                        height: root.tileHeight
-                        iconSize: root.iconSize
-                        highlighted: root.selected === root.page * root.pageSize + index && !root.dragging
-                        grouping: root.dropKey === entryKey && root.mergeReady
-                        opacity: root.dragging && entryKey === Layout.key(root.draggedEntry) ? 0.3 : 1
-                        onActivated: root.activate(entry)
-                        Rectangle {
-                            x: root.insertAfter ? parent.width - 2 : 0
-                            y: 8
-                            width: 3
-                            height: root.iconSize + 18
-                            radius: 2
-                            color: "#eeffffff"
-                            visible: root.dragging && root.dropKey === tile.entryKey && !root.mergeReady
-                        }
-                    }
+                pageSize: root.pageSize
+                tileHeight: root.tileHeight
+                iconSize: root.iconSize
+                page: root.page
+                selected: root.selected
+                animate: root.visible && root.openProgress > 0
+                draggedKey: Layout.key(root.draggedEntry)
+                dropKey: root.dropKey
+                mergeReady: root.mergeReady
+                insertAfter: root.insertAfter
+                onActivated: entry => root.activate(entry)
+                onPageRequested: index => root.changePage(index - root.page)
+                onSettled: {
+                    if (root.dragging)
+                        root.updateDrop();
                 }
             }
             Text {
@@ -335,10 +465,13 @@ PanelWindow {
             anchors.fill: parent
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton | Qt.RightButton
-            preventStealing: root.dragging
+            preventStealing: root.dragging || root.pagingGesture
             cursorShape: root.dragging ? Qt.ClosedHandCursor : root.selected >= 0 ? Qt.PointingHandCursor :
                                                                                     Qt.ArrowCursor
             onPressed: mouse => {
+                root.gestureCancelled = pager.moving && !pager.swiping;
+                root.pagingGesture = false;
+                root.lastPointerX = mouse.x;
                 root.pointerPoint = Qt.point(mouse.x, mouse.y);
                 root.pressPoint = root.pointerPoint;
                 const hit = root.tileAt(root.pointerPoint);
@@ -350,9 +483,19 @@ PanelWindow {
                 const hit = root.tileAt(root.pointerPoint);
                 if (!pressed)
                     root.selected = hit ? hit.index : -1;
+                if (pressed && !root.pressedKey && !root.gestureCancelled && !root.pagingGesture && Math.abs(
+                            mouse.x - root.pressPoint.x) > 16 && Math.abs(mouse.x - root.pressPoint.x)
+                        > Math.abs(mouse.y - root.pressPoint.y) * 1.2) {
+                    root.pagingGesture = true;
+                    pager.beginSwipe();
+                }
+                if (root.pagingGesture)
+                    pager.swipeBy(root.lastPointerX - mouse.x);
+                root.lastPointerX = mouse.x;
                 if (pressed && (pressedButtons & Qt.LeftButton) && root.pressedKey && !root.searching &&
-                        !root.dragging && Math.hypot(mouse.x - root.pressPoint.x, mouse.y
-                                                     - root.pressPoint.y) > 8) {
+                        !root.dragging && !root.gestureCancelled && Math.hypot(mouse.x - root.pressPoint.x,
+                                                                               mouse.y - root.pressPoint.y)
+                        > 8) {
                     const source = Layout.locate(LaunchpadService.entries, root.pressedKey);
                     if (source)
                         root.draggedEntry = Layout.clone([source.entry])[0];
@@ -361,6 +504,16 @@ PanelWindow {
                     root.updateDrop();
             }
             onReleased: mouse => {
+                if (root.gestureCancelled) {
+                    root.gestureCancelled = false;
+                    root.pressedKey = "";
+                    return;
+                }
+                if (root.pagingGesture) {
+                    root.pagingGesture = false;
+                    pager.endSwipe();
+                    return;
+                }
                 if (root.dragging) {
                     root.finishDrag();
                     return;
@@ -375,16 +528,34 @@ PanelWindow {
                     root.back();
                 root.pressedKey = "";
             }
-            onCanceled: root.cancelDrag()
+            onCanceled: {
+                root.cancelDrag();
+                root.pagingGesture = false;
+                pager.endSwipe();
+            }
             onWheel: wheel => {
-                if (root.dragging || Date.now() - root.lastWheelTime < 250) {
+                if (root.dragging) {
                     wheel.accepted = true;
                     return;
                 }
-                const delta = wheel.angleDelta.y || wheel.angleDelta.x;
-                if (Math.abs(delta) >= 30) {
-                    root.changePage(delta < 0 ? 1 : -1);
+                if (wheel.phase === Qt.ScrollEnd && pager.swiping) {
+                    swipeEnd.stop();
+                    pager.endSwipe();
+                } else if (Math.abs(wheel.pixelDelta.x) > 0) {
+                    pager.beginSwipe();
+                    pager.swipeBy(-wheel.pixelDelta.x);
+                    swipeEnd.restart();
+                } else if (!pager.swiping) {
+                    const delta = Math.abs(wheel.angleDelta.x) > Math.abs(wheel.angleDelta.y)
+                          ? wheel.angleDelta.x : wheel.angleDelta.y;
+                    if (Date.now() - root.lastWheelTime > 180)
+                        root.wheelDistance = 0;
+                    root.wheelDistance += delta;
                     root.lastWheelTime = Date.now();
+                    if (Math.abs(root.wheelDistance) >= 90) {
+                        root.changePage(root.wheelDistance < 0 ? 1 : -1);
+                        root.wheelDistance = 0;
+                    }
                 }
                 wheel.accepted = true;
             }
@@ -506,7 +677,7 @@ PanelWindow {
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            y: root.height - 104
+            y: root.viewHeight - 104
             spacing: 12
             IconButton {
                 iconName: "chevron_left"
@@ -552,8 +723,8 @@ PanelWindow {
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            y: root.height - 54
-            width: root.width - 64
+            y: root.viewHeight - 54
+            width: root.viewWidth - 64
             horizontalAlignment: Text.AlignHCenter
             text: LaunchpadService.error || (root.searching ? qsTr("Clear search to arrange applications") :
                                                               root.folderId ? qsTr(
@@ -572,7 +743,7 @@ PanelWindow {
                    }
             x: root.pointerPoint.x - width / 2
             y: root.pointerPoint.y - root.iconSize / 2 - 12
-            width: appGrid.width / root.columns
+            width: gridArea.width / root.columns
             height: root.tileHeight
             iconSize: root.iconSize
             ghost: true

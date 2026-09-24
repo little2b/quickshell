@@ -31,6 +31,7 @@ Singleton {
                                               "value": ""
                                           })]
     readonly property string systemDefaultIconTheme: IconThemeController.systemThemeName
+    readonly property string iconThemeName: IconThemeController.themeName
     readonly property int iconThemeRevision: IconThemeController.revision
     property string systemDefaultCursorTheme: ""
 
