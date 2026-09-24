@@ -110,6 +110,10 @@ rename 替换；Clavis 写入者通过 flock 串行化，提交前检查配置�
 关闭；设置中心显示无点击/键盘动作的 terminal 信息标记，通过 tooltip 展示命令。
 开关直接控制整个模板，不存在独立 hook 权限或启用确认。
 验证和添加不执行 hook。用户启用模板即信任其内容，之后应谨慎修改模板和 hook。
+内置 hook 使用 `/bin/sh`，不受 Fish 等登录 Shell 的语法差异影响；用户 hook 沿用
+`$SHELL`（未设置时回退 `/bin/sh`）。Matugen 将 hook 中的颜色变量渲染到临时脚本，
+模板生成成功后由 Clavis 执行并检查退出状态；非零退出作为该模板的 `external-error`
+报告，并继续后续模板。`--dry-run` 不执行 hook。
 
 每次生成在 `$CLAVIS_RUNTIME_HOME/temporary/matugen.XXXXXX/config.toml` 中写入 runtime
 配置，不改两层 registry。先单独生成内部配色，输出 JSONL `core-ready` 后立即通知

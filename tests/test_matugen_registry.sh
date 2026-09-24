@@ -34,14 +34,17 @@ reject() {
 manage list > "$test_root/list.json"
 jq -e '.errors == [] and ([.templates[] | select(.origin == "builtin")] | length > 1) and all(.templates[]; .valid)' "$test_root/list.json" >/dev/null
 assert test ! -e "$CLAVIS_CONFIG_HOME/matugen"
-generate > "$test_root/generated.jsonl"
+# Builtin POSIX hooks must not depend on the user's login shell (e.g. Fish).
+printf '#!/bin/sh\nprintf "unexpected login shell\\n" >&2\nexit 91\n' > "$test_root/bin/login-shell"
+chmod +x "$test_root/bin/login-shell"
+env SHELL="$test_root/bin/login-shell" bash "$generator" --color '#6750a4' > "$test_root/generated.jsonl"
 assert test -s "$CLAVIS_GENERATED_HOME/clavis/colors.json"
 assert test -s "$HOME/.config/kitty/current-theme.conf"
 assert test -s "$HOME/signals"
 assert test ! -e "$CLAVIS_CONFIG_HOME/matugen"
 
 printf 'background = {{colors.primary.default.hex}}\n' > "$test_root/ghostty.conf"
-hook='printf "hook ran\n" >> "$HOME/hook-ran"'
+hook='printf "hook ran\n" >> "$HOME/hook-ran"; printf "%s\n" "{{colors.primary.default.hex}}" > "$HOME/hook-color"'
 manage validate ghostty "$test_root/ghostty.conf" '~/ghostty/Matugen' "$hook" > /dev/null
 assert test ! -e "$CLAVIS_CONFIG_HOME/matugen"
 assert test ! -e "$HOME/hook-ran"
@@ -55,7 +58,13 @@ assert test ! -e "$HOME/ghostty/Matugen"
 generate --templates ghostty > /dev/null
 assert test -s "$HOME/ghostty/Matugen"
 assert test -s "$HOME/hook-ran"
+assert test "$(wc -l < "$HOME/hook-ran")" -eq 1
+assert test "$(cat "$HOME/ghostty/Matugen")" = "background = $(cat "$HOME/hook-color")"
 cp "$HOME/ghostty/Matugen" "$test_root/retained"
+cp "$HOME/hook-ran" "$test_root/hook-before-dry-run"
+generate --templates ghostty --dry-run > /dev/null
+assert cmp "$test_root/hook-before-dry-run" "$HOME/hook-ran"
+assert cmp "$test_root/retained" "$HOME/ghostty/Matugen"
 generate --templates '' --mode light --scheme scheme-expressive > /dev/null
 assert cmp "$HOME/ghostty/Matugen" "$test_root/retained"
 
@@ -71,6 +80,27 @@ reject add directory "$test_root" '~/another' ''
 manage add editor.custom "$test_root/ghostty.conf" '$HOME/editor/theme' '' > /dev/null
 generate --templates editor.custom > /dev/null
 assert test -s "$HOME/editor/theme"
+
+# User hooks retain their selected shell and report failures while later
+# templates still generate. Matugen itself can swallow a hook's exit status.
+manage add failed-hook "$test_root/ghostty.conf" '~/failed-hook/theme' 'printf "hook failed\n" >&2; exit 17' > /dev/null
+if env SHELL="$test_root/bin/login-shell" bash "$generator" --color '#6750a4' \
+    --templates failed-hook,editor.custom > "$test_root/shell-failure.jsonl" 2> "$test_root/shell-failure.log"; then
+    printf 'Expected login shell failure\n' >&2; exit 1
+else
+    assert test "$?" -eq 3
+fi
+jq -se 'any(.[]; .event == "external-error" and .id == "failed-hook" and (.error | contains("exit 91"))) and .[-1].event == "finished"' "$test_root/shell-failure.jsonl" >/dev/null
+rm -- "$HOME/editor/theme"
+if generate --templates failed-hook,editor.custom > "$test_root/hook-failure.jsonl" 2> "$test_root/hook-failure.log"; then
+    printf 'Expected post-hook failure\n' >&2; exit 1
+else
+    assert test "$?" -eq 3
+fi
+jq -se 'any(.[]; .event == "core-ready") and any(.[]; .event == "external-error" and .id == "failed-hook" and (.error | contains("hook failed")) and (.error | contains("exit 17"))) and .[-1].event == "finished"' "$test_root/hook-failure.jsonl" >/dev/null
+assert test -s "$HOME/failed-hook/theme"
+assert test -s "$HOME/editor/theme"
+manage remove failed-hook > /dev/null
 
 cat >> "$CLAVIS_CONFIG_HOME/matugen/config.toml" <<'TOML'
 [templates.missing]

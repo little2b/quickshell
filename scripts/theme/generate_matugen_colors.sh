@@ -89,11 +89,25 @@ trap 'exit 143' HUP TERM
 runtime_config="$runtime_dir/config.toml"
 
 run_template() {
-    local entry=$1 output
+    local entry=$1 output post_hook hook_shell hook_exit
+    local hook_input="$runtime_dir/post-hook.in" hook_output="$runtime_dir/post-hook"
+    post_hook=$(jq -r '.postHook' <<< "$entry")
+    # Matugen runs hooks with the login shell and may return success even when
+    # they fail. Render the hook as a template, then execute it ourselves so
+    # builtins have POSIX semantics and hook failures reach the JSONL protocol.
+    rm -f -- "$hook_output" || return
+    if [[ -n "$post_hook" ]]; then
+        printf '%s\n' "$post_hook" > "$hook_input" || return
+    fi
     {
         printf '[config]\nversion_check = false\n\n'
-        matugen_render_entry <<< "$entry"
-    } > "$runtime_config"
+        jq '.postHook = ""' <<< "$entry" | matugen_render_entry
+        if [[ -n "$post_hook" ]]; then
+            jq -n --argjson entry "$entry" --arg input "$hook_input" --arg output "$hook_output" \
+                '{id: ($entry.id + ".clavis-post-hook"), inputPath: $input, outputPath: $output, postHook: ""}' \
+                | matugen_render_entry
+        fi
+    } > "$runtime_config" || return
     output=$(jq -r '.outputPath' <<< "$entry")
     if [[ "$dry_run" == false ]]; then
         mkdir -p -- "$(dirname -- "$output")" || return
@@ -101,9 +115,20 @@ run_template() {
     local common_args=(--mode "$mode" --type "$scheme" --config "$runtime_config")
     if [[ "$dry_run" == true ]]; then common_args+=(--dry-run); fi
     if [[ -n "$image_path" ]]; then
-        matugen --source-color-index 0 image "$image_path" "${common_args[@]}"
+        matugen --source-color-index 0 image "$image_path" "${common_args[@]}" || return
     else
-        matugen color hex "$source_color" "${common_args[@]}"
+        matugen color hex "$source_color" "${common_args[@]}" || return
+    fi
+    if [[ "$dry_run" == false && -n "$post_hook" ]]; then
+        hook_shell=${SHELL:-/bin/sh}
+        if [[ $(jq -r '.origin' <<< "$entry") == builtin ]]; then hook_shell=/bin/sh; fi
+        if "$hook_shell" "$hook_output"; then
+            return 0
+        else
+            hook_exit=$?
+            printf 'Post-hook failed (exit %d)\n' "$hook_exit" >&2
+            return "$hook_exit"
+        fi
     fi
 }
 
