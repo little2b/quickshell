@@ -18,6 +18,10 @@ class NiriPlugin : public QObject {
     QML_SINGLETON
 
     Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
+    Q_PROPERTY(bool supportsMinimizeAnimation READ supportsMinimizeAnimation NOTIFY capabilitiesChanged)
+    Q_PROPERTY(QStringList minimizeEffects READ minimizeEffects NOTIFY capabilitiesChanged)
+    Q_PROPERTY(bool supportsMinimize READ supportsMinimize NOTIFY capabilitiesChanged)
+    Q_PROPERTY(quint64 connectionGeneration READ connectionGeneration NOTIFY connectedChanged)
     Q_PROPERTY(QString socketPath READ socketPath NOTIFY connectedChanged)
     Q_PROPERTY(QString lastError READ lastError NOTIFY errorChanged)
     Q_PROPERTY(NiriWorkspaceModel *workspaces READ workspaces CONSTANT)
@@ -34,6 +38,10 @@ class NiriPlugin : public QObject {
     ~NiriPlugin() override;
 
     bool connected() const;
+    bool supportsMinimize() const { return connected() && m_supportsMinimize; }
+    bool supportsMinimizeAnimation() const { return connected() && m_supportsMinimizeAnimation; }
+    QStringList minimizeEffects() const { return m_minimizeEffects; }
+    quint64 connectionGeneration() const { return m_connectionGeneration; }
     QString socketPath() const;
     QString lastError() const;
     NiriWorkspaceModel *workspaces();
@@ -63,6 +71,8 @@ class NiriPlugin : public QObject {
     Q_INVOKABLE bool focusWorkspaceById(quint64 id);
     Q_INVOKABLE bool focusWorkspaceByName(const QString &name);
     Q_INVOKABLE bool focusWindow(quint64 id);
+    Q_INVOKABLE bool minimizeWindow(quint64 id);
+    Q_INVOKABLE bool restoreWindow(quint64 id, const QString &output = QString());
     Q_INVOKABLE bool closeWindow(quint64 id);
     Q_INVOKABLE bool closeFocusedWindow();
     Q_INVOKABLE bool toggleOverview();
@@ -80,6 +90,7 @@ class NiriPlugin : public QObject {
 
   signals:
     void connectedChanged();
+    void capabilitiesChanged();
     void errorChanged();
     void workspacesChanged();
     void windowsChanged();
@@ -100,6 +111,7 @@ class NiriPlugin : public QObject {
     NiriOutput parseOutput(const QString &name, const QJsonObject &object) const;
     void loadInitialState();
     void fetchOutputs();
+    void connectionChanged();
     void setError(const QString &message);
     void publishState(bool workspaceChanged, bool windowChanged, bool outputChanged);
     void recomputeDerivedState();
@@ -128,4 +140,9 @@ class NiriPlugin : public QObject {
     QStringList m_keyboardLayoutNames;
     int m_currentKeyboardLayoutIndex = -1;
     quint64 m_outputRefreshGeneration = 0;
+    quint64 m_connectionGeneration = 0;
+    bool m_wasConnected = false;
+    bool m_supportsMinimize = false;
+    bool m_supportsMinimizeAnimation = false;
+    QStringList m_minimizeEffects;
 };

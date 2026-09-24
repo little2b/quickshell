@@ -3,12 +3,12 @@
   "routes": [
     {
       "id": "general.dock",
-      "title": "Bottom Dock",
+      "title": "Dock",
       "context": "GeneralPage",
       "icon": "dock_to_bottom",
       "source": "DockPage.qml",
       "path": ["general", "dock"],
-      "aliases": []
+      "aliases": ["taskbar", "launcher"]
     },
     {
       "id": "general.power-management",

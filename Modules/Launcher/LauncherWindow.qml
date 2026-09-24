@@ -38,6 +38,7 @@ PanelWindow {
     property int toolCandidateIndex: 0
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
+    property bool closeAfterDrag: false
     readonly property string mode: session.viewMode
     // Keep the content query while the input is used for a slash command.
     property string contentQuery: ""
@@ -98,6 +99,29 @@ PanelWindow {
     readonly property int wallpaperGridColumns: resultsPanel.wallpaperColumnCount
     readonly property real wallpaperPreviewWidth: resultsPanel.wallpaperPreviewWidth
     readonly property int blurRegionCount: spotlightBlur.regionObjects.length
+
+    // The source stays mapped during a platform drag; let the pointer reach
+    // the Dock's separate layer surface outside the launcher card.
+    mask: Region {
+        x: DockService.externalDragActive ? spotlightRoot.x : 0
+        y: DockService.externalDragActive ? spotlightRoot.y : 0
+        width: DockService.externalDragActive ? spotlightRoot.width : root.width
+        height: DockService.externalDragActive ? spotlightRoot.height : root.height
+    }
+
+    Connections {
+        target: DockService
+        function onExternalDragActiveChanged() {
+            if (DockService.externalDragActive)
+                return;
+            if (root.closeAfterDrag) {
+                root.closeAfterDrag = false;
+                root.requestClose();
+            } else {
+                root.focusSpotlight();
+            }
+        }
+    }
 
     Loader {
         id: locationPickerLoader
@@ -358,6 +382,8 @@ PanelWindow {
     }
 
     function openSpotlight(requestedMode) {
+        if (DockService.externalDragActive)
+            return false;
         root.pendingWebUrl = "";
         root.pendingSearchActivation = null;
         SpotlightSearchService.cancelActivation();
@@ -387,15 +413,19 @@ PanelWindow {
     }
 
     function focusSpotlight() {
-        if (!root.showing || root.spotlightModalActive)
+        if (!root.showing || root.spotlightModalActive || DockService.externalDragActive)
             return;
         Qt.callLater(() => {
-            if (root.showing && !root.spotlightModalActive)
+            if (root.showing && !root.spotlightModalActive && !DockService.externalDragActive)
                 searchBar.focusInput();
         });
     }
 
     function requestClose() {
+        if (DockService.externalDragActive) {
+            root.closeAfterDrag = true;
+            return true;
+        }
         if (root.windowPhase === "hidden" || root.windowPhase === "closing")
             return false;
         root.controlHeld = false;
@@ -427,6 +457,8 @@ PanelWindow {
     }
 
     function setLocalMode(requestedMode) {
+        if (DockService.externalDragActive)
+            return false;
         const localMode = normalizedMode(requestedMode);
         if (!localMode)
             return false;
@@ -439,6 +471,8 @@ PanelWindow {
     }
 
     function runCommand(name) {
+        if (DockService.externalDragActive)
+            return "BUSY";
         const entry = Commands.exact(name);
         if (!entry || entry.kind === "override")
             return "INVALID_COMMAND";
@@ -640,6 +674,8 @@ PanelWindow {
     }
 
     function activateResult(index, keepClipboardOpen) {
+        if (DockService.externalDragActive)
+            return false;
         if (!root.selectResult(index))
             return false;
         if (session.slashDraft)
@@ -798,6 +834,10 @@ PanelWindow {
     }
 
     function handleKey(event, fromSearch) {
+        if (DockService.externalDragActive) {
+            event.accepted = true;
+            return;
+        }
         if (root.spotlightModalActive)
             return;
         root.controlHeld = event.key === Qt.Key_Control || (event.modifiers & Qt.ControlModifier) !== 0;

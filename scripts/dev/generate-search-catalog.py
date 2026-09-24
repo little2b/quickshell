@@ -32,7 +32,7 @@ DISPATCH = {
     ('shortcut-map', 'open'): [[]],
     ('power-menu', 'open'): [[]],
 }
-AVAILABILITY = {'always', 'awww', 'clavis-wallpaper', 'wallpaper-idle', 'keystone', 'keyboard-lock'}
+AVAILABILITY = {'always', 'awww', 'clavis-wallpaper', 'wallpaper-idle', 'keystone', 'keyboard-lock', 'dock-previews'}
 
 
 def required(entry, fields):

@@ -41,6 +41,53 @@ class ConfigurationContracts(unittest.TestCase):
         self.run_config('setup')
         return self.run_config()
 
+    @mock.patch.object(config.Graph, 'validate')
+    def test_minimize_style_roundtrip_preserves_animation_settings(self, validate):
+        original = 'animations { off; window-open { duration-ms 90; }; window-minimize { duration-ms 600; }; }\n'
+        self.main.write_text(original)
+        state = self.run_config('setup', feature='minimize-animation', effect='scale')
+        self.assertEqual(state['minimizeAnimation'], dict(effect='scale', disabled=True))
+        connected = self.main.read_text()
+        self.assertTrue(connected.startswith(original))
+        path = self.fragment('minimize-animation')
+        # An existing managed animation block may contain timing but no style yet.
+        path.write_text('// Custom timing stays intact\nanimations { window-close { off; }; }\n')
+        state = self.run_config('update', feature='minimize-animation', effect='genie', revision=self.run_config()['revision'])
+        self.assertEqual(state['minimizeAnimation'], dict(effect='genie', disabled=True))
+        self.assertEqual(self.main.read_text(), connected)
+        self.assertIn('// Custom timing stays intact\n', path.read_text())
+        self.assertIn('window-close { off; };', path.read_text())
+        self.assertEqual(len(config.parse(path.read_text()).nodes), 1)
+        self.assertEqual(self.run_config()['minimizeAnimation']['effect'], 'genie')
+        state = self.run_config('update', feature='minimize-animation', effect='scale')
+        self.assertEqual(state['minimizeAnimation']['effect'], 'scale')
+        validate.assert_called()
+
+    @mock.patch.object(config.Graph, 'validate')
+    def test_minimize_rejected_candidate_and_stale_revision_do_not_write(self, validate):
+        state = self.run_config('setup', feature='minimize-animation')
+        before = self.fragment('minimize-animation').read_bytes()
+        with self.assertRaises(ValueError):
+            self.run_config('update', feature='minimize-animation', effect='unknown')
+        validate.side_effect = ValueError('Unsupported animation option')
+        with self.assertRaises(ValueError):
+            self.run_config('update', feature='minimize-animation', effect='genie')
+        validate.side_effect = None
+        self.main.write_text(self.main.read_text() + '// external edit\n')
+        with self.assertRaises(ValueError):
+            self.run_config('update', feature='minimize-animation', effect='genie', revision=state['revision'])
+        self.assertEqual(before, self.fragment('minimize-animation').read_bytes())
+
+    @mock.patch.object(config.Graph, 'validate')
+    def test_minimize_external_override_is_reported_without_overwriting_it(self, validate):
+        self.run_config('setup', feature='minimize-animation')
+        before = self.fragment('minimize-animation').read_bytes()
+        self.main.write_text(self.main.read_text() + 'animations { window-minimize-effect "scale"; }\n')
+        with self.assertRaisesRegex(ValueError, 'overrides'):
+            self.run_config('update', feature='minimize-animation', effect='genie')
+        self.assertEqual(before, self.fragment('minimize-animation').read_bytes())
+
+
     def test_files_catalog_action_starts_unbound_and_round_trips(self):
         with mock.patch.object(config.subprocess, 'run', return_value=mock.Mock(returncode=0, stderr='')):
             catalog = self.run_config('catalog')['catalog']

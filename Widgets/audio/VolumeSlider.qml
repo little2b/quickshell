@@ -51,13 +51,13 @@ Item {
                     }
                 }
 
-                Image {
+                ThemeIcon {
                     id: applicationIcon
 
                     anchors.centerIn: parent
                     width: 24
                     height: 24
-                    source: root.iconSource
+                    iconSource: root.iconSource
                     sourceSize: Qt.size(24, 24)
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true

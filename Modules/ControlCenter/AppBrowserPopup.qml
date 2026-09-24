@@ -267,11 +267,11 @@ FloatingWindow {
                         anchors.margins: Metrics.spacingS
                         spacing: Metrics.spacingS
 
-                        Image {
+                        ThemeIcon {
                             Layout.preferredWidth: Metrics.iconL
                             Layout.preferredHeight: Metrics.iconL
                             Layout.alignment: Qt.AlignVCenter
-                            source: ApplicationService.iconSource(modelData.icon)
+                            iconSource: ApplicationService.iconSource(modelData.icon)
                             sourceSize.width: Metrics.iconL * 2
                             sourceSize.height: Metrics.iconL * 2
                             fillMode: Image.PreserveAspectFit

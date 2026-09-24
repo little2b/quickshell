@@ -46,15 +46,21 @@ Singleton {
             return false;
         // Output objects may be destroyed while window handles survive a resume
         // or monitor reconnect. Ignore missing outputs until the list is refreshed.
-        const candidates = root.toplevels.filter(window => window && window.appId === selected.appId
-                                                           && window.title === selected.title
-                                                           && window.screens.some(output => output
-                                                                                            && output.name
-                                                                                            === screenName));
+        const sameApp = root.toplevels.filter(window => window && window.appId === selected.appId
+                                                        && window.screens.some(output => output
+                                                                                         && output.name
+                                                                                         === screenName));
+        const candidates = sameApp.filter(window => window.title === selected.title);
         // Prefer the active handle when indistinguishable titles exist. During
         // a panel focus grab, only hide if all matching handles agree.
         const active = ToplevelManager.activeToplevel;
-        let window = candidates.includes(active) ? active : candidates.length === 1 ? candidates[0] : null;
+        // Niri and the foreign-toplevel protocol can report a browser tab's
+        // new title on different frames. Only use a title-less match when the
+        // selected application has exactly one window on this output.
+        let window = candidates.includes(active) ? active : candidates.length === 1 ? candidates[0] :
+                                                                                      candidates.length === 0
+                                                                                      && sameApp.length === 1
+                                                                                      ? sameApp[0] : null;
         if (!window)
             return candidates.length > 0 && candidates.every(candidate => candidate.maximized &&
                                                                           !candidate.fullscreen);

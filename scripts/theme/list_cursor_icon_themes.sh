@@ -6,9 +6,6 @@ shift
 
 case "$kind" in
     icon)
-        gsettings get org.gnome.desktop.interface icon-theme 2>/dev/null \
-            | sed "s/'//g" \
-            | sed 's/^/SYSDEFAULT:/' || true
         excluded='^(icons|default|hicolor|locolor)$'
         require_cursor=false
         ;;

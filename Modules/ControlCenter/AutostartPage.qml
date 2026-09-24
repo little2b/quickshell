@@ -202,11 +202,11 @@ StyledFlickable {
                                 anchors.margins: Metrics.spacingS
                                 spacing: Metrics.spacingS
 
-                                Image {
+                                ThemeIcon {
                                     Layout.preferredWidth: Metrics.iconL
                                     Layout.preferredHeight: Metrics.iconL
                                     Layout.alignment: Qt.AlignVCenter
-                                    source: ApplicationService.iconSourceForEntry(modelData)
+                                    iconSource: ApplicationService.iconSourceForEntry(modelData)
                                     sourceSize.width: Metrics.iconL * 2
                                     sourceSize.height: Metrics.iconL * 2
                                     fillMode: Image.PreserveAspectFit

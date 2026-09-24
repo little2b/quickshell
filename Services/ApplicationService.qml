@@ -2,11 +2,62 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
+import Clavis.Files
+import qs.Services
 
 Singleton {
     id: root
 
     property var applications: []
+    readonly property var launchpadApplication: ({
+                                                     id: "org.clavis.Launchpad",
+                                                     name: qsTr("App Menu"),
+                                                     genericName: "Launchpad",
+                                                     keywords: ["launchpad", "applications", "apps", "menu"],
+                                                     icon: String(Qt.resolvedUrl(
+                                                                      "../assets/icons/apps/launchpad.svg"))
+                                                 })
+    readonly property string settingsIconName: {
+        // Re-evaluate availability after Qt has applied the selected theme.
+        const revision = ThemeService.iconThemeRevision;
+        for (const name of ["preferences-system", "preferences-desktop"]) {
+            if (Quickshell.hasThemeIcon(name))
+                return name;
+        }
+        return "";
+    }
+    readonly property var settingsApplication: ({
+                                                    id: "org.clavis.Settings",
+                                                    name: qsTranslate("ControlCenterWindow", "Settings"),
+                                                    genericName: "Clavis",
+                                                    keywords: ["Clavis", "settings", "preferences",
+                                                        "control center"],
+                                                    symbol: root.settingsIconName ? "" : "settings",
+                                                    icon: root.settingsIconName
+                                                })
+    readonly property var spaceApplication: ({
+                                                 id: "org.clavis.Space",
+                                                 name: qsTr("Space"),
+                                                 genericName: qsTr("Drag to Dock to add a blank space"),
+                                                 keywords: ["space", "spacer", "blank", "dock"],
+                                                 symbol: "check_box_outline_blank",
+                                                 icon: "",
+                                                 dragOnly: true
+                                             })
+    readonly property var smallSpaceApplication: ({
+                                                      id: "org.clavis.SmallSpace",
+                                                      name: qsTr("Small Space"),
+                                                      genericName: qsTr("Drag to Dock to add a blank space"),
+                                                      keywords: ["space", "spacer", "blank", "dock", "small",
+                                                          "narrow"],
+                                                      symbol: "check_box_outline_blank",
+                                                      icon: "",
+                                                      dragOnly: true
+                                                  })
+    // Internal shell entries belong in the launcher, not in default-app or
+    // autostart pickers that require an installed desktop application.
+    readonly property var launcherApplications: applications.concat([settingsApplication, launchpadApplication,
+                                                                     spaceApplication, smallSpaceApplication])
 
     function launchCommand(command, workingDirectory) {
         const argv = Array.from(command || []);
@@ -25,16 +76,40 @@ Singleton {
     }
 
     function launchApplication(application) {
-        if (!application)
+        if (!application || application.dragOnly)
             return false;
-        return root.launchCommand(application.command, application.workingDirectory);
+        if (application.id === root.settingsApplication.id)
+            return ControlCenterService.openOrFocus();
+        if (application.id === root.launchpadApplication.id)
+            return LaunchpadService.open();
+        const command = Array.from(application.command || []);
+        if (command.length === 0 || !String(command[0]).trim())
+            return false;
+        if (application.runInTerminal) {
+            const terminal = ["xdg-terminal-exec"];
+            if (application.workingDirectory)
+                terminal.push("--dir=" + String(application.workingDirectory));
+            // Optional terminal support: let Dock match a TUI's window to its
+            // desktop entry without guessing from the window title.
+            const appId = String(application.startupClass || application.id || "").replace(/\.desktop$/, "");
+            if (appId)
+                terminal.push("--app-id=" + appId);
+            return root.launchCommand(terminal.concat(["--"], command), application.workingDirectory);
+        }
+        return root.launchCommand(command, application.workingDirectory);
     }
 
     function openUrl(url) {
         const value = String(url || "");
         if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(value))
             return false;
-        return root.launchCommand(["xdg-open", value]);
+        if (/^file:/i.test(value)) {
+            const desktopFile = DesktopFiles.defaultApplicationForFile(value);
+            // Launch the MIME handler explicitly: gio open may instead select
+            // x-scheme-handler/file. GIO still honors Terminal=true for TUI apps.
+            return !!desktopFile && root.launchCommand(["gio", "launch", desktopFile, value]);
+        }
+        return root.launchCommand(/^trash:/i.test(value) ? ["gio", "open", value] : ["xdg-open", value]);
     }
 
     function isVisibleApplication(application) {
@@ -72,6 +147,14 @@ Singleton {
 
     function findById(identifier) {
         const value = String(identifier || "");
+        if (value === root.launchpadApplication.id)
+            return root.launchpadApplication;
+        if (value === root.smallSpaceApplication.id)
+            return root.smallSpaceApplication;
+        if (value === root.spaceApplication.id)
+            return root.spaceApplication;
+        if (value === root.settingsApplication.id)
+            return root.settingsApplication;
         const withoutSuffix = value.endsWith(".desktop") ? value.substring(0, value.length
                                                                            - ".desktop".length) : value;
         for (const application of root.applications) {
@@ -84,6 +167,7 @@ Singleton {
     }
 
     function iconSource(iconName) {
+        const revision = ThemeService.iconThemeRevision;
         const value = String(iconName || "");
         if (value.startsWith("file://") || value.startsWith("image://"))
             return value;

@@ -13,16 +13,16 @@ Item {
     onOrderChanged: rebuild()
 
     function rebuild() {
-        if (!active)
+        if (!active || DockService.externalDragActive)
             return;
-        const ordered = LocalSearch.appResults(ApplicationService.getVisibleApplications(), query, root.order,
+        const ordered = LocalSearch.appResults(ApplicationService.launcherApplications, query, root.order,
                                                SpotlightAppUsage.records, Date.now());
         root.results = root.limit > 0 ? ordered.slice(0, root.limit) : ordered;
     }
 
     function execute(index) {
         const result = root.results[index];
-        if (!result || !result.appObject)
+        if (!result || !result.appObject || result.appObject.dragOnly)
             return false;
         return SpotlightAppUsage.launch(result.id);
     }
@@ -33,6 +33,14 @@ Item {
     onQueryChanged: rebuild()
     onLimitChanged: rebuild()
     Component.onCompleted: rebuild()
+
+    Connections {
+        target: DockService
+        function onExternalDragActiveChanged() {
+            if (!DockService.externalDragActive)
+                root.rebuild();
+        }
+    }
 
     Connections {
         target: UiPreferences
@@ -51,7 +59,7 @@ Item {
     Connections {
         target: ApplicationService
 
-        function onApplicationsChanged() {
+        function onLauncherApplicationsChanged() {
             root.rebuild();
         }
     }

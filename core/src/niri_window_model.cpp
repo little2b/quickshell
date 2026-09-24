@@ -32,6 +32,8 @@ QVariant NiriWindowModel::data(const QModelIndex &index, int role) const
         return window.isFocused;
     case IsFloatingRole:
         return window.isFloating;
+    case IsMinimizedRole:
+        return window.isMinimized;
     case IsUrgentRole:
         return window.isUrgent;
     case LayoutColumnRole:
@@ -56,6 +58,7 @@ QHash<int, QByteArray> NiriWindowModel::roleNames() const
         {WorkspaceIdRole, "workspaceId"},
         {IsFocusedRole, "isFocused"},
         {IsFloatingRole, "isFloating"},
+        {IsMinimizedRole, "isMinimized"},
         {IsUrgentRole, "isUrgent"},
         {LayoutColumnRole, "layoutColumn"},
         {LayoutRowRole, "layoutRow"},
@@ -113,6 +116,7 @@ QVariantMap NiriWindowModel::toMap(const NiriWindow &window) const
         {QStringLiteral("workspaceId"), QVariant::fromValue(window.workspaceId)},
         {QStringLiteral("isFocused"), window.isFocused},
         {QStringLiteral("isFloating"), window.isFloating},
+        {QStringLiteral("isMinimized"), window.isMinimized},
         {QStringLiteral("isUrgent"), window.isUrgent},
         {QStringLiteral("layoutColumn"), window.layoutColumn},
         {QStringLiteral("layoutRow"), window.layoutRow},

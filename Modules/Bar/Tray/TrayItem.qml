@@ -247,8 +247,10 @@ MouseArea {
             screen: root.screen
             edge: root.edge
             barVisualItem: root.barVisualItem
+            insideOverflow: !root.pinned
 
             onMenuOpened: window => root.menuOpened(window)
+            onOpenApplicationRequested: root.activateItem()
             onMenuClosed: {
                 root.menuClosed();
                 menu.active = false;

@@ -12,6 +12,7 @@ Item {
     required property var targetWindow
     required property Item backgroundItem
     property var additionalBackgroundItems: []
+    property var additionalRegions: []
     property var subtractedBackgroundItems: []
     property var postSubtractionBackgroundItems: []
     // Applies only to regions added after subtraction.
@@ -237,6 +238,8 @@ Item {
         // Region children are evaluated in order. Keep the operation chain
         // explicit: (base + additional) - subtraction + post-subtraction.
         const combinedRegions = regions.slice();
+        for (const region of root.additionalRegions)
+            combinedRegions.push(region);
         for (let index = 0; index < subtractionRegions.length; ++index)
             combinedRegions.push(subtractionRegions[index]);
         for (let index = 0; index < postSubtractionRegions.length; ++index)
@@ -319,6 +322,7 @@ Item {
 
     onBackgroundItemChanged: rebuildRegions()
     onAdditionalBackgroundItemsChanged: rebuildRegions()
+    onAdditionalRegionsChanged: rebuildRegions()
     onSubtractedBackgroundItemsChanged: rebuildRegions()
     onPostSubtractionBackgroundItemsChanged: rebuildRegions()
     onPostSubtractionClipItemChanged: rebuildRegions()

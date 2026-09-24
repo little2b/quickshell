@@ -9,7 +9,7 @@
 
 NiriPlugin::NiriPlugin(QObject *parent) : QObject(parent)
 {
-    connect(&m_client, &NiriIpcClient::connectedChanged, this, &NiriPlugin::connectedChanged);
+    connect(&m_client, &NiriIpcClient::connectedChanged, this, &NiriPlugin::connectionChanged);
     connect(&m_client, &NiriIpcClient::eventReceived, this, &NiriPlugin::handleEvent);
     connect(&m_client, &NiriIpcClient::errorOccurred, this, &NiriPlugin::setError);
     QTimer::singleShot(0, this, &NiriPlugin::connectToNiri);
@@ -41,10 +41,58 @@ QString NiriPlugin::currentKeyboardLayoutName() const
 
 bool NiriPlugin::connectToNiri()
 {
+    if (connected())
+        return true;
     const bool ok = m_client.connectToNiri();
     if (ok)
         loadInitialState();
     return ok;
+}
+
+void NiriPlugin::connectionChanged()
+{
+    const bool online = connected();
+    if (online == m_wasConnected)
+        return;
+    m_wasConnected = online;
+    ++m_connectionGeneration;
+    ++m_outputRefreshGeneration;
+    m_supportsMinimize = false;
+    m_supportsMinimizeAnimation = false;
+    m_minimizeEffects.clear();
+    emit capabilitiesChanged();
+    emit connectedChanged();
+    if (!online) {
+        m_windows.clear();
+        m_workspaces.clear();
+        m_outputs.clear();
+        publishState(true, true, true);
+        return;
+    }
+    const auto generation = m_connectionGeneration;
+    // Old compositors reject this optional query. That is a capability result,
+    // not an action failure, and must never trigger a probing minimize action.
+    m_client.requestAsync(
+        QStringLiteral("Capabilities"), this,
+        [this, generation](const QJsonValue &value, const QString &error) {
+            if (!connected() || generation != m_connectionGeneration)
+                return;
+            m_supportsMinimize = error.isEmpty() && value.isObject() &&
+                                 value.toObject().value(QStringLiteral("window_minimization")).toBool(false);
+            m_supportsMinimizeAnimation =
+                m_supportsMinimize &&
+                value.toObject().value(QStringLiteral("window_minimization_animation")).toBool(false);
+            if (m_supportsMinimizeAnimation) {
+                const auto effects =
+                    value.toObject().value(QStringLiteral("window_minimization_effects")).toArray();
+                for (const auto &entry : effects) {
+                    const auto effect = entry.toString();
+                    if ((effect == "scale" || effect == "genie") && !m_minimizeEffects.contains(effect))
+                        m_minimizeEffects.append(effect);
+                }
+            }
+            emit capabilitiesChanged();
+        });
 }
 
 QVariantList NiriPlugin::workspacesForOutput(const QString &outputName) const
@@ -139,6 +187,27 @@ bool NiriPlugin::closeWindow(quint64 id)
 {
     return sendAction(
         {{QStringLiteral("CloseWindow"), QJsonObject{{QStringLiteral("id"), QJsonValue::fromVariant(id)}}}});
+}
+
+bool NiriPlugin::minimizeWindow(quint64 id)
+{
+    if (!supportsMinimize() || !id || windowById(id).isEmpty())
+        return false;
+    return sendAction({{QStringLiteral("MinimizeWindow"),
+                        QJsonObject{{QStringLiteral("id"), QJsonValue::fromVariant(id)}}}});
+}
+
+bool NiriPlugin::restoreWindow(quint64 id, const QString &output)
+{
+    if (!supportsMinimize() || !id || windowById(id).isEmpty())
+        return false;
+    // A removed output must not silently redirect a click to another monitor.
+    if (!output.isEmpty() && m_outputModel.outputByName(output).isEmpty())
+        return false;
+    return sendAction(
+        {{QStringLiteral("RestoreWindow"),
+          QJsonObject{{QStringLiteral("id"), QJsonValue::fromVariant(id)},
+                      {QStringLiteral("output"), output.isEmpty() ? QJsonValue() : QJsonValue(output)}}}});
 }
 
 bool NiriPlugin::closeFocusedWindow()
@@ -300,7 +369,7 @@ void NiriPlugin::handleEvent(const QJsonObject &event)
         const quint64 id = value.isNull() ? 0 : value.toInteger();
         quint64 focusedWorkspaceId = 0;
         for (NiriWindow &window : m_windows) {
-            window.isFocused = window.id == id;
+            window.isFocused = window.id == id && !window.isMinimized;
             if (window.isFocused)
                 focusedWorkspaceId = window.workspaceId;
         }
@@ -397,6 +466,9 @@ NiriWindow NiriPlugin::parseWindow(const QJsonObject &object)
                              : object.value(QStringLiteral("workspace_id")).toInteger();
     window.isFocused = object.value(QStringLiteral("is_focused")).toBool();
     window.isFloating = object.value(QStringLiteral("is_floating")).toBool();
+    window.isMinimized = object.value(QStringLiteral("is_minimized")).toBool(false);
+    if (window.isMinimized)
+        window.isFocused = false;
     window.isUrgent = object.value(QStringLiteral("is_urgent")).toBool();
 
     const QJsonArray pos = object.value(QStringLiteral("layout"))
@@ -488,7 +560,7 @@ void NiriPlugin::refreshOutputs()
     const auto generation = ++m_outputRefreshGeneration;
     m_client.requestAsync(QStringLiteral("Outputs"), this,
                           [this, generation](const QJsonValue &value, const QString &error) {
-                              if (generation != m_outputRefreshGeneration)
+                              if (!connected() || generation != m_outputRefreshGeneration)
                                   return;
                               if (!error.isEmpty()) {
                                   setError(error);
@@ -656,6 +728,7 @@ QVariantMap NiriPlugin::windowToMap(const NiriWindow &window) const
         {QStringLiteral("workspaceId"), QVariant::fromValue(window.workspaceId)},
         {QStringLiteral("isFocused"), window.isFocused},
         {QStringLiteral("isFloating"), window.isFloating},
+        {QStringLiteral("isMinimized"), window.isMinimized},
         {QStringLiteral("isUrgent"), window.isUrgent},
         {QStringLiteral("layoutColumn"), window.layoutColumn},
         {QStringLiteral("layoutRow"), window.layoutRow},

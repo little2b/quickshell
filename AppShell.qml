@@ -4,6 +4,7 @@ import Quickshell.Io
 import qs.Modules.Bar
 import qs.Modules.ControlCenter
 import qs.Modules.DesktopCards
+import qs.Modules.Dock
 import qs.Modules.Keystone
 import qs.Modules.Launcher
 import qs.Modules.Lock
@@ -117,6 +118,8 @@ Item {
     }
 
     Bar {}
+
+    DockHost {}
 
     Keystone {
         id: keystone

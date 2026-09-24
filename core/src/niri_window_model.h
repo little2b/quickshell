@@ -21,7 +21,8 @@ class NiriWindowModel : public QAbstractListModel {
         IsUrgentRole,
         LayoutColumnRole,
         LayoutRowRole,
-        IconPathRole
+        IconPathRole,
+        IsMinimizedRole
     };
 
     explicit NiriWindowModel(QObject *parent = nullptr);

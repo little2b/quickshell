@@ -14,6 +14,12 @@ Scope {
     property int activeCaptureRequestId: 0
     property string sessionStyle: "default"
 
+    Binding {
+        target: WindowPreviewService
+        property: "suspended"
+        value: root.active
+    }
+
     signal unlocked
     signal secured
 

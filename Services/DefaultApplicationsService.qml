@@ -239,7 +239,7 @@ Singleton {
         const application = root.applicationForId(normalized);
         const label = application && String(application.name || "").trim() !== "" ? String(application.name) :
                                                                                     normalized;
-        const icon = application && application.icon ? ApplicationService.iconSource(application.icon) : "";
+        const icon = application && application.icon ? application.icon : "";
         const description = application ? String(application.comment || application.genericName || "") : "";
         return {
             "label": label,

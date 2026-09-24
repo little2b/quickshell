@@ -204,8 +204,10 @@ TopBarPill {
     }
 
     onTrayOverflowOpenChanged: {
-        if (!root.trayOverflowOpen)
+        if (!root.trayOverflowOpen) {
             root.overflowAnchorReady = false;
+            root.closeActiveMenu();
+        }
     }
     onEdgeChanged: {
         if (root.trayOverflowOpen)

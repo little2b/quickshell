@@ -83,6 +83,22 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 动作才退出常驻模式。悬停开启的歌词仍作为临时预览。
 常驻歌词遵循顶栏自动隐藏规则，隐藏时保留模式，重新显示时恢复歌词。
 
+### Launchpad
+
+`qs -c clavis ipc call launchpad toggle` opens or closes the full-screen app menu;
+`open` and `close` are idempotent and all three methods return a boolean. IPC
+opens the menu on the focused output. Its Dock icon opens it on that Dock's output.
+
+Drag applications to reorder them, hover over another icon for 450 ms to create
+a folder or add to it, and hold at a page edge to move between pages. A folder's
+title is editable; dragging an application to its back arrow moves it out.
+Right-click also offers moving out, renaming, and ungrouping. Search includes
+applications inside folders; clear the search before arranging applications.
+The layout is saved atomically in `$CLAVIS_CONFIG_HOME/launchpad.json` (normally
+`~/.config/clavis/launchpad.json`). New applications are appended, and empty or
+single-application folders collapse. Invalid saved layouts are preserved;
+read/write failures are shown in the menu and changes remain in the session.
+
 ### Spotlight Files
 
 `qs -c clavis ipc call spotlight openMode files` and

@@ -29,13 +29,13 @@ Item {
             Layout.preferredHeight: 32
             Layout.alignment: Qt.AlignVCenter
 
-            Image {
+            ThemeIcon {
                 id: applicationIcon
 
                 anchors.centerIn: parent
                 width: 28
                 height: 28
-                source: root.iconSource
+                iconSource: root.iconSource
                 sourceSize: Qt.size(28, 28)
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true

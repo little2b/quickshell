@@ -9,6 +9,7 @@ PanelWindow {
     required property string edge
     readonly property bool horizontal: edge === "top" || edge === "bottom"
     property var hoveredScreen: null
+    property bool triggerArmed: false
 
     // A separate, unblurred input strip lets the visual bar unmap completely.
     // Keep this outside clavis-shell-* so shell effect rules cannot reach it.
@@ -31,18 +32,29 @@ PanelWindow {
         root.hoveredScreen = null;
     }
 
-    onVisibleChanged: if (!visible)
-                          clearHover()
-    onScreenChanged: clearHover()
+    onVisibleChanged: {
+        if (!visible) {
+            clearHover();
+            triggerArmed = false;
+        }
+    }
+    onScreenChanged: {
+        clearHover();
+        triggerArmed = false;
+    }
     Component.onDestruction: clearHover()
 
     HoverHandler {
         onHoveredChanged: {
             if (hovered) {
                 leaveDelay.stop();
-                root.hoveredScreen = root.screen;
-                MaximizedWindowService.setHovered(root.screen, "bar-edge", true);
+                if (root.triggerArmed) {
+                    root.triggerArmed = false;
+                    root.hoveredScreen = root.screen;
+                    MaximizedWindowService.setHovered(root.screen, "bar-edge", true);
+                }
             } else {
+                root.triggerArmed = true;
                 leaveDelay.restart();
             }
         }

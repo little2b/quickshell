@@ -381,7 +381,10 @@ var catalog = {
   ],
   "routes": [
     {
-      "aliases": [],
+      "aliases": [
+        "taskbar",
+        "launcher"
+      ],
       "context": "GeneralPage",
       "icon": "dock_to_bottom",
       "id": "general.dock",
@@ -390,7 +393,7 @@ var catalog = {
         "dock"
       ],
       "source": "DockPage.qml",
-      "title": "Bottom Dock"
+      "title": "Dock"
     },
     {
       "aliases": [],
@@ -671,7 +674,10 @@ var catalog = {
   "schemaVersion": 1,
   "settings": [
     {
-      "aliases": [],
+      "aliases": [
+        "taskbar",
+        "launcher"
+      ],
       "anchor": false,
       "context": "GeneralPage",
       "icon": "dock_to_bottom",
@@ -682,7 +688,7 @@ var catalog = {
       ],
       "route": "general.dock",
       "source": "DockPage.qml",
-      "title": "Bottom Dock"
+      "title": "Dock"
     },
     {
       "aliases": [],
@@ -1295,6 +1301,66 @@ var catalog = {
       "title": "Output settings"
     },
     {
+      "aliases": [
+        "size",
+        "position",
+        "magnification"
+      ],
+      "anchor": true,
+      "context": "DockPage",
+      "icon": "dock_to_bottom",
+      "id": "general.dock.section.appearance",
+      "path": [
+        "general",
+        "dock"
+      ],
+      "route": "general.dock",
+      "source": "DockPage.qml",
+      "title": "Appearance"
+    },
+    {
+      "aliases": [
+        "auto hide",
+        "bounce",
+        "recent",
+        "indicators",
+        "pin",
+        "minimize",
+        "animation",
+        "genie",
+        "scale"
+      ],
+      "anchor": true,
+      "context": "DockPage",
+      "icon": "touch_app",
+      "id": "general.dock.section.behavior",
+      "path": [
+        "general",
+        "dock"
+      ],
+      "route": "general.dock",
+      "source": "DockPage.qml",
+      "title": "Behavior"
+    },
+    {
+      "aliases": [
+        "thumbnails",
+        "hover"
+      ],
+      "anchor": true,
+      "availability": "dock-previews",
+      "context": "DockPage",
+      "icon": "preview",
+      "id": "general.dock.section.previews",
+      "path": [
+        "general",
+        "dock"
+      ],
+      "route": "general.dock",
+      "source": "DockPage.qml",
+      "title": "Window previews"
+    },
+    {
       "aliases": [],
       "anchor": true,
       "context": "GammaControlPage",
@@ -1698,6 +1764,20 @@ var catalog = {
     {
       "aliases": [],
       "anchor": true,
+      "context": "PowerManagementPage",
+      "icon": "speed",
+      "id": "general.power-management.section.power-mode",
+      "path": [
+        "general",
+        "power-management"
+      ],
+      "route": "general.power-management",
+      "source": "PowerManagementPage.qml",
+      "title": "Power mode"
+    },
+    {
+      "aliases": [],
+      "anchor": true,
       "context": "SpotlightPage",
       "icon": "search",
       "id": "general.spotlight.section.applications",
@@ -1885,7 +1965,7 @@ var catalog = {
 
 function title(id) {
     switch (id) {
-    case "general.dock": return qsTranslate("GeneralPage", "Bottom Dock");
+    case "general.dock": return qsTranslate("GeneralPage", "Dock");
     case "general.power-management": return qsTranslate("GeneralPage", "Power management");
     case "general.mouse": return qsTranslate("GeneralPage", "Mouse and cursor");
     case "account": return qsTranslate("ControlCenterWindow", "Account");
@@ -1930,6 +2010,9 @@ function title(id) {
     case "general.displays.configuration.section.display-switches": return qsTranslate("DisplayConfigurationPage", "Display");
     case "general.displays.configuration.section.layout": return qsTranslate("DisplayConfigurationPage", "Layout");
     case "general.displays.configuration.section.output-settings": return qsTranslate("DisplayConfigurationPage", "Output settings");
+    case "general.dock.section.appearance": return qsTranslate("DockPage", "Appearance");
+    case "general.dock.section.behavior": return qsTranslate("DockPage", "Behavior");
+    case "general.dock.section.previews": return qsTranslate("DockPage", "Window previews");
     case "general.displays.gamma.section.color": return qsTranslate("GammaControlPage", "Color");
     case "general.displays.gamma.section.schedule": return qsTranslate("GammaControlPage", "Schedule");
     case "general.displays.gamma.section.current-status": return qsTranslate("GammaControlPage", "Current status");
@@ -1959,6 +2042,7 @@ function title(id) {
     case "general.network.section.wi-fi": return qsTranslate("NetworkPage", "Wi-Fi");
     case "general.network.section.other-settings": return qsTranslate("NetworkPage", "Other settings");
     case "general.network.section.connection-information": return qsTranslate("NetworkPage", "Connection information");
+    case "general.power-management.section.power-mode": return qsTranslate("PowerManagementPage", "Power mode");
     case "general.spotlight.section.applications": return qsTranslate("SpotlightPage", "Applications");
     case "general.spotlight.section.web-search": return qsTranslate("SpotlightPage", "Web search");
     case "general.spotlight.section.clipboard": return qsTranslate("SpotlightPage", "Clipboard");

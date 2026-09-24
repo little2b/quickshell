@@ -64,12 +64,13 @@ StyledFlickable {
                 }
             }
 
-            Image {
+            ThemeIcon {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: Metrics.iconM
                 Layout.preferredHeight: Metrics.iconM
                 visible: settingRow.selectedOption !== null && settingRow.selectedOption.icon !== ""
-                source: settingRow.selectedOption ? settingRow.selectedOption.icon : ""
+                iconSource: settingRow.selectedOption ? ApplicationService.iconSource(
+                                                            settingRow.selectedOption.icon) : ""
                 sourceSize.width: Metrics.iconM * 2
                 sourceSize.height: Metrics.iconM * 2
                 fillMode: Image.PreserveAspectFit

@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent / 'vendor'))
 import kdl
 
 PRINT = kdl.PrintConfig(indent='    ', semicolons=True)
-FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'outputs', 'mouse')
+FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'outputs', 'mouse', 'minimize-animation')
 
 # Stable first-setup defaults. Existing fragments, including empty ones, are preserved.
 DEFAULT_BINDINGS = (
@@ -242,6 +242,8 @@ def replace_file(path, text):
 
 def initial(feature, request):
     header = '// Managed by Clavis.\n'
+    if feature == 'minimize-animation':
+        return edit_minimize_animation(header, request) if 'effect' in request else header
     if feature == 'mouse':
         speed = request.get('speed', 0.0)
         profile = request.get('profile', 'adaptive')
@@ -385,6 +387,45 @@ def bindings(graph, managed):
     return rows, mod
 
 
+def minimize_animation_state(graph):
+    effect = 'scale'
+    disabled = False
+    window_disabled = False
+    for _, node in graph.ordered:
+        if node.name != 'animations':
+            continue
+        names = {child.name for child in node.nodes}
+        if 'off' in names:
+            disabled = True
+        if 'on' in names:
+            disabled = False
+        for child in node.nodes:
+            if child.name == 'window-minimize-effect' and child.args:
+                effect = child.args[0]
+            if child.name == 'window-minimize':
+                window_disabled = any(option.name == 'off' for option in child.nodes)
+    return dict(effect=effect, disabled=disabled or window_disabled)
+
+
+def edit_minimize_animation(previous, request):
+    effect = request.get('effect', 'scale')
+    if effect not in ('scale', 'genie'):
+        raise ValueError('Unknown window animation effect')
+    replacement = kdl.Node('window-minimize-effect', args=[effect])
+    sections = [node for node in parse(previous).nodes if node.name == 'animations']
+    nodes = [child for node in sections for child in node.nodes if child.name == 'window-minimize-effect']
+    if nodes:
+        node = nodes[-1]
+        return previous[:node.source_start] + render(replacement).strip() + previous[node.source_end:]
+    if sections:
+        section = sections[-1]
+        if not hasattr(section, 'children_end'):
+            raise ValueError('Animation configuration needs a child block')
+        end = section.children_end
+        return previous[:end] + '\n' + render(replacement) + previous[end:]
+    return previous + '\n' + render(kdl.Node('animations', nodes=[replacement]))
+
+
 def status(request):
     main = main_path(request)
     managed_dir = main.parent / 'clavis'
@@ -396,6 +437,7 @@ def status(request):
         if graph.error:
             raise graph.error
         state['revision'] = graph.revision()
+        state['minimizeAnimation'] = minimize_animation_state(graph)
         state['outputs'] = niri_outputs.inspect(graph, path_key(managed_dir / 'outputs.kdl'))
         state['bindings'], state['modKey'] = bindings(graph, path_key(managed_dir / 'binds.kdl'))
         state['diagnostics']['conflicts'] = any(row['collision'] for row in state['bindings'])
@@ -581,6 +623,8 @@ def mutate(request):
             candidate = niri_outputs.edit(graph, path_key(path), request, sys.modules[__name__])
         elif feature == 'binds':
             candidate = edit_bindings(graph, path_key(path), request)
+        elif feature == 'minimize-animation':
+            candidate = edit_minimize_animation(previous, request)
         else:
             candidate = initial(feature, request)
         main_text = graph.files[path_key(main)]
@@ -589,6 +633,9 @@ def mutate(request):
             main_candidate += '\n' + render(kdl.Node('include', args=['clavis/' + feature + '.kdl']))
         replacements = {path_key(main): main_candidate, path_key(path): candidate}
         candidate_graph = Graph(main, replacements=replacements)
+        if feature == 'minimize-animation' and request['operation'] != 'setup':
+            if minimize_animation_state(candidate_graph)['effect'] != request.get('effect'):
+                raise ValueError('Another configuration overrides the animation effect; move the Clavis animation include after it')
         try:
             candidate_graph.validate(request.get('niri', 'niri'))
         except ValueError:

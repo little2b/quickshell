@@ -28,6 +28,7 @@ struct NiriWindow {
     quint64 workspaceId = 0;
     bool isFocused = false;
     bool isFloating = false;
+    bool isMinimized = false;
     bool isUrgent = false;
     int layoutColumn = 999999;
     int layoutRow = 999999;

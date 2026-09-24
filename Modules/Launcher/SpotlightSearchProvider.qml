@@ -22,7 +22,7 @@ Item {
     signal closeRequested
 
     function rebuild() {
-        if (!active)
+        if (!active || DockService.externalDragActive)
             return;
         if (filter === "settings" || filter === "actions") {
             const catalog = filter === "settings" ? SpotlightCatalog.settings : SpotlightCatalog.actions;
@@ -45,10 +45,12 @@ Item {
             results = [];
             return;
         }
-        const apps = LocalSearch.appResults(ApplicationService.applications, query,
+        const apps = LocalSearch.appResults(ApplicationService.launcherApplications, query,
                                             UiPreferences.spotlightAppOrder, SpotlightAppUsage.records,
                                             Date.now()).map(entry => Object.assign({}, entry, {
-                                                                                       iconKind: "app",
+                                                                                       iconKind: entry.symbol
+                                                                                                 ? "symbol" :
+                                                                                                   "app",
                                                                                        appIcon: entry.icon
                                                                                    }));
         const settings = LocalSearch.matchCatalog(SpotlightCatalog.settings.filter(SpotlightCatalog.available),
@@ -106,6 +108,8 @@ Item {
                 deferredRequested("web", "", request.query);
             return true;
         case "apps":
+            if (ApplicationService.findById(request.sourceId)?.dragOnly)
+                return false;
             if (SpotlightAppUsage.launch(request.sourceId)) {
                 closeRequested();
                 return true;
@@ -146,8 +150,15 @@ Item {
     onLanguageChanged: rebuild()
     onCapacitiesChanged: rebuild()
     Connections {
+        target: DockService
+        function onExternalDragActiveChanged() {
+            if (!DockService.externalDragActive)
+                root.rebuild();
+        }
+    }
+    Connections {
         target: ApplicationService
-        function onApplicationsChanged() {
+        function onLauncherApplicationsChanged() {
             root.rebuild();
         }
     }

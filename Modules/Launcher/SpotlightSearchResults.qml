@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import qs.Common
+import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/SpotlightLocalSearch.js" as LocalSearch
 
@@ -65,6 +66,7 @@ Item {
         currentIndex: root.currentRow
         boundsBehavior: Flickable.StopAtBounds
         keyNavigationEnabled: false
+        interactive: !DockService.externalDragActive
         highlight: Item {}
         highlightMoveDuration: root.style.resultScrollDuration
         highlightMoveVelocity: -1

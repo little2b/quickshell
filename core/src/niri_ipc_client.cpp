@@ -12,7 +12,11 @@ NiriIpcClient::NiriIpcClient(QObject *parent) : QObject(parent)
 {
     connect(&m_eventSocket, &QLocalSocket::readyRead, this, &NiriIpcClient::onEventReadyRead);
     connect(&m_eventSocket, &QLocalSocket::connected, this, &NiriIpcClient::connectedChanged);
-    connect(&m_eventSocket, &QLocalSocket::disconnected, this, &NiriIpcClient::connectedChanged);
+    connect(&m_eventSocket, &QLocalSocket::disconnected, this, [this] {
+        m_eventBuffer.clear();
+        m_requestSocket.abort();
+        emit connectedChanged();
+    });
     connect(&m_eventSocket, &QLocalSocket::errorOccurred, this, &NiriIpcClient::onSocketError);
 }
 
@@ -39,6 +43,9 @@ bool NiriIpcClient::connectToNiri()
 {
     if (isConnected())
         return true;
+
+    m_eventBuffer.clear();
+    m_requestSocket.abort();
 
     m_socketPath = QProcessEnvironment::systemEnvironment().value(QStringLiteral("NIRI_SOCKET"));
     if (m_socketPath.isEmpty()) {

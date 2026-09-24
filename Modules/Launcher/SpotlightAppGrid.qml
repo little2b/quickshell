@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import qs.Common
+import qs.Components
 import qs.Services
 import qs.Widgets.common
 
@@ -24,6 +25,7 @@ GridView {
     clip: true
     boundsBehavior: Flickable.StopAtBounds
     keyNavigationEnabled: false
+    interactive: !DockService.externalDragActive
     // A nonvisual highlight lets the view animate scrolling to the current
     // item, including retargeting while an earlier movement is still running.
     highlight: Item {}
@@ -60,7 +62,7 @@ GridView {
                 }
             }
 
-            Image {
+            ThemeIcon {
                 id: appIcon
 
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -68,7 +70,8 @@ GridView {
                 anchors.topMargin: 12
                 width: root.style.appGridIconSize
                 height: width
-                source: ApplicationService.iconSource(tile.modelData.icon)
+                visible: !tile.modelData.symbol
+                iconSource: visible ? ApplicationService.iconSource(tile.modelData.icon) : ""
                 sourceSize.width: root.style.appGridIconSize * 2
                 sourceSize.height: root.style.appGridIconSize * 2
                 asynchronous: true
@@ -80,6 +83,29 @@ GridView {
                         duration: root.style.panelDuration
                         easing.type: Easing.BezierSpline
                         easing.bezierCurve: root.style.effectsCurve
+                    }
+                }
+            }
+
+            Item {
+                id: appSymbol
+                anchors.centerIn: appIcon
+                width: root.style.appGridIconSize
+                height: width
+                visible: !!tile.modelData.symbol
+                scale: appIcon.scale
+                MaterialSymbol {
+                    anchors.centerIn: parent
+                    text: tile.modelData.symbol || ""
+                    iconSize: root.style.appGridIconSize
+                    color: root.searchActive && tile.selected ? root.style.selectedContentColor :
+                                                                tile.modelData.appObject?.dragOnly
+                                                                ? Appearance.colors.colOnSurfaceVariant :
+                                                                  Appearance.colors.colPrimary
+                    transform: Scale {
+                        origin.x: appSymbol.width / 2
+                        xScale: tile.modelData.appObject?.id === ApplicationService.smallSpaceApplication.id
+                                ? 0.5 : 1
                     }
                 }
             }
@@ -115,6 +141,7 @@ GridView {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             acceptedButtons: Qt.LeftButton
+            Accessible.description: tile.modelData.subtitle || ""
             Accessible.name: tile.modelData.title
             Accessible.role: Accessible.ListItem
             Accessible.selected: tile.selected
@@ -123,14 +150,25 @@ GridView {
                 if (containsMouse)
                     root.selectionRequested(tile.index);
             }
+            onPressed: appDrag.resetGesture()
             onClicked: {
+                if (appDrag.dragged)
+                    return;
                 root.selectionRequested(tile.index);
                 root.activationRequested(tile.index);
             }
         }
 
-        ToolTip.visible: tileMouse.containsMouse && appName.truncated
+        SpotlightAppDrag {
+            id: appDrag
+
+            desktopId: tile.modelData.appObject ? String(tile.modelData.appObject.id) : ""
+            iconItem: tile.modelData.symbol ? appSymbol : appIcon
+        }
+
+        ToolTip.visible: tileMouse.containsMouse && (appName.truncated || !!tile.modelData.appObject
+                                                     ?.dragOnly) && !DockService.externalDragActive
         ToolTip.delay: 600
-        ToolTip.text: tile.modelData.title
+        ToolTip.text: tile.modelData.appObject?.dragOnly ? tile.modelData.subtitle : tile.modelData.title
     }
 }

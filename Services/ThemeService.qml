@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Clavis.Runtime
 import qs.Common
 import qs.Services
 
@@ -29,7 +30,8 @@ Singleton {
                                               "label": qsTr("System default"),
                                               "value": ""
                                           })]
-    property string systemDefaultIconTheme: ""
+    readonly property string systemDefaultIconTheme: IconThemeController.systemThemeName
+    readonly property int iconThemeRevision: IconThemeController.revision
     property string systemDefaultCursorTheme: ""
 
     readonly property bool isNiriSession: NiriConfigService.supported
@@ -88,9 +90,9 @@ Singleton {
         PersonalizationConfig.setIconTheme(value);
     }
 
-    function effectiveIconTheme() {
-        return PersonalizationConfig.iconTheme !== "" ? PersonalizationConfig.iconTheme :
-                                                        root.systemDefaultIconTheme;
+    function applyIconTheme() {
+        if (PersonalizationConfig.ready)
+            IconThemeController.setThemeName(PersonalizationConfig.iconTheme);
     }
 
     function effectiveCursorTheme() {
@@ -133,7 +135,7 @@ Singleton {
     }
 
     function parseDetectedThemes(output, defaultLabel, currentValue, cursorThemes) {
-        let systemDefault = "";
+        let systemDefault = cursorThemes ? "" : root.systemDefaultIconTheme;
         const names = [];
         const lines = String(output || "").split("\n");
         for (let i = 0; i < lines.length; i += 1) {
@@ -141,7 +143,8 @@ Singleton {
             if (line === "")
                 continue;
             if (line.indexOf("SYSDEFAULT:") === 0) {
-                systemDefault = line.substring(11).trim();
+                if (cursorThemes)
+                    systemDefault = line.substring(11).trim();
                 continue;
             }
             names.push(line);
@@ -149,8 +152,6 @@ Singleton {
 
         if (cursorThemes)
             root.systemDefaultCursorTheme = systemDefault;
-        else
-            root.systemDefaultIconTheme = systemDefault;
 
         const options = [root.defaultOption(defaultLabel, systemDefault)];
         const sorted = root.unique(names).sort((a, b) => a.localeCompare(b));
@@ -268,6 +269,7 @@ Singleton {
     }
 
     Component.onCompleted: {
+        root.applyIconTheme();
         root.applyConfigToAppearance();
         root.detectAvailableThemes();
         root.applyCursorSettings();
@@ -287,9 +289,14 @@ Singleton {
         }
 
         function onSettingsLoaded() {
+            root.applyIconTheme();
             if (root.pendingGeneration)
                 root.resumeGeneration();
             root.applyCursorSettings();
+        }
+
+        function onIconThemeChanged() {
+            root.applyIconTheme();
         }
 
         function onCursorThemeChanged() {

@@ -71,7 +71,7 @@ function appResults(source, query, order, history, now) {
         if (score < 0) return;
         next.push({provider: "apps", id: String(app.id), title: String(app.name || app.id),
             subtitle: String(app.genericName || app.comment || app.id || ""),
-            icon: String(app.icon || ""), score: score, appObject: app, actions: ["launch"]});
+            icon: String(app.icon || ""), symbol: String(app.symbol || ""), score: score, appObject: app, actions: app.dragOnly ? [] : ["launch"]});
     });
     return AppOrder.sortedResults(next, order, history, now);
 }

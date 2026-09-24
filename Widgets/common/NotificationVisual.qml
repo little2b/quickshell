@@ -3,6 +3,8 @@ import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Services.Notifications
 import qs.Common
+import qs.Components
+import qs.Services
 
 Item {
     id: root
@@ -14,10 +16,12 @@ Item {
     property bool imageLoaded: false
     property bool imageLoadFailed: false
     property bool appIconLoadFailed: false
-    readonly property bool isUrgent: urgency === NotificationUrgency.Critical || String(urgency).endsWith("Critical")
+    readonly property bool isUrgent: urgency === NotificationUrgency.Critical || String(urgency).endsWith(
+                                         "Critical")
     readonly property bool appIconIsFile: appIcon.startsWith("file://") || appIcon.startsWith("/")
     readonly property string imageSource: normalizeSource(image)
-    readonly property string appIconSource: appIcon === "" ? "" : appIconIsFile ? normalizeSource(appIcon) : resolvedIconSource(appIcon)
+    readonly property string appIconSource: appIcon === "" ? "" : appIconIsFile ? normalizeSource(appIcon) :
+                                                                                  resolvedIconSource(appIcon)
     readonly property bool hasImage: imageSource !== "" && !image.startsWith("icon:")
     readonly property bool hasAppIcon: appIconSource !== ""
     readonly property bool showImage: hasImage && imageLoaded && !imageLoadFailed
@@ -32,6 +36,7 @@ Item {
     }
 
     function resolvedIconSource(iconName) {
+        const revision = ThemeService.iconThemeRevision;
         const iconPath = Quickshell.iconPath(iconName, "image-missing");
         return iconPath && iconPath !== "" ? iconPath : "image://icon/" + iconName;
     }
@@ -56,15 +61,16 @@ Item {
         text: root.isUrgent ? "priority_high" : "notifications"
         font.family: Fonts.materialSymbolsRounded
         font.pixelSize: root.width * 0.55
-        color: root.isUrgent ? Appearance.colors.colOnPrimaryContainer : Appearance.colors.colOnSecondaryContainer
+        color: root.isUrgent ? Appearance.colors.colOnPrimaryContainer :
+                               Appearance.colors.colOnSecondaryContainer
     }
 
-    Image {
+    ThemeIcon {
         id: appIconImage
 
         anchors.fill: parent
         anchors.margins: root.appIconIsFile ? 0 : root.width * 0.12
-        source: root.appIconSource
+        iconSource: root.appIconSource
         fillMode: root.appIconIsFile ? Image.PreserveAspectCrop : Image.PreserveAspectFit
         asynchronous: true
         visible: root.showAppIcon && !root.appIconIsFile
@@ -117,15 +123,13 @@ Item {
         color: Appearance.colors.colLayer4
         visible: root.showImage && root.hasAppIcon
 
-        Image {
+        ThemeIcon {
             anchors.centerIn: parent
             width: 14
             height: 14
-            source: root.appIconSource
+            iconSource: root.appIconSource
             fillMode: Image.PreserveAspectFit
             asynchronous: true
         }
-
     }
-
 }

@@ -15,6 +15,7 @@ Singleton {
     property var actionExecutor: null
     property bool keystoneAvailable: false
     readonly property bool keyboardLockAvailable: KeyboardLockService.available
+    readonly property bool dockPreviewsAvailable: WindowPreviewService.supported
 
     readonly property var commands: Commands.entries
     function commandTitle(entry) {
@@ -28,6 +29,7 @@ Singleton {
 
     signal availabilityChanged
     onKeyboardLockAvailableChanged: availabilityChanged()
+    onDockPreviewsAvailableChanged: availabilityChanged()
 
     function title(id) {
         const currentLanguage = root.language;
@@ -76,6 +78,8 @@ Singleton {
             return keystoneAvailable;
         case "keyboard-lock":
             return keyboardLockAvailable;
+        case "dock-previews":
+            return dockPreviewsAvailable;
         default:
             return false;
         }

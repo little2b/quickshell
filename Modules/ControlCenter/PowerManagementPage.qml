@@ -10,6 +10,9 @@ StyledFlickable {
     id: root
 
     property bool presentationActive: false
+    Component.onCompleted: PowerProfileService.refresh()
+    onPresentationActiveChanged: if (presentationActive)
+                                     PowerProfileService.refresh()
     clip: true
     contentWidth: width
     contentHeight: contentColumn.implicitHeight + Metrics.pageMargin * 2
@@ -101,6 +104,66 @@ StyledFlickable {
         title: qsTr("Battery health")
         supportingText: qsTr("Maximum capacity is approximately %1% of design capacity").arg(Math.round(
         PowerService.healthPercentage * 10) / 10)
+    }
+    }
+
+        SettingsSection {
+        id: powerModeSection
+        Layout.fillWidth: true
+        title: powerModeAnchor.title
+        iconName: "speed"
+        SettingsSearchAnchor {
+        id: powerModeAnchor
+        target: powerModeSection
+        declaration:
+        '{"id":"general.power-management.section.power-mode","route":"general.power-management","title":"Power mode","context":"PowerManagementPage","icon":"speed","aliases":[]}'
+    }
+        Item {
+        Layout.fillWidth: true
+        implicitHeight: powerModes.implicitHeight
+        StyledButtonGroup {
+        id: powerModes
+        currentValue: PowerProfileService.profile
+        enabled: PowerProfileService.ready && !PowerProfileService.busy
+        model: [
+        {
+        value: "power-saver",
+        label: qsTr("Power saver"),
+        icon: "energy_savings_leaf",
+        enabled: PowerProfileService.profiles.indexOf("power-saver") >= 0
+    },
+        {
+        value: "balanced",
+        label: qsTr("Balanced"),
+        icon: "balance",
+        enabled: PowerProfileService.profiles.indexOf("balanced") >= 0
+    },
+        {
+        value: "performance",
+        label: qsTr("Performance"),
+        icon: "speed",
+        enabled: PowerProfileService.profiles.indexOf("performance") >= 0
+    }
+        ]
+        onValueSelected: value => PowerProfileService.setProfile(value)
+    }
+        InlineBusyIndicator {
+        anchors.left: powerModes.right
+        anchors.leftMargin: Metrics.spacingS
+        anchors.verticalCenter: powerModes.verticalCenter
+        busy: PowerProfileService.busy
+    }
+    }
+        InlineStatusBanner {
+        Layout.fillWidth: true
+        visible: PowerProfileService.error !== ""
+        tone: "error"
+        message: PowerProfileService.error
+    }
+        InlineStatusBanner {
+        Layout.fillWidth: true
+        visible: PowerProfileService.ready && PowerProfileService.performanceLimited
+        message: qsTr("Performance is currently limited by the system.")
     }
     }
 

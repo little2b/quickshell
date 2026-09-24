@@ -17,6 +17,7 @@ PopupWindow {
     property var barVisualItem: null
     property var screen: null
     property string edge: "top"
+    property bool insideOverflow: false
     property real padding: 10
     property bool opened: false
     readonly property real verticalAnchorPadding: {
@@ -29,6 +30,7 @@ PopupWindow {
 
     signal menuClosed
     signal menuOpened(var qsWindow)
+    signal openApplicationRequested
 
     function open() {
         if (root.opened)
@@ -56,7 +58,7 @@ PopupWindow {
 
     visible: false
     color: "transparent"
-    grabFocus: ThemeService.isNiriSession
+    grabFocus: ThemeService.isNiriSession && !root.insideOverflow
     implicitWidth: popupBackground.implicitWidth + root.padding * 2
     implicitHeight: popupBackground.implicitHeight + root.padding * 2
     onVisibleChanged: {
@@ -86,7 +88,7 @@ PopupWindow {
     }
 
     PanelWindow {
-        visible: root.visible && ThemeService.isNiriSession
+        visible: root.visible && ThemeService.isNiriSession && !root.insideOverflow
         screen: root.screen
         color: "transparent"
         exclusiveZone: 0
@@ -183,27 +185,9 @@ PopupWindow {
                 Behavior on opacity {
                     NumberAnimation {
                         alwaysRunToEnd: true
-                        duration: Appearance.animation.expressiveEffects.duration
-                        easing.type: Appearance.animation.expressiveEffects.type
-                        easing.bezierCurve: Appearance.animation.expressiveEffects.bezierCurve
-                    }
-                }
-
-                Behavior on implicitWidth {
-                    NumberAnimation {
-                        alwaysRunToEnd: true
-                        duration: Appearance.animation.elementResize.duration
-                        easing.type: Appearance.animation.elementResize.type
-                        easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
-                    }
-                }
-
-                Behavior on implicitHeight {
-                    NumberAnimation {
-                        alwaysRunToEnd: true
-                        duration: Appearance.animation.elementResize.duration
-                        easing.type: Appearance.animation.elementResize.type
-                        easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
+                        duration: Appearance.animation.expressiveFastEffects.duration
+                        easing.type: Appearance.animation.expressiveFastEffects.type
+                        easing.bezierCurve: Appearance.animation.expressiveFastEffects.bezierCurve
                     }
                 }
             }
@@ -244,6 +228,49 @@ PopupWindow {
             id: menuOpener
 
             menu: submenu.handle
+        }
+
+        RippleButton {
+            visible: !submenu.isSubmenu && menuEntriesRepeater.count === 0
+            implicitWidth: openContent.implicitWidth + 24
+            implicitHeight: 36
+            Layout.fillWidth: true
+            buttonRadius: popupBackground.radius - popupBackground.popupPadding
+            containerColor: "transparent"
+            stateLayerColor: Appearance.colors.colSecondaryContainer
+            pressedStateLayerColor: Appearance.colors.colSecondaryContainerActive
+            rippleColor: Appearance.colors.colOnSecondaryContainer
+            releaseAction: () => {
+                root.openApplicationRequested();
+                root.close();
+            }
+
+            contentItem: RowLayout {
+                id: openContent
+
+                spacing: 8
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    right: parent.right
+                    leftMargin: 12
+                    rightMargin: 12
+                }
+
+                MaterialSymbol {
+                    text: "open_in_new"
+                    iconSize: 20
+                    color: Appearance.colors.colOnLayer0
+                }
+
+                Text {
+                    text: qsTr("Open")
+                    color: Appearance.colors.colOnLayer0
+                    font.family: Fonts.ui
+                    font.pixelSize: 13
+                    Layout.fillWidth: true
+                }
+            }
         }
 
         Loader {

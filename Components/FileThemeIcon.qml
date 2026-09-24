@@ -15,10 +15,13 @@ Item {
     property bool directory: false
     property string fallbackSymbol: directory ? "folder" : "draft"
     property real iconSize: 40
-    readonly property string themeName: PersonalizationConfig.iconTheme
+    // Animated consumers can keep the decoded image stable while scaling it.
+    property real rasterSize: 0
+    property bool transformed: false
+    readonly property int themeRevision: ThemeService.iconThemeRevision
     readonly property var candidates: {
         if (directory)
-            return ["folder"];
+            return themeIcon && themeIcon !== "folder" ? [themeIcon, "folder"] : ["folder"];
         const mime = mimeType.split(";", 1)[0];
         const family = mime.indexOf("/") > 0 ? mime.split("/", 1)[0] : ["video", "audio", "image"].indexOf(
                                                    category) >= 0 ? category : "text";
@@ -43,17 +46,17 @@ Item {
             const resolved = Quickshell.iconPath(name, true);
             if (resolved !== "" && attemptedSources.indexOf(resolved) < 0) {
                 attemptedSources = attemptedSources.concat([resolved]);
-                artwork.source = resolved;
+                artwork.iconSource = resolved;
                 return;
             }
         }
-        artwork.source = "";
+        artwork.iconSource = "";
     }
     function reset() {
         generation += 1;
         candidateIndex = 0;
         attemptedSources = [];
-        artwork.source = "";
+        artwork.iconSource = "";
         if (active)
             nextSource();
     }
@@ -69,7 +72,7 @@ Item {
         if (initialized)
             reset();
     }
-    onThemeNameChanged: {
+    onThemeRevisionChanged: {
         if (initialized)
             reset();
     }
@@ -78,15 +81,18 @@ Item {
         reset();
     }
 
-    Image {
+    ThemeIcon {
         id: artwork
         anchors.fill: parent
+        smooth: true
+        antialiasing: root.transformed
+        mipmap: root.transformed
         asynchronous: true
-        cache: true
         retainWhileLoading: false
         fillMode: Image.PreserveAspectFit
-        sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height
-                                                                                  * Screen.devicePixelRatio))
+        sourceSize: Qt.size(Math.ceil((root.rasterSize || width) * Screen.devicePixelRatio), Math.ceil((root.rasterSize
+                                                                                                        || height)
+                                                                                                       * Screen.devicePixelRatio))
         visible: status === Image.Ready
         onStatusChanged: {
             if (status !== Image.Error)
@@ -94,7 +100,7 @@ Item {
             const failedGeneration = root.generation;
             const failedSource = source.toString();
             Qt.callLater(() => {
-                if (root.generation === failedGeneration && artwork.source.toString() === failedSource)
+                if (root.generation === failedGeneration && artwork.iconSource.toString() === failedSource)
                     root.nextSource();
             });
         }
