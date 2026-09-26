@@ -349,7 +349,9 @@ PanelWindow {
         enabled: LaunchpadService.visible
         // Render the first, nearly transparent frame before starting the
         // entrance animation, so texture uploads do not consume its duration.
-        opacity: Math.max(0.001, root.openProgress)
+        // Warm the native window without drawing a translucent veil over the
+        // desktop. Page snapshots render offscreen even during this warm-up.
+        opacity: root.phase === "warming" ? 0 : Math.max(0.001, root.openProgress)
 
         // Keep full-size icons for folder contents too, not just the small
         // folder previews, so entering a group reuses the same pixmaps.

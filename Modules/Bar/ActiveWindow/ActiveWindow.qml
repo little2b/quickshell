@@ -12,8 +12,19 @@ TopBarPill {
     property bool vertical: false
     property real maximumTitleWidth: 250
     readonly property string edge: PersonalizationConfig.barPosition
-    // The transparent X11 capture helper is not a user-facing application.
-    readonly property var activeWindow: isCaptureHelper(Niri.focusedWindow) ? ({}) : Niri.focusedWindow
+    readonly property var activeWindow: {
+        const focused = Niri.focusedWindow;
+        // The transparent X11 capture helper is not a user-facing application.
+        if (isCaptureHelper(focused))
+            return ({});
+        if (focused.id || !LaunchpadService.visible)
+            return focused;
+        // Launchpad takes keyboard focus before its fade covers the bar. Keep
+        // the workspace's selected app instead of resizing this pill to Desktop.
+        const output = LaunchpadService.targetScreen;
+        const workspace = Niri.activeWorkspaceForOutput(output ? output.name : Niri.currentOutput);
+        return workspace && workspace.activeWindowId ? Niri.windowById(workspace.activeWindowId) : ({});
+    }
     property var lastApplicationByWorkspace: ({})
 
     function isCaptureHelper(window) {
