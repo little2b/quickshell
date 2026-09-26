@@ -570,6 +570,11 @@
         <translation>App Menu</translation>
     </message>
     <message>
+        <location filename="../Services/ApplicationService.qml" line="31"/>
+        <source>Clavis Settings</source>
+        <translation>Clavis Settings</translation>
+    </message>
+    <message>
         <location filename="../Services/ApplicationService.qml" line="40"/>
         <location filename="../Services/DockService.qml" line="192"/>
         <source>Space</source>
@@ -2650,7 +2655,6 @@ Scroll to adjust</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="244"/>
-        <location filename="../Services/ApplicationService.qml" line="31"/>
         <location filename="../Services/ControlCenterService.qml" line="44"/>
         <source>Settings</source>
         <translation>Settings</translation>

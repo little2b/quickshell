@@ -213,6 +213,15 @@ QString DesktopFiles::defaultApplicationForFile(const QUrl &url) const
     g_object_unref(app);
     return path;
 }
+bool DesktopFiles::shouldShow(const QString &desktopId) const
+{
+    auto *app = desktopInfo(desktopId);
+    if (!app)
+        return false;
+    const bool visible = g_app_info_should_show(G_APP_INFO(app));
+    g_object_unref(app);
+    return visible;
+}
 bool DesktopFiles::canOpenWith(const QString &desktopId) const
 {
     auto *app = desktopInfo(desktopId);

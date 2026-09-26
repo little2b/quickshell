@@ -23,6 +23,7 @@ class DesktopFiles : public QObject {
     Q_INVOKABLE bool moveToTrash(const QList<QUrl> &urls);
     Q_INVOKABLE bool emptyTrash();
     Q_INVOKABLE QString defaultApplicationForFile(const QUrl &url) const;
+    Q_INVOKABLE bool shouldShow(const QString &desktopId) const;
     Q_INVOKABLE bool canOpenWith(const QString &desktopId) const;
     Q_INVOKABLE bool openWith(const QString &desktopId, const QList<QUrl> &urls);
     Q_INVOKABLE void refreshTrash();

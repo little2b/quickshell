@@ -28,7 +28,7 @@ Singleton {
     }
     readonly property var settingsApplication: ({
                                                     id: "org.clavis.Settings",
-                                                    name: qsTranslate("ControlCenterWindow", "Settings"),
+                                                    name: qsTr("Clavis Settings"),
                                                     genericName: "Clavis",
                                                     keywords: ["Clavis", "settings", "preferences",
                                                         "control center"],
@@ -56,8 +56,10 @@ Singleton {
                                                   })
     // Internal shell entries belong in the launcher, not in default-app or
     // autostart pickers that require an installed desktop application.
-    readonly property var launcherApplications: applications.concat([settingsApplication, launchpadApplication,
-                                                                     spaceApplication, smallSpaceApplication])
+    readonly property var launcherApplications: applications.filter(application => DesktopFiles.shouldShow(
+                                                                                       application.id)).concat(
+                                                    [settingsApplication, launchpadApplication,
+                                                     spaceApplication, smallSpaceApplication])
 
     function launchCommand(command, workingDirectory) {
         const argv = Array.from(command || []);
