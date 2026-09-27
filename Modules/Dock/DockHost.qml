@@ -8,7 +8,10 @@ Item {
     id: root
 
     // Retain the menu, its decoded icons and page snapshots between sessions.
-    LaunchpadWindow {}
+    LazyLoader {
+        active: LaunchpadService.backendReady && !LaunchpadService.externalEnabled
+        LaunchpadWindow {}
+    }
     IpcHandler {
         target: "launchpad"
         function open(): bool {
@@ -20,6 +23,14 @@ Item {
         }
         function toggle(): bool {
             return LaunchpadService.toggle();
+        }
+        function status(): string {
+            return JSON.stringify({
+                                      backend: LaunchpadService.externalEnabled ? "external" : "builtin",
+                                      available: LaunchpadService.externalAvailable,
+                                      visible: LaunchpadService.visible,
+                                      chromeHold: LaunchpadService.chromeHold
+                                  });
         }
     }
 

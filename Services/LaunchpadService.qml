@@ -19,6 +19,19 @@ Singleton {
     property bool writable: false
     property bool storeReady: false
     property string error: ""
+    property bool backendReady: false
+    property bool externalEnabled: false
+    property bool externalAvailable: false
+    property var externalQueue: []
+    onExternalEnabledChanged: {
+        externalWatch.running = backendReady && externalEnabled;
+        if (!externalEnabled) {
+            visible = false;
+            chromeHold = false;
+            externalAvailable = false;
+        }
+    }
+    onBackendReadyChanged: externalWatch.running = backendReady && externalEnabled
     readonly property string filePath: Paths.configHome + "/launchpad.json"
     readonly property var applications: ApplicationService.launcherApplications.filter(application =>
     !application.dragOnly && application.id !== ApplicationService.launchpadApplication.id)
@@ -26,6 +39,8 @@ Singleton {
                                                                                                       application.id)))
 
     function open(outputName) {
+        if (externalEnabled)
+            return requestExternal("show", outputName);
         const name = outputName || Niri.currentOutput;
         targetScreen = Quickshell.screens.find(screen => screen.name === name) || Quickshell.screens[0]
                 || null;
@@ -41,6 +56,10 @@ Singleton {
         return true;
     }
     function close() {
+        if (externalEnabled) {
+            requestExternal("hide", "");
+            return;
+        }
         if (!visible)
             chromeHold = false;
         visible = false;
@@ -50,11 +69,96 @@ Singleton {
             chromeHold = false;
     }
     function toggle(outputName) {
+        if (externalEnabled)
+            return requestExternal("toggle", outputName);
         if (visible)
             close();
         else
             open(outputName);
         return true;
+    }
+    function requestExternal(action, outputName) {
+        if (action !== "hide")
+            chromeHold = true;
+        externalQueue.push([Paths.binHome + "/clavis-launchpad", "--" + action, "--output", outputName
+                            || Niri.currentOutput || ""]);
+        pumpExternal();
+        return true;
+    }
+    function pumpExternal() {
+        if (!externalControl.running && externalQueue.length)
+            externalControl.exec(externalQueue.shift());
+    }
+    function consumeExternal(data) {
+        if (!externalEnabled)
+            return;
+        try {
+            const state = JSON.parse(data);
+            if (state.schemaVersion !== 1)
+                return;
+            externalAvailable = state.phase !== "unavailable";
+            visible = state.visible === true;
+            chromeHold = visible;
+        } catch (exception) {
+            console.warn("LaunchpadService: invalid external state:", exception);
+        }
+    }
+
+    FileView {
+        id: backendFile
+        path: Paths.configHome + "/launchpad-backend.json"
+        watchChanges: true
+        onFileChanged: backendFile.reload()
+        onLoaded: {
+            try {
+                root.externalEnabled = JSON.parse(backendFile.text()).external === true;
+            } catch (exception) {
+                root.externalEnabled = false;
+            }
+            root.backendReady = true;
+        }
+        onLoadFailed: {
+            root.externalEnabled = false;
+            root.backendReady = true;
+        }
+    }
+    Process {
+        id: externalControl
+        stdout: SplitParser {
+            onRead: data => root.consumeExternal(data)
+        }
+        onExited: exitCode => {
+            if (exitCode !== 0) {
+                root.error = qsTr("This application could not be opened.");
+                root.visible = false;
+                root.chromeHold = false;
+            }
+            Qt.callLater(root.pumpExternal);
+        }
+    }
+    Process {
+        id: externalWatch
+        command: [Paths.binHome + "/clavis-launchpad", "--watch"]
+        running: root.backendReady && root.externalEnabled
+        stdout: SplitParser {
+            onRead: data => root.consumeExternal(data)
+        }
+        onExited: {
+            root.externalAvailable = false;
+            if (root.externalEnabled) {
+                root.visible = false;
+                root.chromeHold = false;
+                watchRestart.restart();
+            }
+        }
+    }
+    Timer {
+        id: watchRestart
+        interval: 2000
+        onTriggered: {
+            if (root.externalEnabled)
+                externalWatch.running = true;
+        }
     }
     function launch(id) {
         const success = SpotlightAppUsage.launch(id);
@@ -135,10 +239,16 @@ Singleton {
         path: root.storeReady ? root.filePath : ""
         atomicWrites: true
         blockWrites: true
-        watchChanges: false
+        watchChanges: true
+        onFileChanged: layoutFile.reload()
         onLoaded: {
             const entries = Layout.decode(layoutFile.text());
-            root.finishLoad(entries, entries !== null);
+            if (root.ready) {
+                root.savedEntries = entries || [];
+                root.writable = entries !== null;
+            } else {
+                root.finishLoad(entries, entries !== null);
+            }
         }
         onLoadFailed: error => {
             if (root.storeReady)
