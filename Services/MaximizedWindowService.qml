@@ -32,8 +32,14 @@ Singleton {
     }
 
     function coversScreen(screen) {
+        return !Niri.inOverview && root.hasMaximizedWindow(screen);
+    }
+
+    // Overview changes panel visibility, not the selected window's sizing mode.
+    // Panels can reveal themselves without restoring a maximized window's strut.
+    function hasMaximizedWindow(screen) {
         const revision = root.selectionRevision;
-        if (!screen || Niri.inOverview)
+        if (!screen)
             return false;
         const screenName = screen.name;
         if (!screenName)

@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Clavis.Niri
 import qs.Common
 import qs.Services
 import qs.Widgets.common
@@ -61,7 +62,9 @@ PanelWindow {
 
     implicitWidth: surfaceThickness
     color: "transparent"
-    exclusiveZone: root.autoHidden ? 0 : exclusiveThickness
+    // Revealing the bar in overview must not push maximized previews sideways.
+    exclusiveZone: root.autoHidden || (Niri.inOverview && MaximizedWindowService.hasMaximizedWindow(
+                                           root.modelData)) ? 0 : exclusiveThickness
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-bar-vertical"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
