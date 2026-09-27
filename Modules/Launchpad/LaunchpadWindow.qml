@@ -32,6 +32,8 @@ PanelWindow {
     readonly property real viewHeight: screen ? screen.height : 720
     property real openProgress: 0
     property string phase: "hidden"
+    readonly property bool visuallyHidden: phase === "hidden" || phase === "warming"
+    readonly property real foregroundProgress: visuallyHidden ? 0 : openProgress
     property bool initialized: false
     property bool warmed: false
     property bool awaitingFrame: false
@@ -171,7 +173,6 @@ PanelWindow {
                 if (!pager.cached || !root.iconsPreloaded)
                     return;
                 root.awaitingFrame = false;
-                root.visible = false;
                 root.phase = "hidden";
                 return;
             }
@@ -189,11 +190,12 @@ PanelWindow {
             if (LaunchpadService.visible) {
                 root.phase = "open";
             } else {
-                root.visible = false;
                 root.phase = "hidden";
+                root.visible = root.warmed;
                 root.query = "";
                 root.folderId = "";
                 root.selected = -1;
+                LaunchpadService.finishClose();
             }
         }
     }
@@ -347,11 +349,9 @@ PanelWindow {
         height: root.viewHeight
         focus: true
         enabled: LaunchpadService.visible
-        // Render the first, nearly transparent frame before starting the
-        // entrance animation, so texture uploads do not consume its duration.
-        // Warm the native window without drawing a translucent veil over the
-        // desktop. Page snapshots render offscreen even during this warm-up.
-        opacity: root.phase === "warming" ? 0 : Math.max(0.001, root.openProgress)
+        // Prewarming remains fully transparent. Once opened, the backdrop
+        // covers the desktop on the first mapped frame while controls animate.
+        opacity: root.visuallyHidden ? 0 : 1
 
         // Keep full-size icons for folder contents too, not just the small
         // folder previews, so entering a group reuses the same pixmaps.
@@ -405,6 +405,7 @@ PanelWindow {
             screenName: root.screen ? root.screen.name : ""
             viewportSize: Qt.size(root.screen ? root.screen.width : 1280, root.screen ? root.screen.height :
                                                                                         720)
+            opacity: root.visuallyHidden ? 0 : root.phase === "closing" ? root.openProgress : 1
             scale: 1.035 - 0.035 * root.openProgress
         }
 
@@ -419,6 +420,7 @@ PanelWindow {
             color: "#65202839"
             border.width: 1
             border.color: "#28ffffff"
+            opacity: root.foregroundProgress
         }
 
         Item {
@@ -428,6 +430,7 @@ PanelWindow {
             width: Math.max(160, Math.min(root.folderId ? 920 : 1220, root.viewWidth - 96))
             height: Math.max(100, root.viewHeight - 280)
             scale: 0.94 + 0.06 * root.openProgress
+            opacity: root.foregroundProgress
             LaunchpadPager {
                 id: pager
                 anchors.fill: parent
@@ -569,6 +572,7 @@ PanelWindow {
             y: 52
             width: gridArea.width
             height: 52
+            opacity: root.foregroundProgress
             IconButton {
                 id: backButton
                 anchors.left: parent.left
@@ -681,6 +685,7 @@ PanelWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             y: root.viewHeight - 104
             spacing: 12
+            opacity: root.foregroundProgress
             IconButton {
                 iconName: "chevron_left"
                 iconColor: "white"
@@ -736,6 +741,7 @@ PanelWindow {
             font.family: Fonts.ui
             font.pixelSize: 13
             wrapMode: Text.Wrap
+            opacity: root.foregroundProgress
         }
         LaunchpadTile {
             visible: root.dragging
@@ -749,6 +755,7 @@ PanelWindow {
             height: root.tileHeight
             iconSize: root.iconSize
             ghost: true
+            opacity: root.foregroundProgress
         }
         Menu {
             id: contextMenu

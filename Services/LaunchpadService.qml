@@ -12,6 +12,7 @@ Singleton {
     id: root
 
     property bool visible: false
+    property bool chromeHold: false
     property var targetScreen: null
     property var savedEntries: []
     property bool ready: false
@@ -28,11 +29,25 @@ Singleton {
         const name = outputName || Niri.currentOutput;
         targetScreen = Quickshell.screens.find(screen => screen.name === name) || Quickshell.screens[0]
                 || null;
-        visible = !!targetScreen;
-        return visible;
+        if (!targetScreen) {
+            chromeHold = false;
+            visible = false;
+            return false;
+        }
+        // Freeze top-edge surfaces before the overlay requests focus. Their
+        // native mapping and exclusive zone must not change under the fade.
+        chromeHold = true;
+        visible = true;
+        return true;
     }
     function close() {
+        if (!visible)
+            chromeHold = false;
         visible = false;
+    }
+    function finishClose() {
+        if (!visible)
+            chromeHold = false;
     }
     function toggle(outputName) {
         if (visible)

@@ -10,9 +10,22 @@ PanelWindow {
 
     required property var modelData
 
-    readonly property bool autoHidden: MaximizedWindowService.coversScreen(root.modelData)
+    readonly property bool detectedAutoHidden: MaximizedWindowService.coversScreen(root.modelData)
+    property bool heldAutoHidden: detectedAutoHidden
+    readonly property bool autoHidden: LaunchpadService.chromeHold ? heldAutoHidden : detectedAutoHidden
     readonly property bool showContents: !autoHidden || MaximizedWindowService.revealed(root.modelData)
     visible: root.showContents
+
+    onDetectedAutoHiddenChanged: {
+        if (!LaunchpadService.chromeHold)
+            heldAutoHidden = detectedAutoHidden;
+    }
+    Connections {
+        target: LaunchpadService
+        function onChromeHoldChanged() {
+            root.heldAutoHidden = root.detectedAutoHidden;
+        }
+    }
 
     property var edgeSensor: BarEdgeTrigger {
         screen: root.modelData
