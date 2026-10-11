@@ -80,7 +80,8 @@ Singleton {
     }
 
     function revealed(screen) {
-        if (!screen)
+        // Top bars and their pinned lyrics stay hidden over maximized windows.
+        if (!screen || PersonalizationConfig.barPosition === "top")
             return false;
         return Object.keys(root.hoveredSurfaces).some(key => key.startsWith(screen.name + "/"));
     }

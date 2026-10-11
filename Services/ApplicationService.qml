@@ -54,10 +54,13 @@ Singleton {
                                                       icon: "",
                                                       dragOnly: true
                                                   })
+    // Quickshell IDs omit the filename suffix, even when the ID itself ends
+    // in .desktop (for example org.telegram.desktop). GIO needs the filename.
     // Internal shell entries belong in the launcher, not in default-app or
     // autostart pickers that require an installed desktop application.
     readonly property var launcherApplications: applications.filter(application => DesktopFiles.shouldShow(
-                                                                                       application.id)).concat(
+                                                                                       application.id
+                                                                                       + ".desktop")).concat(
                                                     [settingsApplication, launchpadApplication,
                                                      spaceApplication, smallSpaceApplication])
 

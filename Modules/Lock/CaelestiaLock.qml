@@ -115,7 +115,7 @@ Item {
     }
 
     Connections {
-        function onUnlock() {
+        function onUnlockRequested() {
             root.startExitAnimation();
         }
 

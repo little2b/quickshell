@@ -31,7 +31,7 @@ PanelWindow {
     property var edgeSensor: BarEdgeTrigger {
         screen: root.modelData
         edge: root.edge
-        visible: root.autoHidden
+        visible: root.autoHidden && root.edge !== "top"
     }
 
     HoverHandler {

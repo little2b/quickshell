@@ -255,10 +255,10 @@ StyledFlickable {
                     highlighted: wiredRow.device ? wiredRow.device.connected : false
                     onClicked: configWindow.openProfile(wiredRow.modelData, "")
 
-                    trailing: MaterialSymbol {
-                        text: "chevron_right"
-                        iconSize: Metrics.iconS
-                        color: Appearance.colors.colOnSurfaceVariant
+                    trailing: ActionButton {
+                        text: qsTr("Configure")
+                        iconName: "settings"
+                        onClicked: configWindow.openProfile(wiredRow.modelData, "")
                     }
                 }
             }
@@ -339,11 +339,11 @@ StyledFlickable {
                         highlighted: true
                         onClicked: root.openProfile(NetworkService.activeWifi)
 
-                        trailing: MaterialSymbol {
+                        trailing: ActionButton {
                             visible: root.profileForTarget(NetworkService.activeWifi) !== null
-                            text: "settings"
-                            iconSize: Metrics.iconS
-                            color: Appearance.colors.colOnSurfaceVariant
+                            text: qsTr("Configure")
+                            iconName: "settings"
+                            onClicked: root.openProfile(NetworkService.activeWifi)
                         }
                     }
 
@@ -581,22 +581,43 @@ StyledFlickable {
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("IP address")
+                title: qsTr("IPv4 address")
                 supportingText: root.runtimeMatchesActive && NetworkService.runtimeDetails.addresses
                                 ? NetworkService.runtimeDetails.addresses.join(", ") : "—"
             }
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("Gateway")
+                title: qsTr("IPv4 gateway")
                 supportingText: root.runtimeMatchesActive ? NetworkService.runtimeDetails.gateway || "—" : "—"
             }
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("DNS")
+                title: qsTr("IPv4 DNS")
                 supportingText: root.runtimeMatchesActive && NetworkService.runtimeDetails.dns
                                 ? NetworkService.runtimeDetails.dns.join(", ") : "—"
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("IPv6 addresses")
+                supportingText: root.runtimeMatchesActive && NetworkService.runtimeDetails.ipv6Addresses
+                                ? NetworkService.runtimeDetails.ipv6Addresses.join(", ") || "—" : "—"
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("IPv6 gateway")
+                supportingText: root.runtimeMatchesActive && NetworkService.runtimeDetails.ipv6Gateway
+                                ? NetworkService.runtimeDetails.ipv6Gateway || "—" : "—"
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("IPv6 DNS")
+                supportingText: root.runtimeMatchesActive && NetworkService.runtimeDetails.ipv6Dns
+                                ? NetworkService.runtimeDetails.ipv6Dns.join(", ") || "—" : "—"
             }
 
             SettingsRow {

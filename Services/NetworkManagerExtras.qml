@@ -2,14 +2,16 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import "../Common/NetworkProfile.js" as NetworkProfile
 
 Singleton {
     id: root
 
     readonly property bool runtimeBusy: runtimeProcess.running || frequencyProcess.running
-    readonly property bool mutationBusy: addProcess.running || activateProcess.running
-                                         || cleanupProcess.running
-    readonly property bool busy: runtimeBusy || mutationBusy
+    readonly property bool mutationBusy: profileWriteProcess.running || _profilePhase === "preflight"
+                                         || _profilePhase === "verify" || addProcess.running
+                                         || activateProcess.running || cleanupProcess.running
+    readonly property bool busy: runtimeBusy || mutationBusy || profileReadProcess.running
     property string lastError: ""
     property string _runtimeInterface: ""
     property bool _runtimeIsWifi: false
@@ -24,6 +26,134 @@ Singleton {
     property bool _secure: false
     property bool _addStarted: false
     property bool _activateStarted: false
+
+    property string _profileUuid: ""
+    property string _profilePhase: ""
+    property var _profileCallback: null
+    property var _profileOriginal: null
+    property var _profileDraft: null
+    property var _profileExpected: ({})
+    property bool _profileReadStarted: false
+    property bool _profileWriteStarted: false
+
+    function readProfile(uuid, callback) {
+        return root._beginProfile(uuid, null, null, callback);
+    }
+
+    function writeProfile(uuid, original, draft, callback) {
+        return root._beginProfile(uuid, original, draft, callback);
+    }
+
+    function _beginProfile(uuid, original, draft, callback) {
+        if (root.mutationBusy || profileReadProcess.running || String(uuid || "").length === 0) {
+            callback(false, null, qsTr("Another network operation is in progress"));
+            return false;
+        }
+        root._profileUuid = String(uuid);
+        root._profileOriginal = original;
+        root._profileDraft = draft;
+        root._profileCallback = callback;
+        root._profilePhase = original ? "preflight" : "read";
+        root._readProfile();
+        return true;
+    }
+
+    function _readProfile() {
+        root._profileReadStarted = false;
+        profileReadProcess.command = ["env", "LC_ALL=C", "nmcli", "--wait", "15", "-t", "-e", "yes", "-f",
+                                      NetworkProfile.fields.join(","), "connection", "show", "uuid",
+                                      root._profileUuid];
+        profileReadProcess.running = true;
+    }
+
+    function _finishProfile(success, snapshot, message) {
+        const callback = root._profileCallback;
+        root._profileCallback = null;
+        root._profilePhase = "";
+        root._profileUuid = "";
+        root._profileOriginal = null;
+        root._profileDraft = null;
+        root._profileExpected = ({});
+        if (callback)
+            callback(success, snapshot, message);
+    }
+
+    Process {
+        id: profileReadProcess
+        onStarted: root._profileReadStarted = true
+        onRunningChanged: {
+            if (!running && !root._profileReadStarted && root._profileCallback)
+                root._finishProfile(false, null, qsTr("Unable to start the network configuration tool"));
+        }
+        onExited: exitCode => {
+            if (!root._profileCallback)
+                return;
+            if (exitCode !== 0) {
+                root._finishProfile(false, null, root._error(profileReadError.text, qsTr(
+                                                                 "Unable to read connection settings")));
+                return;
+            }
+            const snapshot = NetworkProfile.parse(profileReadOutput.text);
+            if (!snapshot) {
+                root._finishProfile(false, null, qsTr("The connection settings response is incomplete"));
+                return;
+            }
+            if (root._profilePhase === "preflight") {
+                const plan = NetworkProfile.prepare(root._profileOriginal, snapshot, root._profileDraft);
+                if (plan.error) {
+                    root._finishProfile(false, null, plan.error === "conflict" ? qsTr(
+                                                                                     "This connection was changed elsewhere. Reload it before saving.") :
+                                                                                 qsTr("Check the connection settings before saving"));
+                    return;
+                }
+                if (plan.args.length === 0) {
+                    root._finishProfile(true, snapshot, "");
+                    return;
+                }
+                root._profileExpected = plan.expected;
+                root._profilePhase = "write";
+                root._profileWriteStarted = false;
+                profileWriteProcess.command = ["nmcli", "--wait", "15", "connection", "modify", "uuid",
+                                               root._profileUuid].concat(plan.args);
+                profileWriteProcess.running = true;
+            } else if (root._profilePhase === "verify" && !NetworkProfile.matches(snapshot,
+                                                                                  root._profileExpected)) {
+                root._finishProfile(false, snapshot, qsTr(
+                                        "The saved settings differ from the requested values. Reload this connection to review them."));
+            } else {
+                root._finishProfile(true, snapshot, "");
+            }
+        }
+        stdout: StdioCollector {
+            id: profileReadOutput
+        }
+        stderr: StdioCollector {
+            id: profileReadError
+        }
+    }
+
+    Process {
+        id: profileWriteProcess
+        onStarted: root._profileWriteStarted = true
+        onRunningChanged: {
+            if (!running && !root._profileWriteStarted && root._profileCallback)
+                root._finishProfile(false, null, qsTr("Unable to start the network configuration tool"));
+        }
+        onExited: exitCode => {
+            if (!root._profileCallback)
+                return;
+            if (exitCode !== 0) {
+                root._finishProfile(false, null, root._error(profileWriteError.text, qsTr(
+                                                                 "Unable to save connection settings")));
+                return;
+            }
+            root._profilePhase = "verify";
+            root._readProfile();
+        }
+        stderr: StdioCollector {
+            id: profileWriteError
+        }
+    }
 
     function _unescape(value) {
         return String(value || "").replace(/\\:/g, ":").replace(/\\\\/g, "\\");
@@ -48,7 +178,7 @@ Singleton {
         root._runtimeDetails = null;
         root._runtimeStarted = false;
         runtimeProcess.command = ["nmcli", "-t", "-e", "yes", "-f",
-                                  "GENERAL.CONNECTION,GENERAL.CON-UUID,IP4.ADDRESS,IP4.GATEWAY,IP4.DNS",
+                                  "GENERAL.CONNECTION,GENERAL.CON-UUID,IP4.ADDRESS,IP4.GATEWAY,IP4.DNS,IP6.ADDRESS,IP6.GATEWAY,IP6.DNS",
                                   "device", "show", root._runtimeInterface];
         runtimeProcess.running = true;
         return true;
@@ -121,7 +251,7 @@ Singleton {
             if (!running && !root._runtimeStarted && root._runtimeCallback) {
                 const callback = root._runtimeCallback;
                 root._runtimeCallback = null;
-                root.lastError = qsTr("nmcli is unavailable; active IPv4 information cannot be read");
+                root.lastError = qsTr("nmcli is unavailable; active IP information cannot be read");
                 callback(false, {}, root.lastError);
             }
         }
@@ -132,8 +262,7 @@ Singleton {
 
             if (exitCode !== 0) {
                 root._runtimeCallback = null;
-                root.lastError = root._error(runtimeError.text, qsTr(
-                                                 "Unable to read active IPv4 information"));
+                root.lastError = root._error(runtimeError.text, qsTr("Unable to read active IP information"));
                 callback(false, {}, root.lastError);
                 return;
             }
@@ -143,7 +272,10 @@ Singleton {
                                  "connectionUuid": "",
                                  "addresses": [],
                                  "gateway": "",
-                                 "dns": []
+                                 "dns": [],
+                                 "ipv6Addresses": [],
+                                 "ipv6Gateway": "",
+                                 "ipv6Dns": []
                              });
             for (const rawLine of String(runtimeOutput.text || "").trim().split("\n")) {
                 const separator = rawLine.indexOf(":");
@@ -162,6 +294,12 @@ Singleton {
                     details.gateway = value;
                 else if (key.startsWith("IP4.DNS"))
                     details.dns.push(value);
+                else if (key.startsWith("IP6.ADDRESS"))
+                    details.ipv6Addresses.push(value);
+                else if (key === "IP6.GATEWAY")
+                    details.ipv6Gateway = value;
+                else if (key.startsWith("IP6.DNS"))
+                    details.ipv6Dns.push(value);
             }
             if (root._runtimeIsWifi) {
                 root._runtimeDetails = details;

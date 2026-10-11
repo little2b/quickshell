@@ -1,10 +1,11 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.Common
+import "../../Common/NetworkProfile.js" as NetworkProfile
 import qs.Services
 import qs.Widgets.common
 
-StyledFlickable {
+ColumnLayout {
     id: root
 
     property var target: null
@@ -43,370 +44,283 @@ StyledFlickable {
         return device.deviceName === profile.deviceName;
     }) || null : null
     property var original: null
+    property var draft: ({})
     property string loadedProfileUuid: ""
-    property string mode: "auto"
-    property string address: ""
-    property string gateway: ""
-    property string dns: ""
-    property bool autoconnect: true
-    property bool addressTouched: false
-    property bool gatewayTouched: false
-    property bool dnsTouched: false
+    property bool loading: false
     property bool saving: false
     property string errorMessage: ""
     property string successMessage: ""
-    readonly property bool dirty: original && (mode !== original.method || address.trim()
-                                               !== original.address || gateway.trim() !== original.gateway
-                                               || normalizeDns(dns) !== normalizeDns(original.dns)
-                                               || autoconnect !== original.autoconnect)
-    readonly property bool addressValid: mode !== "manual" || validCidr(address)
-    readonly property bool gatewayValid: mode !== "manual" || gateway.trim() === "" || validIpv4(gateway.trim(
-                                                                                                     ))
-
-    readonly property bool dnsValid: mode === "auto" || (mode === "manual" && normalizeDns(dns).length === 0)
-                                     || (normalizeDns(dns).length > 0 && normalizeDns(dns).split(",").every(
-                                             value => {
-                                                 return validIpv4(value);
-                                             }))
-    readonly property bool formValid: addressValid && gatewayValid && dnsValid
+    readonly property bool dirty: NetworkProfile.dirty(original, draft)
+    readonly property bool formValid: original !== null && NetworkProfile.validation(original, draft).length
+                                      === 0
 
     signal profileForgotten
 
-    function validIpv4(value) {
-        const parts = String(value || "").split(".");
-        if (parts.length !== 4)
-            return false;
-
-        return parts.every(part => {
-            return /^\d{1,3}$/.test(part) && Number(part) >= 0 && Number(part) <= 255;
-        });
-    }
-
-    function validCidr(value) {
-        const pieces = String(value || "").trim().split("/");
-        return pieces.length === 2 && validIpv4(pieces[0]) && /^\d{1,2}$/.test(pieces[1]) && Number(pieces[1])
-                >= 0 && Number(pieces[1]) <= 32;
-    }
-
-    function normalizeDns(value) {
-        return String(value || "").trim().split(/[\s,]+/).filter(item => {
-            return item.length > 0;
-        }).join(",");
-    }
-
-    function loadProfile() {
-        root.addressTouched = false;
-        root.gatewayTouched = false;
-        root.dnsTouched = false;
-        const snapshot = NetworkService.profileSnapshot(root.profile);
-        if (!snapshot) {
-            root.original = null;
-            root.loadedProfileUuid = "";
+    function edit(key, value) {
+        if (!root.original || String(root.draft[key]) === String(value))
             return;
-        }
-        root.loadedProfileUuid = String(root.profile.uuid || "");
-        root.original = snapshot;
-        root.mode = snapshot.method;
-        root.address = snapshot.address;
-        root.gateway = snapshot.gateway;
-        root.dns = snapshot.dns;
-        root.autoconnect = snapshot.autoconnect;
+        root.draft = NetworkProfile.withValue(root.draft, key, value);
+        root.successMessage = "";
     }
 
     function resetEditor() {
-        root.profileRemoved = false;
-        root.saving = false;
+        const uuid = String(root.profile ? root.profile.uuid || "" : "");
+        if (root.saving || (root.loading && uuid === root.loadedProfileUuid))
+            return;
+        root.original = null;
+        root.draft = ({});
         root.errorMessage = "";
         root.successMessage = "";
-        root.loadProfile();
+        root.loadedProfileUuid = uuid;
+        root.loading = uuid.length > 0;
+        if (root.loading)
+            NetworkService.requestProfileDetails(root.profile);
     }
 
-    clip: true
-    contentWidth: width
-    contentHeight: contentColumn.implicitHeight + Metrics.pageMargin * 2
-    Component.onCompleted: root.resetEditor()
-    onTargetChanged: root.resetEditor()
+    function discardChanges() {
+        root.draft = Object.assign({}, root.original);
+        root.errorMessage = "";
+        root.successMessage = "";
+    }
+
+    spacing: Metrics.spacingM
+    onTargetChanged: {
+        root.profileRemoved = false;
+        root.resetEditor();
+    }
     onProfileChanged: {
         const uuid = String(root.profile ? root.profile.uuid || "" : "");
-        if (uuid === root.loadedProfileUuid)
-            return;
-
-        if (root.target && root.target.nativeSettings && uuid.length === 0 && root.loadedProfileUuid.length
-                > 0) {
-            root.profileRemoved = true;
-            root.original = null;
-            root.loadedProfileUuid = "";
-            root.profileForgotten();
-            return;
-        }
-        const discardedChanges = root.dirty;
-        root.loadProfile();
-        if (discardedChanges)
-            root.errorMessage = qsTr("The active network profile changed; unapplied changes were discarded");
+        if (uuid !== root.loadedProfileUuid)
+            root.resetEditor();
     }
+    Component.onCompleted: root.resetEditor()
 
     Connections {
-        function onProfileWriteSucceeded(uuid) {
-            if (!root.profile || uuid !== root.profile.uuid)
-                return;
+        target: NetworkService
 
+        function onProfileLoaded(uuid, snapshot) {
+            if (uuid !== root.loadedProfileUuid)
+                return;
+            root.original = snapshot;
+            root.draft = Object.assign({}, snapshot);
+            root.loading = false;
+        }
+
+        function onProfileLoadFailed(uuid, message) {
+            if (uuid !== root.loadedProfileUuid)
+                return;
+            root.loading = false;
+            root.errorMessage = message;
+        }
+
+        function onProfileWriteSucceeded(uuid) {
+            if (uuid !== root.loadedProfileUuid)
+                return;
             root.saving = false;
             root.errorMessage = "";
-            root.successMessage = root.nativeNetwork && root.nativeNetwork.connected ? qsTr(
-                                                                                           "Profile saved; reconnect to fully apply the new IPv4 settings") :
-                                                                                       qsTr("Profile saved");
-            root.loadProfile();
+            root.successMessage = root.connectionIsActive ? qsTr(
+                                                                "Saved. Reconnect to apply the new network settings.") :
+                                                            qsTr("Profile saved");
         }
 
         function onProfileWriteFailed(uuid, message) {
-            if (!root.profile || uuid !== root.profile.uuid)
+            if (uuid !== root.loadedProfileUuid)
                 return;
-
             root.saving = false;
-            root.successMessage = "";
             root.errorMessage = message;
         }
 
         function onProfileForgetSucceeded(uuid) {
             if (!root.target || uuid !== String(root.target.uuid || ""))
                 return;
-
             root.profileRemoved = true;
             root.profileForgotten();
         }
 
         function onProfileForgetFailed(uuid, message) {
-            if (!root.target || uuid !== String(root.target.uuid || ""))
-                return;
-
-            root.errorMessage = message;
+            if (uuid === root.loadedProfileUuid)
+                root.errorMessage = message;
         }
-
-        target: NetworkService
     }
 
-    ColumnLayout {
-        id: contentColumn
+    StyledFlickable {
+        id: formScroll
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        clip: true
+        contentWidth: width
+        contentHeight: contentColumn.implicitHeight + Metrics.spacingM * 2
 
-        width: Math.min(640, Math.max(0, root.width - Metrics.pageMargin * 2))
-        x: Math.max(Metrics.pageMargin, (root.width - width) / 2)
-        y: Metrics.pageMargin
-        spacing: Metrics.spacingL
+        ColumnLayout {
+            id: contentColumn
+            width: Math.max(0, formScroll.width - Metrics.spacingS * 2)
+            x: Metrics.spacingS
+            y: Metrics.spacingM
+            spacing: Metrics.spacingL
 
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: Metrics.spacingS
-
-            ActionButton {
-                visible: root.connectionIsActive
-                text: qsTr("Disconnect")
-                iconName: "link_off"
-                enabled: !NetworkService.busy
-                onClicked: NetworkService.disconnectNetwork(root.target)
-            }
-
-            ActionButton {
-                visible: root.nativeNetwork && !root.connectionIsActive
-                text: qsTr("Connect")
-                iconName: "link"
-                enabled: !NetworkService.busy && (!root.isWired || root.wiredDevice
-                                                  && root.wiredDevice.hasLink)
-                onClicked: {
-                    if (root.profile)
-                        NetworkService.connectProfile(root.profile);
-                    else
-                        NetworkService.connectNetwork(root.target, null);
-                }
-            }
-
-            ActionButton {
-                visible: root.profile !== null && !root.isWired
-                text: qsTr("Forget")
-                iconName: "delete"
-                enabled: !NetworkService.busy && !root.saving
-                onClicked: {
-                    root.errorMessage = "";
-                    NetworkService.forgetProfile(root.profile);
-                }
-            }
-
-            Item {
+            InlineStatusBanner {
                 Layout.fillWidth: true
-            }
-        }
-
-        InlineStatusBanner {
-            Layout.fillWidth: true
-            radius: Metrics.cornerM
-            visible: root.errorMessage.length > 0
-            tone: "error"
-            message: root.errorMessage
-        }
-
-        InlineStatusBanner {
-            Layout.fillWidth: true
-            radius: Metrics.cornerM
-            visible: root.successMessage.length > 0
-            tone: "info"
-            iconName: "check_circle"
-            message: root.successMessage
-        }
-
-        SettingsSection {
-            Layout.fillWidth: true
-            title: qsTr("Basic information")
-            iconName: "info"
-
-            SettingsRow {
-                Layout.fillWidth: true
-                title: qsTr("Profile name")
-                supportingText: root.profile ? root.profile.name : qsTr("No editable profile")
+                visible: root.errorMessage.length > 0
+                tone: "error"
+                message: root.errorMessage
             }
 
-            SettingsRow {
+            InlineStatusBanner {
                 Layout.fillWidth: true
-                visible: !root.isWired
-                title: qsTr("SSID")
-                supportingText: root.profile ? root.profile.ssid : "—"
+                visible: root.successMessage.length > 0
+                tone: "info"
+                iconName: "check_circle"
+                message: root.successMessage
             }
 
-            SettingsRow {
+            RowLayout {
                 Layout.fillWidth: true
-                title: qsTr("Interface")
-                supportingText: root.profile ? root.profile.deviceName : root.target ? root.target.deviceName
-                                                                                       || root.target.name :
-                                                                                       "—"
-            }
-        }
+                spacing: Metrics.spacingS
 
-        SettingsSection {
-            Layout.fillWidth: true
-            visible: root.profile !== null
-            title: qsTr("IPv4")
-            iconName: "network_manage"
-            contentSpacing: Metrics.spacingL
-
-            SettingsRow {
-                Layout.fillWidth: true
-                title: qsTr("Connect automatically")
-
-                trailing: StyledSwitch {
-                    checked: root.autoconnect
-                    onToggled: root.autoconnect = checked
-                }
-            }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: Metrics.spacingXS
-
-                Text {
-                    text: qsTr("IP assignment")
-                    color: Appearance.colors.colOnSurfaceVariant
-                    font.family: Typography.labelLarge.family
-                    font.pixelSize: Typography.labelLarge.pixelSize
-                    font.weight: Typography.labelLarge.weight
+                ActionButton {
+                    visible: root.connectionIsActive
+                    text: qsTr("Disconnect")
+                    iconName: "link_off"
+                    enabled: !NetworkService.busy && !root.saving
+                    onClicked: NetworkService.disconnectNetwork(root.target)
                 }
 
-                StyledButtonGroup {
+                ActionButton {
+                    visible: root.nativeNetwork && !root.connectionIsActive
+                    text: qsTr("Connect")
+                    iconName: "link"
+                    enabled: !NetworkService.busy && !root.saving && (!root.isWired || root.wiredDevice
+                                                                      && root.wiredDevice.hasLink)
+                    onClicked: NetworkService.connectProfile(root.profile)
+                }
+
+                ActionButton {
+                    visible: root.profile !== null && !root.isWired
+                    text: qsTr("Forget")
+                    iconName: "delete"
+                    enabled: !NetworkService.busy && !root.saving
+                    onClicked: NetworkService.forgetProfile(root.profile)
+                }
+
+                Item {
                     Layout.fillWidth: true
-                    model: [
-                        {
-                            "value": "auto",
-                            "label": qsTr("Automatic (DHCP)")
-                        },
-                        {
-                            "value": "auto-dns",
-                            "label": qsTr("DHCP + custom DNS")
-                        },
-                        {
-                            "value": "manual",
-                            "label": qsTr("Manual")
-                        }
-                    ]
-                    currentValue: root.mode
-                    onValueSelected: value => {
-                        return root.mode = value;
+                }
+
+                ActionButton {
+                    text: qsTr("Reload")
+                    iconName: "refresh"
+                    enabled: !root.loading && !root.saving && !NetworkService.busy && !root.dirty
+                    onClicked: root.resetEditor()
+                    InlineBusyIndicator {
+                        anchors.right: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        busy: root.loading
                     }
                 }
             }
 
             ColumnLayout {
                 Layout.fillWidth: true
-                visible: root.mode === "manual"
-                spacing: Metrics.spacingM
+                enabled: root.original !== null && !root.loading && !root.saving
+                spacing: Metrics.spacingL
 
-                OutlinedTextField {
+                SettingsSection {
                     Layout.fillWidth: true
-                    labelText: qsTr("IPv4 address / CIDR")
-                    text: root.address
-                    errorText: root.addressTouched && !root.addressValid ? qsTr(
-                                                                               "Enter a valid IPv4 CIDR, such as 192.168.1.50/24") :
-                                                                           ""
-                    onTextChanged: root.address = text
-                    onEditingFinished: root.addressTouched = true
+                    title: qsTr("Connection")
+                    iconName: root.isWired ? "lan" : "wifi"
+                    contentSpacing: Metrics.spacingM
+
+                    OutlinedTextField {
+                        Layout.fillWidth: true
+                        labelText: qsTr("Profile name")
+                        text: String(root.draft["connection.id"] || "")
+                        errorText: root.original && NetworkProfile.fieldError("connection.id", text,
+                                                                              root.draft) ? qsTr(
+                                                                                                "Enter a connection name") :
+                                                                                            ""
+                        onTextChanged: root.edit("connection.id", text)
+                    }
+
+                    SettingsRow {
+                        Layout.fillWidth: true
+                        title: qsTr("Interface")
+                        supportingText: root.profile ? root.profile.deviceName : "—"
+                    }
+
+                    SettingsRow {
+                        Layout.fillWidth: true
+                        title: qsTr("Connect automatically")
+                        trailing: StyledSwitch {
+                            checked: root.draft["connection.autoconnect"] === "yes"
+                            onToggled: root.edit("connection.autoconnect", checked ? "yes" : "no")
+                        }
+                    }
+
+                    OutlinedTextField {
+                        Layout.fillWidth: true
+                        enabled: root.draft["connection.autoconnect"] === "yes"
+                        labelText: qsTr("Auto-connect priority")
+                        supportingText: qsTr(
+                                            "Higher values are preferred when choosing a connection on the same device (-999 to 999).")
+                        text: String(root.draft["connection.autoconnect-priority"] || "0")
+                        errorText: root.original && NetworkProfile.fieldError(
+                                       "connection.autoconnect-priority", text, root.draft) ? qsTr(
+                                                                                                  "Enter an integer from -999 to 999") :
+                                                                                              ""
+                        onTextChanged: root.edit("connection.autoconnect-priority", text)
+                    }
                 }
 
-                OutlinedTextField {
+                NetworkIpSettings {
                     Layout.fillWidth: true
-                    labelText: qsTr("Gateway")
-                    text: root.gateway
-                    errorText: root.gatewayTouched && !root.gatewayValid ? qsTr("Enter a valid IPv4 gateway") :
-                                                                           ""
-                    onTextChanged: root.gateway = text
-                    onEditingFinished: root.gatewayTouched = true
+                    family: "ipv4"
+                    original: root.original
+                    draft: root.draft
+                    onValueEdited: (key, value) => root.edit(key, value)
                 }
-            }
 
-            ColumnLayout {
-                Layout.fillWidth: true
-                visible: root.mode !== "auto"
-                spacing: Metrics.spacingM
-
-                OutlinedTextField {
+                NetworkIpSettings {
                     Layout.fillWidth: true
-                    labelText: qsTr("DNS")
-                    text: root.dns
-                    errorText: root.dnsTouched && !root.dnsValid ? qsTr(
-                                                                       "Enter at least one valid IPv4 DNS address") :
-                                                                   ""
-                    onTextChanged: root.dns = text
-                    onEditingFinished: root.dnsTouched = true
+                    family: "ipv6"
+                    original: root.original
+                    draft: root.draft
+                    onValueEdited: (key, value) => root.edit(key, value)
                 }
             }
         }
+    }
 
-        RowLayout {
+    RowLayout {
+        Layout.fillWidth: true
+        spacing: Metrics.spacingS
+
+        ActionButton {
+            text: qsTr("Reset changes")
+            iconName: "undo"
+            enabled: root.dirty && !root.saving
+            onClicked: root.discardChanges()
+        }
+
+        Item {
             Layout.fillWidth: true
-            visible: root.profile && (root.dirty || root.saving)
+        }
 
-            Item {
-                Layout.fillWidth: true
+        ActionButton {
+            text: qsTr("Apply")
+            iconName: "save"
+            filled: true
+            enabled: root.dirty && root.formValid && !root.saving && !root.loading && !NetworkService.busy
+            onClicked: {
+                root.errorMessage = "";
+                root.successMessage = "";
+                root.saving = true;
+                NetworkService.writeProfile(root.profile, root.original, root.draft);
             }
-
-            MaterialLoadingIndicator {
-                Layout.preferredWidth: 32
-                Layout.preferredHeight: 32
-                contained: false
-                visible: root.saving
-            }
-
-            ActionButton {
-                text: qsTr("Apply")
-                iconName: "save"
-                filled: true
-                enabled: root.dirty && root.formValid && !root.saving
-                onClicked: {
-                    root.errorMessage = "";
-                    root.successMessage = "";
-                    root.saving = NetworkService.writeProfile(root.profile, {
-                                                                  "method": root.mode,
-                                                                  "address": root.address.trim(),
-                                                                  "gateway": root.gateway.trim(),
-                                                                  "dns": root.normalizeDns(root.dns),
-                                                                  "autoconnect": root.autoconnect
-                                                              });
-                }
+            InlineBusyIndicator {
+                anchors.right: parent.left
+                anchors.rightMargin: Metrics.spacingS
+                anchors.verticalCenter: parent.verticalCenter
+                busy: root.saving
             }
         }
     }

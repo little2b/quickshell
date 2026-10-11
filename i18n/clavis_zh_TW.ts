@@ -6794,17 +6794,32 @@ Click to open network settings</source>
 <context>
     <name>NetworkConfigWindow</name>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="119"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="133"/>
         <source>Saved networks</source>
         <translation>已儲存網路</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="145"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="159"/>
         <source>Connection profile</source>
         <translation>連線設定檔</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="176"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="171"/>
+        <source>Discard unsaved changes?</source>
+        <translation>放棄尚未儲存的修改？</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="178"/>
+        <source>Keep editing</source>
+        <translation>繼續編輯</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="185"/>
+        <source>Discard changes</source>
+        <translation>放棄修改</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="221"/>
         <source>Add network</source>
         <translation>新增網路</translation>
     </message>
@@ -7003,45 +7018,199 @@ Click to open network settings</source>
     </message>
 </context>
 <context>
+    <name>NetworkIpSettings</name>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="22"/>
+        <source>Automatic (SLAAC)</source>
+        <translation>自動（SLAAC）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="22"/>
+        <source>Automatic (DHCP)</source>
+        <translation>自動（DHCP）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="26"/>
+        <source>Manual</source>
+        <translation>手動</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="30"/>
+        <source>Link-local only</source>
+        <translation>僅本機連結</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="34"/>
+        <source>Disabled</source>
+        <translation>停用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="40"/>
+        <source>DHCP only</source>
+        <translation>僅 DHCP</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="45"/>
+        <source>Current mode: %1</source>
+        <translation>目前模式：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="74"/>
+        <source>IP assignment</source>
+        <translation>IP 分配方式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="88"/>
+        <source>Addresses / prefix</source>
+        <translation>位址 / 前綴長度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="90"/>
+        <source>Separate multiple addresses with commas; automatic modes may leave this blank.</source>
+        <translation>多個位址以逗號分隔；自動模式可留空。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="92"/>
+        <source>Enter valid addresses with a prefix length</source>
+        <translation>請輸入有效位址及前綴長度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="100"/>
+        <source>Gateway</source>
+        <translation>閘道</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="102"/>
+        <source>Enter a valid gateway address</source>
+        <translation>請輸入有效的閘道位址</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="109"/>
+        <source>Automatic DNS</source>
+        <translation>自動取得 DNS</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="119"/>
+        <source>Additional DNS servers</source>
+        <translation>附加 DNS 伺服器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="120"/>
+        <source>DNS servers</source>
+        <translation>DNS 伺服器</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="121"/>
+        <source>Separate servers with commas.</source>
+        <translation>多個伺服器以逗號分隔。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="123"/>
+        <source>Enter valid DNS server addresses</source>
+        <translation>請輸入有效的 DNS 伺服器位址</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="130"/>
+        <source>Use for internet access</source>
+        <translation>用於網際網路連線</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="140"/>
+        <source>Route metric</source>
+        <translation>路由計量值</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="141"/>
+        <source>Lower values take priority; -1 selects automatically. For example: wired 100, Wi-Fi 600.</source>
+        <translation>數值越小越優先，-1 為自動。例如：有線 100、Wi-Fi 600。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="144"/>
+        <source>Enter -1 or an integer from 0 to 4294967295</source>
+        <translation>請輸入 -1 或 0 到 4294967295 的整數</translation>
+    </message>
+</context>
+<context>
     <name>NetworkManagerExtras</name>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="40"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="49"/>
+        <source>Another network operation is in progress</source>
+        <translation>另一項網路操作正在進行</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="86"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="140"/>
+        <source>Unable to start the network configuration tool</source>
+        <translation>無法啟動網路設定工具</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="92"/>
+        <source>Unable to read connection settings</source>
+        <translation>無法讀取連線設定</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="98"/>
+        <source>The connection settings response is incomplete</source>
+        <translation>讀取到的連線設定不完整</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="104"/>
+        <source>This connection was changed elsewhere. Reload it before saving.</source>
+        <translation>此連線已在其他地方修改，請重新載入後再儲存。</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="106"/>
+        <source>Check the connection settings before saving</source>
+        <translation>請檢查連線設定後再儲存</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="121"/>
+        <source>The saved settings differ from the requested values. Reload this connection to review them.</source>
+        <translation>儲存後的設定與要求值不一致，請重新載入此連線以核對。</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="146"/>
+        <source>Unable to save connection settings</source>
+        <translation>無法儲存連線設定</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="170"/>
         <source>Network details are currently unavailable</source>
         <translation>網路詳情查詢當前不可用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="71"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="201"/>
         <source>Another supplementary network operation is already in progress</source>
         <translation>另一項補充網路操作仍在進行</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="99"/>
-        <location filename="../Services/NetworkManagerExtras.qml" line="237"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="229"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="375"/>
         <source>Unable to create Wi-Fi profile</source>
         <translation>無法建立 Wi-Fi 設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="124"/>
-        <source>nmcli is unavailable; active IPv4 information cannot be read</source>
-        <translation>nmcli 不可用，無法讀取活動 IPv4 資訊</translation>
+        <location filename="../Services/NetworkManagerExtras.qml" line="254"/>
+        <source>nmcli is unavailable; active IP information cannot be read</source>
+        <translation>nmcli 無法使用，無法讀取目前 IP 資訊</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="135"/>
-        <source>Unable to read active IPv4 information</source>
-        <translation>無法讀取活動 IPv4 資訊</translation>
+        <location filename="../Services/NetworkManagerExtras.qml" line="265"/>
+        <source>Unable to read active IP information</source>
+        <translation>無法讀取目前 IP 資訊</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="232"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="370"/>
         <source>nmcli is unavailable; a hidden network profile cannot be created</source>
         <translation>nmcli 不可用，無法建立隱藏網路配置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="267"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="405"/>
         <source>nmcli is unavailable; the hidden network profile cannot be activated</source>
         <translation>nmcli 不可用，無法啟用隱藏網路配置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="275"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="413"/>
         <source>The Wi-Fi profile was created but could not be activated</source>
         <translation>Wi-Fi 設定檔已建立，但無法啟用</translation>
     </message>
@@ -7087,7 +7256,7 @@ Click to open network settings</source>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="239"/>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="627"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="648"/>
         <source>%1 Mbps</source>
         <translation>%1 Mbps</translation>
     </message>
@@ -7096,6 +7265,12 @@ Click to open network settings</source>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="280"/>
         <source>Wired network</source>
         <translation>有線網路</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="259"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="344"/>
+        <source>Configure</source>
+        <translation>設定</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="281"/>
@@ -7160,6 +7335,36 @@ Click to open network settings</source>
         <translation>連線</translation>
     </message>
     <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="584"/>
+        <source>IPv4 address</source>
+        <translation>IPv4 位址</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="591"/>
+        <source>IPv4 gateway</source>
+        <translation>IPv4 閘道</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="597"/>
+        <source>IPv4 DNS</source>
+        <translation>IPv4 DNS</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="604"/>
+        <source>IPv6 addresses</source>
+        <translation>IPv6 位址</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="611"/>
+        <source>IPv6 gateway</source>
+        <translation>IPv6 閘道</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="618"/>
+        <source>IPv6 DNS</source>
+        <translation>IPv6 DNS</translation>
+    </message>
+    <message>
         <location filename="../Common/generated/SearchCatalog.js" line="2043"/>
         <source>Other settings</source>
         <translation>其他設定</translation>
@@ -7185,42 +7390,27 @@ Click to open network settings</source>
         <translation>介面</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="584"/>
-        <source>IP address</source>
-        <translation>IP 地址</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="591"/>
-        <source>Gateway</source>
-        <translation>Gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="597"/>
-        <source>DNS</source>
-        <translation>DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="604"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="625"/>
         <source>MAC</source>
         <translation>MAC</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="611"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="632"/>
         <source>Security type</source>
         <translation>安全型別</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="612"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="633"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="618"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="639"/>
         <source>Frequency</source>
         <translation>頻率</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="626"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="647"/>
         <source>Link speed</source>
         <translation>連線速度</translation>
     </message>
@@ -7228,122 +7418,82 @@ Click to open network settings</source>
 <context>
     <name>NetworkProfileEditor</name>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="145"/>
-        <source>The active network profile changed; unapplied changes were discarded</source>
-        <translation>活動網路配置已變化，未應用的修改已丟棄</translation>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="121"/>
+        <source>Saved. Reconnect to apply the new network settings.</source>
+        <translation>已儲存。重新連線後，新網路設定才會完整生效。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="155"/>
-        <source>Profile saved; reconnect to fully apply the new IPv4 settings</source>
-        <translation>配置已儲存；重新連線後將完整應用新的 IPv4 設定</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="157"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="123"/>
         <source>Profile saved</source>
         <translation>設定檔已儲存</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="202"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="182"/>
         <source>Disconnect</source>
         <translation>中斷連線</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="210"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="190"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="224"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="199"/>
         <source>Forget</source>
         <translation>忘記</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="257"/>
-        <source>Basic information</source>
-        <translation>基本資訊</translation>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="210"/>
+        <source>Reload</source>
+        <translation>重新載入</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="229"/>
+        <source>Connection</source>
+        <translation>連線</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="238"/>
+        <source>Enter a connection name</source>
+        <translation>請輸入連線名稱</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="262"/>
+        <source>Auto-connect priority</source>
+        <translation>自動連線優先順序</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="263"/>
+        <source>Higher values are preferred when choosing a connection on the same device (-999 to 999).</source>
+        <translation>同一網卡選擇連線時，數值越大越優先（-999 到 999）。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="267"/>
+        <source>Enter an integer from -999 to 999</source>
+        <translation>請輸入 -999 到 999 的整數</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="298"/>
+        <source>Reset changes</source>
+        <translation>復原修改</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="235"/>
         <source>Profile name</source>
         <translation>設定檔名稱</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="263"/>
-        <source>No editable profile</source>
-        <translation>沒有可編輯的設定檔</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="269"/>
-        <source>SSID</source>
-        <translation>SSID</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="275"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="246"/>
         <source>Interface</source>
         <translation>介面</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="285"/>
-        <source>IPv4</source>
-        <translation>IPv4</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="252"/>
         <source>Connect automatically</source>
         <translation>自動連線</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="304"/>
-        <source>IP assignment</source>
-        <translation>IP 分配</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="316"/>
-        <source>Automatic (DHCP)</source>
-        <translation>自動 DHCP</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="320"/>
-        <source>DHCP + custom DNS</source>
-        <translation>DHCP + 自定義 DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="324"/>
-        <source>Manual</source>
-        <translation>手動</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="341"/>
-        <source>IPv4 address / CIDR</source>
-        <translation>IPv4 地址 / CIDR</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="343"/>
-        <source>Enter a valid IPv4 CIDR, such as 192.168.1.50/24</source>
-        <translation>請輸入合法 IPv4 CIDR，例如 192.168.1.50/24</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="352"/>
-        <source>Gateway</source>
-        <translation>Gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="354"/>
-        <source>Enter a valid IPv4 gateway</source>
-        <translation>請輸入合法 IPv4 gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="368"/>
-        <source>DNS</source>
-        <translation>DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="370"/>
-        <source>Enter at least one valid IPv4 DNS address</source>
-        <translation>請輸入至少一個合法 IPv4 DNS 地址</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="395"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="309"/>
         <source>Apply</source>
         <translation>套用</translation>
     </message>
@@ -7351,163 +7501,148 @@ Click to open network settings</source>
 <context>
     <name>NetworkService</name>
     <message>
-        <location filename="../Services/NetworkService.qml" line="192"/>
+        <location filename="../Services/NetworkService.qml" line="189"/>
         <source>Disconnected</source>
         <translation>已斷開</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="193"/>
+        <location filename="../Services/NetworkService.qml" line="190"/>
         <source>Wired</source>
         <translation>有線</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="300"/>
+        <location filename="../Services/NetworkService.qml" line="299"/>
         <source>Wired network</source>
         <translation>有線網路</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="342"/>
+        <location filename="../Services/NetworkService.qml" line="341"/>
         <source>Another network operation is already in progress</source>
         <translation>另一項網路操作仍在進行</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="371"/>
+        <location filename="../Services/NetworkService.qml" line="370"/>
         <source>Network operation failed</source>
         <translation>網路操作失敗</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="398"/>
-        <location filename="../Services/NetworkService.qml" line="453"/>
+        <location filename="../Services/NetworkService.qml" line="397"/>
+        <location filename="../Services/NetworkService.qml" line="452"/>
         <source>NetworkManager is unavailable</source>
         <translation>NetworkManager 不可用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="403"/>
+        <location filename="../Services/NetworkService.qml" line="402"/>
         <source>Wi-Fi is blocked by hardware or rfkill</source>
         <translation>Wi-Fi 已被硬體或 rfkill 阻止</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="458"/>
+        <location filename="../Services/NetworkService.qml" line="457"/>
         <source>No Wi-Fi device detected</source>
         <translation>未檢測到 Wi-Fi 裝置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="463"/>
+        <location filename="../Services/NetworkService.qml" line="462"/>
         <source>Wi-Fi is off</source>
         <translation>Wi-Fi 已關閉</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="487"/>
+        <location filename="../Services/NetworkService.qml" line="486"/>
         <source>The target network is no longer available</source>
         <translation>目標網路已不可用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="502"/>
+        <location filename="../Services/NetworkService.qml" line="501"/>
         <source>This authentication type requires the second-phase Secret Agent/Extras backend</source>
         <translation>該網路認證型別需要第二階段 Secret Agent/Extras 後端</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="519"/>
+        <location filename="../Services/NetworkService.qml" line="518"/>
         <source>The current Quickshell API only supports WPA/WPA2-PSK and SAE password connections</source>
         <translation>當前 Quickshell API 僅支援 WPA/WPA2-PSK 與 SAE 密碼連線</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="577"/>
+        <location filename="../Services/NetworkService.qml" line="576"/>
         <source>No active network to disconnect</source>
         <translation>沒有可斷開的活動網路</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="594"/>
+        <location filename="../Services/NetworkService.qml" line="593"/>
         <source>No saved network configuration found</source>
         <translation>未找到已儲存的網路配置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="692"/>
+        <location filename="../Services/NetworkService.qml" line="630"/>
         <source>The network profile cannot currently be written</source>
         <translation>目前無法寫入網路設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="711"/>
-        <source>Invalid IPv4 configuration format</source>
-        <translation>IPv4 配置格式無效</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="725"/>
-        <source>The current IPv4 mode cannot be edited on this page</source>
-        <translation>當前 IPv4 模式不在此頁面的編輯範圍內</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="779"/>
+        <location filename="../Services/NetworkService.qml" line="647"/>
         <source>The network profile cannot currently be deleted</source>
         <translation>目前無法刪除網路設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="854"/>
+        <location filename="../Services/NetworkService.qml" line="722"/>
         <source>Another add operation is already in progress</source>
         <translation>另一項新增操作仍在進行</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="859"/>
+        <location filename="../Services/NetworkService.qml" line="727"/>
         <source>SSID must be 1–32 UTF-8 bytes</source>
         <translation>SSID 必須是 1 至 32 個 UTF-8 位元組</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="863"/>
+        <location filename="../Services/NetworkService.qml" line="731"/>
         <source>Invalid Wi-Fi password format</source>
         <translation>Wi-Fi 密碼格式無效</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="870"/>
+        <location filename="../Services/NetworkService.qml" line="738"/>
         <source>Multiple Wi-Fi devices found networks with the same name; select a specific device from the nearby networks list</source>
         <translation>多個 Wi-Fi 裝置發現了同名網路，請從附近網路列表選擇具體裝置</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="880"/>
+        <location filename="../Services/NetworkService.qml" line="748"/>
         <source>This network requires a valid Wi-Fi password</source>
         <translation>該網路需要有效的 Wi-Fi 密碼</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="898"/>
+        <location filename="../Services/NetworkService.qml" line="766"/>
         <source>Unable to create Wi-Fi profile</source>
         <translation>無法建立 Wi-Fi 設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="906"/>
+        <location filename="../Services/NetworkService.qml" line="774"/>
         <source>This NetworkManager profile cannot currently be connected</source>
         <translation>目前無法連線此 NetworkManager 設定檔</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="940"/>
+        <location filename="../Services/NetworkService.qml" line="808"/>
         <source>NetworkManager connectivity checking is unavailable or disabled</source>
         <translation>NetworkManager 連線性檢查不可用或未啟用</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1026"/>
+        <location filename="../Services/NetworkService.qml" line="894"/>
         <source>Incorrect password or authentication timed out</source>
         <translation>密碼錯誤或認證超時</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1026"/>
+        <location filename="../Services/NetworkService.qml" line="894"/>
         <source>Network password required</source>
         <translation>網路需要密碼</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1080"/>
+        <location filename="../Services/NetworkService.qml" line="948"/>
         <source>Connection did not complete</source>
         <translation>連線未完成</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1114"/>
-        <source>NetworkManager did not confirm the profile update</source>
-        <translation>NetworkManager 未確認設定檔寫入</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="1127"/>
+        <location filename="../Services/NetworkService.qml" line="964"/>
         <source>NetworkManager did not confirm profile deletion</source>
         <translation>NetworkManager 未確認設定檔刪除</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1147"/>
+        <location filename="../Services/NetworkService.qml" line="984"/>
         <source>Network operation timed out</source>
         <translation>網路操作超時</translation>
     </message>

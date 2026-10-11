@@ -6795,17 +6795,32 @@ Click to open network settings</translation>
 <context>
     <name>NetworkConfigWindow</name>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="119"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="133"/>
         <source>Saved networks</source>
         <translation>Saved networks</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="145"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="159"/>
         <source>Connection profile</source>
         <translation>Connection profile</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="176"/>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="171"/>
+        <source>Discard unsaved changes?</source>
+        <translation>Discard unsaved changes?</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="178"/>
+        <source>Keep editing</source>
+        <translation>Keep editing</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="185"/>
+        <source>Discard changes</source>
+        <translation>Discard changes</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkConfigWindow.qml" line="221"/>
         <source>Add network</source>
         <translation>Add network</translation>
     </message>
@@ -7004,45 +7019,199 @@ Click to open network settings</translation>
     </message>
 </context>
 <context>
+    <name>NetworkIpSettings</name>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="22"/>
+        <source>Automatic (SLAAC)</source>
+        <translation>Automatic (SLAAC)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="22"/>
+        <source>Automatic (DHCP)</source>
+        <translation>Automatic (DHCP)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="26"/>
+        <source>Manual</source>
+        <translation>Manual</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="30"/>
+        <source>Link-local only</source>
+        <translation>Link-local only</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="34"/>
+        <source>Disabled</source>
+        <translation>Disabled</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="40"/>
+        <source>DHCP only</source>
+        <translation>DHCP only</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="45"/>
+        <source>Current mode: %1</source>
+        <translation>Current mode: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="74"/>
+        <source>IP assignment</source>
+        <translation>IP assignment</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="88"/>
+        <source>Addresses / prefix</source>
+        <translation>Addresses / prefix</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="90"/>
+        <source>Separate multiple addresses with commas; automatic modes may leave this blank.</source>
+        <translation>Separate multiple addresses with commas; automatic modes may leave this blank.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="92"/>
+        <source>Enter valid addresses with a prefix length</source>
+        <translation>Enter valid addresses with a prefix length</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="100"/>
+        <source>Gateway</source>
+        <translation>Gateway</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="102"/>
+        <source>Enter a valid gateway address</source>
+        <translation>Enter a valid gateway address</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="109"/>
+        <source>Automatic DNS</source>
+        <translation>Automatic DNS</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="119"/>
+        <source>Additional DNS servers</source>
+        <translation>Additional DNS servers</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="120"/>
+        <source>DNS servers</source>
+        <translation>DNS servers</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="121"/>
+        <source>Separate servers with commas.</source>
+        <translation>Separate servers with commas.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="123"/>
+        <source>Enter valid DNS server addresses</source>
+        <translation>Enter valid DNS server addresses</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="130"/>
+        <source>Use for internet access</source>
+        <translation>Use for internet access</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="140"/>
+        <source>Route metric</source>
+        <translation>Route metric</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="141"/>
+        <source>Lower values take priority; -1 selects automatically. For example: wired 100, Wi-Fi 600.</source>
+        <translation>Lower values take priority; -1 selects automatically. For example: wired 100, Wi-Fi 600.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkIpSettings.qml" line="144"/>
+        <source>Enter -1 or an integer from 0 to 4294967295</source>
+        <translation>Enter -1 or an integer from 0 to 4294967295</translation>
+    </message>
+</context>
+<context>
     <name>NetworkManagerExtras</name>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="40"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="49"/>
+        <source>Another network operation is in progress</source>
+        <translation>Another network operation is in progress</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="86"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="140"/>
+        <source>Unable to start the network configuration tool</source>
+        <translation>Unable to start the network configuration tool</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="92"/>
+        <source>Unable to read connection settings</source>
+        <translation>Unable to read connection settings</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="98"/>
+        <source>The connection settings response is incomplete</source>
+        <translation>The connection settings response is incomplete</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="104"/>
+        <source>This connection was changed elsewhere. Reload it before saving.</source>
+        <translation>This connection was changed elsewhere. Reload it before saving.</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="106"/>
+        <source>Check the connection settings before saving</source>
+        <translation>Check the connection settings before saving</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="121"/>
+        <source>The saved settings differ from the requested values. Reload this connection to review them.</source>
+        <translation>The saved settings differ from the requested values. Reload this connection to review them.</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="146"/>
+        <source>Unable to save connection settings</source>
+        <translation>Unable to save connection settings</translation>
+    </message>
+    <message>
+        <location filename="../Services/NetworkManagerExtras.qml" line="170"/>
         <source>Network details are currently unavailable</source>
         <translation>Network details are currently unavailable</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="71"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="201"/>
         <source>Another supplementary network operation is already in progress</source>
         <translation>Another supplementary network operation is already in progress</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="99"/>
-        <location filename="../Services/NetworkManagerExtras.qml" line="237"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="229"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="375"/>
         <source>Unable to create Wi-Fi profile</source>
         <translation>Unable to create Wi-Fi profile</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="124"/>
-        <source>nmcli is unavailable; active IPv4 information cannot be read</source>
-        <translation>nmcli is unavailable; active IPv4 information cannot be read</translation>
+        <location filename="../Services/NetworkManagerExtras.qml" line="254"/>
+        <source>nmcli is unavailable; active IP information cannot be read</source>
+        <translation>nmcli is unavailable; active IP information cannot be read</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="135"/>
-        <source>Unable to read active IPv4 information</source>
-        <translation>Unable to read active IPv4 information</translation>
+        <location filename="../Services/NetworkManagerExtras.qml" line="265"/>
+        <source>Unable to read active IP information</source>
+        <translation>Unable to read active IP information</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="232"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="370"/>
         <source>nmcli is unavailable; a hidden network profile cannot be created</source>
         <translation>nmcli is unavailable; a hidden network profile cannot be created</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="267"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="405"/>
         <source>nmcli is unavailable; the hidden network profile cannot be activated</source>
         <translation>nmcli is unavailable; the hidden network profile cannot be activated</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkManagerExtras.qml" line="275"/>
+        <location filename="../Services/NetworkManagerExtras.qml" line="413"/>
         <source>The Wi-Fi profile was created but could not be activated</source>
         <translation>The Wi-Fi profile was created but could not be activated</translation>
     </message>
@@ -7088,7 +7257,7 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="239"/>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="627"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="648"/>
         <source>%1 Mbps</source>
         <translation>%1 Mbps</translation>
     </message>
@@ -7097,6 +7266,12 @@ Click to open network settings</translation>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="280"/>
         <source>Wired network</source>
         <translation>Wired network</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="259"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="344"/>
+        <source>Configure</source>
+        <translation>Configure</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="281"/>
@@ -7161,6 +7336,36 @@ Click to open network settings</translation>
         <translation>Connect</translation>
     </message>
     <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="584"/>
+        <source>IPv4 address</source>
+        <translation>IPv4 address</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="591"/>
+        <source>IPv4 gateway</source>
+        <translation>IPv4 gateway</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="597"/>
+        <source>IPv4 DNS</source>
+        <translation>IPv4 DNS</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="604"/>
+        <source>IPv6 addresses</source>
+        <translation>IPv6 addresses</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="611"/>
+        <source>IPv6 gateway</source>
+        <translation>IPv6 gateway</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="618"/>
+        <source>IPv6 DNS</source>
+        <translation>IPv6 DNS</translation>
+    </message>
+    <message>
         <location filename="../Common/generated/SearchCatalog.js" line="2043"/>
         <source>Other settings</source>
         <translation>Other settings</translation>
@@ -7186,42 +7391,27 @@ Click to open network settings</translation>
         <translation>Interface</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="584"/>
-        <source>IP address</source>
-        <translation>IP address</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="591"/>
-        <source>Gateway</source>
-        <translation>Gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="597"/>
-        <source>DNS</source>
-        <translation>DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="604"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="625"/>
         <source>MAC</source>
         <translation>MAC</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="611"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="632"/>
         <source>Security type</source>
         <translation>Security type</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="612"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="633"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="618"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="639"/>
         <source>Frequency</source>
         <translation>Frequency</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="626"/>
+        <location filename="../Modules/ControlCenter/NetworkPage.qml" line="647"/>
         <source>Link speed</source>
         <translation>Link speed</translation>
     </message>
@@ -7229,122 +7419,82 @@ Click to open network settings</translation>
 <context>
     <name>NetworkProfileEditor</name>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="145"/>
-        <source>The active network profile changed; unapplied changes were discarded</source>
-        <translation>The active network profile changed; unapplied changes were discarded</translation>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="121"/>
+        <source>Saved. Reconnect to apply the new network settings.</source>
+        <translation>Saved. Reconnect to apply the new network settings.</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="155"/>
-        <source>Profile saved; reconnect to fully apply the new IPv4 settings</source>
-        <translation>Profile saved; reconnect to fully apply the new IPv4 settings</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="157"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="123"/>
         <source>Profile saved</source>
         <translation>Profile saved</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="202"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="182"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="210"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="190"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="224"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="199"/>
         <source>Forget</source>
         <translation>Forget</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="257"/>
-        <source>Basic information</source>
-        <translation>Basic information</translation>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="210"/>
+        <source>Reload</source>
+        <translation>Reload</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="229"/>
+        <source>Connection</source>
+        <translation>Connection</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="238"/>
+        <source>Enter a connection name</source>
+        <translation>Enter a connection name</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="262"/>
+        <source>Auto-connect priority</source>
+        <translation>Auto-connect priority</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="263"/>
+        <source>Higher values are preferred when choosing a connection on the same device (-999 to 999).</source>
+        <translation>Higher values are preferred when choosing a connection on the same device (-999 to 999).</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="267"/>
+        <source>Enter an integer from -999 to 999</source>
+        <translation>Enter an integer from -999 to 999</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="298"/>
+        <source>Reset changes</source>
+        <translation>Reset changes</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="235"/>
         <source>Profile name</source>
         <translation>Profile name</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="263"/>
-        <source>No editable profile</source>
-        <translation>No editable profile</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="269"/>
-        <source>SSID</source>
-        <translation>SSID</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="275"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="246"/>
         <source>Interface</source>
         <translation>Interface</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="285"/>
-        <source>IPv4</source>
-        <translation>IPv4</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="252"/>
         <source>Connect automatically</source>
         <translation>Connect automatically</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="304"/>
-        <source>IP assignment</source>
-        <translation>IP assignment</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="316"/>
-        <source>Automatic (DHCP)</source>
-        <translation>Automatic (DHCP)</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="320"/>
-        <source>DHCP + custom DNS</source>
-        <translation>DHCP + custom DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="324"/>
-        <source>Manual</source>
-        <translation>Manual</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="341"/>
-        <source>IPv4 address / CIDR</source>
-        <translation>IPv4 address / CIDR</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="343"/>
-        <source>Enter a valid IPv4 CIDR, such as 192.168.1.50/24</source>
-        <translation>Enter a valid IPv4 CIDR, such as 192.168.1.50/24</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="352"/>
-        <source>Gateway</source>
-        <translation>Gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="354"/>
-        <source>Enter a valid IPv4 gateway</source>
-        <translation>Enter a valid IPv4 gateway</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="368"/>
-        <source>DNS</source>
-        <translation>DNS</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="370"/>
-        <source>Enter at least one valid IPv4 DNS address</source>
-        <translation>Enter at least one valid IPv4 DNS address</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="395"/>
+        <location filename="../Modules/ControlCenter/NetworkProfileEditor.qml" line="309"/>
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
@@ -7352,163 +7502,148 @@ Click to open network settings</translation>
 <context>
     <name>NetworkService</name>
     <message>
-        <location filename="../Services/NetworkService.qml" line="192"/>
+        <location filename="../Services/NetworkService.qml" line="189"/>
         <source>Disconnected</source>
         <translation>Disconnected</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="193"/>
+        <location filename="../Services/NetworkService.qml" line="190"/>
         <source>Wired</source>
         <translation>Wired</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="300"/>
+        <location filename="../Services/NetworkService.qml" line="299"/>
         <source>Wired network</source>
         <translation>Wired network</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="342"/>
+        <location filename="../Services/NetworkService.qml" line="341"/>
         <source>Another network operation is already in progress</source>
         <translation>Another network operation is already in progress</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="371"/>
+        <location filename="../Services/NetworkService.qml" line="370"/>
         <source>Network operation failed</source>
         <translation>Network operation failed</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="398"/>
-        <location filename="../Services/NetworkService.qml" line="453"/>
+        <location filename="../Services/NetworkService.qml" line="397"/>
+        <location filename="../Services/NetworkService.qml" line="452"/>
         <source>NetworkManager is unavailable</source>
         <translation>NetworkManager is unavailable</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="403"/>
+        <location filename="../Services/NetworkService.qml" line="402"/>
         <source>Wi-Fi is blocked by hardware or rfkill</source>
         <translation>Wi-Fi is blocked by hardware or rfkill</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="458"/>
+        <location filename="../Services/NetworkService.qml" line="457"/>
         <source>No Wi-Fi device detected</source>
         <translation>No Wi-Fi device detected</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="463"/>
+        <location filename="../Services/NetworkService.qml" line="462"/>
         <source>Wi-Fi is off</source>
         <translation>Wi-Fi is off</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="487"/>
+        <location filename="../Services/NetworkService.qml" line="486"/>
         <source>The target network is no longer available</source>
         <translation>The target network is no longer available</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="502"/>
+        <location filename="../Services/NetworkService.qml" line="501"/>
         <source>This authentication type requires the second-phase Secret Agent/Extras backend</source>
         <translation>This authentication type requires the second-phase Secret Agent/Extras backend</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="519"/>
+        <location filename="../Services/NetworkService.qml" line="518"/>
         <source>The current Quickshell API only supports WPA/WPA2-PSK and SAE password connections</source>
         <translation>The current Quickshell API only supports WPA/WPA2-PSK and SAE password connections</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="577"/>
+        <location filename="../Services/NetworkService.qml" line="576"/>
         <source>No active network to disconnect</source>
         <translation>No active network to disconnect</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="594"/>
+        <location filename="../Services/NetworkService.qml" line="593"/>
         <source>No saved network configuration found</source>
         <translation>No saved network configuration found</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="692"/>
+        <location filename="../Services/NetworkService.qml" line="630"/>
         <source>The network profile cannot currently be written</source>
         <translation>The network profile cannot currently be written</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="711"/>
-        <source>Invalid IPv4 configuration format</source>
-        <translation>Invalid IPv4 configuration format</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="725"/>
-        <source>The current IPv4 mode cannot be edited on this page</source>
-        <translation>The current IPv4 mode cannot be edited on this page</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="779"/>
+        <location filename="../Services/NetworkService.qml" line="647"/>
         <source>The network profile cannot currently be deleted</source>
         <translation>The network profile cannot currently be deleted</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="854"/>
+        <location filename="../Services/NetworkService.qml" line="722"/>
         <source>Another add operation is already in progress</source>
         <translation>Another add operation is already in progress</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="859"/>
+        <location filename="../Services/NetworkService.qml" line="727"/>
         <source>SSID must be 1–32 UTF-8 bytes</source>
         <translation>SSID must be 1–32 UTF-8 bytes</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="863"/>
+        <location filename="../Services/NetworkService.qml" line="731"/>
         <source>Invalid Wi-Fi password format</source>
         <translation>Invalid Wi-Fi password format</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="870"/>
+        <location filename="../Services/NetworkService.qml" line="738"/>
         <source>Multiple Wi-Fi devices found networks with the same name; select a specific device from the nearby networks list</source>
         <translation>Multiple Wi-Fi devices found networks with the same name; select a specific device from the nearby networks list</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="880"/>
+        <location filename="../Services/NetworkService.qml" line="748"/>
         <source>This network requires a valid Wi-Fi password</source>
         <translation>This network requires a valid Wi-Fi password</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="898"/>
+        <location filename="../Services/NetworkService.qml" line="766"/>
         <source>Unable to create Wi-Fi profile</source>
         <translation>Unable to create Wi-Fi profile</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="906"/>
+        <location filename="../Services/NetworkService.qml" line="774"/>
         <source>This NetworkManager profile cannot currently be connected</source>
         <translation>This NetworkManager profile cannot currently be connected</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="940"/>
+        <location filename="../Services/NetworkService.qml" line="808"/>
         <source>NetworkManager connectivity checking is unavailable or disabled</source>
         <translation>NetworkManager connectivity checking is unavailable or disabled</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1026"/>
+        <location filename="../Services/NetworkService.qml" line="894"/>
         <source>Incorrect password or authentication timed out</source>
         <translation>Incorrect password or authentication timed out</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1026"/>
+        <location filename="../Services/NetworkService.qml" line="894"/>
         <source>Network password required</source>
         <translation>Network password required</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1080"/>
+        <location filename="../Services/NetworkService.qml" line="948"/>
         <source>Connection did not complete</source>
         <translation>Connection did not complete</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1114"/>
-        <source>NetworkManager did not confirm the profile update</source>
-        <translation>NetworkManager did not confirm the profile update</translation>
-    </message>
-    <message>
-        <location filename="../Services/NetworkService.qml" line="1127"/>
+        <location filename="../Services/NetworkService.qml" line="964"/>
         <source>NetworkManager did not confirm profile deletion</source>
         <translation>NetworkManager did not confirm profile deletion</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1147"/>
+        <location filename="../Services/NetworkService.qml" line="984"/>
         <source>Network operation timed out</source>
         <translation>Network operation timed out</translation>
     </message>

@@ -12,6 +12,7 @@ FloatingWindow {
     property string currentPage: "saved"
     property string profileParentPage: ""
     property var selectedProfile: null
+    property string pendingNavigation: ""
 
     function openSavedNetworks() {
         if (!root.parentModal)
@@ -24,7 +25,7 @@ FloatingWindow {
     }
 
     function openProfile(profile, parentPage) {
-        if (!root.parentModal || !profile)
+        if (!root.parentModal || !profile || profileEditor.saving)
             return;
 
         root.selectedProfile = profile;
@@ -45,6 +46,13 @@ FloatingWindow {
     }
 
     function dismiss() {
+        if (root.currentPage === "profile" && profileEditor.saving)
+            return;
+        if (root.currentPage === "profile" && profileEditor.dirty) {
+            root.pendingNavigation = "close";
+            return;
+        }
+        root.pendingNavigation = "";
         if (root.currentPage === "add")
             addPage.resetForm();
 
@@ -52,6 +60,13 @@ FloatingWindow {
     }
 
     function leaveProfile() {
+        if (profileEditor.saving)
+            return;
+        if (profileEditor.dirty) {
+            root.pendingNavigation = "back";
+            return;
+        }
+        root.pendingNavigation = "";
         if (root.profileParentPage === "saved") {
             root.selectedProfile = null;
             root.profileParentPage = "";
@@ -65,15 +80,14 @@ FloatingWindow {
     parentWindow: root.parentModal
     // Stable compositor rule identity; visible headings remain localized.
     title: "clavis-control-center-network"
-    implicitWidth: 620
-    implicitHeight: 640
-    minimumSize: Qt.size(500, 520)
+    implicitWidth: 740
+    implicitHeight: 800
+    minimumSize: Qt.size(580, 520)
     color: "transparent"
     onClosed: {
-        if (root.currentPage === "add")
-            addPage.resetForm();
-
-        root.visible = false;
+        if (root.currentPage === "profile" && (profileEditor.dirty || profileEditor.saving))
+            root.visible = true;
+        root.dismiss();
     }
 
     Rectangle {
@@ -148,6 +162,37 @@ FloatingWindow {
                     showBack: root.profileParentPage === "saved"
                     onBackRequested: root.leaveProfile()
                     onCloseRequested: root.dismiss()
+                }
+
+                InlineStatusBanner {
+                    Layout.fillWidth: true
+                    visible: root.pendingNavigation.length > 0
+                    tone: "warning"
+                    message: qsTr("Discard unsaved changes?")
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    visible: root.pendingNavigation.length > 0
+                    ActionButton {
+                        text: qsTr("Keep editing")
+                        onClicked: root.pendingNavigation = ""
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                    ActionButton {
+                        text: qsTr("Discard changes")
+                        onClicked: {
+                            const action = root.pendingNavigation;
+                            root.pendingNavigation = "";
+                            profileEditor.discardChanges();
+                            if (action === "back")
+                                root.leaveProfile();
+                            else
+                                root.dismiss();
+                        }
+                    }
                 }
 
                 NetworkProfileEditor {

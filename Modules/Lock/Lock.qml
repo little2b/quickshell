@@ -8,8 +8,9 @@ import qs.Services
 Scope {
     id: root
 
-    readonly property bool active: sessionLock.locked || capturePending
+    readonly property bool active: sessionLocked || capturePending
     readonly property bool secure: sessionLock.secure
+    property bool sessionLocked: false
     property bool capturePending: false
     property int activeCaptureRequestId: 0
     property string sessionStyle: "default"
@@ -22,6 +23,13 @@ Scope {
 
     signal unlocked
     signal secured
+
+    // Quickshell 0.3.2 can clear locked without emitting lockStateChanged.
+    // Re-read the native state after transitions instead of retaining a stale
+    // binding that would leave window previews suspended after unlocking.
+    function syncLockState() {
+        root.sessionLocked = sessionLock.locked;
+    }
 
     function open() {
         if (sessionLock.locked || capturePending)
@@ -46,6 +54,7 @@ Scope {
             return;
 
         sessionLock.locked = true;
+        root.syncLockState();
         capturePending = false;
     }
 
@@ -53,6 +62,7 @@ Scope {
         SystemIdentityService.setUptimeConsumer("lock-screen", root.active);
         SystemMonitorService.setConsumerModules("lock-screen", root.active ? ["cpu", "memory", "disk"] : []);
     }
+    Component.onCompleted: Qt.callLater(root.syncLockState)
     Component.onDestruction: {
         preLockCapture.cancel();
         preLockCapture.clear();
@@ -90,6 +100,7 @@ Scope {
             if (!sessionLock.locked)
                 return;
             sessionLock.locked = false;
+            root.syncLockState();
             root.unlocked();
             Qt.callLater(preLockCapture.clear);
         }
@@ -107,7 +118,7 @@ Scope {
                 if (result == PamResult.Success) {
                     internalContext.currentText = "";
                     internalContext.showFailure = false;
-                    sessionLock.unlock();
+                    sessionLock.unlockRequested();
                 } else {
                     internalContext.currentText = "";
                     internalContext.showFailure = true;
@@ -121,9 +132,14 @@ Scope {
     WlSessionLock {
         id: sessionLock
 
-        signal unlock
+        // WlSessionLock already exposes unlock(); use a distinct signal so
+        // authentication runs the exit animation and finishUnlock() cleanup.
+        signal unlockRequested
 
+        onLockStateChanged: root.syncLockState()
         onSecureStateChanged: {
+            // Native secure notifications can precede clearing the lock object.
+            Qt.callLater(root.syncLockState);
             if (secure)
                 root.secured();
         }

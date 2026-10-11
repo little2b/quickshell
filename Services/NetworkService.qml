@@ -19,7 +19,7 @@ Singleton {
     readonly property bool connectivityKnown: Networking.connectivity !== NetworkConnectivity.Unknown
     readonly property bool canCheckConnectivity: available && Networking.canCheckConnectivity
     readonly property bool connectivityCheckEnabled: available && Networking.connectivityCheckEnabled
-    readonly property bool busy: root._pendingOperation.length > 0 || root._pendingSettings !== null || root._pendingForgetSettings !== null
+    readonly property bool busy: root._pendingOperation.length > 0 || root._pendingForgetSettings !== null
                                  || NetworkManagerExtras.mutationBusy
     readonly property bool wifiConnecting: root._pendingOperation === "connect"
                                            || root._nativeWifiDevices.some(device => {
@@ -170,9 +170,6 @@ Singleton {
     property string runtimeDetailsError: ""
     property int _runtimeRequestGeneration: 0
     property var _queuedRuntimeRequest: null
-    property var _pendingSettings: null
-    property string _pendingProfileUuid: ""
-    property var _pendingProfileExpected: null
     property var _pendingForgetSettings: null
     property string _pendingForgetUuid: ""
     property bool _addWifiPending: false
@@ -214,6 +211,8 @@ Singleton {
     signal operationStarted(string operation)
     signal operationSucceeded(string operation)
     signal operationFailed(string operation, string message)
+    signal profileLoaded(string uuid, var snapshot)
+    signal profileLoadFailed(string uuid, string message)
     signal profileWriteSucceeded(string uuid)
     signal profileWriteFailed(string uuid, string message)
     signal profileForgetSucceeded(string uuid)
@@ -607,67 +606,6 @@ Singleton {
         });
     }
 
-    function profileSnapshot(profile) {
-        const settings = profile && profile.nativeSettings;
-        if (!settings)
-            return null;
-
-        const map = settings.read();
-        const ipv4 = map.ipv4 || {};
-        const connection = map.connection || {};
-        const addressData = ipv4["address-data"] || [];
-        const legacyAddresses = ipv4.addresses || [];
-        let address = "";
-        if (addressData.length > 0) {
-            const first = addressData[0];
-            address = String(first.address || "") + "/" + String(first.prefix === undefined ? 24 :
-                                                                                              first.prefix);
-        } else if (legacyAddresses.length > 0 && legacyAddresses[0].length >= 2) {
-            address = root._uintToIpv4(Number(legacyAddresses[0][0])) + "/" + String(legacyAddresses[0][1]);
-        }
-        const dnsData = ipv4["dns-data"] || [];
-        const dns = dnsData.length > 0 ? dnsData.map(value => {
-            return String(value);
-        }) : (ipv4.dns || []).map(value => {
-            return root._uintToIpv4(Number(value));
-        });
-        const customDns = !!ipv4["ignore-auto-dns"];
-        const method = String(ipv4.method || "auto");
-        return {
-            "method": method === "manual" ? "manual" : method === "auto" ? (customDns ? "auto-dns" : "auto") : method,
-
-
-            "address": address,
-            "gateway": String(ipv4.gateway || ""),
-            "dns": dns.join(", "),
-            "ignoreAutoDns": customDns,
-            "autoconnect": connection.autoconnect === undefined ? true : !!connection.autoconnect
-        };
-    }
-
-    function _ipv4ToUint(address) {
-        const parts = String(address).split(".").map(Number);
-        return ((parts[0] + parts[1] * 256 + parts[2] * 65536 + parts[3] * 1.67772e+07) >>> 0);
-    }
-
-    function _uintToIpv4(value) {
-        const number = value >>> 0;
-        return [number & 255, (number >>> 8) & 255, (number >>> 16) & 255, (number >>> 24) & 255].join(".");
-    }
-
-    function _validIpv4(value) {
-        const parts = String(value || "").split(".");
-        return parts.length === 4 && parts.every(part => {
-            return /^\d{1,3}$/.test(part) && Number(part) >= 0 && Number(part) <= 255;
-        });
-    }
-
-    function _normalizedDns(value) {
-        return String(value || "").trim().split(/[\s,]+/).filter(item => {
-            return item.length > 0;
-        });
-    }
-
     function _utf8Length(value) {
         try {
             return encodeURIComponent(String(value || "")).replace(/%[0-9A-Fa-f]{2}|./g, "x").length;
@@ -676,100 +614,30 @@ Singleton {
         }
     }
 
-    function _profileMatchesExpected(settings, expected) {
-        const actual = root.profileSnapshot({
-                                                "nativeSettings": settings
-                                            });
-        return actual && actual.method === expected.method && actual.address === expected.address
-                && actual.gateway === expected.gateway && root._normalizedDns(actual.dns).join(",")
-                === root._normalizedDns(expected.dns).join(",") && actual.autoconnect
-                === expected.autoconnect;
+    function requestProfileDetails(profile) {
+        const uuid = String(profile ? profile.uuid || "" : "");
+        return NetworkManagerExtras.readProfile(uuid, (success, snapshot, message) => {
+            if (success)
+                root.profileLoaded(uuid, snapshot);
+            else
+                root.profileLoadFailed(uuid, message);
+        });
     }
 
-    function writeProfile(profile, values) {
-        const settings = profile && profile.nativeSettings;
-        if (!settings || root._pendingSettings) {
-            root.profileWriteFailed(profile ? profile.uuid : "", qsTr(
-                                        "The network profile cannot currently be written"));
+    function writeProfile(profile, original, draft) {
+        const uuid = String(profile ? profile.uuid || "" : "");
+        if (root._pendingOperation.length > 0 || root._pendingForgetSettings !== null) {
+            root.profileWriteFailed(uuid, qsTr("The network profile cannot currently be written"));
             return false;
         }
-        const mode = String(values.method || "auto");
-        const current = root.profileSnapshot(profile);
-        const dnsStrings = root._normalizedDns(values.dns);
-        const addressPieces = String(values.address || "").trim().split("/");
-        const gateway = String(values.gateway || "").trim();
-        const manualValid = mode !== "manual" || (addressPieces.length === 2 && root._validIpv4(
-                                                      addressPieces[0]) && /^\d{1,2}$/.test(addressPieces[1])
-                                                  && Number(addressPieces[1]) >= 0 && Number(
-                                                      addressPieces[1]) <= 32 && (gateway.length === 0
-                                                                                  || root._validIpv4(
-                                                                                      gateway)));
-        const dnsValid = mode === "auto" || (mode === "manual" && dnsStrings.length === 0) || (dnsStrings.length
-                                                                                               > 0 && dnsStrings.every(
-                                                                                                   root._validIpv4));
-        if (!current || !manualValid || !dnsValid) {
-            root.profileWriteFailed(String(profile.uuid || ""), qsTr("Invalid IPv4 configuration format"));
-            return false;
-        }
-        const requested = {
-            "method": mode,
-            "address": mode === "manual" ? addressPieces[0] + "/" + String(Number(addressPieces[1])) : "",
-            "gateway": mode === "manual" ? gateway : "",
-            "dns": mode === "auto" ? (current.method === "auto" ? current.dns : "") : dnsStrings.join(", "),
-            "autoconnect": !!values.autoconnect
-        };
-        const ipv4Changed = requested.method !== current.method || requested.address !== current.address
-              || requested.gateway !== current.gateway || root._normalizedDns(requested.dns).join(",")
-              !== root._normalizedDns(current.dns).join(",");
-        if (ipv4Changed && mode !== "auto" && mode !== "auto-dns" && mode !== "manual") {
-            root.profileWriteFailed(String(profile.uuid || ""), qsTr(
-                                        "The current IPv4 mode cannot be edited on this page"));
-            return false;
-        }
-        const ipv4 = {
-            "method": mode === "manual" ? "manual" : "auto",
-            "ignore-auto-dns": mode === "auto-dns" || (mode === "manual" && current.ignoreAutoDns),
-            "dns": root._normalizedDns(requested.dns).map(root._ipv4ToUint),
-            "dns-data": null
-        };
-        if (mode === "manual") {
-            ipv4["address-data"] = [
-                        {
-                            "address": addressPieces[0],
-                            "prefix": Number(addressPieces[1])
-                        }
-                    ];
-            ipv4.addresses = [[root._ipv4ToUint(addressPieces[0]), Number(addressPieces[1]), gateway.length
-                               > 0 ? root._ipv4ToUint(gateway) : 0]];
-            ipv4.gateway = gateway;
-        } else {
-            ipv4["address-data"] = null;
-            ipv4.addresses = null;
-            ipv4.gateway = null;
-        }
-        root._pendingSettings = settings;
-        root._pendingProfileUuid = String(profile.uuid || "");
-        root._pendingProfileExpected = requested;
-        profileWriteTimeout.restart();
-        const changes = {};
-        if (requested.autoconnect !== current.autoconnect)
-            changes.connection = {
-                "autoconnect": !!values.autoconnect
-            };
-
-        if (ipv4Changed)
-            changes.ipv4 = ipv4;
-
-        if (Object.keys(changes).length === 0) {
-            root._pendingSettings = null;
-            root._pendingProfileUuid = "";
-            root._pendingProfileExpected = null;
-            profileWriteTimeout.stop();
-            root.profileWriteSucceeded(String(profile.uuid || ""));
-            return true;
-        }
-        settings.write(changes);
-        return true;
+        return NetworkManagerExtras.writeProfile(uuid, original, draft, (success, snapshot, message) => {
+            if (success) {
+                root.profileLoaded(uuid, snapshot);
+                root.profileWriteSucceeded(uuid);
+            } else {
+                root.profileWriteFailed(uuid, message);
+            }
+        });
     }
 
     function forgetProfile(profile) {
@@ -1082,37 +950,6 @@ Singleton {
 
         target: root._pendingNetwork
         enabled: root._pendingNetwork !== null
-    }
-
-    Connections {
-        function onSettingsChanged() {
-            const uuid = root._pendingProfileUuid;
-            if (!root._profileMatchesExpected(root._pendingSettings, root._pendingProfileExpected))
-                return;
-
-            profileWriteTimeout.stop();
-            root._pendingSettings = null;
-            root._pendingProfileUuid = "";
-            root._pendingProfileExpected = null;
-            root.profileWriteSucceeded(uuid);
-        }
-
-        target: root._pendingSettings
-        enabled: root._pendingSettings !== null
-    }
-
-    Timer {
-        id: profileWriteTimeout
-
-        interval: 10000
-        repeat: false
-        onTriggered: {
-            const uuid = root._pendingProfileUuid;
-            root._pendingSettings = null;
-            root._pendingProfileUuid = "";
-            root._pendingProfileExpected = null;
-            root.profileWriteFailed(uuid, qsTr("NetworkManager did not confirm the profile update"));
-        }
     }
 
     Timer {

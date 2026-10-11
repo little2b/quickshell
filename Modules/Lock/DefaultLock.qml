@@ -121,7 +121,7 @@ Item {
 
     Connections {
         target: root.lock
-        function onUnlock() {
+        function onUnlockRequested() {
             if (root.exiting)
                 return;
             root.exiting = true;

@@ -297,7 +297,9 @@ Singleton {
     }
 
     function focusWindow(id, outputName) {
-        if (!Niri.connected || WindowPreviewService.suspended)
+        // Preview capture can be paused independently of window activation.
+        // Focusing/restoring needs only the compositor connection.
+        if (!Niri.connected)
             return false;
         const window = Niri.windowById(id);
         if (!window || !window.id)
