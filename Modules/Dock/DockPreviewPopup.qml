@@ -50,6 +50,8 @@ Item {
     readonly property bool canChangePin: !!entry && (entry.pinned || (DockService.contextPinning
                                                                       && canLaunch))
 
+    readonly property var newWindowAction: entry ? DockService.newWindowAction(root.entryKey) : null
+
     readonly property var rowLayout: DockLayout.windowPreviewRow(windows.length, thumbnails
                                                                  ? DockService.previewSize * 1.6 + 16 : 220,
                                                                  maximumWidth)
@@ -234,6 +236,32 @@ Item {
         Column {
             id: actions
             width: parent.width
+            StyledMenuItem {
+                width: parent.width
+                implicitHeight: 32
+                leftPadding: 8
+                rightPadding: 8
+                visible: !!root.newWindowAction
+                // The application's desktop file supplies its localized label.
+                text: root.newWindowAction ? root.newWindowAction.name : ""
+                onTriggered: {
+                    if (DockService.openNewWindow(root.entryKey))
+                        root.dismissed();
+                }
+            }
+            StyledMenuItem {
+                width: parent.width
+                implicitHeight: 32
+                leftPadding: 8
+                rightPadding: 8
+                visible: !!root.entry && root.entry.kind === "app" && root.windows.length > 0
+                enabled: !DockService.quitting
+                text: qsTranslate("NiriActions", "Quit")
+                onTriggered: {
+                    if (DockService.quitApplication(root.entryKey))
+                        root.dismissed();
+                }
+            }
             StyledMenuItem {
                 width: parent.width
                 implicitHeight: 32

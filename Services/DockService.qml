@@ -296,6 +296,39 @@ Singleton {
         return true;
     }
 
+    function newWindowAction(key) {
+        const entry = root.entryFor(key);
+        if (!entry || entry.kind !== "app" || !entry.available || !entry.desktopId)
+            return null;
+        const application = ApplicationService.findById(entry.desktopId);
+        if (!application)
+            return null;
+        return Array.from(application.actions || []).find(action => {
+            const id = String(action.id || "").toLowerCase().replace(/[-_]/g, "");
+            return (id === "newwindow" || id === "newemptywindow") && action.command.length > 0;
+        }) || null;
+    }
+
+    function openNewWindow(key) {
+        const action = root.newWindowAction(key);
+        const entry = root.entryFor(key);
+        const application = entry ? ApplicationService.findById(entry.desktopId) : null;
+        if (!action || !application)
+            return false;
+        // Use the desktop action's argv through the normal application scope;
+        // running the default launcher may only focus an existing window.
+        const launched = ApplicationService.launchApplication({
+                                                                  id: application.id,
+                                                                  command: Array.from(action.command),
+                                                                  workingDirectory:
+                                                                  application.workingDirectory,
+                                                                  runInTerminal: application.runInTerminal
+                                                              });
+        if (launched)
+            SpotlightAppUsage.recordLaunch(String(application.id));
+        return launched;
+    }
+
     function focusWindow(id, outputName) {
         // Preview capture can be paused independently of window activation.
         // Focusing/restoring needs only the compositor connection.
@@ -322,6 +355,55 @@ Singleton {
 
     function closeWindow(id) {
         return Niri.connected && Niri.closeWindow(id);
+    }
+
+    readonly property bool quitting: quitProcess.running
+
+    function quitApplication(key) {
+        const entry = root.entryFor(key);
+        const windows = root.windowsFor(key);
+        if (!entry || entry.kind !== "app" || windows.length === 0 || !Niri.connected || root.quitting)
+            return false;
+        quitProcess.entryKey = key;
+        quitProcess.windowIds = windows.map(window => window.id);
+        quitProcess.command = ["python3", Paths.systemScriptsDir + "/dock-quit.py", JSON.stringify({
+                                                                                                       labels: [entry.desktopId,
+                                                                                                           entry.name].concat(
+                                                                                                           windows.map(
+                                                                                                               window => window.appId)),
+                                                                                                       pids: windows.map(
+                                                                                                                 window => window.pid)
+                                                                                                   })];
+        quitProcess.running = true;
+        return true;
+    }
+
+    Process {
+        id: quitProcess
+        property string entryKey: ""
+        property var windowIds: []
+        stdout: StdioCollector {
+            id: quitOutput
+        }
+        onExited: {
+            let handled = false;
+            try {
+                handled = JSON.parse(quitOutput.text).handled === true;
+            } catch (error) {
+                handled = false;
+            }
+            if (!handled) {
+                // Resolve again; never close another app or a new save dialog
+                // that appeared while looking up the native Quit action.
+                const currentIds = root.windowsFor(entryKey).map(window => window.id);
+                for (const id of windowIds) {
+                    if (currentIds.indexOf(id) !== -1)
+                        root.closeWindow(id);
+                }
+            }
+            entryKey = "";
+            windowIds = [];
+        }
     }
 
     function setOption(name, value) {
