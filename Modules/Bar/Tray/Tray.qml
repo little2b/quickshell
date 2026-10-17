@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
+import Clavis.Niri
 import qs.Common
 import qs.Components
 import qs.Services
@@ -12,6 +13,8 @@ TopBarPill {
     id: root
 
     property bool trayOverflowOpen: false
+    property string overflowNavigationState: ""
+    readonly property bool overviewInputPassthrough: ThemeService.isNiriSession && Niri.inOverview
     property bool vertical: false
     property string edge: "top"
     property var barVisualItem: null
@@ -203,8 +206,39 @@ TopBarPill {
         root.activeMenu = null;
     }
 
+    function navigationState() {
+        // Active window identity survives layer-shell focus; notification/title
+        // updates must not dismiss the drawer or interrupt tray-icon dragging.
+        let workspace = Niri.focusedWorkspace;
+        if (root.screen)
+            workspace = Niri.activeWorkspaceForOutput(root.screen.name);
+        return JSON.stringify([workspace.id || 0, workspace.activeWindowId || 0, Niri.inOverview]);
+    }
+
+    function dismissOnNavigation() {
+        if (!ThemeService.isNiriSession || !root.trayOverflowOpen || root.trayDragActive)
+            return;
+        if (root.navigationState() !== root.overflowNavigationState)
+            root.trayOverflowOpen = false;
+    }
+
+    Connections {
+        target: Niri
+        function onWorkspacesChanged() {
+            root.dismissOnNavigation();
+        }
+        function onWindowsChanged() {
+            root.dismissOnNavigation();
+        }
+        function onOverviewChanged() {
+            root.dismissOnNavigation();
+        }
+    }
+
     onTrayOverflowOpenChanged: {
-        if (!root.trayOverflowOpen) {
+        if (root.trayOverflowOpen) {
+            root.overflowNavigationState = root.navigationState();
+        } else {
             root.overflowAnchorReady = false;
             root.closeActiveMenu();
         }
@@ -372,12 +406,21 @@ TopBarPill {
 
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.namespace: "clavis-shell-tray-overflow"
-        WlrLayershell.keyboardFocus: overflowPopup.visible ? WlrKeyboardFocus.Exclusive :
-                                                             WlrKeyboardFocus.None
+        // Overview keeps its keyboard navigation; outside it, retain Escape
+        // and keyboard access to tray menus. Native three-finger gestures are
+        // compositor-owned and remain available in either mode.
+        WlrLayershell.keyboardFocus: !overflowPopup.visible ? WlrKeyboardFocus.None :
+                                                              root.overviewInputPassthrough
+                                                              ? WlrKeyboardFocus.OnDemand :
+                                                                WlrKeyboardFocus.Exclusive
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
         mask: Region {
-            item: overflowInputRegion
+            // Niri's overview only scrolls when the pointer is not above a
+            // top-layer surface. Let outside input reach the overview itself;
+            // normal desktop mode retains click-outside dismissal.
+            item: root.overviewInputPassthrough && !root.trayDragActive ? overflowSurface :
+                                                                          overflowInputRegion
         }
 
         onVisibleChanged: {

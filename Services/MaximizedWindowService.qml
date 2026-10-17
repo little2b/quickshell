@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import Clavis.Niri
+import "../Common/functions/BarWindowSelection.js" as BarWindowSelection
 
 Singleton {
     id: root
@@ -13,6 +14,7 @@ Singleton {
     // instead of treating activeToplevel === null as an unmaximized desktop.
     readonly property var toplevels: ToplevelManager.toplevels.values
     property int selectionRevision: 0
+    property var _tiledWindowIds: ({})
     property var hoveredSurfaces: ({})
     // Mutate this queue in place: only flushHoverChanges publishes reactive
     // state, after window visibility/hover signal delivery has unwound.
@@ -21,14 +23,31 @@ Singleton {
     Connections {
         target: Niri
         function onWindowsChanged() {
-            root.selectionRevision += 1;
+            root.syncSelections();
         }
         function onWorkspacesChanged() {
-            root.selectionRevision += 1;
+            root.syncSelections();
         }
         function onOutputsChanged() {
-            root.selectionRevision += 1;
+            root.syncSelections();
         }
+    }
+
+    Component.onCompleted: syncSelections()
+
+    function syncSelections() {
+        const next = {};
+        for (const output of Niri.outputSnapshot()) {
+            for (const workspace of Niri.workspacesForOutput(output.name)) {
+                const background = BarWindowSelection.tiledBackground(Niri.windowsForWorkspace(workspace.id),
+                                                                      workspace.activeWindowId,
+                                                                      root._tiledWindowIds[workspace.id]);
+                if (background)
+                    next[workspace.id] = background.id;
+            }
+        }
+        root._tiledWindowIds = next;
+        root.selectionRevision += 1;
     }
 
     function coversScreen(screen) {
@@ -48,8 +67,20 @@ Singleton {
         if (!workspace || !workspace.activeWindowId)
             return false;
         const selected = Niri.windowById(workspace.activeWindowId);
-        if (!selected || !selected.id)
+        if (!selected || !selected.id || selected.isMinimized)
             return false;
+        if (root.windowIsMaximized(selected, screenName))
+            return true;
+        // Independent floating tools (such as selection translation) have no
+        // parent handle. Keep using the selected tiled window behind them.
+        if (!selected.isFloating)
+            return false;
+        const background = Niri.windowById(root._tiledWindowIds[workspace.id] || 0);
+        return !!background.id && background.workspaceId === workspace.id && !background.isFloating &&
+                !background.isMinimized && root.windowIsMaximized(background, screenName);
+    }
+
+    function windowIsMaximized(selected, screenName) {
         // Output objects may be destroyed while window handles survive a resume
         // or monitor reconnect. Ignore missing outputs until the list is refreshed.
         const sameApp = root.toplevels.filter(window => window && window.appId === selected.appId

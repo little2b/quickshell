@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Window
 import qs.Common
 import qs.Components
 import qs.Services
@@ -102,10 +103,17 @@ Item {
     }
 
     ThemeIcon {
+        id: appIcon
+        readonly property bool hasIcon: !!root.entry && root.entry.kind === "app" && !root.entry.symbol
         anchors.fill: parent
-        visible: !!root.entry && root.entry.kind === "app" && !root.entry.symbol
-        iconSource: visible ? ApplicationService.iconSource(root.entry.icon) : ""
-        sourceSize: Qt.size(160, 160)
+        visible: appIcon.hasIcon
+        iconSource: appIcon.hasIcon ? ApplicationService.iconSource(root.entry.icon) : ""
+        // Match the dock item's raster and sampling throughout drag/return animations.
+        sourceSize: Qt.size(Math.ceil(160 * Screen.devicePixelRatio), Math.ceil(160
+                                                                                * Screen.devicePixelRatio))
+        smooth: true
+        mipmap: true
+        antialiasing: true
         fillMode: Image.PreserveAspectFit
     }
     DockFileIcon {

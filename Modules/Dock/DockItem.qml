@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Window
 import QtQuick.Effects
 import Quickshell
 import qs.Common
@@ -7,6 +8,7 @@ import qs.Components
 import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/DockMotion.js" as DockMotion
+import "../../Services/DockBadges.js" as DockBadges
 
 Item {
     id: root
@@ -24,6 +26,10 @@ Item {
     required property string edge
     required property real iconSize
     required property real restingIconSize
+    readonly property int notificationCount: kind === "app" ? DockBadgeService.countFor(entryKey) : 0
+    readonly property string notificationDescription: notificationCount > 0 ? qsTranslate("NotificationCard",
+                                                                                          "%1 notifications").arg(
+                                                                                  notificationCount) : ""
     readonly property bool spacer: kind === "spacer" || kind === "small-spacer"
     property bool dragged: false
     property bool contextActive: false
@@ -122,10 +128,19 @@ Item {
         opacity: root.available || root.windowCount > 0 || root.spacer ? 1 : 0.45
 
         ThemeIcon {
+            id: appIcon
+            readonly property bool hasIcon: (root.kind === "app" || root.trashIconAvailable) && !root.symbol
             anchors.fill: parent
-            visible: (root.kind === "app" || root.trashIconAvailable) && !root.symbol
-            iconSource: visible ? ApplicationService.iconSource(root.icon) : ""
-            sourceSize: Qt.size(160, 160)
+            visible: appIcon.hasIcon
+            // Effective visibility follows the hidden dock. Retain the decoded icon
+            // so revealing the band never starts another asynchronous image load.
+            iconSource: appIcon.hasIcon ? ApplicationService.iconSource(root.icon) : ""
+            // Keep the raster stable during magnification, at the output's pixel density.
+            sourceSize: Qt.size(Math.ceil(160 * Screen.devicePixelRatio), Math.ceil(160
+                                                                                    * Screen.devicePixelRatio))
+            smooth: true
+            mipmap: true
+            antialiasing: true
             fillMode: Image.PreserveAspectFit
             asynchronous: true
         }
@@ -166,10 +181,36 @@ Item {
             }
         }
         StyledToolTip {
-            text: root.dropTarget ? root.dropHint : root.name
+            text: root.dropTarget ? root.dropHint : root.name + (root.notificationDescription ? " · "
+                                                                                                + root.notificationDescription :
+                                                                                                "")
             textFormat: Text.PlainText
             extraVisibleCondition: root.dropTarget || root.showTooltip && pointer.containsMouse &&
                                    !pointer.pressed && !root.dragged && !root.contextActive
+        }
+        Rectangle {
+            id: notificationBadge
+            visible: root.notificationCount > 0
+            // Keep the badge inside the artwork bounds on every dock edge.
+            // This also makes it follow magnification, bounce and drag opacity.
+            height: Math.max(15, Math.round(root.iconSize * 0.36))
+            width: Math.max(height, badgeLabel.implicitWidth + 8)
+            anchors.top: parent.top
+            anchors.right: parent.right
+            radius: height / 2
+            color: Appearance.colors.colError
+            border.width: 1
+            border.color: Appearance.colors.colOnError
+            Text {
+                id: badgeLabel
+                anchors.centerIn: parent
+                text: DockBadges.label(root.notificationCount)
+                textFormat: Text.PlainText
+                font.family: Fonts.ui
+                font.pixelSize: Math.max(10, Math.round(notificationBadge.height * 0.65))
+                font.weight: Font.DemiBold
+                color: Appearance.colors.colOnError
+            }
         }
     }
 
@@ -191,6 +232,7 @@ Item {
         cursorShape: root.spacer ? Qt.ArrowCursor : Qt.PointingHandCursor
         Accessible.role: Accessible.Button
         Accessible.name: root.name
+        Accessible.description: root.notificationDescription
         Accessible.onPressAction: root.activated(root.entryKey)
         onEntered: root.hovered(root.entryKey)
         onExited: root.hoverLeft(root.entryKey)

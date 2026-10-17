@@ -8,6 +8,7 @@ import Quickshell.Services.Notifications
 import qs.Common
 import Clavis.Niri
 import "NotificationActivation.js" as NotificationActivation
+import "DockBadges.js" as DockBadges
 
 Singleton {
     id: root
@@ -58,6 +59,7 @@ Singleton {
         property string desktopEntry: ""
         property string image: ""
         property bool isTransient: false
+        property bool dockUnread: false
         property bool popup: false
         property double popupExpiresAt: 0
         property double popupStartedAt: 0
@@ -222,6 +224,8 @@ Singleton {
                                                                                    || "",
                                                                    "image": notification.image || "",
                                                                    "isTransient": notification.transient,
+                                                                   "dockUnread": DockBadges.unreadForArrival(
+                                                                                     replaced, notification.transient),
                                                                    "summary": notification.summary
                                                                               || notification.appName || qsTr(
                                                                                   "Notification"),
@@ -273,6 +277,7 @@ Singleton {
                     maxId = Math.max(maxId, notificationId);
                     return notifComponent.createObject(root, {
                                                            "notificationId": notificationId,
+                                                           "dockUnread": notif.dockUnread === true,
                                                            "localKind": notif.localKind === "file-saved"
                                                                         ? "file-saved" : "",
                                                            "filePath": notif.localKind === "file-saved"
@@ -416,6 +421,7 @@ Singleton {
             "appName": notif.appName,
             "body": notif.body,
             "desktopEntry": notif.desktopEntry,
+            "dockUnread": notif.dockUnread,
             "image": root.durableHistorySource(notif.image),
             "receivedAt": notif.receivedAt,
             "summary": notif.summary,

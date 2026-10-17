@@ -69,6 +69,41 @@ def active_outputs(outputs):
             if output.get('current_mode') is not None and output.get('logical')}
 
 
+def ensure_active_output():
+    """Recover a usable output without changing saved display preferences.
+
+    Disabled connectors remain in Outputs, unlike unplugged ones. DPMS sleep
+    keeps current_mode/logical, so this does not defeat idle screen blanking.
+    """
+    outputs = query('Outputs')
+    if not outputs or active_outputs(outputs):
+        return
+    candidates = sorted(outputs, key=lambda name: (not name.startswith(('eDP', 'LVDS', 'DSI')), name))
+    errors = []
+    for name in candidates:
+        # Hotplug or a display preview may have enabled another output meanwhile.
+        current = query('Outputs')
+        if active_outputs(current):
+            return
+        if name not in current or not current[name].get('modes'):
+            continue
+        try:
+            request({'Output': {'output': name, 'action': 'On'}})
+            deadline = time.monotonic() + 2
+            while True:
+                current = query('Outputs')
+                if active_outputs(current):
+                    return
+                if name not in current or time.monotonic() >= deadline:
+                    break
+                time.sleep(0.1)
+            errors.append(name + ': output did not become active')
+        except Exception as error:
+            errors.append(name + ': ' + str(error))
+    if errors:
+        raise RuntimeError('Cannot recover a display: ' + '; '.join(errors))
+
+
 def preferred_output(preferred, outputs):
     if not preferred:
         return None
@@ -197,6 +232,10 @@ def watch():
     candidate = None
     while True:
         try:
+            # Recover even with no primary preference, autoMove disabled, or a
+            # malformed preference file. Never wait for topology debounce when
+            # all connected displays are disabled.
+            locked(ensure_active_output)
             # Wait for a stable topology before moving workspaces after hotplug.
             snapshot = locked(lambda: reconcile(apply=False))
             key = [snapshot['preferences'], snapshot['activePrimary']]
