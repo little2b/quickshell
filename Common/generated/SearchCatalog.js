@@ -1448,6 +1448,25 @@ var catalog = {
       "title": "Background"
     },
     {
+      "aliases": [
+        "Transparency",
+        "Focused window",
+        "Unfocused window",
+        "Blur strength"
+      ],
+      "anchor": true,
+      "context": "GeneralEffectsPage",
+      "icon": "filter_center_focus",
+      "id": "general.effects.section.application-effects",
+      "path": [
+        "general",
+        "effects"
+      ],
+      "route": "general.effects",
+      "source": "GeneralEffectsPage.qml",
+      "title": "Application effects"
+    },
+    {
       "aliases": [],
       "anchor": true,
       "context": "GeneralOverviewPage",
@@ -2019,6 +2038,7 @@ function title(id) {
     case "general.bar.section.position": return qsTranslate("GeneralBarPage", "Position");
     case "general.bar.section.components": return qsTranslate("GeneralBarPage", "Components");
     case "general.effects.section.background": return qsTranslate("GeneralEffectsPage", "Background");
+    case "general.effects.section.application-effects": return qsTranslate("GeneralEffectsPage", "Application effects");
     case "general.section.interface": return qsTranslate("GeneralOverviewPage", "Interface");
     case "general.section.system": return qsTranslate("GeneralOverviewPage", "System");
     case "general.section.applications": return qsTranslate("GeneralOverviewPage", "Applications");

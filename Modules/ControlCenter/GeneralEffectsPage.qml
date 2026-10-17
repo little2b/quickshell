@@ -90,5 +90,104 @@ StyledFlickable {
                 message: BlurService.lastError
             }
         }
+
+        NiriSetupPrompt {
+            Layout.fillWidth: true
+            title: qsTr("Application effects")
+            description: qsTr("Enable transparency and blur controls for application windows.")
+            integrationState: NiriConfigService.state("application-effects")
+            busy: NiriConfigService.busy && NiriConfigService.activeFeature === "application-effects"
+            blocked: NiriConfigService.busy
+            error: NiriConfigService.errorFeature === "application-effects" ? NiriConfigService.error : ""
+            onSetupRequested: NiriConfigService.setup("application-effects")
+        }
+
+        SettingsSection {
+            id: applicationEffectsSection
+            Layout.fillWidth: true
+            flat: true
+            title: applicationEffectsAnchor.title
+            iconName: "filter_center_focus"
+
+            SettingsSearchAnchor {
+                id: applicationEffectsAnchor
+                target: applicationEffectsSection
+                declaration:
+                    '{"id":"general.effects.section.application-effects","route":"general.effects","title":"Application effects","context":"GeneralEffectsPage","icon":"filter_center_focus","aliases":["Transparency","Focused window","Unfocused window","Blur strength"]}'
+            }
+
+            GeneralSliderSetting {
+                enabled: NiriConfigService.ready("application-effects")
+                title: qsTr("Focused window opacity")
+                from: 10
+                to: 100
+                stepSize: 1
+                suffix: "%"
+                value: NiriConfigService.applicationEffects.focused * 100
+                onMoved: value => NiriConfigService.setApplicationEffects({
+                                                                              focused: value / 100
+                                                                          })
+            }
+
+            GeneralSliderSetting {
+                enabled: NiriConfigService.ready("application-effects")
+                title: qsTr("Unfocused window opacity")
+                description: qsTr("Applies to the entire window, including text and images. 100% is opaque.")
+                from: 10
+                to: 100
+                stepSize: 1
+                suffix: "%"
+                value: NiriConfigService.applicationEffects.unfocused * 100
+                onMoved: value => NiriConfigService.setApplicationEffects({
+                                                                              unfocused: value / 100
+                                                                          })
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                iconName: "blur_on"
+                title: qsTr("Application background blur")
+
+                trailing: StyledSwitch {
+                    enabled: NiriConfigService.ready("application-effects") &&
+                             !NiriConfigService.applicationEffects.blurDisabled
+                    checked: NiriConfigService.applicationEffects.blurEnabled
+                    Accessible.name: qsTr("Application background blur")
+                    onToggled: NiriConfigService.setApplicationEffects({
+                                                                           blurEnabled: checked
+                                                                       })
+                }
+            }
+
+            GeneralSliderSetting {
+                enabled: NiriConfigService.ready("application-effects") &&
+                         !NiriConfigService.applicationEffects.blurDisabled
+                title: qsTr("Blur strength")
+                description: qsTr(
+                                 "Shared by applications and desktop panels. Higher levels use more graphics resources.")
+                from: 1
+                to: 5
+                stepSize: 1
+                value: NiriConfigService.applicationEffects.blurStrength
+                onMoved: value => NiriConfigService.setApplicationEffects({
+                                                                              blurStrength: Math.round(value)
+                                                                          })
+            }
+
+            InlineStatusBanner {
+                Layout.fillWidth: true
+                visible: NiriConfigService.applicationEffects.blurDisabled
+                tone: "warning"
+                message: qsTr("Blur is disabled in the compositor configuration.")
+            }
+
+            InlineStatusBanner {
+                Layout.fillWidth: true
+                visible: NiriConfigService.errorFeature === "application-effects" && NiriConfigService.error
+                         !== ""
+                tone: "error"
+                message: NiriConfigService.error
+            }
+        }
     }
 }

@@ -41,6 +41,30 @@ Singleton {
         interval: 180
         onTriggered: root.update("mouse")
     }
+    property var pendingApplicationEffects: null
+    property var activeApplicationEffects: null
+    readonly property var applicationEffects: pendingApplicationEffects || activeApplicationEffects
+                                              || snapshot.applicationEffects || ({
+                                                                                     focused: 0.94,
+                                                                                     unfocused: 0.82,
+                                                                                     blurEnabled: true,
+                                                                                     blurStrength: 3,
+                                                                                     blurDisabled: false
+                                                                                 })
+
+    function setApplicationEffects(patch) {
+        if (!ready("application-effects"))
+            return;
+        pendingApplicationEffects = Object.assign({}, applicationEffects, patch);
+        applicationEffectsSaveTimer.restart();
+    }
+
+    Timer {
+        id: applicationEffectsSaveTimer
+        interval: 180
+        onTriggered: root.update("application-effects")
+    }
+
     property string error: ""
     property string readError: ""
     property string errorFeature: ""
@@ -93,6 +117,8 @@ Singleton {
     }
 
     function options(feature) {
+        if (feature === "application-effects")
+            return applicationEffects;
         if (feature === "minimize-animation")
             return {
                 effect: minimizeEffect,
@@ -164,6 +190,10 @@ Singleton {
             };
             pendingMouseOptions = null;
         }
+        if (activeFeature === "application-effects") {
+            activeApplicationEffects = Object.assign({}, applicationEffects, request);
+            pendingApplicationEffects = null;
+        }
         operation.writing = request.operation !== "status" && request.operation !== "catalog";
         operation.command = ["python3", Paths.systemScriptsDir + "/niri_config.py", JSON.stringify(request)];
         operation.running = true;
@@ -224,6 +254,7 @@ Singleton {
             }
             root.activeFeature = "";
             root.activeMouseOptions = null;
+            root.activeApplicationEffects = null;
             const pending = Object.keys(root.pendingUpdates);
             if (pending.length > 0) {
                 root.pendingUpdates = {};

@@ -4725,9 +4725,15 @@ Scroll to adjust</translation>
         <translation>Create or connect the Clavis X-Ray rules.</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2021"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2040"/>
         <source>Background</source>
         <translation>Background</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="2041"/>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="96"/>
+        <source>Application effects</source>
+        <translation>Application effects</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="48"/>
@@ -4755,6 +4761,47 @@ Scroll to adjust</translation>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="76"/>
         <source>Configure Niri blur integration first</source>
         <translation>Configure Niri blur integration first</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="97"/>
+        <source>Enable transparency and blur controls for application windows.</source>
+        <translation>Enable transparency and blur controls for application windows.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="121"/>
+        <source>Focused window opacity</source>
+        <translation>Focused window opacity</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="134"/>
+        <source>Unfocused window opacity</source>
+        <translation>Unfocused window opacity</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="135"/>
+        <source>Applies to the entire window, including text and images. 100% is opaque.</source>
+        <translation>Applies to the entire window, including text and images. 100% is opaque.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="149"/>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="155"/>
+        <source>Application background blur</source>
+        <translation>Application background blur</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="165"/>
+        <source>Blur strength</source>
+        <translation>Blur strength</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="166"/>
+        <source>Shared by applications and desktop panels. Higher levels use more graphics resources.</source>
+        <translation>Shared by applications and desktop panels. Higher levels use more graphics resources.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="181"/>
+        <source>Blur is disabled in the compositor configuration.</source>
+        <translation>Blur is disabled in the compositor configuration.</translation>
     </message>
 </context>
 <context>

@@ -41,6 +41,34 @@ class ConfigurationContracts(unittest.TestCase):
         self.run_config('setup')
         return self.run_config()
 
+    def test_application_effects_roundtrip_preserves_user_configuration(self):
+        original = '// Keep custom blur color and application exceptions\nblur { offset 2; noise 0.01; saturation 1.2; }\n'
+        self.main.write_text(original)
+        state = self.run_config('setup', 'application-effects', focused=0.94, unfocused=0.82, blurEnabled=True, blurStrength=3)
+        self.assertEqual(state['fragments']['application-effects']['state'], 'ready')
+        self.assertEqual(state['applicationEffects'], dict(focused=0.94, unfocused=0.82, blurEnabled=True, blurStrength=3, blurDisabled=False))
+        connected = self.main.read_bytes()
+        self.assertTrue(connected.startswith(original.encode()))
+        state = self.run_config('update', 'application-effects', focused=1.0, unfocused=0.65, blurEnabled=False, blurStrength=5)
+        self.assertEqual(state['applicationEffects'], dict(focused=1.0, unfocused=0.65, blurEnabled=False, blurStrength=5, blurDisabled=False))
+        self.assertEqual(self.main.read_bytes(), connected)
+        self.assertEqual(self.run_config()['applicationEffects'], state['applicationEffects'])
+        self.main.write_text(self.main.read_text() + 'blur { off; }\n')
+        self.assertTrue(self.run_config()['applicationEffects']['blurDisabled'])
+
+    def test_application_effects_rejected_values_do_not_write(self):
+        self.run_config('setup', 'application-effects')
+        before = self.fragment('application-effects').read_bytes()
+        for patch in ({'focused': 0}, {'unfocused': 1.01}, {'focused': True}, {'unfocused': float('nan')},
+                      {'blurEnabled': 'true'}, {'blurStrength': 0}, {'blurStrength': 6}, {'blurStrength': 2.5}, {'blurStrength': True}):
+            with self.subTest(patch=patch), self.assertRaises(ValueError):
+                self.run_config('update', 'application-effects', **patch)
+            self.assertEqual(self.fragment('application-effects').read_bytes(), before)
+        with mock.patch.object(config.Graph, 'validate', side_effect=ValueError('Unsupported option')):
+            with self.assertRaises(ValueError):
+                self.run_config('update', 'application-effects', focused=0.7)
+        self.assertEqual(self.fragment('application-effects').read_bytes(), before)
+
     @mock.patch.object(config.Graph, 'validate')
     def test_minimize_style_roundtrip_preserves_animation_settings(self, validate):
         original = 'animations { off; window-open { duration-ms 90; }; window-minimize { duration-ms 600; }; }\n'

@@ -88,6 +88,8 @@ FloatingWindow {
     }
 
     function openPage(pageId) {
+        if (pageId === "effects" || pageId === "general.effects")
+            return root.openPageSection("general", "effects");
         if (pageId === "bar")
             return root.openPageSection("general", "bar");
         if (pageId === "displays")

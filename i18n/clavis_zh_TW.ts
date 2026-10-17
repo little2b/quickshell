@@ -4724,9 +4724,15 @@ Scroll to adjust</source>
         <translation>建立或接入 Clavis X-Ray 規則。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2021"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2040"/>
         <source>Background</source>
         <translation>背景</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="2041"/>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="96"/>
+        <source>Application effects</source>
+        <translation>應用程式效果</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="48"/>
@@ -4754,6 +4760,47 @@ Scroll to adjust</source>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="76"/>
         <source>Configure Niri blur integration first</source>
         <translation>需要先配置 Niri 模糊整合</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="97"/>
+        <source>Enable transparency and blur controls for application windows.</source>
+        <translation>啟用應用程式視窗的透明度與模糊控制。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="121"/>
+        <source>Focused window opacity</source>
+        <translation>聚焦視窗不透明度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="134"/>
+        <source>Unfocused window opacity</source>
+        <translation>未聚焦視窗不透明度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="135"/>
+        <source>Applies to the entire window, including text and images. 100% is opaque.</source>
+        <translation>套用至整個視窗，包括文字和圖片。100% 為不透明。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="149"/>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="155"/>
+        <source>Application background blur</source>
+        <translation>應用程式背景模糊</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="165"/>
+        <source>Blur strength</source>
+        <translation>模糊強度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="166"/>
+        <source>Shared by applications and desktop panels. Higher levels use more graphics resources.</source>
+        <translation>應用程式與桌面面板共用此強度，等級越高，顯示卡負擔越大。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="181"/>
+        <source>Blur is disabled in the compositor configuration.</source>
+        <translation>視窗管理員設定已停用模糊。</translation>
     </message>
 </context>
 <context>

@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent / 'vendor'))
 import kdl
 
 PRINT = kdl.PrintConfig(indent='    ', semicolons=True)
-FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'outputs', 'mouse', 'minimize-animation')
+FRAGMENTS = ('effects', 'cursor', 'layer-rules', 'binds', 'outputs', 'mouse', 'minimize-animation', 'application-effects')
 
 # Stable first-setup defaults. Existing fragments, including empty ones, are preserved.
 DEFAULT_BINDINGS = (
@@ -244,6 +244,23 @@ def initial(feature, request):
     header = '// Managed by Clavis.\n'
     if feature == 'minimize-animation':
         return edit_minimize_animation(header, request) if 'effect' in request else header
+    if feature == 'application-effects':
+        focused = request.get('focused', 0.94)
+        unfocused = request.get('unfocused', 0.82)
+        for value in (focused, unfocused):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0.1 <= value <= 1:
+                raise ValueError('Application opacity must be between 10% and 100%')
+        blur_enabled = request.get('blurEnabled', True)
+        passes = request.get('blurStrength', 3)
+        if not isinstance(blur_enabled, bool):
+            raise ValueError('Application blur must be true or false')
+        if isinstance(passes, bool) or not isinstance(passes, int) or not 1 <= passes <= 5:
+            raise ValueError('Blur strength must be between 1 and 5')
+        return header + render(kdl.Node('blur', nodes=[kdl.Node('passes', args=[passes])])) + render(kdl.Node('window-rule', nodes=[
+            kdl.Node('opacity', args=[float(focused)]),
+            kdl.Node('background-effect', nodes=[kdl.Node('blur', args=[blur_enabled]), kdl.Node('xray', args=[False])])])) + render(kdl.Node('window-rule', nodes=[
+                kdl.Node('match', props={'is-focused': False}),
+                kdl.Node('opacity', args=[float(unfocused)])]))
     if feature == 'mouse':
         speed = request.get('speed', 0.0)
         profile = request.get('profile', 'adaptive')
@@ -426,6 +443,36 @@ def edit_minimize_animation(previous, request):
     return previous + '\n' + render(kdl.Node('animations', nodes=[replacement]))
 
 
+def application_effects_state(graph, managed):
+    values = dict(focused=0.94, unfocused=0.82, blurEnabled=True, blurStrength=3, blurDisabled=False)
+    # Blur strength is compositor-wide; per-app window exceptions remain user-owned.
+    for path, node in graph.ordered:
+        if node.name == 'blur':
+            for child in node.nodes:
+                if child.name == 'passes' and child.args:
+                    values['blurStrength'] = child.args[0]
+                if child.name in ('off', 'on'):
+                    values['blurDisabled'] = child.name == 'off'
+        if path != managed or node.name != 'window-rule':
+            continue
+        matches = [child for child in node.nodes if child.name in ('match', 'exclude')]
+        if not matches:
+            keys = ('focused', 'unfocused')
+        elif len(matches) == 1 and matches[0].name == 'match' and dict(matches[0].props) == {'is-focused': False}:
+            keys = ('unfocused',)
+        else:
+            continue
+        for child in node.nodes:
+            if child.name == 'background-effect' and not matches:
+                for option in child.nodes:
+                    if option.name == 'blur' and option.args:
+                        values['blurEnabled'] = option.args[0]
+            if child.name == 'opacity' and child.args:
+                for key in keys:
+                    values[key] = child.args[0]
+    return values
+
+
 def status(request):
     main = main_path(request)
     managed_dir = main.parent / 'clavis'
@@ -437,6 +484,7 @@ def status(request):
         if graph.error:
             raise graph.error
         state['revision'] = graph.revision()
+        state['applicationEffects'] = application_effects_state(graph, path_key(managed_dir / 'application-effects.kdl'))
         state['minimizeAnimation'] = minimize_animation_state(graph)
         state['outputs'] = niri_outputs.inspect(graph, path_key(managed_dir / 'outputs.kdl'))
         state['bindings'], state['modKey'] = bindings(graph, path_key(managed_dir / 'binds.kdl'))
@@ -505,7 +553,7 @@ def status(request):
         current = tuple(map(int, match.groups()))
         state['niriVersion'] = version.stdout.strip()
         for feature, fragment in state['fragments'].items():
-            if current < ((26, 4) if feature == 'effects' else (25, 11)):
+            if current < ((26, 4) if feature in ('effects', 'application-effects') else (25, 11)):
                 fragment['state'] = 'unsupported'
     except (OSError, ValueError, subprocess.TimeoutExpired) as error:
         state['error'] = str(error)
